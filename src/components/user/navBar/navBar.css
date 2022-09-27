@@ -1,0 +1,8 @@
+.nav_body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #00a4e4;
+    height: 140px;
+    width: 100%;
+}
