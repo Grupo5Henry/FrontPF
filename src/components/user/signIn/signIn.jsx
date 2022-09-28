@@ -30,7 +30,7 @@ const SignIn = () => {
                         <div class="inputbox">
                             <input type="button" value="Continue" />
                         </div>
-                        <Link class='login_box' to={'/log-in'}>Log In</Link>
+                        <Link class='login_box' to={'/log-in'}>Log In</Link >
                     </div>
                 </form>
             </div>
