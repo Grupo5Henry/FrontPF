@@ -12,7 +12,7 @@ const NavBar = () => {
                 <Link to="/" className='link_nav'>
                    <h2>Techno Trade</h2>
                 </Link>
-                <Link to="/" className='link_nav'>
+                <Link to="/home" className='link_nav'>
                     <Icon icon="ant-design:home-filled" width='40px' height='40px' />
                     <h4>Home</h4>
                 </Link>
@@ -36,6 +36,7 @@ const NavBar = () => {
                         <h4>Log In</h4>
                     </Link>
                 </div>
+<<<<<<< HEAD
             </nav> */}
       <div class="flex flex-wrap ">
         <section class="relative mx-auto">
@@ -182,6 +183,13 @@ const NavBar = () => {
     </div>
   );
 };
+=======
+            </nav>
+            {/* <SearchBar /> */}
+        </div>
+    );
+}
+>>>>>>> develop
 
 // log-in' element={<LogIn />} />
 //           <Route exact path='/sign-in
