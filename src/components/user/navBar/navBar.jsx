@@ -28,10 +28,11 @@ const NavBar = () => {
                     </Link>
                 </div>
                 <div className='prfile'>
-                    <Link to="/" className='link_nav'>
+                    <Link to="/sign-in" className='link_nav'>
                         <h4>Sign In</h4>
                     </Link>
-                    <Link to="/" className='link_nav'>
+                    <h4 color='link_nav'>/</h4>
+                    <Link to="/log-in" className='link_nav'>
                         <h4>Log In</h4>
                     </Link>
                 </div>
@@ -41,4 +42,6 @@ const NavBar = () => {
     );
 }
 
+// log-in' element={<LogIn />} />
+//           <Route exact path='/sign-in
 export default NavBar;
