@@ -4,6 +4,7 @@ import NavBar from './components/user/navBar/navBar';
 import LogIn from './components/user/logIn/logIn'
 import SignIn from './components/user/signIn/signIn';
 import { Routes, Route } from 'react-router-dom';
+import Landing from './components/user/Landing/Landing';
 
 function App() {
   return (
@@ -11,7 +12,8 @@ function App() {
       <header className="App-header">
         <NavBar />
         <Routes>
-          <Route exact path='/' element={<Home />} />
+          <Route exact path='/' element={<Landing />} />
+          <Route exact path='/home' element={<Home />} />
           <Route exact path='/log-in' element={<LogIn />} />
           <Route exact path='/sign-in' element={<SignIn />} />
         </Routes>

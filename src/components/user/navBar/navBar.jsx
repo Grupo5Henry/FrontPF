@@ -12,7 +12,7 @@ const NavBar = () => {
                 <Link to="/" className='link_nav'>
                    <h2>Techno Trade</h2>
                 </Link>
-                <Link to="/" className='link_nav'>
+                <Link to="/home" className='link_nav'>
                     <Icon icon="ant-design:home-filled" width='40px' height='40px' />
                     <h4>Home</h4>
                 </Link>
@@ -37,7 +37,7 @@ const NavBar = () => {
                     </Link>
                 </div>
             </nav>
-            <SearchBar />
+            {/* <SearchBar /> */}
         </div>
     );
 }
