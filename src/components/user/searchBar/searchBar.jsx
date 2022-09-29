@@ -11,7 +11,7 @@ const SearchBar = () => {
       <input
         type="text"
         placeholder="Search..."
-        class="bg-transparent py-1 text-gray-600 px-4 focus:outline-none w-full"
+        class="bg-transparent py-2 text-gray-600 px-4 focus:outline-none w-full"
       />
     </div>
   );
