@@ -1,4 +1,4 @@
-import './App.css';
+// import './App.css';
 import Home from './components/user/home/home';
 import NavBar from './components/user/navBar/navBar';
 import LogIn from './components/user/logIn/logIn'
