@@ -17,4 +17,3 @@ export const createProducts = (payload) => {
         return products;
     }
 }
-
