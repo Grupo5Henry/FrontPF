@@ -4,6 +4,7 @@ import NavBar from './components/user/navBar/navBar';
 import LogIn from './components/user/logIn/logIn'
 import SignIn from './components/user/signIn/signIn';
 import { Routes, Route } from 'react-router-dom';
+import Details from './components/user/details/details';
 import Landing from './components/user/Landing/Landing';
 
 function App() {
@@ -14,8 +15,9 @@ function App() {
         <Routes>
           <Route exact path='/' element={<Landing />} />
           <Route exact path='/home' element={<Home />} />
-          <Route exact path='/log-in' element={<LogIn />} />
-          <Route exact path='/sign-in' element={<SignIn />} />
+          <Route exact path='/home/log-in' element={<LogIn />} />
+          <Route exact path='/home/sign-in' element={<SignIn />} />
+          <Route exact path='/home/details' element={<Details />} />
         </Routes>
       </header>
     </div>
