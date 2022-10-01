@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import AuthService from "../../../services/auth.service";
-/* import { useNavigate } from "react-router-dom"; */
+import { useDispatch } from 'react-redux';
+import { userState } from '../../../redux/action';
+import { useNavigate } from "react-router-dom";
 
 const SignIn = () => {
+  const dispatch = useDispatch();
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const role ="tester";
@@ -11,20 +14,21 @@ const SignIn = () => {
   const billingAddress= "falso2";
 
 
- // const navigate = useNavigate();
+  const navigate = useNavigate(); 
 
   const handleSignIn = async (e) => {
+
     e.preventDefault();
     try {
       await AuthService.signup(userName, password,role, email,defaultShippingAddress,billingAddress).then(
         (response) => {
           // check for token and user already exists with 200
           //   console.log("Sign up successfully", response);
-          //navigate("/home");
+          navigate("/home");
           /* window.location.reload(); */
           setUserName('');
           setPassword('');
-          
+          dispatch(userState(true));
         },
         (error) => {
           alert(error);

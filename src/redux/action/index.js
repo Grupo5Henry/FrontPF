@@ -17,3 +17,11 @@ export const createProducts = (payload) => {
         return products;
     }
 }
+
+export const userState = (payload) => {
+    return { 
+        type: "USER_STATE",
+        payload
+    }
+}
+ 

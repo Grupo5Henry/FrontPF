@@ -34,10 +34,16 @@
 //     );
 // }
 import React, { useState } from "react";
+import { useDispatch } from 'react-redux';
+import { userState } from '../../../redux/action';
+
 import { useNavigate } from "react-router-dom";
 import AuthService from "../../../services/auth.service";
 
 const Login = () => {
+
+const dispatch = useDispatch();
+
 const [userName, setUserName] = useState("");
 const [password, setPassword] = useState("");
 
@@ -50,7 +56,7 @@ const handleLogin = async (e) => {
         () => {
         navigate("/home");
         //window.location.reload();
-        
+        dispatch(userState(true))
         },
         (error) => {
         console.log(error);

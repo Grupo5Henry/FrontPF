@@ -1,13 +1,46 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from "react";
+import React, {useState, useEffect} from "react";
+import AuthService from "../../../services/auth.service";
+import authHeader from "../../../services/auth-header";
 import { Link } from "react-router-dom";
 import { Routes, Route } from 'react-router-dom';
+import { useSelector, userDispatch, useDispatch } from "react-redux";
+import { userState } from "../../../redux/action";
+import axios from 'axios';
+
+
 // import { Link } from "react-router-dom";
 // import { Icon } from "@iconify/react";
 import SearchBar from "../searchBar/searchBar";
 import "./navBar.css";
 
+
+
 const NavBar = () => {
+  
+  const userStatus = useSelector((state)=> state.loggedIn)
+  const dispatch = useDispatch();
+
+  useEffect( () => {
+      const tokenCheck =async ()=>{
+      const tokenStatus  =  await axios.get ('http://localhost:3001/token/tokenCheck', { headers: authHeader() });
+      console.log('log de tokenStatus',tokenStatus.data);
+      dispatch(userState(tokenStatus.data))
+      }
+      tokenCheck();
+      
+      
+  }, [userStatus,dispatch]);
+
+  const handleLogOut = () => {
+    AuthService.logout();
+    dispatch(userState(false));
+    
+  };
+
+
+
+
   return (
     <div className="box">
       {/* <nav className='nav_body'>
@@ -85,6 +118,11 @@ const NavBar = () => {
                   History
                 </Link>
               </li>
+              { userStatus && (
+              <button onClick={()=>handleLogOut()} class="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"  >
+                Logout
+              </button>
+              )}
             </ul>
           </div>
           <div class="flex items-center relative">

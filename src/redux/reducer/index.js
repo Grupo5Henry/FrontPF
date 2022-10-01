@@ -1,5 +1,6 @@
 const initialState = {
-    products: []
+    products: [],
+    loggedIn: false
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -14,6 +15,12 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 products: action.payload
             }
+        case "USER_STATE":
+            return{
+                ...state,
+                loggedIn: action.payload
+            }
+
         default: return state
     }
 }

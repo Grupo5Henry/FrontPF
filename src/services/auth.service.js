@@ -5,8 +5,8 @@ console.log(API_URL)
 
 //const API_URL = "/auth";
 
-const signup =  (userName, password,role,email,defaultShippingAddress,billingAddress) => {
-   return axios.post(API_URL + '/signup', {
+const signup = /* async */ (userName, password,role,email,defaultShippingAddress,billingAddress) => {
+  return axios.post(API_URL + '/signup', {
     role,
     userName,
     email,
@@ -24,6 +24,7 @@ const signup =  (userName, password,role,email,defaultShippingAddress,billingAdd
 };
 
 const login = (userName, password) => {
+  
   return axios
    /*  .post(API_URL + "/login", { */
    .post("http://localhost:3001/user/login", {
