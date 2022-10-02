@@ -24,7 +24,7 @@ const NavBar = () => {
 
   useEffect( () => {
       const tokenCheck =async ()=>{
-      const tokenStatus  =  await axios.get ('http://localhost:3001/token/tokenCheck', { headers: authHeader() });
+      const tokenStatus  =  await axios.get ('https://backpf-production.up.railway.app/token/tokenCheck', { headers: authHeader() });
       console.log('log de tokenStatus',tokenStatus.data);
       dispatch(userState(tokenStatus.data))
       }
