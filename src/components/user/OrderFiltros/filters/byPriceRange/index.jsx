@@ -21,14 +21,13 @@ export default function ByPriceRange(){
     }
     
     return (
-        <>
-        <button onClick={() => setState(state? false : true)} style={{marginBottom: state? "50px" : "0"}}>{state? "<" : "Price"}</button>
-        <form onSubmit={e => onSub(e)} style={{display: state? "flex" : "none" , position: "absolute", top:"290px"}}>
-            <input type="number" placeholder="Min" name="minPrice" onChange={e => onChan(e)} value={rango.minPrice}/>
-            <input type="number" placeholder="Max" name="maxPrice" onChange={e => onChan(e)} value={rango.maxPrice}/>
-            <input type="submit" />
-        </form>
-            
-        </>
+        <div style={{position:"relative"}}>
+            <button onClick={() => setState(state? false : true)} style={{marginBottom: state? "50px" : "0"}}>{state? "<" : "Price"}</button>
+            <form onSubmit={e => onSub(e)} style={{display: state? "flex" : "none" , position: "absolute", top:"30px"}}>
+                <input type="number" placeholder="Min" name="minPrice" onChange={e => onChan(e)} value={rango.minPrice}/>
+                <input type="number" placeholder="Max" name="maxPrice" onChange={e => onChan(e)} value={rango.maxPrice}/>
+                <input type="submit" />
+            </form>
+        </div>      
     )
 }
