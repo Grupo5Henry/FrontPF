@@ -1,11 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import AuthService from "../../../services/auth.service";
+import authHeader from "../../../services/auth-header";
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import React, { useEffect, useState } from "react";
 import { useDispatch, userDispatch, useSelector } from "react-redux";
 import { Link, Route, Routes } from "react-router-dom";
 import { getFavorites, userState } from "../../../redux/action";
-import authHeader from "../../../services/auth-header";
-import AuthService from "../../../services/auth.service";
+
 
 
 
@@ -18,7 +20,7 @@ import "./navBar.css";
 
 
 const NavBar = () => {
-  
+  const navigate = useNavigate(); 
   const userStatus = useSelector((state)=> state.loggedIn)
   const favorites = useSelector(state => state.favorites)
   const dispatch = useDispatch();
@@ -26,6 +28,7 @@ const NavBar = () => {
   useEffect( () => {
       const tokenCheck =async ()=>{
       const tokenStatus  =  await axios.get ('https://backpf-production.up.railway.app/token/tokenCheck', { headers: authHeader() });
+     /*  const tokenStatus  =  await axios.get ('http://localhost:3001/token/tokenCheck', { headers: authHeader() }); */
       console.log('log de tokenStatus',tokenStatus.data);
       dispatch(userState(tokenStatus.data))
       }
@@ -40,9 +43,16 @@ const NavBar = () => {
     
   };
 
+
+  const handleLogIn = () => {
+    navigate('/home/log-in')
+  }
+
+
   React.useEffect(() => {
     dispatch(getFavorites(localStorage.userName))
   },[])
+
 
 
 
@@ -106,11 +116,19 @@ const NavBar = () => {
                   History
                 </Link>
               </li>
-              { userStatus && (
-              <button onClick={()=>handleLogOut()} className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"  >
-                Logout
+
+              { userStatus ? (
+              <button onClick={()=>handleLogOut()} class="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"  >
+                Cerrar sesión
               </button>
-              )}
+              ): (
+                <button onClick={()=>handleLogIn()} class="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"  >
+                Ingresar
+
+              </button>
+              )
+            
+            }
             </ul>
           </div>
           <div className="flex items-center relative">
