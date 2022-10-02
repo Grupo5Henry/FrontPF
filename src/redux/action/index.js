@@ -1,5 +1,5 @@
-
 import axios from "axios";
+
 // export const MULTI_ACTION = "MULTI_ACTION";
 
 export const GET_PRODUCTS_NAME = "GET_PRODUCTS_NAME";
@@ -7,6 +7,7 @@ export const DETAIL_PRODUCT = "DETAIL_PRODUCT";
 export const SEARCH_PRODUCT = "SEARCH_PRODUCT";
 export const GET_PRODUCTS_FILTERED = "GET_PRODUCTS_FILTERED";
 export const FETCH_FAVORITES = "FETCH_FAVORITES";
+
 
 export const RESET_FILTER = "RESET_FILTER";
 export const UPDATE_FILTER = "UPDATE_FILTER";
@@ -169,3 +170,33 @@ export const getFavorites = (userName) => {
   }
 }
 
+export function getCategories () {
+    return async function (dispatch) {
+        fetch("https://backpf-production.up.railway.app/category")
+        .then(response => response.json())
+        .then((categories) => {
+            dispatch({
+                type: FETCH_CATEGORIES,
+                payload: categories,
+            }) 
+        })
+    }
+};
+
+export function clearCategories() {
+    return {
+        type: CLEAR_CATEGORIES,
+        payload: []
+    }
+};
+
+
+export const getBrandAndModels = () => {
+  return async (dispatch) => {
+    const brandAndModels = await axios.get("https://backpf-production.up.railway.app/product/allBrandAndModel");
+    dispatch({
+      type: FETCH_BRANDS_MODELS,
+      payload: brandAndModels
+    })
+  }
+}

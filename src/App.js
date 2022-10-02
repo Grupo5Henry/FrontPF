@@ -42,7 +42,6 @@ function App() {
           { !userState? (<Route exact path='/home/sign-in' element={<SignIn />} />): null}
           <Route exact path='/home/details' element={<Details />} />
 
-
         </Routes>
       </header>
     </div>

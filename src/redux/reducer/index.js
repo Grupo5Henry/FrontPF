@@ -1,9 +1,11 @@
 import { act } from "react-dom/test-utils";
+
 import { CLEAR_CATEGORIES, DETAIL_PRODUCT, FETCH_BRANDS_MODELS, FETCH_CATEGORIES, FETCH_FAVORITES, GET_PRODUCTS_FILTERED, GET_PRODUCTS_NAME, RESET_FILTER, SEARCH_PRODUCT, UPDATE_FILTER } from "../action";
 
 const initialState = {
     products: [],
     favorites: [],
+
     allProductsName:[],
     detail: {},
     categories: [],
@@ -22,7 +24,6 @@ const initialState = {
         page: 0
     },
     loggedIn: false
-
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -51,12 +52,14 @@ const rootReducer = (state = initialState, action) => {
 //Products
         case GET_PRODUCTS_FILTERED:
             return {
+
                 ...state,
                 products: action.payload.rows,
                 maxPages: action.payload.count
             }
         case GET_PRODUCTS_NAME:
             return{
+
                 ...state,
                 allProductsName: action.payload
             }
@@ -71,11 +74,13 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 products: action.payload
             }
+
         case FETCH_FAVORITES:
             return {
                 ...state,
                 favorites: action.payload
             }
+
 
 //Categories            
         case FETCH_CATEGORIES:
@@ -93,6 +98,7 @@ const rootReducer = (state = initialState, action) => {
         case FETCH_BRANDS_MODELS:
             return {
                 ...state,
+
                 brand: action.payload.brands,
                 model: action.payload.models
             }

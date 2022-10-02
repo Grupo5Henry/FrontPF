@@ -46,7 +46,10 @@ const onchange = (e) => {
 
   return (
     <div class='w-10/12'>
+
     <form class="bg-gray-100 w-full rounded border border-gray-200 flex items-center" onSubmit={e=>onSubmit(e)} autocomplete="off">
+
+
       <button class="py-3 px-6 bg-white text-gray-600 rounded-l border-r border-gray-200 hover:bg-gray-50 active:bg-gray-200 disabled:opacity-50 inline-flex items-center focus:outline-none">
       <Icon icon="fe:search" />
       </button>
