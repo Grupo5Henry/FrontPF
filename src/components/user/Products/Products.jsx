@@ -33,11 +33,11 @@ function Products() {
   };
   return (
     <div>
-      <Link to={`/home/detail/${product.id}`}>
+      
       <div className="mt-10 grid lg:grid-cols-2 gap-x-8 gap-y-8 items-center px-40 py-10">
         {products.map((product) => (
           <div className="group group-hover:bg-opacity-60 transition duration-500 relative bg-gray-50 sm:p-28 py-36 px-10 flex justify-center items-center">
-            
+            <Link to={`/home/detail/${product.id}`}>
             <img
               className="group-hover:opacity-60 transition duration-500"
               src={product.thumbnail}
@@ -86,11 +86,12 @@ function Products() {
                   <Typography paragraph>{product.description}</Typography>
                 </CardContent>
               </Collapse>
+            
             </div>
+            </Link>
           </div>
         ))}
       </div>
-      </Link>
     </div>
   );
 }
