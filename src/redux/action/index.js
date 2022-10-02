@@ -118,18 +118,7 @@ export const userState = (payload) => {
 }
 
 
-export function getCategories () {
-    return async function (dispatch) {
-        fetch("https://backpf-production.up.railway.app/category")
-        .then(response => response.json())
-        .then((categories) => {
-            dispatch({
-                type: FETCH_CATEGORIES,
-                payload: categories,
-            }) 
-        })
-    }
-};
+
 
 
 
@@ -191,12 +180,4 @@ export function clearCategories() {
 };
 
 
-export const getBrandAndModels = () => {
-  return async (dispatch) => {
-    const brandAndModels = await axios.get("https://backpf-production.up.railway.app/product/allBrandAndModel");
-    dispatch({
-      type: FETCH_BRANDS_MODELS,
-      payload: brandAndModels
-    })
-  }
-}
+

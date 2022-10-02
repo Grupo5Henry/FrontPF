@@ -34,7 +34,7 @@ const Home = () => {
             <SearchBar/>           
         </div>
         
-        <div className={s.container}>
+        <div>
            
         <Categories/>
         <CarrouselHome/>
