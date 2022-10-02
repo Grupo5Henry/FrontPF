@@ -8,7 +8,8 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { AddShoppingCart } from "@mui/icons-material";
 import accounting from "accounting";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getFavorites } from "../../../redux/action";
 
 
 
