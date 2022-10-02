@@ -8,6 +8,7 @@ import Details from './components/user/details/details';
 import Landing from './components/user/Landing/Landing';
 import { useSelector } from 'react-redux';
 
+
 function App() {
   const userState = useSelector((state)=>state.loggedIn)
 
