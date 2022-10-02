@@ -60,6 +60,7 @@ function Products() {
   }
 
   const isFavorite = (id) => {
+    if (favorites === "Missing Username") return false
     if (favorites.some(favorite => favorite.productId === id)) return true;
     return false
   }
