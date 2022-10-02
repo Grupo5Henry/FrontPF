@@ -65,7 +65,7 @@ function Products() {
                 </p>
               </div>
             </div>
-
+            </a>
             <div className="flex flex-col bottom-8 left-8 space-y-4 absolute opacity-0 group-hover:opacity-100 transition duration-500">
               <CardActions disableSpacing>
                 <IconButton aria-label="Add to cart">
@@ -90,7 +90,7 @@ function Products() {
               </Collapse>
             
             </div>
-            </a>
+            
           </div>
         ))}
       </div>
