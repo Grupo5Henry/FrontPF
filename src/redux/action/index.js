@@ -172,12 +172,7 @@ export function getCategories () {
     }
 };
 
-export function clearCategories() {
-    return {
-        type: CLEAR_CATEGORIES,
-        payload: []
-    }
-};
+
 
 
 
