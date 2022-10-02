@@ -1,6 +1,6 @@
 import axios from "axios";
 /* const { API_URL } = process.env */
-const API_URL="http://localhost:3001/user";
+const API_URL="https://backpf-production.up.railway.app/user";
 console.log(API_URL)
 
 //const API_URL = "/auth";
@@ -27,7 +27,7 @@ const login = (userName, password) => {
   
   return axios
    /*  .post(API_URL + "/login", { */
-   .post("http://localhost:3001/user/login", {
+   .post(API_URL + '/user/login', {
       userName,
       password,
     })
