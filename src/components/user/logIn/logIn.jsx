@@ -56,7 +56,7 @@ const handleLogin = async (e) => {
                         <div class="inputbox">
                             <input onClick={handleLogin} type="button" value="Continue" />
                         </div>
-                        <Link class='signin_box' to={'/sign-in'}>Create Account</Link>
+                        <Link class='signin_box' to={'home/sign-in'}>Create Account</Link>
                     </div>
                 </form>
             </div>
