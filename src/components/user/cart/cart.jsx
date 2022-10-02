@@ -1,0 +1,10 @@
+import React from "react";
+
+
+export default function Cart(){
+    return (
+        <div>
+            Estas en / cart (carrito)
+        </div>
+    )
+}

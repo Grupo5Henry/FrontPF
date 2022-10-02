@@ -9,7 +9,6 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { AddShoppingCart } from "@mui/icons-material";
 import accounting from "accounting";
 import { useSelector } from "react-redux";
-import { Link } from "@mui/material";
 
 
 
@@ -26,7 +25,7 @@ const ExpandMore = styled((props) => {
 }));
 function Products() {
   const [expanded, setExpanded] = React.useState(false);
-  const products = useSelector(state => state.products);
+  const favorites = useSelector(state => state.favorites)
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -34,9 +33,8 @@ function Products() {
   return (
     <div>
       <div className="mt-10 grid lg:grid-cols-2 gap-x-8 gap-y-8 items-center px-40 py-10">
-        {products.map((product) => (
+        {favorites.map((product) => (
           <div className="group group-hover:bg-opacity-60 transition duration-500 relative bg-gray-50 sm:p-28 py-36 px-10 flex justify-center items-center">
-            <Link to={`/home/detail/${product.id}`}>
             <img
               className="group-hover:opacity-60 transition duration-500"
               src={product.thumbnail}
@@ -84,7 +82,6 @@ function Products() {
                 </CardContent>
               </Collapse>
             </div>
-            </Link>
           </div>
         ))}
       </div>

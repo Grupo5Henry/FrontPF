@@ -9,6 +9,7 @@ import { userState } from "../../../redux/action";
 import axios from 'axios';
 
 
+
 // import { Link } from "react-router-dom";
 // import { Icon } from "@iconify/react";
 import SearchBar from "../searchBar/searchBar";
@@ -43,26 +44,8 @@ const NavBar = () => {
 
   return (
     <div className="box">
-      {/* <nav className='nav_body'>
-                <Link to="/" className='link_nav'>
-                   <h2>Techno Trade</h2>
-                </Link>
-                <Link to="/home" className='link_nav'>
-                    <Icon icon="ant-design:home-filled" width='40px' height='40px' />
-                    <h4>Home</h4>
-                </Link>
-                <div className='prfile'>
-
-                    <Link to="/" className='link_nav'>
-                        <Icon icon="carbon:favorite-filled" width='40px' height='40px' />
-                        <h4>Favorites</h4>
-                    </Link>
-                    <Link to="/" className='link_nav'>
-                        <Icon icon="eva:shopping-cart-fill" width='40px' height='40px' />
-                        <h4>My Shopping</h4>
-                    </Link>
-                </div>
-                <div className='prfile'>
+  
+                {/* <div className='prfile'>
                     <Link to="/sign-in" className='link_nav'>
                         <h4>Sign In</h4>
                     </Link>
@@ -71,7 +54,7 @@ const NavBar = () => {
                         <h4>Log In</h4>
                     </Link>
                 </div>
-            </nav> */}
+             */}
       <nav
         class="relative w-full flex flex-wrap items-center justify-between py-3 bg-gray-900 text-gray-200 shadow-lg navbar navbar-expand-lg navbar-light"
       >
@@ -108,13 +91,13 @@ const NavBar = () => {
                 <Link to={'/home'} class="nav-link text-white" href="#!">Home</Link>
               </li>
               <li class="nav-item p-2">
-                <Link to={'/home/abaut'}
+                <Link to={'/about'}
                   class="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0">
                   Team
                 </Link>
               </li>
               <li class="nav-item p-2">
-                <Link class="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0" href="#!">
+                <Link to={"/history"} class="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0">
                   History
                 </Link>
               </li>
@@ -126,7 +109,7 @@ const NavBar = () => {
             </ul>
           </div>
           <div class="flex items-center relative">
-            <Link to='/' class="flex items-center hover:text-gray-200 mr-5">
+            <Link to='/cart' class="flex items-center hover:text-gray-200 mr-5">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
               </svg>
@@ -159,7 +142,7 @@ const NavBar = () => {
                 aria-labelledby="dropdownMenuButton2"
               >
                 <li>
-                  <Link to='/home/profile'
+                  <Link to='/profile'
                     class="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100">
                     Profile
                   </Link>
@@ -174,9 +157,7 @@ const NavBar = () => {
           </div>
         </div>
       </nav>
-      <Routes>
-        <Route path='/home*' element={<SearchBar />} />
-      </Routes>
+      
     </div>
   );
 };
