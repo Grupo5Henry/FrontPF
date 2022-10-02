@@ -49,7 +49,7 @@ const handleLogin = async (e) => {
                         <span>Email</span>
                     </div>
                     <div class="inputbox">
-                        <input type="text" required="required" value={password} onChange={(e) => setPassword(e.target.value)}/>
+                        <input type="password" required="required" value={password} onChange={(e) => setPassword(e.target.value)}/>
                         <span>Password</span>
                     </div>
                     <div class='boton'>

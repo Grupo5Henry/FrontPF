@@ -77,7 +77,7 @@ const SignIn = () => {
                         <span>Username</span>
                     </div>
                     <div class="inputbox">
-                        <input type="text" required="required" name='password' value={input.password} onChange={(e)=>handleInputChange(e)} />
+                        <input type="password" required="required" name='password' value={input.password} onChange={(e)=>handleInputChange(e)} />
                         <span>Password</span>
                     </div>
                     <div class="inputbox">
