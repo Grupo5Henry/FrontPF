@@ -1,6 +1,8 @@
 import axios from "axios";
 
+
 // export const MULTI_ACTION = "MULTI_ACTION";
+
 
 export const GET_PRODUCTS_NAME = "GET_PRODUCTS_NAME";
 export const DETAIL_PRODUCT = "DETAIL_PRODUCT";
@@ -34,13 +36,16 @@ export const FETCH_BRANDS_MODELS = "FETCH_BRANDS_MODELS";
 
 
 export const getProductsName = () => {
+
   return async (dispatch) => {
     try {
       const products = await axios.get(
         "https://backpf-production.up.railway.app/product/all"
       );
       dispatch({
+
         type: GET_PRODUCTS_NAME,
+
         payload: products.data,
       });
     } catch (error) {
@@ -48,6 +53,8 @@ export const getProductsName = () => {
     }
   };
 };
+
+
 
 export const getProductsFiltered = (filter) => {
   return async (dispatch) => {
@@ -95,6 +102,7 @@ export const resetFilter = () => {
   }
 }
 
+
  
 export const detailProduct = (id) => {
     return async (dispatch) => {
@@ -104,13 +112,16 @@ export const detailProduct = (id) => {
         );
         dispatch({
           type: DETAIL_PRODUCT,
+
           payload: products.data.map(product => product.product),
+
         });
       } catch (error) {
         console.log(error);
       }
     };
   };
+
 
 
 
@@ -133,6 +144,7 @@ export function clearCategories() {
         payload: []
     }
 };
+
 
 
 export const getBrandAndModels = () => {
@@ -167,7 +179,6 @@ export const getFavorites = (userName) => {
 }
 
 
-
 export function getCategories () {
     return async function (dispatch) {
         fetch("https://backpf-production.up.railway.app/category")
@@ -180,8 +191,5 @@ export function getCategories () {
         })
     }
 };
-
-
-
 
 

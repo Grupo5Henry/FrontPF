@@ -15,7 +15,9 @@ const Details = () => {
   useEffect(()=>{
     dispatch(detailProduct(id))
   },[dispatch, id])
+
   // console.log(details, "Details")
+
 
   return (
     <div>
@@ -30,16 +32,20 @@ const Details = () => {
               <div className="relative">
                 <img
                   src={details.thumbnail}
+
                   className="w-full relative z-10"
+
                   alt=""
                 />
                 <div className="border-4 border-black-200 absolute top-10 bottom-10 left-10 right-10 z-0"></div>
               </div>
             </div>
+
             <div className="w-full md:w-1/2 px-10">
               <div className="mb-10">
                 <div className='flex flex-row justify-between' >
                   <h1 className="font-bold uppercase text-2xl mb-5">
+
                     {details.name}
                   </h1>
                   <button className='font-bold uppercase text-2xl mb-5'>
@@ -51,22 +57,28 @@ const Details = () => {
                     </svg>
                   </button>
                 </div>
+
                 <p className="text-sm">
+
                   {details.description}
                 </p>
               </div>
               <div>
+
                 <div className="inline-block align-bottom mr-5">
                   <span className="text-2xl leading-none align-baseline">$</span>
                   <span className="font-bold text-3xl leading-none align-baseline">
+
                     {details.price}
                   </span>
                 </div>
               </div>
+
               <div className='mt-2'>
                 <div className="inline-block align-bottom mr-5">
                   <span className="text-2xl leading-none align-baseline">brand   </span>
                   <span className="font-bold text-3xl leading-none align-baseline">
+
                     {details.brand}
                   </span>
                 </div>

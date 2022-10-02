@@ -1,3 +1,4 @@
+
 import { act } from "react-dom/test-utils";
 
 import { CLEAR_CATEGORIES, DETAIL_PRODUCT, FETCH_BRANDS_MODELS, FETCH_CATEGORIES, FETCH_FAVORITES, GET_PRODUCTS_FILTERED, GET_PRODUCTS_NAME, RESET_FILTER, SEARCH_PRODUCT, UPDATE_FILTER } from "../action";
@@ -24,10 +25,12 @@ const initialState = {
         page: 0
     },
     loggedIn: false
+
 }
 
 const rootReducer = (state = initialState, action) => {
     switch (action.type){
+
 
         // case MULTI_ACTION:
         //     const results = action.payload.actions.map(a => {
@@ -58,9 +61,11 @@ const rootReducer = (state = initialState, action) => {
                 maxPages: action.payload.count
             }
         case GET_PRODUCTS_NAME:
+
             return{
 
                 ...state,
+
                 allProductsName: action.payload
             }
         case DETAIL_PRODUCT:
@@ -70,10 +75,12 @@ const rootReducer = (state = initialState, action) => {
             }
 
         case SEARCH_PRODUCT:
+
             return{
                 ...state,
-                products: action.payload
+                categories: action.payload
             }
+
 
         case FETCH_FAVORITES:
             return {
@@ -89,6 +96,7 @@ const rootReducer = (state = initialState, action) => {
                 categories: action.payload
             }
         case CLEAR_CATEGORIES:
+
             return{
                 ...state,
                 categories: action.payload
@@ -109,7 +117,6 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 loggedIn: action.payload
             }
-
 
         default: return state
     }

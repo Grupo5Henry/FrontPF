@@ -14,7 +14,7 @@ import HomeIcon from '@mui/icons-material/Home';
 
 // import { Link } from "react-router-dom";
 // import { Icon } from "@iconify/react";
-import SearchBar from "../searchBar/searchBar";
+import SearchBar from "../searchBar/searchBar.jsx";
 import "./navBar.css";
 
 
@@ -111,10 +111,15 @@ const NavBar = () => {
                 </Link>
               </li>
 
+              <li class="nav-item p-2">
+                <Link to={'/createProduct'} class="nav-link text-white" href="#!">Crear Producto</Link>
+              </li>
+              
               <li className="nav-item p-2">
                 <Link to={'/about'}
                   className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0">
                   Equipo
+
                 </Link>
               </li>
 

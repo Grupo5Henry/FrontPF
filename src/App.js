@@ -17,6 +17,7 @@ import { useSelector } from 'react-redux';
 
 
 
+
 function App() {
   const userState = useSelector((state)=>state.loggedIn)
 
@@ -38,9 +39,9 @@ function App() {
           <Route exact path='/home/sign-in' element={<SignIn />} />
           <Route exact path='/home/detail/:id' element={<Details />} />
           <Route exact path="/createProduct" element={<CreateProduct/>} />
-          <Route path='*' element={<Error/>}/>
           { !userState? (<Route exact path='/home/sign-in' element={<SignIn />} />): null}
           <Route exact path='/home/details' element={<Details />} />
+          <Route path='*' element={<Error/>}/>
 
         </Routes>
       </header>

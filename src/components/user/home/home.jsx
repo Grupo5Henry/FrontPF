@@ -1,3 +1,4 @@
+
 import { getProductsName , getProductsFiltered} from '../../../redux/action';
 import OrderFilt from '../OrderFiltros';
 import React, { useEffect } from 'react';
@@ -11,7 +12,9 @@ import Pagination from '../Pagination/Pagination';
 
 
 
+
 const Home = () => {
+
 
     const products = useSelector(state => state.products);
     const filter = useSelector(state => state.filter)
