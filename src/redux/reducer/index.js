@@ -3,7 +3,6 @@ import { CLEAR_CATEGORIES, DETAIL_PRODUCT, FETCH_BRANDS_MODELS, FETCH_CATEGORIES
 
 const initialState = {
     products: [],
-
     favorites: [],
     allProductsName:[],
     detail: {},

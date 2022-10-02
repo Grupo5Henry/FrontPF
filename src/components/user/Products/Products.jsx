@@ -36,7 +36,7 @@ function Products() {
       <div className="mt-10 grid lg:grid-cols-2 gap-x-8 gap-y-8 items-center px-40 py-10">
         {products.map((product) => (
           <div className="group group-hover:bg-opacity-60 transition duration-500 relative bg-gray-50 sm:p-28 py-36 px-10 flex justify-center items-center">
-            <Link to={`/home/detail/${product.id}`}>
+            
             <img
               className="group-hover:opacity-60 transition duration-500"
               src={product.thumbnail}
@@ -44,9 +44,11 @@ function Products() {
             />
             <div className="absolute sm:top-8 top-4 left-4 sm:left-8 flex justify-start items-start flex-col space-y-2">
               <div>
+              <Link to={`/home/detail/${product.id}`}>
                 <p className="group-hover:opacity-60 transition duration-500 text-xl leading-5 text-gray-600">
                   {product.name}
                 </p>
+                </Link>
                 <p className="group-hover:opacity-60 transition duration-500 text-xl leading-5 text-gray-600">
                   {product.condition}
                 </p>
@@ -84,7 +86,6 @@ function Products() {
                 </CardContent>
               </Collapse>
             </div>
-            </Link>
           </div>
         ))}
       </div>
