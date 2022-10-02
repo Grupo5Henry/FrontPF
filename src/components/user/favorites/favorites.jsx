@@ -6,7 +6,7 @@ import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { AddShoppingCart, Favorite, FavoriteBorder } from "@mui/icons-material";
+import { AddShoppingCart, Favorite } from "@mui/icons-material";
 import accounting from "accounting";
 import { useDispatch, useSelector } from "react-redux";
 import { getFavorites } from "../../../redux/action";
@@ -58,7 +58,7 @@ function Products() {
         {favorites !== "Missing Username" && favorites.map((product) => {
           product = product.product
           return (
-          <div className="group group-hover:bg-opacity-60 transition duration-500 relative bg-gray-50 sm:p-28 py-36 px-10 flex justify-center items-center">
+          <div key={`fav${product.id}`} className="group group-hover:bg-opacity-60 transition duration-500 relative bg-gray-50 sm:p-28 py-36 px-10 flex justify-center items-center">
             <img
               className="group-hover:opacity-60 transition duration-500"
               src={product.thumbnail}
@@ -85,9 +85,8 @@ function Products() {
 
             <div className="flex flex-col bottom-8 left-8 space-y-4 absolute opacity-0 group-hover:opacity-100 transition duration-500">
               <CardActions disableSpacing>
-                <IconButton aria-label="Toggle Favorite">
-                  <Favorite fontSize="large" 
-                    onClick={() => unSetFavorite(localStorage.userName, product.id)} /> 
+                <IconButton aria-label="Toggle Favorite" onClick={() => unSetFavorite(localStorage.userName, product.id)}>
+                  <Favorite fontSize="large"/> 
                 </IconButton>
                 <IconButton aria-label="Add to cart">
                   <AddShoppingCart fontSize="large" />

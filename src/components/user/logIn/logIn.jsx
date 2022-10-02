@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { useDispatch } from 'react-redux';
-import { userState } from '../../../redux/action';
 import { Icon } from '@iconify/react';
 import { AlternateEmail } from "@mui/icons-material";
+import React, { useState } from "react";
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from "react-router-dom";
+import { userState } from '../../../redux/action';
 import AuthService from "../../../services/auth.service";
 import './logIn.css';
 
@@ -43,7 +43,7 @@ const handleLogin = async (e) => {
                 </Link>
                 <h1>Ingresar con mi cuenta</h1>
                 <form onSubmit={handleLogin} autocomplete="off">
-                    <div class="inputbox">
+                    <div className="inputbox">
 
                         <input type="text" required="required" value={userName} onChange={(e) => setUserName(e.target.value)} />
                         <span>Usuario</span>
@@ -52,11 +52,11 @@ const handleLogin = async (e) => {
                         <input type="password" required="required" value={password} onChange={(e) => setPassword(e.target.value)}/>
                         <span>Constraseña</span>
                     </div>
-                    <div class='boton'>
-                        <div class="inputbox">
+                    <div className='boton'>
+                        <div className="inputbox">
                             <input onClick={handleLogin} type="button" value="Ingresar" />
                         </div>
-                        <Link class='signin_box' to={'/home/sign-in'}>Crear una cuenta</Link>
+                        <Link className='signin_box' to={'/home/sign-in'}>Crear una cuenta</Link>
 
                     </div>
                 </form>

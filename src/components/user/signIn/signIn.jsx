@@ -64,7 +64,7 @@ const SignIn = () => {
                 </Link>
                 <h1>Crear una cuenta</h1>
                 <form autocomplete="off">
-                    <div class="inputbox">
+                    <div className="inputbox">
 
                         <input type="text" required="required" name='userName' value={input.userName} onChange={(e)=>handleInputChange(e)} />
                         <span>Usuario</span>
@@ -86,11 +86,11 @@ const SignIn = () => {
                         <span>Direccion de facturación</span>
                     </div>
 
-                    <div class='boton'>
-                        <div class="inputbox">
+                    <div className='boton'>
+                        <div className="inputbox">
                             <input onClick={handleSignIn} type="button" value="Crear" />
                         </div>
-                        <Link class='login_box' to={'/home/log-in'}>Ya tengo una cuenta</Link>
+                        <Link className='login_box' to={'/home/log-in'}>Ya tengo una cuenta</Link>
 
                     </div>
                 </form>
