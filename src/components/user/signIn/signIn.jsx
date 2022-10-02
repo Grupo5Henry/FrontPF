@@ -71,13 +71,13 @@ const SignIn = () => {
                     </button>
                 </Link>
                 <h1>Sign In</h1>
-                <form>
+                <form autocomplete="off">
                     <div class="inputbox">
                         <input type="text" required="required" name='userName' value={input.userName} onChange={(e)=>handleInputChange(e)} />
                         <span>Username</span>
                     </div>
                     <div class="inputbox">
-                        <input type="text" required="required" name='password' value={input.password} onChange={(e)=>handleInputChange(e)} />
+                        <input type="password" required="required" name='password' value={input.password} onChange={(e)=>handleInputChange(e)} />
                         <span>Password</span>
                     </div>
                     <div class="inputbox">

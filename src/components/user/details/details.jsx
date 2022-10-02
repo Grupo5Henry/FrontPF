@@ -1,10 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { detailProduct } from "../../../redux/action";
+import Comment from "../comment/comment";
 
 // Detalle del Producto
 
 const Details = () => {
+
+  const details = useSelector(state => state.detail);
+  const dispatch = useDispatch();
+  const {id} = useParams();
+
+  useEffect(()=>{
+    dispatch(detailProduct(id))
+  },[dispatch, id])
+  // console.log(details, "Details")
+
   return (
     <div>
+      
       <style>
         @import url(https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css);
       </style>
@@ -14,7 +29,7 @@ const Details = () => {
             <div class="w-full md:w-1/2 px-10 mb-10 md:mb-0">
               <div class="relative">
                 <img
-                  src="https://pngimg.com/uploads/raincoat/raincoat_PNG53.png"
+                  src={details.thumbnail}
                   class="w-full relative z-10"
                   alt=""
                 />
@@ -25,7 +40,7 @@ const Details = () => {
               <div class="mb-10">
                 <div class='flex flex-row justify-between' >
                   <h1 class="font-bold uppercase text-2xl mb-5">
-                    Nombre del Producto
+                    {details.name}
                   </h1>
                   <button class='font-bold uppercase text-2xl mb-5'>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-pink-500" viewBox="0 0 20 20"
@@ -37,22 +52,22 @@ const Details = () => {
                   </button>
                 </div>
                 <p class="text-sm">
-                  Descripcion del Producto
+                  {details.description}
                 </p>
               </div>
               <div>
                 <div class="inline-block align-bottom mr-5">
                   <span class="text-2xl leading-none align-baseline">$</span>
                   <span class="font-bold text-3xl leading-none align-baseline">
-                    Valor del Producto
+                    {details.price}
                   </span>
                 </div>
               </div>
               <div class='mt-2'>
                 <div class="inline-block align-bottom mr-5">
-                  <span class="text-2xl leading-none align-baseline">Color</span>
+                  <span class="text-2xl leading-none align-baseline">brand   </span>
                   <span class="font-bold text-3xl leading-none align-baseline">
-                    del Producto
+                    {details.brand}
                   </span>
                 </div>
               </div>
@@ -88,33 +103,7 @@ const Details = () => {
             </div>
           </div>
           {/* {<------------------ comentarios ------------------------>} */}
-          <div class="antialiased mx-auto max-w-screen-sm">
-            <h3 class="mb-4 text-lg font-semibold text-gray-900">Comments</h3>
-            <div class="space-y-4">
-              <div class="flex">
-                <div class="flex-shrink-0 mr-3">
-                  <img class="mt-2 rounded-full w-8 h-8 sm:w-10 sm:h-10" src="" alt="" />
-                </div>
-                <div class="flex-1 border rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
-                  <strong>monbre</strong>{" "}
-                  <span class="text-xs text-gray-400">
-                    hora de de que fue escrito el comentario
-                  </span>
-                  <p class="text-sm">comentario</p>
-                </div>
-              </div>
-              <script src="https://cdn.tailwindcss.com/"></script>
-              <div>
-                <textarea placeholder="Add your comment..." class="p-2 focus:outline-1 focus:outline-gray-500 border-[0.1px] resize-none h-[120px] border-[#9EA5B1] rounded-md w-full"></textarea>
-                <div class="flex justify-end">
-                  <button class="text-sm font-semibold absolute bg-[#4F46E5] w-fit text-white py-2 rounded px-3">
-                    Post
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
+          <Comment/>
           {/* {<------------------------------------------>} */}
         </div>
       </div>
