@@ -1,13 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import AuthService from "../../../services/auth.service";
-import authHeader from "../../../services/auth-header";
-import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import React, { useEffect, useState } from "react";
 import { useDispatch, userDispatch, useSelector } from "react-redux";
-import { Link, Route, Routes } from "react-router-dom";
+import { Link, Route, Routes, useNavigate } from "react-router-dom";
 import { getFavorites, userState } from "../../../redux/action";
-
+import authHeader from "../../../services/auth-header";
+import AuthService from "../../../services/auth.service";
+import IconButton from "@mui/material/IconButton";
+import HomeIcon from '@mui/icons-material/Home';
 
 
 
@@ -102,33 +102,41 @@ const NavBar = () => {
           <div className="collapse navbar-collapse flex-grow items-center" id="navbarSupportedContent1">
             <Link to={'/'} className="text-xl text-white pr-2 font-semibold" href="#!">Techno Trade</Link>
             <ul className="navbar-nav flex flex-col pl-0 list-style-none mr-auto">
+              
               <li className="nav-item p-2">
-                <Link to={'/home'} className="nav-link text-white" href="#!">Home</Link>
+                <Link to={'/home'} className="nav-link text-white" href="#!">
+                  <IconButton >
+                    <HomeIcon fontSize="medium" color='primary'/>
+                  </IconButton>
+                </Link>
               </li>
+
               <li className="nav-item p-2">
                 <Link to={'/about'}
                   className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0">
-                  Team
-                </Link>
-              </li>
-              <li className="nav-item p-2">
-                <Link to={"/history"} className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0">
-                  History
+                  Equipo
                 </Link>
               </li>
 
+              <li className="nav-item p-2">
+                <Link to={"/history"} className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0">
+                  Historial
+                </Link>
+              </li>
+
+             <li className="nav-item p-2">
               { userStatus ? (
-              <button onClick={()=>handleLogOut()} class="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"  >
+                <button onClick={()=>handleLogOut()} className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"  >
                 Cerrar sesión
               </button>
               ): (
-                <button onClick={()=>handleLogIn()} class="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"  >
+                <button onClick={()=>handleLogIn()} className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"  >
                 Ingresar
-
               </button>
               )
-            
+              
             }
+            </li>
             </ul>
           </div>
           <div className="flex items-center relative">
@@ -138,9 +146,9 @@ const NavBar = () => {
               </svg>
             </Link>
             {
-             userStatus && (<div class="flex items-center relative mr-5">
-              <Link to={'/favorites'} class="hover:text-gray-200">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+             userStatus && (<div className="flex items-center relative mr-5">
+              <Link to={'/favorites'} className="hover:text-gray-200">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                 </svg>
               </Link>
