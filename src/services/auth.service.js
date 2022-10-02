@@ -27,7 +27,7 @@ const login = (userName, password) => {
   
   return axios
    /*  .post(API_URL + "/login", { */
-   .post(API_URL + '/user/login', {
+   .post(API_URL + '/login', {
       userName,
       password,
     })

@@ -1,4 +1,3 @@
-import { current } from "daisyui/src/colors";
 import { useDispatch, useSelector } from "react-redux"
 import { updateFilter } from "../../../redux/action";
 
