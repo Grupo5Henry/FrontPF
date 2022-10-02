@@ -6,7 +6,12 @@ export const GET_PRODUCTS_NAME = "GET_PRODUCTS_NAME";
 export const DETAIL_PRODUCT = "DETAIL_PRODUCT";
 export const SEARCH_PRODUCT = "SEARCH_PRODUCT";
 export const GET_PRODUCTS_FILTERED = "GET_PRODUCTS_FILTERED";
+
+
 export const FETCH_FAVORITES = "FETCH_FAVORITES";
+
+
+
 
 
 export const RESET_FILTER = "RESET_FILTER";
@@ -99,7 +104,7 @@ export const detailProduct = (id) => {
         );
         dispatch({
           type: DETAIL_PRODUCT,
-          payload: products.data,
+          payload: products.data.map(product => product.product),
         });
       } catch (error) {
         console.log(error);
@@ -142,6 +147,8 @@ export const getBrandAndModels = () => {
 
 
 
+
+
 export const getFavorites = (userName) => {
   return async (dispatch) => {
     try {
@@ -151,13 +158,15 @@ export const getFavorites = (userName) => {
       )
       dispatch({
         type: FETCH_FAVORITES,
-        payload: favorites
+        payload: favorites.data
       })
     } catch (err) {
       console.log({error: err.message})
     }
   }
 }
+
+
 
 export function getCategories () {
     return async function (dispatch) {

@@ -5,7 +5,7 @@ import authHeader from "../../../services/auth-header";
 import { Link } from "react-router-dom";
 import { Routes, Route } from 'react-router-dom';
 import { useSelector, userDispatch, useDispatch } from "react-redux";
-import { userState } from "../../../redux/action";
+import { getFavorites, userState } from "../../../redux/action";
 import axios from 'axios';
 
 
@@ -21,6 +21,7 @@ import "./navBar.css";
 const NavBar = () => {
   
   const userStatus = useSelector((state)=> state.loggedIn)
+  const favorites = useSelector(state => state.favorites)
   const dispatch = useDispatch();
 
   useEffect( () => {
@@ -39,6 +40,10 @@ const NavBar = () => {
     dispatch(userState(false));
     
   };
+
+  React.useEffect(() => {
+    dispatch(getFavorites(localStorage.userName))
+  },[])
 
 
 
