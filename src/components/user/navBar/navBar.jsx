@@ -1,12 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, {useState, useEffect} from "react";
 import AuthService from "../../../services/auth.service";
 import authHeader from "../../../services/auth-header";
-import { Link } from "react-router-dom";
-import { Routes, Route } from 'react-router-dom';
-import { useSelector, userDispatch, useDispatch } from "react-redux";
-import { userState } from "../../../redux/action";
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { useDispatch, userDispatch, useSelector } from "react-redux";
+import { Link, Route, Routes } from "react-router-dom";
+import { getFavorites, userState } from "../../../redux/action";
+
 
 
 
@@ -19,13 +20,15 @@ import "./navBar.css";
 
 
 const NavBar = () => {
-  
+  const navigate = useNavigate(); 
   const userStatus = useSelector((state)=> state.loggedIn)
+  const favorites = useSelector(state => state.favorites)
   const dispatch = useDispatch();
 
   useEffect( () => {
       const tokenCheck =async ()=>{
       const tokenStatus  =  await axios.get ('https://backpf-production.up.railway.app/token/tokenCheck', { headers: authHeader() });
+     /*  const tokenStatus  =  await axios.get ('http://localhost:3001/token/tokenCheck', { headers: authHeader() }); */
       console.log('log de tokenStatus',tokenStatus.data);
       dispatch(userState(tokenStatus.data))
       }
@@ -39,6 +42,17 @@ const NavBar = () => {
     dispatch(userState(false));
     
   };
+
+
+  const handleLogIn = () => {
+    navigate('/home/log-in')
+  }
+
+
+  React.useEffect(() => {
+    dispatch(getFavorites(localStorage.userName))
+  },[])
+
 
 
 
@@ -57,11 +71,11 @@ const NavBar = () => {
                 </div>
              */}
       <nav
-        class="relative w-full flex flex-wrap items-center justify-between py-3 bg-gray-900 text-gray-200 shadow-lg navbar navbar-expand-lg navbar-light"
+        className="relative w-full flex flex-wrap items-center justify-between py-3 bg-gray-900 text-gray-200 shadow-lg navbar navbar-expand-lg navbar-light"
       >
-        <div class="container-fluid w-full flex flex-wrap items-center justify-between px-6">
+        <div className="container-fluid w-full flex flex-wrap items-center justify-between px-6">
           <button
-            class="navbar-toggler text-gray-200 border-0 hover:shadow-none hover:no-underline py-2 px-2.5 bg-transparent focus:outline-none focus:ring-0 focus:shadow-none focus:no-underline"
+            className="navbar-toggler text-gray-200 border-0 hover:shadow-none hover:no-underline py-2 px-2.5 bg-transparent focus:outline-none focus:ring-0 focus:shadow-none focus:no-underline"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent1"
@@ -74,7 +88,7 @@ const NavBar = () => {
               focusable="false"
               data-prefix="fas"
               data-icon="bars"
-              class="w-6"
+              className="w-6"
               role="img"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 448 512"
@@ -85,46 +99,54 @@ const NavBar = () => {
               ></path>
             </svg>
           </button>
-          <div class="collapse navbar-collapse flex-grow items-center" id="navbarSupportedContent1">
-            <Link to={'/'} class="text-xl text-white pr-2 font-semibold" href="#!">Techno Trade</Link>
-            <ul class="navbar-nav flex flex-col pl-0 list-style-none mr-auto">
-              <li class="nav-item p-2">
-                <Link to={'/home'} class="nav-link text-white" href="#!">Home</Link>
+          <div className="collapse navbar-collapse flex-grow items-center" id="navbarSupportedContent1">
+            <Link to={'/'} className="text-xl text-white pr-2 font-semibold" href="#!">Techno Trade</Link>
+            <ul className="navbar-nav flex flex-col pl-0 list-style-none mr-auto">
+              <li className="nav-item p-2">
+                <Link to={'/home'} className="nav-link text-white" href="#!">Home</Link>
               </li>
-              <li class="nav-item p-2">
+              <li className="nav-item p-2">
                 <Link to={'/about'}
-                  class="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0">
+                  className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0">
                   Team
                 </Link>
               </li>
-              <li class="nav-item p-2">
-                <Link to={"/history"} class="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0">
+              <li className="nav-item p-2">
+                <Link to={"/history"} className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0">
                   History
                 </Link>
               </li>
-              { userStatus && (
+
+              { userStatus ? (
               <button onClick={()=>handleLogOut()} class="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"  >
-                Logout
+                Cerrar sesión
               </button>
-              )}
+              ): (
+                <button onClick={()=>handleLogIn()} class="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"  >
+                Ingresar
+
+              </button>
+              )
+            
+            }
             </ul>
           </div>
-          <div class="flex items-center relative">
-            <Link to='/cart' class="flex items-center hover:text-gray-200 mr-5">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+          <div className="flex items-center relative">
+            <Link to='/cart' className="flex items-center hover:text-gray-200 mr-5">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
               </svg>
             </Link>
-            <div class="flex items-center relative mr-5">
-              <Link to={'/favorites'} class="hover:text-gray-200">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            <div className="flex items-center relative mr-5">
+              <Link to={'/favorites'} className="hover:text-gray-200">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                 </svg>
               </Link>
             </div>
-            <div class="dropdown relative mr-5">
+            <div className="dropdown relative mr-5">
               <a
-                class="dropdown-toggle flex items-center hidden-arrow"
+                className="dropdown-toggle flex items-center hidden-arrow"
                 href="#"
                 id="dropdownMenuButton2"
                 role="button"
@@ -133,23 +155,23 @@ const NavBar = () => {
               >
                 <img
                   src="https://mdbootstrap.com/img/new/avatars/2.jpg"
-                  class="rounded-full h-8 w-8"
+                  className="rounded-full h-8 w-8"
                   alt=""
                   loading="lazy"
                 />
               </a>
               <ul
-                class="dropdown-menu min-w-max absolute hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded-lg shadow-lg mt-1 hidden m-0 bg-clip-padding border-none left-auto right-0"
+                className="dropdown-menu min-w-max absolute hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded-lg shadow-lg mt-1 hidden m-0 bg-clip-padding border-none left-auto right-0"
                 aria-labelledby="dropdownMenuButton2"
               >
                 <li>
                   <Link to='/profile'
-                    class="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100">
+                    className="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100">
                     Profile
                   </Link>
                 </li>
                 <li>
-                  <a class="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100">
+                  <a className="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100">
                     Close
                   </a>
                 </li>

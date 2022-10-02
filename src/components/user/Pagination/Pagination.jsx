@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux";
 import { updateFilter } from "../../../redux/action";
 
 
@@ -12,20 +12,21 @@ const Pagination = () => {
   
 
 return (<nav aria-label="Page navigation example">
-<ul class="inline-flex -space-x-px">
-  <li>
+<ul className="inline-flex -space-x-px">
+  <li key="Prev">
     <a href="#" onClick={() => {
         if (page > 0) dispatch(updateFilter({page: (page - 1)}));
         return
-        }} class="py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
+        }} class="py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Anterior</a>
+
   </li>
         {pages.map((index) => {
             if (page - 1 + index > maxPages) return
-            return (<li>
+            return (<li key={page < 2 ? index : page - 2 + index}>
             <a href="#" 
             aria-current={ (page == index && page <= 2) || (page > 2 && index == 2) ? "page" : false }
             onClick={() => {dispatch(updateFilter({page: (page < 2 ? index : page - 2 + index)}))}}
-            class={
+            className={
                 (page == index && page <= 2) || (page > 2 && index == 2)
                 ? "py-2 px-3 text-blue-600 bg-blue-50 border border-gray-300 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white" 
                 : "py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
@@ -34,11 +35,11 @@ return (<nav aria-label="Page navigation example">
             > {page < 2 ? index : page - 2 + index} </a>
           </li>)
         })}
-  <li>
+  <li key="Next">
     <a href="#" onClick={() => {
         if (page + 1 < maxPages) dispatch(updateFilter({page: (page + 1)}));
         return
-        }} class="py-2 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
+        }} class="py-2 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Siguiente</a>
   </li>
 </ul>
 </nav>)

@@ -1,12 +1,9 @@
-import React, { useState } from "react";
 import {
-  CarouselProvider,
-  Slider,
-  Slide,
-  ButtonBack,
-  ButtonNext,
+    ButtonBack,
+    ButtonNext, CarouselProvider, Slide, Slider
 } from "pure-react-carousel";
 import "pure-react-carousel/dist/react-carousel.es.css";
+import React, { useState } from "react";
 
 export default function CarrouselHome() {
   return (

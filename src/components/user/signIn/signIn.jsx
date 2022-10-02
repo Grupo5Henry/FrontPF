@@ -1,11 +1,10 @@
-import React, { useState } from "react";
-import AuthService from "../../../services/auth.service";
-import { useDispatch } from 'react-redux';
-import { userState } from '../../../redux/action';
-import { useNavigate } from "react-router-dom";
 import { Icon } from '@iconify/react';
-import { Link } from 'react-router-dom';
-import './signIn.css'
+import React, { useState } from "react";
+import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from "react-router-dom";
+import { userState } from '../../../redux/action';
+import AuthService from "../../../services/auth.service";
+import './signIn.css';
 
 const role = 'user';
 const SignIn = () => {
@@ -18,13 +17,6 @@ const SignIn = () => {
     defaultShippingAddress:'',
     billingAddress:''
   })
-
-
-  
-
-
-
-
 
 
   const navigate = useNavigate(); 
@@ -57,46 +49,49 @@ const SignIn = () => {
         }
       );
     } catch (err) {
-      console.log(err);
+      
     }
   };
 
 
     return (
-        <div class="login_body">
-            <div class="center">
-                <Link to={'/'} class='link_box'>
-                    <button class="tooltip button_box">
+        <div className="login_body">
+            <div className="center">
+                <Link to={'/'} className='link_box'>
+                    <button className="tooltip button_box">
                         <Icon icon="akar-icons:arrow-back-thick-fill" />
                     </button>
                 </Link>
-                <h1>Sign In</h1>
+                <h1>Crear una cuenta</h1>
                 <form autocomplete="off">
                     <div class="inputbox">
+
                         <input type="text" required="required" name='userName' value={input.userName} onChange={(e)=>handleInputChange(e)} />
-                        <span>Username</span>
+                        <span>Usuario</span>
                     </div>
-                    <div class="inputbox">
+                    <div className="inputbox">
                         <input type="password" required="required" name='password' value={input.password} onChange={(e)=>handleInputChange(e)} />
-                        <span>Password</span>
+                        <span>Contraseña</span>
                     </div>
-                    <div class="inputbox">
+                    <div className="inputbox">
                         <input type="text" required="required" name='email' value={input.email} onChange={(e)=>handleInputChange(e)} />
                         <span>Email</span>
                     </div>
-                    <div class="inputbox">
+                    <div className="inputbox">
                         <input type="text" required="required" name='defaultShippingAddress' value={input.defaultShippingAddress} onChange={(e)=>handleInputChange(e)} />
-                        <span>Shipping Address</span>
+                        <span>Direccion de entrega</span>
                     </div>
-                    <div class="inputbox">
+                    <div className="inputbox">
                         <input type="text" required="required" name='billingAddress' value={input.billingAddress} onChange={(e)=>handleInputChange(e)} />
-                        <span>Billing Address</span>
+                        <span>Direccion de facturación</span>
                     </div>
+
                     <div class='boton'>
                         <div class="inputbox">
-                            <input onClick={handleSignIn} type="button" value="Continue" />
+                            <input onClick={handleSignIn} type="button" value="Crear" />
                         </div>
-                        <Link class='login_box' to={'/home/log-in'}>Log In</Link>
+                        <Link class='login_box' to={'/home/log-in'}>Ya tengo una cuenta</Link>
+
                     </div>
                 </form>
             </div>
