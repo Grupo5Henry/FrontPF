@@ -13,6 +13,7 @@ import History from './components/user/history/history';
 import Cart from './components/user/cart/cart';
 import Error from './components/user/error/error';
 import CreateProduct from './components/user/CreateProduct/CreateProduct';
+import ModifyProduct from './components/user/ModifyProduct/ModifyProduct';
 import { useSelector } from 'react-redux';
 
 
@@ -39,6 +40,7 @@ function App() {
           <Route exact path='/home/sign-in' element={<SignIn />} />
           <Route exact path='/home/detail/:id' element={<Details />} />
           <Route exact path="/createProduct" element={<CreateProduct/>} />
+          <Route exact path="/modifyProduct" element={<ModifyProduct/>} />
           { !userState? (<Route exact path='/home/sign-in' element={<SignIn />} />): null}
           <Route exact path='/home/details' element={<Details />} />
           <Route path='*' element={<Error/>}/>

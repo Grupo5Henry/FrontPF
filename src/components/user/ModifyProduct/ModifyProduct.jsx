@@ -4,12 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import swal from "sweetalert";
 import axios from "axios";
 import { getCategories, clearCategories } from "../../../redux/action";
-import "../CreateProduct/CreateProduct.css"
+import "../ModifyProduct/ModifyProduct.css"
 
 
-export default function CreateProduct () {
+export default function ModifyProduct () {
 
     //ESTADOS DEL PRODUCTO
+    const [id, setId] = useState("");
+
     const [name, setName] = useState("");
     const [brand, setBrand] = useState("");
     const [model, setModel] = useState("");
@@ -165,7 +167,8 @@ export default function CreateProduct () {
     
             await axios.post("https://api.cloudinary.com/v1_1/dzr5xulsx/image/upload", formData)
             .then((response) => 
-                    axios.post("https://backpf-production.up.railway.app/product/create", {
+                    axios.put("https://backpf-production.up.railway.app/product/modify", {
+                        id,
                         name,
                         model,
                         brand,
@@ -178,8 +181,8 @@ export default function CreateProduct () {
 
                 .then(() => {
                     swal({
-                      title: "¡Producto creado correctamente!",
-                      text: "¿Desea crear otro producto?",
+                      title: "¡Producto modificado correctamente!",
+                      text: "¿Desea modificar otro producto?",
                       icon: "success",
                       buttons: ["No", "Sí"]
                     }).then((resp) => {
@@ -200,8 +203,17 @@ export default function CreateProduct () {
     return(
         <>
 
-                <h1 className="title">Creación de Producto</h1>
+                <h1 className="title">Modificar Producto</h1>
             <form className="formulario" autoComplete="off" noValidate onSubmit={handleOnSubmit}>
+                <div className="contenedor">
+                    <p className="p">Id del producto a modificar: </p>
+                    <input type="text" 
+                    name="id"
+                    className="inputs"
+                    placeholder="Id del producto a modificar:"
+                    onChange={(e) => setId(e.target.value)}
+                    />
+                </div>
                 <div className="contenedor">
                     <p className="p">Nombre del producto: </p>
                     <input type="text" 

@@ -110,10 +110,6 @@ const NavBar = () => {
                   </IconButton>
                 </Link>
               </li>
-
-              <li class="nav-item p-2">
-                <Link to={'/createProduct'} class="nav-link text-white" href="#!">Crear Producto</Link>
-              </li>
               
               <li className="nav-item p-2">
                 <Link to={'/about'}
@@ -142,6 +138,13 @@ const NavBar = () => {
               
             }
             </li>
+            <li class="nav-item p-2">
+              { userStatus ? <Link to={'/createProduct'} class="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0" href="#!">Crear Producto</Link> : null}                
+              </li>
+
+              <li class="nav-item p-2">
+              { userStatus ? <Link to={'/modifyProduct'} class="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0" href="#!">Modificar Producto</Link> : null}                
+              </li>
             </ul>
           </div>
           <div className="flex items-center relative">
