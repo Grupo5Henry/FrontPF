@@ -26,6 +26,13 @@ const ExpandMore = styled((props) => {
 function Products() {
   const [expanded, setExpanded] = React.useState(false);
   const favorites = useSelector(state => state.favorites)
+  const dispatch = useDispatch()
+
+
+  React.useEffect(() => {
+    dispatch(getFavorites(localStorage.userName))
+  },[])
+
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
