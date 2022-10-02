@@ -88,7 +88,7 @@ export default function Landing() {
 
                 <a
                   href="/home"
-                  class="inline-block rounded-md border border-transparent bg-blue-500 py-3 px-8 text-center font-medium text-white hover:bg-blue-700"
+                  className="inline-block rounded-md border border-transparent bg-blue-500 py-3 px-8 text-center font-medium text-white hover:bg-blue-700"
                 >
                   Descubre aqui
                 </a>
