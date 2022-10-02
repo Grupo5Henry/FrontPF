@@ -44,7 +44,7 @@ function Products() {
               src={product.thumbnail}
               alt="sofa-2"
               />
-              </a>
+              
             <div className="absolute sm:top-8 top-4 left-4 sm:left-8 flex justify-start items-start flex-col space-y-2">
               <div>
               
@@ -90,6 +90,7 @@ function Products() {
               </Collapse>
             
             </div>
+            </a>
           </div>
         ))}
       </div>
