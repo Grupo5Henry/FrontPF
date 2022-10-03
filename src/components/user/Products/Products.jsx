@@ -11,6 +11,7 @@ import accounting from "accounting";
 import { useDispatch, useSelector } from "react-redux";
 import { getFavorites } from "../../../redux/action";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 
 
@@ -74,11 +75,12 @@ function Products() {
       <div className="mt-10 grid lg:grid-cols-2 gap-x-8 gap-y-8 items-center px-40 py-10">
         {products.map((product) => (
           <div key={`home${product.id}`} className="group group-hover:bg-opacity-60 transition duration-500 relative bg-gray-50 sm:p-28 py-36 px-10 flex justify-center items-center">
+            <Link to={`/home/detail/${product.id}`}>
             <img
               className="group-hover:opacity-60 transition duration-500"
               src={product.thumbnail}
               alt="sofa-2"
-            />
+              />
             <div className="absolute sm:top-8 top-4 left-4 sm:left-8 flex justify-start items-start flex-col space-y-2">
               <div>
                 <p className="group-hover:opacity-60 transition duration-500 text-xl leading-5 text-gray-600">
@@ -97,6 +99,7 @@ function Products() {
                 </p>
               </div>
             </div>
+              </Link>
 
             <div className="flex flex-col bottom-8 left-8 space-y-4 absolute opacity-0 group-hover:opacity-100 transition duration-500">
               <CardActions disableSpacing>
@@ -105,15 +108,14 @@ function Products() {
                 setFavorite(localStorage.userName, product.id)
               }
               }>
-                {isFavorite(product.id) 
+                {favorites != "Missing Username" ? (isFavorite(product.id) 
 
                 ? <Favorite fontSize="large" 
                 // onClick={() => unSetFavorite(localStorage.userName, product.id)}
                 /> 
 
                 : <FavoriteBorder fontSize="large"
-                // onClick={() => setFavorite(localStorage.userName, product.id)}
-                />}
+                />) : null}
                   
                 </IconButton>
                 <IconButton aria-label="Add to cart">

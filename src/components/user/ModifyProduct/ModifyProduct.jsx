@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import swal from "sweetalert";
-import axios from "axios";
-import { getCategories, clearCategories } from "../../../redux/action";
-import "../ModifyProduct/ModifyProduct.css"
+import { clearCategories, getCategories } from "../../../redux/action";
+import "../ModifyProduct/ModifyProduct.css";
 
 
 export default function ModifyProduct () {

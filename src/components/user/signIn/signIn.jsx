@@ -64,7 +64,7 @@ const SignIn = () => {
                     </button>
                 </Link>
                 <h1>Crear una cuenta</h1>
-                <form autocomplete="off">
+                <form autoComplete="off">
                     <div className="inputbox">
 
                         <input type="text" required="required" name='userName' value={input.userName} onChange={(e)=>handleInputChange(e)} />

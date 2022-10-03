@@ -44,7 +44,7 @@ const handleLogin = async (e) => {
                     </button>
                 </Link>
                 <h1>Ingresar con mi cuenta</h1>
-                <form onSubmit={handleLogin} autocomplete="off">
+                <form onSubmit={handleLogin} autoComplete="off">
                     <div className="inputbox">
 
                         <input type="text" required="required" value={userName} onChange={(e) => setUserName(e.target.value)} />

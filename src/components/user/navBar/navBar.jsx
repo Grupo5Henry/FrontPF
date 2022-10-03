@@ -1,4 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import HomeIcon from '@mui/icons-material/Home';
+import IconButton from "@mui/material/IconButton";
 import axios from 'axios';
 import React, { useEffect, useState } from "react";
 import { useDispatch, userDispatch, useSelector } from "react-redux";
@@ -6,8 +8,6 @@ import { Link, Route, Routes, useNavigate } from "react-router-dom";
 import { getFavorites, userState } from "../../../redux/action";
 import authHeader from "../../../services/auth-header";
 import AuthService from "../../../services/auth.service";
-import IconButton from "@mui/material/IconButton";
-import HomeIcon from '@mui/icons-material/Home';
 
 
 
@@ -126,12 +126,12 @@ const NavBar = () => {
               </li>
 
              
-            <li class="nav-item p-2">
-              { userStatus ? <Link to={'/createProduct'} class="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0" href="#!">Crear Producto</Link> : null}                
+            <li className="nav-item p-2">
+              { userStatus ? <Link to={'/createProduct'} className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0" href="#!">Crear Producto</Link> : null}                
               </li>
 
-              <li class="nav-item p-2">
-              { userStatus ? <Link to={'/modifyProduct'} class="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0" href="#!">Modificar Producto</Link> : null}                
+              <li className="nav-item p-2">
+              { userStatus ? <Link to={'/modifyProduct'} className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0" href="#!">Modificar Producto</Link> : null}                
               </li>
 
               <li className="nav-item p-2">
@@ -158,7 +158,7 @@ const NavBar = () => {
              userStatus && (<div className="flex items-center relative mr-5">
               <Link to={'/favorites'} className="hover:text-gray-200">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                 </svg>
               </Link>
             </div>)

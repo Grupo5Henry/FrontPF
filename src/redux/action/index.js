@@ -107,13 +107,12 @@ export const resetFilter = () => {
 export const detailProduct = (id) => {
     return async (dispatch) => {
       try {
-        const products = await axios.get(
+        const product = await axios.get(
           `https://backpf-production.up.railway.app/product/ID/${id}`
         );
         dispatch({
           type: DETAIL_PRODUCT,
-
-          payload: products.data.map(product => product.product),
+          payload: product.data,
 
         });
       } catch (error) {
