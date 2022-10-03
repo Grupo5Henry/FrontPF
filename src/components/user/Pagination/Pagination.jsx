@@ -21,6 +21,7 @@ return (<nav aria-label="Page navigation example">
 
   </li>
         {pages.map((index) => {
+            if (index >= maxPages) return
             if (page - 1 + index > maxPages) return
             return (<li key={page < 2 ? index : page - 2 + index}>
             <a href="#" 
