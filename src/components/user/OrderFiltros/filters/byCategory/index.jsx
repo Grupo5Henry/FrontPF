@@ -8,7 +8,7 @@ export default function ByCategory({actual}){
     var categories = useSelector(state => state.categories)
     return (
         <>
-            <select onChange={e => dispatch(updateFilter({category: e.target.value}))}>
+            <select onChange={e => dispatch(updateFilter({category: e.target.value, page: 0}))}>
                 <option hidden>Category</option>
                 {actual? <option value={""}>All the categories</option> : null}
                 {

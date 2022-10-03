@@ -9,7 +9,7 @@ export default function ByBrand({actual}){
 
     return (
         <>
-            <select onChange={e => dispatch(updateFilter({brand: e.target.value}))}>
+            <select onChange={e => dispatch(updateFilter({brand: e.target.value, page: 0}))}>
                 <option hidden>Brand</option>
                 {actual? <option value={""}>All the brands</option> : null}
                 {

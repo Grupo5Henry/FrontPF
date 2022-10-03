@@ -11,11 +11,12 @@ export default function Filtros(){
     var [state,setState] = useState(false)
 
     var dispatch = useDispatch()
-
     var {categories,brand,filter} = useSelector(state => state)
+
+
     useEffect(() => {
         if(!categories.length) dispatch(getCategories());
-        if(!brand.length) console.log("a"); //dispatch(getBrand() ???)
+        // if(!brand.length) console.log("a"); //dispatch(getBrand() ???)
     },[])
     return (
     <>  

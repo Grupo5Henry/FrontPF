@@ -8,7 +8,7 @@ export default function ByModel({actual}){
     var models = useSelector(state => state.model)
     return (
         <>
-            <select onChange={e => dispatch(updateFilter({model: e.target.value}))}>
+            <select onChange={e => dispatch(updateFilter({model: e.target.value, page: 0}))}>
                 <option hidden>Model</option>
                 {actual? <option value={""}>All the models</option> : null}
                     {

@@ -15,8 +15,8 @@ export default function ByPriceRange(){
 
     function onSub(e){
         e.preventDefault()
-        if(rango.maxPrice === "" && rango.minPrice === "") return alert("Pasar rango de precio")
-        dispatch(updateFilter(rango))
+        // if(rango.maxPrice === "" && rango.minPrice === "") return alert("Pasar rango de precio")
+        dispatch(updateFilter({...rango, page:0}))
         setRango({maxPrice: "",minPrice:""})
     }
     

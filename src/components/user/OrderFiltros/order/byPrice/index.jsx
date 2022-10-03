@@ -7,7 +7,7 @@ export default function ByPrice(){
     var dispatch = useDispatch()
     return (
         <>
-            <select onChange={e => dispatch(updateFilter({order: e.target.value}))}>
+            <select onChange={e => dispatch(updateFilter({order: e.target.value, page: 0}))}>
                 <option hidden>Price</option>
                 <option>ASC</option>
                 <option>DESC</option>
