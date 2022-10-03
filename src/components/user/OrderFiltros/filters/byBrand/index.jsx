@@ -5,6 +5,7 @@ import { updateFilter } from "../../../../../redux/action";
 
 export default function ByBrand({actual}){
     var brands = useSelector(state => state.brand)
+    // ORDENO LAS MARCAS
     brands = brands.sort((a,b) => {
         if(a.brand[0].toUpperCase() > b.brand[0].toUpperCase()){
             return 1
