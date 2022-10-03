@@ -163,22 +163,24 @@ const NavBar = () => {
               </Link>
             </div>)
             }
+              {userStatus && 
             <div className="dropdown relative mr-5">
               <a
-                className="dropdown-toggle flex items-center hidden-arrow"
-                href="#"
-                id="dropdownMenuButton2"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
+              className="dropdown-toggle flex items-center hidden-arrow"
+              href="#"
+              id="dropdownMenuButton2"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
               >
                 <img
                   src="https://mdbootstrap.com/img/new/avatars/2.jpg"
                   className="rounded-full h-8 w-8"
                   alt=""
                   loading="lazy"
-                />
+                  />
               </a>
+                
               <ul
                 className="dropdown-menu min-w-max absolute hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded-lg shadow-lg mt-1 hidden m-0 bg-clip-padding border-none left-auto right-0"
                 aria-labelledby="dropdownMenuButton2"
@@ -195,7 +197,7 @@ const NavBar = () => {
                   </a>
                 </li>
               </ul>
-            </div>
+            </div>}
           </div>
         </div>
       </nav>
