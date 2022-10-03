@@ -1,32 +1,65 @@
-import React from 'react';
 import { Icon } from '@iconify/react';
-import { Link } from 'react-router-dom';
-import './logIn.css'
+import { AlternateEmail } from "@mui/icons-material";
+import React, { useState } from "react";
+import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from "react-router-dom";
+import { userState } from '../../../redux/action';
+import AuthService from "../../../services/auth.service";
+import './logIn.css';
+
 
 const LogIn = () => {
+const dispatch = useDispatch();
+
+const [userName, setUserName] = useState("");
+const [password, setPassword] = useState("");
+
+const navigate = useNavigate();
+
+const handleLogin = async (e) => {
+    if(userName && password){ 
+        e.preventDefault();
+        try {
+        await AuthService.login(userName, password).then(
+            () => {
+            navigate("/home");
+            dispatch(userState(true))
+            localStorage.setItem("userName", userName);
+            },
+            (error) => {
+            alert('Usuario o contraseña incorrectos');
+            }
+        );
+        } catch (err) {
+        
+        }
+    }
+};
     return (
-        <div class="login_body">
-            <div class="center">
-                <Link to={'/'} class='link_box'>
-                    <button class="tooltip button_box">
+        <div className="login_body">
+            <div className="center">
+                <Link to={'/'} className='link_box'>
+                    <button className="tooltip button_box">
                         <Icon icon="akar-icons:arrow-back-thick-fill" />
                     </button>
                 </Link>
-                <h1>Log In</h1>
-                <form>
-                    <div class="inputbox">
-                        <input type="text" required="required" />
-                        <span>Email</span>
+                <h1>Ingresar con mi cuenta</h1>
+                <form onSubmit={handleLogin} autoComplete="off">
+                    <div className="inputbox">
+
+                        <input type="text" required="required" value={userName} onChange={(e) => setUserName(e.target.value)} />
+                        <span>Usuario</span>
                     </div>
-                    <div class="inputbox">
-                        <input type="text" required="required" />
-                        <span>Password</span>
+                    <div className="inputbox">
+                        <input type="password" required="required" value={password} onChange={(e) => setPassword(e.target.value)}/>
+                        <span>Constraseña</span>
                     </div>
-                    <div class='boton'>
-                        <div class="inputbox">
-                            <input type="button" value="Continue" />
+                    <div className='boton'>
+                        <div className="inputbox">
+                            <input onClick={handleLogin} type="button" value="Ingresar" />
                         </div>
-                        <Link class='signin_box' to={'/sign-in'}>Create Account</Link>
+                        <Link className='signin_box' to={'/home/sign-in'}>Crear una cuenta</Link>
+
                     </div>
                 </form>
             </div>
@@ -34,4 +67,7 @@ const LogIn = () => {
     );
 }
 
+
+
 export default LogIn;
+
