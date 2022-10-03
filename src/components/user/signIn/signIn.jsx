@@ -30,7 +30,7 @@ const SignIn = () => {
 
 
   const handleSignIn = async (e) => {
-
+    if(input.userName && input.password && input.email && input.defaultShippingAddress && input.billingAddress){
     e.preventDefault();
     try {
       await AuthService.signup(input.userName, input.password, role, input.email,input.defaultShippingAddress,input.billingAddress).then(
@@ -51,6 +51,7 @@ const SignIn = () => {
     } catch (err) {
       
     }
+  } else alert ( 'Por favor, completa todos los campos del formulario');
   };
 
 

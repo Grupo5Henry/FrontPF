@@ -17,20 +17,22 @@ const [password, setPassword] = useState("");
 const navigate = useNavigate();
 
 const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-    await AuthService.login(userName, password).then(
-        () => {
-        navigate("/home");
-        dispatch(userState(true))
-        localStorage.setItem("userName", userName);
-        },
-        (error) => {
-        alert('Usuario o contraseña incorrectos');
+    if(userName && password){ 
+        e.preventDefault();
+        try {
+        await AuthService.login(userName, password).then(
+            () => {
+            navigate("/home");
+            dispatch(userState(true))
+            localStorage.setItem("userName", userName);
+            },
+            (error) => {
+            alert('Usuario o contraseña incorrectos');
+            }
+        );
+        } catch (err) {
+        
         }
-    );
-    } catch (err) {
-    
     }
 };
     return (
