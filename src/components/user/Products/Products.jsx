@@ -9,7 +9,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { AddShoppingCart, Favorite, FavoriteBorder } from "@mui/icons-material";
 import accounting from "accounting";
 import { useDispatch, useSelector } from "react-redux";
-import { getFavorites } from "../../../redux/action";
+import { getCart, getFavorites, updateCart } from "../../../redux/action";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
@@ -30,6 +30,7 @@ function Products() {
   const [expanded, setExpanded] = React.useState(false);
   const products = useSelector(state => state.products)
   const favorites = useSelector(state => state.favorites)
+  const cart = useSelector(state => state.cart)
   const dispatch = useDispatch()
 
 
@@ -64,6 +65,18 @@ function Products() {
     if (favorites === "Missing Username") return false
     if (favorites.some(favorite => favorite.productId === id)) return true;
     return false
+  }
+
+  const addToCart = async (userName, id) => {
+    if (!userName) return dispatch(updateCart([...cart, { amount: 1, id}]))
+    try {
+      await axios.post("https://backpf-production.up.railway.app/cart/add",
+      { userName: userName, productId: id, amount: 1}
+      )
+      dispatch(getCart(localStorage.userName))
+    } catch (err) {
+      console.log({error: err.message})
+    }
   }
 
 
@@ -118,7 +131,7 @@ function Products() {
                 />) : null}
                   
                 </IconButton>
-                <IconButton aria-label="Add to cart">
+                <IconButton aria-label="Add to cart" onClick={() => addToCart(localStorage.userName, product.id)}>
                   <AddShoppingCart fontSize="large" />
                 </IconButton>
               

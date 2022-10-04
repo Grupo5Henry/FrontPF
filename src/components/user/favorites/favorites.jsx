@@ -25,7 +25,7 @@ const ExpandMore = styled((props) => {
     duration: theme.transitions.duration.shortest,
   }),
 }));
-function Products() {
+function Favorites () {
   const [expanded, setExpanded] = React.useState(false);
   const favorites = useSelector(state => state.favorites)
   const dispatch = useDispatch()
@@ -116,4 +116,4 @@ function Products() {
   );
 }
 
-export default Products;
+export default Favorites;

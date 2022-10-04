@@ -1,16 +1,16 @@
 
 import { act } from "react-dom/test-utils";
 
-import { CLEAR_CATEGORIES, DETAIL_PRODUCT, FETCH_BRANDS_MODELS, FETCH_CATEGORIES, FETCH_FAVORITES, GET_PRODUCTS_FILTERED, GET_PRODUCTS_NAME, RESET_FILTER, SEARCH_PRODUCT, UPDATE_FILTER } from "../action";
+import { CLEAR_CATEGORIES, DETAIL_PRODUCT, FETCH_BRANDS_MODELS, FETCH_CATEGORIES, FETCH_FAVORITES, GET_PRODUCTS_FILTERED, GET_PRODUCTS_NAME, RESET_FILTER, SEARCH_PRODUCT, UPDATE_CART, UPDATE_FILTER } from "../action";
 
 const initialState = {
     products: [],
     favorites: [],
-
     allProductsName:[],
     detail: {},
     categories: [],
     brand: [],
+    cart: [],
     model: [],
     maxPages: 0,
     filter: {
@@ -106,7 +106,6 @@ const rootReducer = (state = initialState, action) => {
         case FETCH_BRANDS_MODELS:
             return {
                 ...state,
-
                 brand: action.payload.brands,
                 model: action.payload.models
             }
@@ -116,6 +115,13 @@ const rootReducer = (state = initialState, action) => {
             return{
                 ...state,
                 loggedIn: action.payload
+            }
+
+        
+        case UPDATE_CART:
+            return {
+                ...state,
+                cart: action.payload
             }
 
         default: return state

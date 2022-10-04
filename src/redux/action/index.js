@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 
 // export const MULTI_ACTION = "MULTI_ACTION";
@@ -13,8 +14,8 @@ export const GET_PRODUCTS_FILTERED = "GET_PRODUCTS_FILTERED";
 export const FETCH_FAVORITES = "FETCH_FAVORITES";
 
 
-
-
+export const UPDATE_CART = "UPDATE_CART";
+export const GET_CART = "GET_CART";
 
 export const RESET_FILTER = "RESET_FILTER";
 export const UPDATE_FILTER = "UPDATE_FILTER";
@@ -190,5 +191,31 @@ export function getCategories () {
         })
     }
 };
+
+
+export const updateCart = (cart) => {
+  return async (dispatch) => {
+    dispatch({
+    type: UPDATE_CART,
+    payload: cart
+  })}
+}
+
+export const getCart = (userName) => {
+  return async (dispatch) => {
+    try {
+      const cart = await axios.get(
+        "https://backpf-production.up.railway.app/cart",
+        {params: { userName }}
+      )
+      dispatch({
+        type: UPDATE_CART,
+        payload: cart.data
+      })
+    } catch (err) {
+      console.log({error: err.message})
+    }
+  }
+}
 
 
