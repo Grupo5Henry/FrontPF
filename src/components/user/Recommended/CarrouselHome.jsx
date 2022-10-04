@@ -64,7 +64,7 @@ export default function CarrouselHome() {
                         </h2>
                         <div className="flex h-full items-end pb-6">
                           <h3 className="text-xl lg:text-2xl font-semibold leading-5 lg:leading-6 text-white">
-                            $3.999.000
+                            $399
                           </h3>
                         </div>
                       </div>
@@ -83,7 +83,7 @@ export default function CarrouselHome() {
                         </h2>
                         <div className="flex h-full items-end pb-6">
                           <h3 className="text-xl lg:text-2xl font-semibold leading-5 lg:leading-6 text-white">
-                            $1.229.000
+                            $1.229
                           </h3>
                         </div>
                       </div>
@@ -102,7 +102,7 @@ export default function CarrouselHome() {
                         </h2>
                         <div className="flex h-full items-end pb-6">
                           <h3 className="text-xl lg:text-2xl font-semibold leading-5 lg:leading-6 text-white">
-                            $1.149.000
+                            $1.149
                           </h3>
                         </div>
                       </div>
@@ -121,7 +121,7 @@ export default function CarrouselHome() {
                         </h2>
                         <div className="flex h-full items-end pb-6">
                           <h3 className="text-xl lg:text-2xl font-semibold leading-5 lg:leading-6 text-white">
-                            2.999.000
+                            $2.999
                           </h3>
                         </div>
                       </div>
@@ -140,7 +140,7 @@ export default function CarrouselHome() {
                         </h2>
                         <div className="flex h-full items-end pb-6">
                           <h3 className="text-xl lg:text-2xl font-semibold leading-5 lg:leading-6 text-white">
-                            835.900
+                            $835
                           </h3>
                         </div>
                       </div>
@@ -159,7 +159,7 @@ export default function CarrouselHome() {
                         </h2>
                         <div className="flex h-full items-end pb-6">
                           <h3 className="text-xl lg:text-2xl font-semibold leading-5 lg:leading-6 text-white">
-                            12.999.000
+                            $1.299
                           </h3>
                         </div>
                       </div>
@@ -178,7 +178,7 @@ export default function CarrouselHome() {
                         </h2>
                         <div className="flex h-full items-end pb-6">
                           <h3 className="text-xl lg:text-2xl font-semibold leading-5 lg:leading-6 text-white">
-                            1.879.000
+                            $3.879
                           </h3>
                         </div>
                       </div>
