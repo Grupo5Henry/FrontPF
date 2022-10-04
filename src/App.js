@@ -41,10 +41,9 @@ function App() {
           <Route exact path='/home/detail/:id' element={<Details />} />
           <Route exact path="/createProduct" element={<CreateProduct/>} />
           <Route exact path="/modifyProduct" element={<ModifyProduct/>} />
-          { !userState? (<Route exact path='/home/sign-in' element={<SignIn />} />): null}
+          { !userState ? (<Route exact path='/home/sign-in' element={<SignIn />} />) : null}
           <Route exact path='/home/details' element={<Details />} />
           <Route path='*' element={<Error/>}/>
-
         </Routes>
       </header>
     </div>
