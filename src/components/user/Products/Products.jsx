@@ -9,9 +9,11 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { AddShoppingCart, Favorite, FavoriteBorder } from "@mui/icons-material";
 import accounting from "accounting";
 import { useDispatch, useSelector } from "react-redux";
-import { getCart, getFavorites, updateCart } from "../../../redux/action";
+import { getCart, getFavorites, updateCart, userState } from "../../../redux/action";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { isFavorite, setFavorite, unSetFavorite } from "../../../Controllers/Favorite";
+import { addToCart, updateOfflineCart } from "../../../Controllers/Cart";
 
 
 
@@ -30,6 +32,7 @@ function Products() {
   const [expanded, setExpanded] = React.useState(false);
   const products = useSelector(state => state.products)
   const favorites = useSelector(state => state.favorites)
+  const userState = useSelector(state => state.loggedIn)
   const cart = useSelector(state => state.cart)
   const dispatch = useDispatch()
 
@@ -39,45 +42,9 @@ function Products() {
   },[])
 
 
-  const setFavorite = async (userName, id) => {
-    try {
-      await axios.post("https://backpf-production.up.railway.app/favorite/add",
-      { userName: userName, productId: id}
-      )
-      dispatch(getFavorites(localStorage.userName))
-    } catch (err) {
-      console.log({error: err.message})
-    }
-  }
+  
 
-  const unSetFavorite = async (userName, id) => {
-    try {
-      await axios.delete("https://backpf-production.up.railway.app/favorite/delete",
-      {data: { userName: userName, productId: id } }
-      )
-      dispatch(getFavorites(localStorage.userName))
-    } catch (err) {
-      console.log({error: err.message})
-    }
-  }
 
-  const isFavorite = (id) => {
-    if (favorites === "Missing Username") return false
-    if (favorites.some(favorite => favorite.productId === id)) return true;
-    return false
-  }
-
-  const addToCart = async (userName, id) => {
-    if (!userName) return dispatch(updateCart([...cart, { amount: 1, id}]))
-    try {
-      await axios.post("https://backpf-production.up.railway.app/cart/add",
-      { userName: userName, productId: id, amount: 1}
-      )
-      dispatch(getCart(localStorage.userName))
-    } catch (err) {
-      console.log({error: err.message})
-    }
-  }
 
 
   const handleExpandClick = () => {
@@ -131,7 +98,15 @@ function Products() {
                 />) : null}
                   
                 </IconButton>
-                <IconButton aria-label="Add to cart" onClick={() => addToCart(localStorage.userName, product.id)}>
+                <IconButton aria-label="Add to cart" 
+                onClick={() =>{ 
+                  if (userState) {
+                    addToCart(localStorage.userName, product.id)
+                    return
+                  }
+                  updateOfflineCart(product.id, 1)
+                }
+                }>
                   <AddShoppingCart fontSize="large" />
                 </IconButton>
               

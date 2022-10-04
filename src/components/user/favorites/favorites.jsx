@@ -11,6 +11,8 @@ import accounting from "accounting";
 import { useDispatch, useSelector } from "react-redux";
 import { getFavorites } from "../../../redux/action";
 import axios from "axios";
+import { unSetFavorite } from "../../../Controllers/Favorite";
+import { addToCart } from "../../../Controllers/Cart";
 
 
 
@@ -36,16 +38,7 @@ function Favorites () {
   },[])
 
  
-  const unSetFavorite = async (userName, id) => {
-    try {
-      await axios.delete("https://backpf-production.up.railway.app/favorite/delete",
-      {data: { userName: userName, productId: id } }
-      )
-      dispatch(getFavorites(localStorage.userName))
-    } catch (err) {
-      console.log({error: err.message})
-    }
-  }
+
 
 
 
@@ -88,7 +81,7 @@ function Favorites () {
                 <IconButton aria-label="Toggle Favorite" onClick={() => unSetFavorite(localStorage.userName, product.id)}>
                   <Favorite fontSize="large"/> 
                 </IconButton>
-                <IconButton aria-label="Add to cart">
+                <IconButton aria-label="Add to cart" onClick={() => addToCart(localStorage.userName, product.id)}>
                   <AddShoppingCart fontSize="large" />
                 </IconButton>
               

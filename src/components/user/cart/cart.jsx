@@ -37,23 +37,8 @@ function Cart () {
 
   React.useEffect(() => {
     // console.log(userStatus, localStorage.userName)
-    if (userStatus) dispatch(getCart(localStorage.userName))
+    dispatch(getCart(localStorage.userName))
   },[])
-
- 
-  const updateCart = async (userName, id, amount) => {
-    // console.log(userName, id, amount)
-    // console.log(userStatus)
-    if (!userStatus) return dispatch(updateCart([...cart, { id, amount }]))
-    try {
-      await axios.put("https://backpf-production.up.railway.app/cart/modify",
-      {data: { userName: userName, productId: id, amount: amount } }
-      )
-      dispatch(getCart(localStorage.userName))
-    } catch (err) {
-      console.log({error: err.message})
-    }
-  }
 
   const handleExpandClick = () => {
     setExpanded(!expanded);

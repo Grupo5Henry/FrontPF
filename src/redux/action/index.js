@@ -193,15 +193,36 @@ export function getCategories () {
 };
 
 
-export const updateCart = (cart) => {
+export const clearCart = () => {
   return async (dispatch) => {
     dispatch({
     type: UPDATE_CART,
-    payload: cart
+    payload: []
   })}
 }
 
 export const getCart = (userName) => {
+
+
+  if (!userName) {
+    return async (dispatch) => {
+      let cart = []
+      for (const [id, amount] of Object.entries(JSON.parse(localStorage.cart))) {
+        try {
+          const detail = await axios.get(`https://backpf-production.up.railway.app/product/ID/${id}`)
+          const product = { amount, product: detail.data}
+          cart.push(product)
+        } catch (err) {
+          console.log({error: err.message})
+        }
+      }
+      dispatch({
+        type: UPDATE_CART,
+        payload: cart
+      })
+    }
+  }
+
   return async (dispatch) => {
     try {
       const cart = await axios.get(
