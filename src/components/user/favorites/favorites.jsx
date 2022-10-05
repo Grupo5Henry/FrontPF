@@ -9,10 +9,10 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { AddShoppingCart, Favorite } from "@mui/icons-material";
 import accounting from "accounting";
 import { useDispatch, useSelector } from "react-redux";
-import { getFavorites } from "../../../redux/action";
+import { getCart, getFavorites } from "../../../redux/action";
 import axios from "axios";
 import { unSetFavorite } from "../../../Controllers/Favorite";
-import { addToCart } from "../../../Controllers/Cart";
+import { addToCart, inCart, updateCart, updateOfflineCart } from "../../../Controllers/Cart";
 
 
 
@@ -31,10 +31,13 @@ function Favorites () {
   const [expanded, setExpanded] = React.useState(false);
   const favorites = useSelector(state => state.favorites)
   const dispatch = useDispatch()
+  const userState = useSelector(state => state.loggedIn)
+  const cart = useSelector(state => state.cart)
 
 
   React.useEffect(() => {
     dispatch(getFavorites(localStorage.userName))
+    dispatch(getCart(localStorage.userName))
   },[])
 
  
@@ -81,8 +84,24 @@ function Favorites () {
                 <IconButton aria-label="Toggle Favorite" onClick={() => unSetFavorite(localStorage.userName, product.id)}>
                   <Favorite sx={{ color: "red"}} fontSize="large"/> 
                 </IconButton>
-                <IconButton aria-label="Add to cart" onClick={() => addToCart(localStorage.userName, product.id)}>
-                  <AddShoppingCart fontSize="large" />
+                <IconButton aria-label="Add to cart" 
+                onClick={() =>{ 
+                  if (!inCart(product.id)) {
+                    if (userState) {
+                    addToCart(localStorage.userName, product.id)
+                    return
+                  }
+                  updateOfflineCart(product.id, 1)
+                  return
+                } if (userState) {
+                  updateCart(localStorage.userName, product.id, 0)
+                  return
+                }
+                updateOfflineCart(product.id, 0)
+                }}>
+                  <AddShoppingCart 
+                  sx={inCart(product.id) ? {color: "green"} : {color: "red"}}
+                  fontSize="large" />
                 </IconButton>
               
                 <ExpandMore

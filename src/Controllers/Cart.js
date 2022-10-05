@@ -33,8 +33,9 @@ export const updateCart = async (userName, id, amount) => {
 export const updateOfflineCart = async (id, amount) => {
     // console.log("cart")
     let cart = JSON.parse(localStorage.getItem("cart"))
-    cart = JSON.stringify({...cart, [id]: amount})
+    cart = {...cart, [id]: amount}  
     if (amount == 0) delete cart[id];
+    cart = JSON.stringify(cart)
     localStorage.setItem("cart", cart)
     store.dispatch(getCart())
 }
