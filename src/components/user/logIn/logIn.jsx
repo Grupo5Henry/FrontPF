@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { userState } from '../../../redux/action';
 import AuthService from "../../../services/auth.service";
 import './logIn.css';
-
+import { BACK_URL } from '../../../constantes';
 
 const LogIn = () => {
 const dispatch = useDispatch();
@@ -15,6 +15,11 @@ const [userName, setUserName] = useState("");
 const [password, setPassword] = useState("");
 
 const navigate = useNavigate();
+
+const handleGoogleLogin = () =>{
+    window.open(`${BACK_URL}/auth/google`, "_self");
+  }
+
 
 const handleLogin = async (e) => {
     if(userName && password){ 
@@ -59,7 +64,11 @@ const handleLogin = async (e) => {
                             <input onClick={handleLogin} type="button" value="Ingresar" />
                         </div>
                         <Link className='signin_box' to={'/home/sign-in'}>Crear una cuenta</Link>
-
+                    </div>
+                    <div className='boton'>
+                        <div className="inputbox">
+                            <input onClick={handleGoogleLogin} type="button" value="Google" />
+                        </div>
                     </div>
                 </form>
             </div>
