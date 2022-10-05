@@ -1,4 +1,5 @@
 import { Icon } from '@iconify/react';
+import toast, { Toaster } from 'react-hot-toast';
 import React, { useState } from "react";
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from "react-router-dom";
@@ -38,6 +39,7 @@ const SignIn = () => {
           // check for token and user already exists with 200
           //   console.log("Sign up successfully", response);
           navigate("/home");
+          /* window.location.reload(); */
           dispatch(userState(true));
           localStorage.setItem("userName", input.userName);
 
@@ -49,12 +51,19 @@ const SignIn = () => {
     } catch (err) {
       
     }
-  } else alert ( 'Por favor, completa todos los campos del formulario');
+  } else toast( 'Por favor, completa todos los campos del formulario');
   };
 
 
     return (
         <div className="login_body">
+          <Toaster position="top-center" toastOptions={{
+              duration: 3000,
+              style: {
+                background: '#363636',
+                color: '#fff',
+              },
+            }}/>
             <div className="center">
                 <Link to={'/'} className='link_box'>
                     <button className="tooltip button_box">
@@ -99,4 +108,5 @@ const SignIn = () => {
 }
 
 export default SignIn;
+
 
