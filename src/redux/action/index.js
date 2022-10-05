@@ -1,5 +1,8 @@
 import axios from "axios";
+
+import { useSelector } from "react-redux";
 import { BACK_URL } from "../../constantes";
+
 
 
 // export const MULTI_ACTION = "MULTI_ACTION";
@@ -14,8 +17,8 @@ export const GET_PRODUCTS_FILTERED = "GET_PRODUCTS_FILTERED";
 export const FETCH_FAVORITES = "FETCH_FAVORITES";
 
 
-
-
+export const UPDATE_CART = "UPDATE_CART";
+export const GET_CART = "GET_CART";
 
 export const RESET_FILTER = "RESET_FILTER";
 export const UPDATE_FILTER = "UPDATE_FILTER";
@@ -190,5 +193,52 @@ export function getCategories () {
         })
     }
 };
+
+
+export const clearCart = () => {
+  return async (dispatch) => {
+    dispatch({
+    type: UPDATE_CART,
+    payload: []
+  })}
+}
+
+export const getCart = (userName) => {
+
+
+  if (!userName) {
+    return async (dispatch) => {
+      let cart = []
+      for (const [id, amount] of Object.entries(JSON.parse(localStorage.cart))) {
+        try {
+          const detail = await axios.get(`${BACK_URL}/product/ID/${id}`)
+          const product = { amount, product: detail.data}
+          cart.push(product)
+        } catch (err) {
+          console.log({error: err.message})
+        }
+      }
+      dispatch({
+        type: UPDATE_CART,
+        payload: cart
+      })
+    }
+  }
+
+  return async (dispatch) => {
+    try {
+      const cart = await axios.get(
+        `${BACK_URL}/cart`,
+        {params: { userName }}
+      )
+      dispatch({
+        type: UPDATE_CART,
+        payload: cart.data
+      })
+    } catch (err) {
+      console.log({error: err.message})
+    }
+  }
+}
 
 

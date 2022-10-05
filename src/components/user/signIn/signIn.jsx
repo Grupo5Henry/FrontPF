@@ -3,6 +3,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import React, { useState } from "react";
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from "react-router-dom";
+import { offlineToOnlineCart } from '../../../Controllers/Cart';
 import { userState } from '../../../redux/action';
 import AuthService from "../../../services/auth.service";
 import './signIn.css';
@@ -42,6 +43,7 @@ const SignIn = () => {
           /* window.location.reload(); */
           dispatch(userState(true));
           localStorage.setItem("userName", input.userName);
+          offlineToOnlineCart(input.userName);
 
         },
         (error) => {

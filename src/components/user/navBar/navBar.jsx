@@ -5,7 +5,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from "react";
 import { useDispatch, userDispatch, useSelector } from "react-redux";
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
-import { getFavorites, userState } from "../../../redux/action";
+import { getFavorites, clearCart, userState } from "../../../redux/action";
 import authHeader from "../../../services/auth-header";
 import AuthService from "../../../services/auth.service";
 import { BACK_URL } from '../../../constantes';
@@ -77,9 +77,8 @@ const NavBar = () => {
   const handleLogOut = () => {
     AuthService.logout();
     dispatch(userState(false));
-    
+    dispatch(clearCart())
     window.open(`${BACK_URL}/auth/logout`, "_self");
-    
   };
 
 

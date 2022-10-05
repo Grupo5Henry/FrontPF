@@ -1,7 +1,11 @@
+import { AddShoppingCart, Favorite, FavoriteBorder } from "@mui/icons-material";
+import { IconButton } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { detailProduct } from "../../../redux/action";
+import { addToCart, inCart, updateCart, updateOfflineCart } from "../../../Controllers/Cart";
+import { isFavorite, setFavorite, unSetFavorite } from "../../../Controllers/Favorite";
+import { detailProduct, getFavorites } from "../../../redux/action";
 import Comment from "../comment/comment";
 
 // Detalle del Producto
@@ -11,8 +15,13 @@ const Details = () => {
   const details = useSelector(state => state.detail);
   const dispatch = useDispatch();
   const {id} = useParams();
+  const favorites = useSelector(state => state.favorites)
+  const userState = useSelector(state => state.loggedIn)
+  const cart = useSelector(state => state.cart)
+
 
   useEffect(()=>{
+    dispatch(getFavorites(localStorage.userName))
     dispatch(detailProduct(id))
   },[dispatch, id])
 
@@ -48,14 +57,22 @@ const Details = () => {
 
                     {details.name}
                   </h1>
-                  <button className='font-bold uppercase text-2xl mb-5'>
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-pink-500" viewBox="0 0 20 20"
-                      fill="currentColor">
-                      <path fillRule="evenodd"
-                        d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-                        clipRule="evenodd" />
-                    </svg>
-                  </button>
+                      <IconButton aria-label="Add to cart" onClick={() => {
+                    if (isFavorite(id)) return unSetFavorite(localStorage.userName, id)
+                    setFavorite(localStorage.userName, id)
+                  }
+                  }>
+                    {favorites == "Missing Username" ? null : (isFavorite(id) 
+
+                    ? <Favorite sx={{ color: "red"}} fontSize="large" 
+                    // onClick={() => unSetFavorite(localStorage.userName, product.id)}
+                    /> 
+
+                    : <FavoriteBorder fontSize="large"
+                    />) }
+                      
+                    </IconButton>
+
                 </div>
 
                 <p className="text-sm">
@@ -107,9 +124,26 @@ const Details = () => {
                   </button>
                 </div>
                 <div className="inline-block align-bottom">
-                  <button className="bg-white-300 opacity-75 hover:opacity-100 text-gray-400 hover:text-gray-600 rounded-full px-10 py-2 font-semibold">
-                    Carry to Cart
-                  </button>
+                <IconButton aria-label="Add to cart" 
+                onClick={() =>{ 
+                  if (!inCart(id)) {
+                    if (userState) {
+                    addToCart(localStorage.userName, id)
+                    return
+                  }
+                  updateOfflineCart(id, 1)
+                  return
+                } if (userState) {
+                  updateCart(localStorage.userName, id, 0)
+                  return
+                }
+                updateOfflineCart(id, 0)
+                }}>
+                  <AddShoppingCart
+                  sx={inCart(id) ? {color: "green"} : {color: "red"}}
+                  fontSize="large" />
+                </IconButton>
+
                 </div>
               </div>
             </div>

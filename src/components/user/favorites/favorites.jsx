@@ -9,9 +9,12 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { AddShoppingCart, Favorite } from "@mui/icons-material";
 import accounting from "accounting";
 import { useDispatch, useSelector } from "react-redux";
-import { getFavorites } from "../../../redux/action";
+import { getCart, getFavorites } from "../../../redux/action";
 import axios from "axios";
+import { unSetFavorite } from "../../../Controllers/Favorite";
+import { addToCart, inCart, updateCart, updateOfflineCart } from "../../../Controllers/Cart";
 import { BACK_URL } from "../../../constantes";
+
 
 
 
@@ -26,27 +29,20 @@ const ExpandMore = styled((props) => {
     duration: theme.transitions.duration.shortest,
   }),
 }));
-function Products() {
+function Favorites () {
   const [expanded, setExpanded] = React.useState(false);
   const favorites = useSelector(state => state.favorites)
   const dispatch = useDispatch()
+  const userState = useSelector(state => state.loggedIn)
+  const cart = useSelector(state => state.cart)
 
 
   React.useEffect(() => {
     dispatch(getFavorites(localStorage.userName))
+    dispatch(getCart(localStorage.userName))
   },[])
 
- 
-  const unSetFavorite = async (userName, id) => {
-    try {
-      await axios.delete(`${BACK_URL}/favorite/delete`,
-      {data: { userName: userName, productId: id } }
-      )
-      dispatch(getFavorites(localStorage.userName))
-    } catch (err) {
-      console.log({error: err.message})
-    }
-  }
+
 
 
 
@@ -87,10 +83,26 @@ function Products() {
             <div className="flex flex-col bottom-8 left-8 space-y-4 absolute opacity-0 group-hover:opacity-100 transition duration-500">
               <CardActions disableSpacing>
                 <IconButton aria-label="Toggle Favorite" onClick={() => unSetFavorite(localStorage.userName, product.id)}>
-                  <Favorite fontSize="large"/> 
+                  <Favorite sx={{ color: "red"}} fontSize="large"/> 
                 </IconButton>
-                <IconButton aria-label="Add to cart">
-                  <AddShoppingCart fontSize="large" />
+                <IconButton aria-label="Add to cart" 
+                onClick={() =>{ 
+                  if (!inCart(product.id)) {
+                    if (userState) {
+                    addToCart(localStorage.userName, product.id)
+                    return
+                  }
+                  updateOfflineCart(product.id, 1)
+                  return
+                } if (userState) {
+                  updateCart(localStorage.userName, product.id, 0)
+                  return
+                }
+                updateOfflineCart(product.id, 0)
+                }}>
+                  <AddShoppingCart 
+                  sx={inCart(product.id) ? {color: "green"} : {color: "red"}}
+                  fontSize="large" />
                 </IconButton>
               
                 <ExpandMore
@@ -117,4 +129,4 @@ function Products() {
   );
 }
 
-export default Products;
+export default Favorites;

@@ -9,10 +9,13 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { AddShoppingCart, Favorite, FavoriteBorder } from "@mui/icons-material";
 import accounting from "accounting";
 import { useDispatch, useSelector } from "react-redux";
-import { getFavorites } from "../../../redux/action";
+import { getCart, getFavorites, userState } from "../../../redux/action";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { isFavorite, setFavorite, unSetFavorite } from "../../../Controllers/Favorite";
+import { addToCart, updateCart, inCart, updateOfflineCart } from "../../../Controllers/Cart";
 import { BACK_URL } from "../../../constantes";
+
 
 
 
@@ -30,46 +33,24 @@ function Products() {
   const [expanded, setExpanded] = React.useState(false);
   const products = useSelector(state => state.products)
   const favorites = useSelector(state => state.favorites)
+  const userState = useSelector(state => state.loggedIn)
+  const cart = useSelector(state => state.cart)
   const dispatch = useDispatch()
 
 
   React.useEffect(() => {
     dispatch(getFavorites(localStorage.userName))
+    dispatch(getCart(localStorage.userName))
   },[])
 
 
-  const setFavorite = async (userName, id) => {
-    try {
-      await axios.post(`${BACK_URL}/favorite/add`,
-      { userName: userName, productId: id}
-      )
-      dispatch(getFavorites(localStorage.userName))
-    } catch (err) {
-      console.log({error: err.message})
-    }
-  }
-
-  const unSetFavorite = async (userName, id) => {
-    try {
-      await axios.delete(`${BACK_URL}/favorite/delete`,
-      {data: { userName: userName, productId: id } }
-      )
-      dispatch(getFavorites(localStorage.userName))
-    } catch (err) {
-      console.log({error: err.message})
-    }
-  }
-
-  const isFavorite = (id) => {
-    if (favorites === "Missing Username") return false
-    if (favorites.some(favorite => favorite.productId === id)) return true;
-    return false
-  }
 
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+
   return (
     <div>
       <div className="mt-10 grid lg:grid-cols-2 gap-x-8 gap-y-8 items-center px-40 py-10">
@@ -110,7 +91,7 @@ function Products() {
               }>
                 {favorites != "Missing Username" ? (isFavorite(product.id) 
 
-                ? <Favorite fontSize="large" 
+                ? <Favorite sx={{ color: "red"}} fontSize="large" 
                 // onClick={() => unSetFavorite(localStorage.userName, product.id)}
                 /> 
 
@@ -118,10 +99,25 @@ function Products() {
                 />) : null}
                   
                 </IconButton>
-                <IconButton aria-label="Add to cart">
-                  <AddShoppingCart fontSize="large" />
+                <IconButton aria-label="Add to cart" 
+                onClick={() =>{ 
+                  if (!inCart(product.id)) {
+                    if (userState) {
+                    addToCart(localStorage.userName, product.id)
+                    return
+                  }
+                  updateOfflineCart(product.id, 1)
+                  return
+                } if (userState) {
+                  updateCart(localStorage.userName, product.id, 0)
+                  return
+                }
+                updateOfflineCart(product.id, 0)
+                }}>
+                  <AddShoppingCart 
+                  sx={inCart(product.id) ? {color: "green"} : {color: "red"}}
+                  fontSize="large" />
                 </IconButton>
-              
                 <ExpandMore
                   expand={expanded}
                   onClick={handleExpandClick}

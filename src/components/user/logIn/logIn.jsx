@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import toast, { Toaster } from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from "react-router-dom";
+import { offlineToOnlineCart } from '../../../Controllers/Cart';
 import { userState } from '../../../redux/action';
 import AuthService from "../../../services/auth.service";
 import './logIn.css';
@@ -31,6 +32,7 @@ const handleLogin = async (e) => {
             navigate("/home");
             dispatch(userState(true))
             localStorage.setItem("userName", userName);
+            offlineToOnlineCart(userName);
             },
             (error) => {
             toast('Usuario o contraseña incorrectos');
