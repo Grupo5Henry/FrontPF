@@ -40,7 +40,6 @@ const SignIn = () => {
           //   console.log("Sign up successfully", response);
           navigate("/home");
           /* window.location.reload(); */
-
           dispatch(userState(true));
           localStorage.setItem("userName", input.userName);
 

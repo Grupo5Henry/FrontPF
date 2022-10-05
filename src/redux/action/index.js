@@ -1,4 +1,5 @@
 import axios from "axios";
+import { BACK_URL } from "../../constantes";
 
 
 // export const MULTI_ACTION = "MULTI_ACTION";
@@ -27,7 +28,6 @@ export const CLEAR_CATEGORIES = "CLEAR_CATEGORIES";
 export const FETCH_BRANDS_MODELS = "FETCH_BRANDS_MODELS";
 
 
-
 // export const multiAction = (actions) => ({
 //   type: MULTI_ACTION,
 //   payload: { actions }
@@ -40,7 +40,7 @@ export const getProductsName = () => {
   return async (dispatch) => {
     try {
       const products = await axios.get(
-        "https://backpf-production.up.railway.app/product/all"
+        `${BACK_URL}/product/all`
       );
       dispatch({
 
@@ -62,7 +62,7 @@ export const getProductsFiltered = (filter) => {
     // console.log(filter, "Actions")
     // console.log(category, brand, model, search, minPrice, maxPrice, order, amount, page, "Actions")
     const products = await axios.get(
-      `https://backpf-production.up.railway.app/product/filterBy`,
+      `${BACK_URL}/product/filterBy`,
       {params: { category, brand, model, search, minPrice, maxPrice, order, amount, page }}
       );
     dispatch({
@@ -108,7 +108,7 @@ export const detailProduct = (id) => {
     return async (dispatch) => {
       try {
         const product = await axios.get(
-          `https://backpf-production.up.railway.app/product/ID/${id}`
+          `${BACK_URL}/product/ID/${id}`
         );
         dispatch({
           type: DETAIL_PRODUCT,
@@ -148,7 +148,7 @@ export function clearCategories() {
 
 export const getBrandAndModels = () => {
   return async (dispatch) => {
-    const brandAndModels = await axios.get("https://backpf-production.up.railway.app/product/allBrandAndModel");
+    const brandAndModels = await axios.get(`${BACK_URL}/product/allBrandAndModel`);
     dispatch({
       type: FETCH_BRANDS_MODELS,
       payload: brandAndModels.data
@@ -164,7 +164,7 @@ export const getFavorites = (userName) => {
   return async (dispatch) => {
     try {
       const favorites = await axios.get(
-        "https://backpf-production.up.railway.app/favorite",
+        BACK_URL + "/favorite",
         {params: { userName }}
       )
       dispatch({
@@ -180,7 +180,7 @@ export const getFavorites = (userName) => {
 
 export function getCategories () {
     return async function (dispatch) {
-        fetch("https://backpf-production.up.railway.app/category")
+        fetch(BACK_URL + "/category")
         .then(response => response.json())
         .then((categories) => {
             dispatch({

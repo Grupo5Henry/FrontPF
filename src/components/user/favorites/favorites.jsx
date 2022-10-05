@@ -11,6 +11,7 @@ import accounting from "accounting";
 import { useDispatch, useSelector } from "react-redux";
 import { getFavorites } from "../../../redux/action";
 import axios from "axios";
+import { BACK_URL } from "../../../constantes";
 
 
 
@@ -38,7 +39,7 @@ function Products() {
  
   const unSetFavorite = async (userName, id) => {
     try {
-      await axios.delete("https://backpf-production.up.railway.app/favorite/delete",
+      await axios.delete(`${BACK_URL}/favorite/delete`,
       {data: { userName: userName, productId: id } }
       )
       dispatch(getFavorites(localStorage.userName))

@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getFavorites } from "../../../redux/action";
 import axios from "axios";
 import { Link } from "react-router-dom";
-
+import { BACK_URL } from "../../../constantes";
 
 
 
@@ -40,7 +40,7 @@ function Products() {
 
   const setFavorite = async (userName, id) => {
     try {
-      await axios.post("https://backpf-production.up.railway.app/favorite/add",
+      await axios.post(`${BACK_URL}/favorite/add`,
       { userName: userName, productId: id}
       )
       dispatch(getFavorites(localStorage.userName))
@@ -51,7 +51,7 @@ function Products() {
 
   const unSetFavorite = async (userName, id) => {
     try {
-      await axios.delete("https://backpf-production.up.railway.app/favorite/delete",
+      await axios.delete(`${BACK_URL}/favorite/delete`,
       {data: { userName: userName, productId: id } }
       )
       dispatch(getFavorites(localStorage.userName))
