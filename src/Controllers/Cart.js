@@ -19,8 +19,9 @@ export const addToCart = async (userName, id) => {
 
 export const updateCart = async (userName, id, amount) => {
     try {
-      await axios.put("https://backpf-production.up.railway.app/cart/modify",
-      {data: { userName: userName, productId: id, amount: amount } }
+        console.log()
+      const datos = await axios.put("https://backpf-production.up.railway.app/cart/modify",
+      { userName: userName, productId: id, amount: amount } 
       )
       store.dispatch(getCart(localStorage.userName))
     } catch (err) {
@@ -33,7 +34,9 @@ export const updateOfflineCart = async (id, amount) => {
     // console.log("cart")
     let cart = JSON.parse(localStorage.getItem("cart"))
     cart = JSON.stringify({...cart, [id]: amount})
+    if (amount == 0) delete cart[id];
     localStorage.setItem("cart", cart)
+    store.dispatch(getCart())
 }
 
 export const offlineToOnlineCart = async (userName) => {
@@ -46,4 +49,10 @@ export const offlineToOnlineCart = async (userName) => {
         }
     }
     localStorage.removeItem("cart")
+}
+
+export const inCart = ( id ) => {
+    const cart = store.getState().cart
+    if (cart.some(favorite => favorite.product.id === id)) return true;
+    return false
 }

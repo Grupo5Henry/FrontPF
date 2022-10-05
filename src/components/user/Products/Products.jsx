@@ -9,11 +9,11 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { AddShoppingCart, Favorite, FavoriteBorder } from "@mui/icons-material";
 import accounting from "accounting";
 import { useDispatch, useSelector } from "react-redux";
-import { getCart, getFavorites, updateCart, userState } from "../../../redux/action";
+import { getCart, getFavorites, userState } from "../../../redux/action";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { isFavorite, setFavorite, unSetFavorite } from "../../../Controllers/Favorite";
-import { addToCart, updateOfflineCart } from "../../../Controllers/Cart";
+import { addToCart, updateCart, inCart, updateOfflineCart } from "../../../Controllers/Cart";
 
 
 
@@ -39,17 +39,16 @@ function Products() {
 
   React.useEffect(() => {
     dispatch(getFavorites(localStorage.userName))
+    dispatch(getCart(localStorage.userName))
   },[])
-
-
-  
-
 
 
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+
   return (
     <div>
       <div className="mt-10 grid lg:grid-cols-2 gap-x-8 gap-y-8 items-center px-40 py-10">
@@ -90,7 +89,7 @@ function Products() {
               }>
                 {favorites != "Missing Username" ? (isFavorite(product.id) 
 
-                ? <Favorite fontSize="large" 
+                ? <Favorite sx={{ color: "red"}} fontSize="large" 
                 // onClick={() => unSetFavorite(localStorage.userName, product.id)}
                 /> 
 
@@ -100,16 +99,23 @@ function Products() {
                 </IconButton>
                 <IconButton aria-label="Add to cart" 
                 onClick={() =>{ 
-                  if (userState) {
+                  if (!inCart(product.id)) {
+                    if (userState) {
                     addToCart(localStorage.userName, product.id)
                     return
                   }
                   updateOfflineCart(product.id, 1)
+                  return
+                } if (userState) {
+                  updateCart(localStorage.userName, product.id, 0)
+                  return
                 }
-                }>
-                  <AddShoppingCart fontSize="large" />
+                updateOfflineCart(product.id, 0)
+                }}>
+                  <AddShoppingCart 
+                  sx={inCart(product.id) ? {color: "green"} : {color: "red"}}
+                  fontSize="large" />
                 </IconButton>
-              
                 <ExpandMore
                   expand={expanded}
                   onClick={handleExpandClick}

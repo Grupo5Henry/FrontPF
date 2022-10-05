@@ -79,7 +79,7 @@ function Favorites () {
             <div className="flex flex-col bottom-8 left-8 space-y-4 absolute opacity-0 group-hover:opacity-100 transition duration-500">
               <CardActions disableSpacing>
                 <IconButton aria-label="Toggle Favorite" onClick={() => unSetFavorite(localStorage.userName, product.id)}>
-                  <Favorite fontSize="large"/> 
+                  <Favorite sx={{ color: "red"}} fontSize="large"/> 
                 </IconButton>
                 <IconButton aria-label="Add to cart" onClick={() => addToCart(localStorage.userName, product.id)}>
                   <AddShoppingCart fontSize="large" />
