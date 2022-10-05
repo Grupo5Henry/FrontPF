@@ -13,6 +13,8 @@ import { getCart, getFavorites } from "../../../redux/action";
 import axios from "axios";
 import { unSetFavorite } from "../../../Controllers/Favorite";
 import { addToCart, inCart, updateCart, updateOfflineCart } from "../../../Controllers/Cart";
+import { BACK_URL } from "../../../constantes";
+
 
 
 
@@ -40,7 +42,6 @@ function Favorites () {
     dispatch(getCart(localStorage.userName))
   },[])
 
- 
 
 
 
