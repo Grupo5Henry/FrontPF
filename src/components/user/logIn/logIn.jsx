@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react';
 import { AlternateEmail } from "@mui/icons-material";
 import React, { useState } from "react";
-//import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from "react-router-dom";
 import { userState } from '../../../redux/action';
