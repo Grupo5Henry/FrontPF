@@ -14,6 +14,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { isFavorite, setFavorite, unSetFavorite } from "../../../Controllers/Favorite";
 import { addToCart, updateCart, inCart, updateOfflineCart } from "../../../Controllers/Cart";
+import { BACK_URL } from "../../../constantes";
 
 
 
@@ -41,6 +42,7 @@ function Products() {
     dispatch(getFavorites(localStorage.userName))
     dispatch(getCart(localStorage.userName))
   },[])
+
 
 
 

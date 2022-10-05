@@ -1,13 +1,13 @@
 import axios from "axios";
 /* const { API_URL } = process.env */
-const API_URL="https://backpf-production.up.railway.app/user";
-/* const API_URL="http://localhost:3001/user"; */
-console.log(API_URL)
+/* const API_URL="https://backpf-production.up.railway.app/user"; */
+import { BACK_URL } from "../constantes";
+
 
 //const API_URL = "/auth";
 
 const signup = /* async */ (userName, password,role,email,defaultShippingAddress,billingAddress) => {
-  return axios.post(API_URL + '/signup', {
+  return axios.post(`${BACK_URL}/user/signup`, {
     role,
     userName,
     email,
@@ -26,7 +26,7 @@ const signup = /* async */ (userName, password,role,email,defaultShippingAddress
 
 const login = (userName, password) => {
   
-  return axios.post(API_URL + '/login', {
+  return axios.post(`${BACK_URL}/user/login`, {
       userName,
       password,
     })
@@ -34,7 +34,7 @@ const login = (userName, password) => {
       if (response.data.accessToken) {
         localStorage.setItem("user", JSON.stringify(response.data));
       }
-      console.log('auth.service signin: ', response.data);
+      //console.log('auth.service signin: ', response.data);
       return response.data;
     });
 

@@ -8,7 +8,7 @@ import { Link, Route, Routes, useNavigate } from "react-router-dom";
 import { getFavorites, clearCart, userState } from "../../../redux/action";
 import authHeader from "../../../services/auth-header";
 import AuthService from "../../../services/auth.service";
-
+import { BACK_URL } from '../../../constantes';
 
 
 
@@ -21,26 +21,64 @@ import "./navBar.css";
 
 const NavBar = () => {
   const navigate = useNavigate(); 
+  const [usuario, setUsuario] = useState({
+    signedIn:false,
+    userId:'',
+    fullName:'',
+    picture:""
+  }); //google
   const userStatus = useSelector((state)=> state.loggedIn)
   const favorites = useSelector(state => state.favorites)
   const dispatch = useDispatch();
-
+ 
   useEffect( () => {
       const tokenCheck =async ()=>{
-      const tokenStatus  =  await axios.get ('https://backpf-production.up.railway.app/token/tokenCheck', { headers: authHeader() });
-     /*  const tokenStatus  =  await axios.get ('http://localhost:3001/token/tokenCheck', { headers: authHeader() }); */
-      console.log('log de tokenStatus',tokenStatus.data);
+      const tokenStatus  =  await axios.get (`${BACK_URL}/token/tokenCheck`, { headers: authHeader() });
+      //console.log('log de tokenStatus',tokenStatus.data);
       dispatch(userState(tokenStatus.data))
       }
       tokenCheck();
-      
+  
+  //google login
+  const getUser = () => {
+    fetch(`${BACK_URL}/auth/login/success`, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Credentials": true,
+      },
+    })
+      .then((response) => {
+        if (response.status === 200) return response.json();
+        throw new Error("authentication has been failed!");
+      })
+      .then((resObject) => {
+       localStorage.setItem("userName", "google:" + resObject.user.id);
+       setUsuario({
+        ...usuario,
+        signedIn:true,
+        userId: resObject.user.id,
+        fullName: resObject.user.displayName
+       })
+     
+       
+      })
+      .catch((err) => {
+       // console.log(err);
+      });
+  };
+  getUser();    
       
   }, [userStatus,dispatch]);
 
+  
   const handleLogOut = () => {
     AuthService.logout();
     dispatch(userState(false));
     dispatch(clearCart())
+    window.open(`${BACK_URL}/auth/logout`, "_self");
   };
 
 
@@ -127,15 +165,15 @@ const NavBar = () => {
 
              
             <li className="nav-item p-2">
-              { userStatus ? <Link to={'/createProduct'} className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0" href="#!">Crear Producto</Link> : null}                
+              { usuario.signedIn || userStatus ? <Link to={'/createProduct'} className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0" href="#!">Crear Producto</Link> : null}                
               </li>
 
               <li className="nav-item p-2">
-              { userStatus ? <Link to={'/modifyProduct'} className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0" href="#!">Modificar Producto</Link> : null}                
+              { usuario.signedIn || userStatus ? <Link to={'/modifyProduct'} className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0" href="#!">Modificar Producto</Link> : null}                
               </li>
 
               <li className="nav-item p-2">
-              { userStatus ? (
+              { usuario.signedIn || userStatus? (
                 <button onClick={()=>handleLogOut()} className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"  >
                 Cerrar sesión
               </button>
@@ -155,7 +193,7 @@ const NavBar = () => {
               </svg>
             </Link>
             {
-             userStatus && (<div className="flex items-center relative mr-5">
+             (usuario.signedIn || userStatus ) && (<div className="flex items-center relative mr-5">
               <Link to={'/favorites'} className="hover:text-gray-200">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
@@ -163,7 +201,8 @@ const NavBar = () => {
               </Link>
             </div>)
             }
-              {userStatus && 
+ 
+              {(usuario.signedIn || userStatus) && 
             <div className="dropdown relative mr-5">
               <a
               className="dropdown-toggle flex items-center hidden-arrow"
@@ -174,7 +213,7 @@ const NavBar = () => {
               aria-expanded="false"
               >
                 <img
-                  src="https://mdbootstrap.com/img/new/avatars/2.jpg"
+                  src= "https://mdbootstrap.com/img/new/avatars/2.jpg"
                   className="rounded-full h-8 w-8"
                   alt=""
                   loading="lazy"
