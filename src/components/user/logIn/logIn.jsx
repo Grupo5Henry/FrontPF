@@ -1,6 +1,7 @@
 import { Icon } from '@iconify/react';
 import { AlternateEmail } from "@mui/icons-material";
 import React, { useState } from "react";
+//import toast, { Toaster } from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from "react-router-dom";
 import { userState } from '../../../redux/action';
@@ -27,7 +28,7 @@ const handleLogin = async (e) => {
             localStorage.setItem("userName", userName);
             },
             (error) => {
-            alert('Usuario o contraseña incorrectos');
+            toast('Usuario o contraseña incorrectos');
             }
         );
         } catch (err) {
@@ -37,6 +38,13 @@ const handleLogin = async (e) => {
 };
     return (
         <div className="login_body">
+            <Toaster position="top-center" toastOptions={{
+              duration: 3000,
+              style: {
+                background: '#363636',
+                color: '#fff',
+              },
+            }}/>
             <div className="center">
                 <Link to={'/'} className='link_box'>
                     <button className="tooltip button_box">
