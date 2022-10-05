@@ -211,7 +211,7 @@ export const getCart = (userName) => {
       let cart = []
       for (const [id, amount] of Object.entries(JSON.parse(localStorage.cart))) {
         try {
-          const detail = await axios.get(`https://backpf-production.up.railway.app/product/ID/${id}`)
+          const detail = await axios.get(`${BACK_URL}/product/ID/${id}`)
           const product = { amount, product: detail.data}
           cart.push(product)
         } catch (err) {
@@ -228,7 +228,7 @@ export const getCart = (userName) => {
   return async (dispatch) => {
     try {
       const cart = await axios.get(
-        "https://backpf-production.up.railway.app/cart",
+        `${BACK_URL}/cart`,
         {params: { userName }}
       )
       dispatch({

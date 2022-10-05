@@ -1,4 +1,5 @@
 import axios from "axios"
+import { BACK_URL } from "../constantes"
 import { getFavorites } from "../redux/action"
 import store from "../redux/store/index"
 
@@ -6,7 +7,7 @@ import store from "../redux/store/index"
 
 export const setFavorite = async (userName, id) => {
     try {
-      await axios.post("https://backpf-production.up.railway.app/favorite/add",
+      await axios.post(`${BACK_URL}/favorite/add`,
       { userName: userName, productId: id}
       )
       store.dispatch(getFavorites(localStorage.userName))
@@ -18,7 +19,7 @@ export const setFavorite = async (userName, id) => {
 
 export const unSetFavorite = async (userName, id) => {
   try {
-    await axios.delete("https://backpf-production.up.railway.app/favorite/delete",
+    await axios.delete(`${BACK_URL}/favorite/delete`,
     {data: { userName: userName, productId: id } }
     )
     store.dispatch(getFavorites(localStorage.userName))

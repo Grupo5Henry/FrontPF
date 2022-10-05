@@ -1,4 +1,5 @@
 import axios from "axios"
+import { BACK_URL } from "../constantes"
 import { getCart } from "../redux/action"
 import store from "../redux/store/index"
 
@@ -7,7 +8,7 @@ import store from "../redux/store/index"
 
 export const addToCart = async (userName, id) => {
     try {
-      await axios.post("https://backpf-production.up.railway.app/cart/add",
+      await axios.post(`${BACK_URL}/cart/add`,
       { userName: userName, productId: id, amount: 1}
       )
       store.dispatch(getCart(localStorage.userName))
@@ -20,7 +21,7 @@ export const addToCart = async (userName, id) => {
 export const updateCart = async (userName, id, amount) => {
     try {
         console.log()
-      const datos = await axios.put("https://backpf-production.up.railway.app/cart/modify",
+      const datos = await axios.put(`${BACK_URL}/cart/modify`,
       { userName: userName, productId: id, amount: amount } 
       )
       store.dispatch(getCart(localStorage.userName))
@@ -43,7 +44,7 @@ export const updateOfflineCart = async (id, amount) => {
 export const offlineToOnlineCart = async (userName) => {
     for (const [id, amount] of Object.entries(JSON.parse(localStorage.cart))) {
         try {
-            await axios.post("https://backpf-production.up.railway.app/cart/add",
+            await axios.post(`${BACK_URL}/cart/add`,
             { userName: userName, productId: id, amount: amount})
         } catch (err) {
             console.log({error: err.message})
