@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import swal from "sweetalert";
 import { clearCategories, getCategories } from "../../../redux/action";
 import "../ModifyProduct/ModifyProduct.css";
+import { BACK_URL } from "../../../constantes";
 
 
 export default function ModifyProduct () {
@@ -167,7 +168,7 @@ export default function ModifyProduct () {
     
             await axios.post("https://api.cloudinary.com/v1_1/dzr5xulsx/image/upload", formData)
             .then((response) => 
-                    axios.put("https://backpf-production.up.railway.app/product/modify", {
+                    axios.put(BACK_URL + "/product/modify", {
                         id,
                         name,
                         model,

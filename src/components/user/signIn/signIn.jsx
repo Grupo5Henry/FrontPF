@@ -38,8 +38,6 @@ const SignIn = () => {
           // check for token and user already exists with 200
           //   console.log("Sign up successfully", response);
           navigate("/home");
-          /* window.location.reload(); */
-         
           dispatch(userState(true));
           localStorage.setItem("userName", input.userName);
 
