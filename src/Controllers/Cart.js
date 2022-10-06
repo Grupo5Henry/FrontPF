@@ -30,6 +30,26 @@ export const updateCart = async (userName, id, amount) => {
     }
   }
 
+export const clearCart = async (userName) => {
+  let cart = store.getState().cart
+  if (!userName) {
+    localStorage.removeItem("cart");
+    store.dispatch(getCart(userName))
+    return
+  }
+  try {
+    await Promise.all(cart.map( async product => {
+    const datos = await axios.put(`${BACK_URL}/cart/modify`,
+      { userName: userName, productId: product.product.id, amount: 0 } 
+      )}))
+      store.dispatch(getCart(userName))
+    } catch (err) {
+      console.log({error: err.message})
+    }
+
+
+}
+
 
 export const updateOfflineCart = async (id, amount) => {
     // console.log("cart")

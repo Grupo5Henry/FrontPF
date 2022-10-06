@@ -29,6 +29,7 @@ const NavBar = () => {
   }); //google
   const userStatus = useSelector((state)=> state.loggedIn)
   const favorites = useSelector(state => state.favorites)
+  const cart = useSelector(state => state.cart)
   const dispatch = useDispatch();
  
   useEffect( () => {
@@ -97,17 +98,23 @@ const NavBar = () => {
 
   return (
     <div className="box">
-  
-                {/* <div className='prfile'>
-                    <Link to="/sign-in" className='link_nav'>
-                        <h4>Sign In</h4>
-                    </Link>
-                    <h4 color='link_nav'>/</h4>
-                    <Link to="/log-in" className='link_nav'>
-                        <h4>Log In</h4>
-                    </Link>
-                </div>
-             */}
+      <button onClick={
+        async () => {
+          try {
+          const url = await axios.post(`${BACK_URL}/checkout`,
+          {cart: cart},
+          {headers: {"Content-Type": "application/json"}})
+          // console.log(url)
+            window.location = url.data.url
+        } catch (err) {
+            console.log({error: err.message})
+          }
+        }
+      }>
+        Checkout
+      </button>
+
+
       <nav
         className="relative w-full flex flex-wrap items-center justify-between py-3 bg-gray-900 text-gray-200 shadow-lg navbar navbar-expand-lg navbar-light"
       >
