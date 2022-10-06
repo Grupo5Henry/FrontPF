@@ -12,8 +12,10 @@ export const GET_PRODUCTS_FILTERED = "GET_PRODUCTS_FILTERED";
 
 export const FETCH_FAVORITES = "FETCH_FAVORITES";
 
-export const ADD_REVIEW = "ADD_REVIEW";
 export const GET_REVIEW = "GET_REVIEW";
+export const ADD_HISTORY = "ADD_HISTORY";
+export const DELETE_HISTORY = "DELETE_HISTORY";
+export const RESET_DETAIL = "RESET_DETAIL";
 
 export const RESET_FILTER = "RESET_FILTER";
 export const UPDATE_FILTER = "UPDATE_FILTER";
@@ -132,7 +134,11 @@ export const userState = (payload) => {
 }
 
 
-
+export const resetDetail = () => {
+  return {
+      type: RESET_DETAIL,
+  }
+};
 
 
 
@@ -192,18 +198,6 @@ export function getCategories () {
 
 
 // review
-export const addReview = (payload) => {
-  return async () => {
-    try {
-      const post = await axios.post(
-        "https://backpf-production.up.railway.app/review/add",payload,
-      )
-      return post;
-    } catch (err) {
-      console.log({error: err.message})
-    }
-  }
-};
 
 export const getReview = (id) => {
   return async (dispatch) => {
@@ -218,6 +212,21 @@ export const getReview = (id) => {
     } catch (err) {
       console.log({error: err.message})
     }
+  }
+};
+
+
+export const addHistory = (productId) => {
+  return {
+    type: ADD_HISTORY,
+    payload: productId
+  }
+}
+
+export const deleteHistory = (productId) => {
+  return {
+    type: DELETE_HISTORY,
+    payload: productId
   }
 }
 

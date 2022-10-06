@@ -8,7 +8,7 @@ import { Link, Route, Routes, useNavigate } from "react-router-dom";
 import { getFavorites, userState } from "../../../redux/action";
 import authHeader from "../../../services/auth-header";
 import AuthService from "../../../services/auth.service";
-import Modal from "react-modal";
+// import Modal from "react-modal";
 
 
 
@@ -18,19 +18,12 @@ import Modal from "react-modal";
 import SearchBar from "../searchBar/searchBar.jsx";
 import "./navBar.css";
 
-Modal.setAppElement("#body");
-
 
 const NavBar = () => {
   const navigate = useNavigate();
   const userStatus = useSelector((state) => state.loggedIn)
   const favorites = useSelector(state => state.favorites)
   const dispatch = useDispatch();
-  const [isOpen, setIsOpen] = useState(false);
-
-  function toggleModal() {
-    setIsOpen(!isOpen);
-  }
 
   useEffect(() => {
     const tokenCheck = async () => {
@@ -43,6 +36,7 @@ const NavBar = () => {
 
 
   }, [userStatus, dispatch]);
+  console.log(AuthService, 'leeer')
 
   const handleLogOut = () => {
     AuthService.logout();
