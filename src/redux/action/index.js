@@ -195,7 +195,7 @@ export function getCategories () {
 };
 
 
-export const clearCart = () => {
+export const clearCartStore = () => {
   return async (dispatch) => {
     dispatch({
     type: UPDATE_CART,

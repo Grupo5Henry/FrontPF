@@ -20,7 +20,6 @@ export const addToCart = async (userName, id) => {
 
 export const updateCart = async (userName, id, amount) => {
     try {
-        console.log()
       const datos = await axios.put(`${BACK_URL}/cart/modify`,
       { userName: userName, productId: id, amount: amount } 
       )
@@ -71,6 +70,7 @@ export const offlineToOnlineCart = async (userName) => {
         }
     }
     localStorage.removeItem("cart")
+    store.dispatch(getCart(userName))
 }
 
 export const inCart = ( id ) => {
