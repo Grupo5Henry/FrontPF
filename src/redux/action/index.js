@@ -12,9 +12,8 @@ export const GET_PRODUCTS_FILTERED = "GET_PRODUCTS_FILTERED";
 
 export const FETCH_FAVORITES = "FETCH_FAVORITES";
 
-
-
-
+export const ADD_REVIEW = "ADD_REVIEW";
+export const GET_REVIEW = "GET_REVIEW";
 
 export const RESET_FILTER = "RESET_FILTER";
 export const UPDATE_FILTER = "UPDATE_FILTER";
@@ -190,5 +189,38 @@ export function getCategories () {
         })
     }
 };
+
+
+// review
+export const addReview = (payload) => {
+  return async () => {
+    try {
+      const post = await axios.post(
+        "https://backpf-production.up.railway.app/review/add",payload,
+      )
+      return post;
+    } catch (err) {
+      console.log({error: err.message})
+    }
+  }
+};
+
+export const getReview = (id) => {
+  return async (dispatch) => {
+    try {
+      const review = await axios.get(
+        `https://backpf-production.up.railway.app/review/ID/${id}`
+      )
+      dispatch({
+        type: GET_REVIEW,
+        payload: review.data
+      })
+    } catch (err) {
+      console.log({error: err.message})
+    }
+  }
+}
+
+
 
 

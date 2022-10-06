@@ -1,13 +1,10 @@
-
-import { act } from "react-dom/test-utils";
-
-import { CLEAR_CATEGORIES, DETAIL_PRODUCT, FETCH_BRANDS_MODELS, FETCH_CATEGORIES, FETCH_FAVORITES, GET_PRODUCTS_FILTERED, GET_PRODUCTS_NAME, RESET_FILTER, SEARCH_PRODUCT, UPDATE_FILTER } from "../action";
+import { GET_REVIEW, ADD_REVIEW, CLEAR_CATEGORIES, DETAIL_PRODUCT, FETCH_BRANDS_MODELS, FETCH_CATEGORIES, FETCH_FAVORITES, GET_PRODUCTS_FILTERED, GET_PRODUCTS_NAME, RESET_FILTER, SEARCH_PRODUCT, UPDATE_FILTER } from "../action";
 
 const initialState = {
     products: [],
     favorites: [],
 
-    allProductsName:[],
+    allProductsName: [],
     detail: {},
     categories: [],
     brand: [],
@@ -17,19 +14,20 @@ const initialState = {
         category: "",
         brand: "",
         model: "",
-        search:"",
+        search: "",
         minPrice: 0,
         maxPrice: 2147483647, // Max integer value
         order: "ASC",
         amount: 10,
         page: 0
     },
-    loggedIn: false
+    loggedIn: false,
+    review: [],
 
 }
 
 const rootReducer = (state = initialState, action) => {
-    switch (action.type){
+    switch (action.type) {
 
 
         // case MULTI_ACTION:
@@ -40,7 +38,7 @@ const rootReducer = (state = initialState, action) => {
         //     })
         //     return results;
 
-//Filter
+        //Filter
         case RESET_FILTER:
             return {
                 ...state,
@@ -49,10 +47,10 @@ const rootReducer = (state = initialState, action) => {
         case UPDATE_FILTER:
             return {
                 ...state,
-                filter: {...state.filter, ...action.payload}
+                filter: { ...state.filter, ...action.payload }
             }
-        
-//Products
+
+        //Products
         case GET_PRODUCTS_FILTERED:
             return {
 
@@ -62,21 +60,21 @@ const rootReducer = (state = initialState, action) => {
             }
         case GET_PRODUCTS_NAME:
 
-            return{
+            return {
 
                 ...state,
 
                 allProductsName: action.payload
             }
         case DETAIL_PRODUCT:
-            return{
+            return {
                 ...state,
                 detail: action.payload
             }
 
         case SEARCH_PRODUCT:
 
-            return{
+            return {
                 ...state,
                 categories: action.payload
             }
@@ -89,20 +87,20 @@ const rootReducer = (state = initialState, action) => {
             }
 
 
-//Categories            
+        //Categories            
         case FETCH_CATEGORIES:
-            return{
+            return {
                 ...state,
                 categories: action.payload
             }
         case CLEAR_CATEGORIES:
 
-            return{
+            return {
                 ...state,
                 categories: action.payload
             }
 
-//Brand / Model
+        //Brand / Model
         case FETCH_BRANDS_MODELS:
             return {
                 ...state,
@@ -110,12 +108,24 @@ const rootReducer = (state = initialState, action) => {
                 brand: action.payload.brands,
                 model: action.payload.models
             }
-        
-//User State
+
+        //User State
         case "USER_STATE":
-            return{
+            return {
                 ...state,
                 loggedIn: action.payload
+            }
+
+        // agregar review
+        case ADD_REVIEW:
+            return {
+                ...state,
+                review: action.payload
+            }
+        case GET_REVIEW:
+            return {
+                ...state,
+                review: action.payload
             }
 
         default: return state

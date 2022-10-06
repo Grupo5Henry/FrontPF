@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { detailProduct } from "../../../redux/action";
@@ -8,20 +8,23 @@ import Comment from "../comment/comment";
 
 const Details = () => {
 
+  const [count, setCount] = useState(1)
+
   const details = useSelector(state => state.detail);
   const dispatch = useDispatch();
-  const {id} = useParams();
+  const { id } = useParams();
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(detailProduct(id))
-  },[dispatch, id])
+  }, [dispatch, id])
+  console.log(details);
 
-  // console.log(details, "Details")
-
+  const sumar = () => setCount(count + 1);
+  const restar = () => setCount(count - 1)
 
   return (
     <div>
-      
+
       <style>
         @import url(https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css);
       </style>
@@ -51,9 +54,9 @@ const Details = () => {
                   <button className='font-bold uppercase text-2xl mb-5'>
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-pink-500" viewBox="0 0 20 20"
                       fill="currentColor">
-                      <path fillRule="evenodd"
+                      <path fill-rule="evenodd"
                         d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-                        clipRule="evenodd" />
+                        clip-rule="evenodd" />
                     </svg>
                   </button>
                 </div>
@@ -64,36 +67,24 @@ const Details = () => {
                 </p>
               </div>
               <div>
-
-                <div className="inline-block align-bottom mr-5">
-                  <span className="text-2xl leading-none align-baseline">$</span>
-                  <span className="font-bold text-3xl leading-none align-baseline">
-
+                <div class="inline-block align-bottom mr-5">
+                  <span class="text-2xl leading-none align-baseline">$</span>
+                  <span class="font-bold text-3xl leading-none align-baseline">
                     {details.price}
                   </span>
                 </div>
               </div>
-
-              <div className='mt-2'>
-                <div className="inline-block align-bottom mr-5">
-                  <span className="text-2xl leading-none align-baseline">brand   </span>
-                  <span className="font-bold text-3xl leading-none align-baseline">
-
-                    {details.brand}
-                  </span>
-                </div>
-              </div>
               <div className="inline-flex items-center mt-5">
-                <button
+                <button onClick={restar}
                   className="bg-white rounded-l border text-gray-600 hover:bg-gray-100 active:bg-gray-200 disabled:opacity-50 inline-flex items-center px-2 py-1 border-r border-gray-200">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20 12H4" />
                   </svg>
                 </button>
                 <div className="bg-gray-100 border-t border-b border-gray-100 text-gray-600 hover:bg-gray-100 inline-flex items-center px-4 py-1 select-none" >
-                  2
+                  {count}
                 </div>
-                <button
+                <button onClick={sumar}
                   className="bg-white rounded-r border text-gray-600 hover:bg-gray-100 active:bg-gray-200 disabled:opacity-50 inline-flex items-center px-2 py-1 border-r border-gray-200">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
@@ -103,19 +94,50 @@ const Details = () => {
               <div className='mt-7'>
                 <div className="inline-block align-bottom">
                   <button className="bg-[#4F46E5] opacity-75 hover:opacity-100 text-gray-400 hover:text-gray-600 rounded-full px-10 py-2 font-semibold">
-                    Buy Now
+                    Comprar ahora
                   </button>
                 </div>
                 <div className="inline-block align-bottom">
                   <button className="bg-white-300 opacity-75 hover:opacity-100 text-gray-400 hover:text-gray-600 rounded-full px-10 py-2 font-semibold">
-                    Carry to Cart
+                    Llevar al carrito
                   </button>
                 </div>
               </div>
             </div>
           </div>
+
+
+
+
+          <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
+            <div className="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12">
+              <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto">
+                <span className="relative inline-block">
+                </span>{' '}
+                Caracteristicas
+              </h2>
+            </div>
+            <div className="grid gap-8 row-gap-10 lg:grid-cols-2">
+              <div className="max-w-md sm:mx-auto sm:text-center">
+                <h6 className="mb-3 text-xl font-bold leading-5">Modelo</h6>
+                <p className="mb-3 text-sm text-gray-900">
+                  {details.model}
+                </p>
+              </div>
+              <div className="max-w-md sm:mx-auto sm:text-center">
+                <h6 className="mb-3 text-xl font-bold leading-5">Marca</h6>
+                <p className="mb-3 text-sm text-gray-900">
+                  {details.brand}
+                </p>
+              </div>
+            </div>
+          </div>
+
+
+
+
           {/* {<------------------ comentarios ------------------------>} */}
-          <Comment/>
+          <Comment />
           {/* {<------------------------------------------>} */}
         </div>
       </div>
