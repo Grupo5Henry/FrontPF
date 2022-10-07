@@ -11,6 +11,7 @@ import {
   SEARCH_PRODUCT,
   UPDATE_CART,
   UPDATE_FILTER,
+  RESET_DETAIL,
 } from "../action";
 
 const initialState = {
@@ -134,6 +135,12 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         review: action.payload,
       };
+      case RESET_DETAIL:
+      return {
+        ...state,
+        detail: [],
+      };
+      
 
     default:
       return state;

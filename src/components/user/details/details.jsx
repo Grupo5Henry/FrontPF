@@ -16,7 +16,7 @@ import {
   setFavorite,
   unSetFavorite,
 } from "../../../Controllers/Favorite";
-import { detailProduct, getFavorites } from "../../../redux/action";
+import { detailProduct, getFavorites, resetDetail } from "../../../redux/action";
 import Comment from "../comment/comment";
 
 // Detalle del Producto
@@ -33,6 +33,10 @@ const Details = () => {
     dispatch(getFavorites(userState.userName));
     dispatch(detailProduct(id));
   }, [dispatch, id]);
+  useEffect(()=> {
+    dispatch(resetDetail())
+  },[dispatch])
+  
 
   // console.log(details, "Details")
 
@@ -69,7 +73,8 @@ const Details = () => {
                   <h1 className="font-bold uppercase text-2xl mb-5">
                     {detail.name}
                   </h1>
-                  <IconButton
+                  <div className="mt-0">
+                  <IconButton 
                     aria-label="Add to cart"
                     onClick={() => {
                       if (isFavorite(id))
@@ -78,7 +83,7 @@ const Details = () => {
                     }}
                   >
                     {!userState.logged ? null : isFavorite(id) ? (
-                      <Favorite
+                      <Favorite 
                         sx={{ color: "red" }}
                         fontSize="large"
                         // onClick={() => unSetFavorite(userState.userName, product.id)}
@@ -87,6 +92,8 @@ const Details = () => {
                       <FavoriteBorder fontSize="large" />
                     )}
                   </IconButton>
+
+                  </div>
                 </div>
 
                 <p className="text-sm">{detail.description}</p>
