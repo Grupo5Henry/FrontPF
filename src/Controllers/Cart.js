@@ -61,6 +61,7 @@ export const updateOfflineCart = async (id, amount) => {
 }
 
 export const offlineToOnlineCart = async (userName) => {
+  if (!localStorage.cart) return
     for (const [id, amount] of Object.entries(JSON.parse(localStorage.cart))) {
         try {
             await axios.post(`${BACK_URL}/cart/add`,
