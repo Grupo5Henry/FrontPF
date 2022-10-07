@@ -195,7 +195,7 @@ export function getCategories () {
 };
 
 
-export const clearCart = () => {
+export const clearCartStore = () => {
   return async (dispatch) => {
     dispatch({
     type: UPDATE_CART,
@@ -204,11 +204,16 @@ export const clearCart = () => {
 }
 
 export const getCart = (userName) => {
-
-
   if (!userName) {
     return async (dispatch) => {
       let cart = []
+      if (!localStorage.cart) {
+        dispatch({
+          type: UPDATE_CART,
+          payload: []
+        })
+        return
+      } 
       for (const [id, amount] of Object.entries(JSON.parse(localStorage.cart))) {
         try {
           const detail = await axios.get(`${BACK_URL}/product/ID/${id}`)

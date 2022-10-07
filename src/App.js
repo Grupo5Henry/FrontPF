@@ -16,6 +16,8 @@ import CreateProduct from './components/user/CreateProduct/CreateProduct';
 import ModifyProduct from './components/user/ModifyProduct/ModifyProduct';
 import { useSelector } from 'react-redux';
 import DirectionForm from './components/user/formDirection';
+import { CongratulationsCard } from './components/user/CongratulationsCard/CongratulationsCard';
+
 
 
 
@@ -43,6 +45,7 @@ function App() {
           <Route exact path='/home/detail/:id' element={<Details />} />
           <Route exact path="/createProduct" element={<CreateProduct/>} />
           <Route exact path="/modifyProduct" element={<ModifyProduct/>} />
+          <Route exact path="/congrats" element={<CongratulationsCard/>} />
           { !userState ? (<Route exact path='/home/sign-in' element={<SignIn />} />) : null}
           <Route exact path='/home/details' element={<Details />} />
           <Route path='*' element={<Error/>}/>
