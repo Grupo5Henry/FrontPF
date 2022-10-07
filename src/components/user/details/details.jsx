@@ -70,7 +70,7 @@ const Details = () => {
                       setFavorite(userState.userName, id);
                     }}
                   >
-                    {favorites == "Missing Username" ? null : isFavorite(id) ? (
+                    {!userState.logged ? null : isFavorite(id) ? (
                       <Favorite
                         sx={{ color: "red" }}
                         fontSize="large"

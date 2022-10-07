@@ -12,7 +12,7 @@ export const addToCart = async (userName, id) => {
       productId: id,
       amount: 1,
     });
-    store.dispatch(getCart(userState.userName));
+    store.dispatch(getCart(userName));
   } catch (err) {
     console.log({ error: err.message });
   }
@@ -25,7 +25,7 @@ export const updateCart = async (userName, id, amount) => {
       productId: id,
       amount: amount,
     });
-    store.dispatch(getCart(userState.userName));
+    store.dispatch(getCart(userName));
   } catch (err) {
     console.log({ error: err.message });
   }

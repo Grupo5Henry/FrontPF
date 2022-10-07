@@ -51,7 +51,7 @@ function Cart() {
   React.useEffect(() => {
     dispatch(getFavorites(userState.userName));
     dispatch(getCart(userState.userName));
-  }, []);
+  }, [userState]);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);

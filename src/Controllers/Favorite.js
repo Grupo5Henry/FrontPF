@@ -11,7 +11,7 @@ export const setFavorite = async (userName, id) => {
       userName: userName,
       productId: id,
     });
-    store.dispatch(getFavorites(userState.userName));
+    store.dispatch(getFavorites(userName));
   } catch (err) {
     console.log({ error: err.message });
   }
@@ -22,7 +22,7 @@ export const unSetFavorite = async (userName, id) => {
     await axios.delete(`${BACK_URL}/favorite/delete`, {
       data: { userName: userName, productId: id },
     });
-    store.dispatch(getFavorites(userState.userName));
+    store.dispatch(getFavorites(userName));
   } catch (err) {
     console.log({ error: err.message });
   }

@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { offlineToOnlineCart } from "../../../Controllers/Cart";
-import { userState } from "../../../redux/action";
+import { updateUserState } from "../../../redux/action";
 import AuthService from "../../../services/auth.service";
 import "./signIn.css";
 
@@ -52,7 +52,7 @@ const SignIn = () => {
             //   console.log("Sign up successfully", response);
             navigate("/home");
             /* window.location.reload(); */
-            dispatch(userState({ ...response, logged: true }));
+            dispatch(updateUserState({ ...response, logged: true }));
             offlineToOnlineCart(input.userName);
           },
           (error) => {

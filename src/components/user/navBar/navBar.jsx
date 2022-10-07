@@ -10,7 +10,7 @@ import {
   clearCartStore,
   getCart,
   getFavorites,
-  userState,
+  updateUserState,
 } from "../../../redux/action";
 import authHeader from "../../../services/auth-header";
 import AuthService from "../../../services/auth.service";
@@ -42,12 +42,13 @@ const NavBar = () => {
     //google login
 
     getUser(setUsuario, usuario);
+    dispatch(getFavorites(userState.userName));
   }, [dispatch]);
 
   const handleLogOut = () => {
     AuthService.logout();
     dispatch(
-      userState({
+      updateUserState({
         userName: null,
         defaultShippingAddress: null,
         role: null,
@@ -68,7 +69,7 @@ const NavBar = () => {
 
   React.useEffect(() => {
     dispatch(getFavorites(userState.userName));
-  }, []);
+  }, [userState]);
 
   return (
     <div className="box">

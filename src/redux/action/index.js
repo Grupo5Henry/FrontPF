@@ -123,7 +123,7 @@ export const detailProduct = (id) => {
   };
 };
 
-export const userState = (payload) => {
+export const updateUserState = (payload) => {
   return {
     type: "USER_STATE",
     payload,
