@@ -29,15 +29,17 @@ import { getAllUsers } from "../../../redux/action";
 //CONSTANTE PARA SETEAR LAS COLUMNAS
 
 const columns = [
-  { field: 'password', headerName: 'ID', width: 300 },
+
   { field: 'userName', headerName: 'Name', width: 150 },
   { field: 'email', headerName: 'Correo', width: 300 },
-  { field: 'billingAddress', headerName: 'Billing Address', width: 300 },
-  { field: 'defaultShippingAddress', headerName: 'Default Shipping Address', width: 300 },
+  { field: 'billingAddress', headerName: 'Dirección de facturación', width: 300 },
+  { field: 'defaultShippingAddress', headerName: 'Dirección', width: 300 },
   { field: 'role', headerName: 'Rol', width: 130, 
       renderCell: (params) => {
         return <div className={`cellWithStatus ${params.row.role}`}> {params.row.role} </div>
       } },
+      /* { field: 'createdAt', headerName: 'Creación de usuario', width: 300 }, */
+
 ];
 
 
@@ -54,22 +56,40 @@ export default function Datatable () {
     //CONSTANTES
     const dispatch = useDispatch();
 
+    const dataTableButton = [{ field: 'action', headerName: 'Acciones', width: 180, 
+      renderCell: (params) => {
+        return (
+          <div className="cellAction">
+            <button className="adminButton" onClick={e=>handleAdminButton}>Privilegios</button>
+            <div className="banButton">Baneo</div>
+            </div> 
+        )} 
+      },
+    ]
+
     //USE EFFECTS
 
     useEffect(() => {
         dispatch(getAllUsers());
     }, [dispatch]);
 
+    //CONTROL DE BOTONES
+
+    const handleAdminButton = (e) => {
+      e.preventDefault();
+      console.log("SE HIZO CLICK ADMIN BUTTON")
+    }
+
     return(
         <div className='datatable'>
             {users.length ? 
                 <DataGrid
                 rows={users}
-                columns={columns}
+                columns={columns.concat(dataTableButton)}
                 pageSize={10}
                 rowsPerPageOptions={[5]}
-                checkboxSelection
-                getRowId={(row) => row.password}
+                /* checkboxSelection */
+                getRowId={(row) => row.userName}
                 />
             :
             <p>Cargando...</p>}
