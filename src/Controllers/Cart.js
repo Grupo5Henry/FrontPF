@@ -20,7 +20,6 @@ export const addToCart = async (userName, id) => {
 
 export const updateCart = async (userName, id, amount) => {
     try {
-        console.log()
       const datos = await axios.put(`${BACK_URL}/cart/modify`,
       { userName: userName, productId: id, amount: amount } 
       )
@@ -29,6 +28,26 @@ export const updateCart = async (userName, id, amount) => {
       console.log({error: err.message})
     }
   }
+
+export const clearCart = async (userName) => {
+  let cart = store.getState().cart
+  if (!userName) {
+    localStorage.removeItem("cart");
+    store.dispatch(getCart(userName))
+    return
+  }
+  try {
+    await Promise.all(cart.map( async product => {
+    const datos = await axios.put(`${BACK_URL}/cart/modify`,
+      { userName: userName, productId: product.product.id, amount: 0 } 
+      )}))
+      store.dispatch(getCart(userName))
+    } catch (err) {
+      console.log({error: err.message})
+    }
+
+
+}
 
 
 export const updateOfflineCart = async (id, amount) => {
@@ -51,6 +70,7 @@ export const offlineToOnlineCart = async (userName) => {
         }
     }
     localStorage.removeItem("cart")
+    store.dispatch(getCart(userName))
 }
 
 export const inCart = ( id ) => {
