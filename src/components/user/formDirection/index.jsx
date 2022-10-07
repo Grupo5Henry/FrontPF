@@ -1,13 +1,9 @@
-import axios from "axios";
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { BACK_URL } from "../../../constantes";
-import { CreateOrder } from "../../../redux/action";
+import { useSelector } from "react-redux";
 
 
-export default function DirectionForm(){
-    var dispatch = useDispatch()
-    var {cart} = useSelector(state => state)
+export default function DirectionForm() {
+    var {user} = useSelector(state => state)
 
 
     var [state,setState] = useState(true)
@@ -17,8 +13,6 @@ export default function DirectionForm(){
         line1: ""
     })
     var [porDefecto,setPorDefecto] = useState(false)
-
-    var {userName,defaultShippingAddress} = localStorage
 
 
     function onCha(e){
@@ -36,13 +30,14 @@ export default function DirectionForm(){
         var shippingAddress = ""
         
         if(state){
-            shippingAddress = defaultShippingAddress
+            shippingAddress = user.defaultShippingAddress
         } else{
             if(!direction.calle || !direction.provincia_estado){
                return  alert("Complete los campos pedidos")
             }else{
                 if(porDefecto){
                     // PRIMERO TENRDIA QUE MODIFICAR LA DIRECCION
+                    console.log("MODIFICO LA DIRECCION POR DEFECTO DEL USUARIO EN LA DB");
                     shippingAddress = direction.line1? (
                     `${direction.provincia_estado}, ${direction.calle}, ${direction.line1}`
                     ) : (
@@ -66,8 +61,8 @@ export default function DirectionForm(){
             <h1 style={{color:"black",fontSize:"35px",fontWeight:"bold"}}>Dirección de Envio</h1>
             <select onChange={(e) => {setState(e.target.value);if(e.target.value){setPorDefecto(false)}}} style={{width:"90%"}}>
                 {
-                    defaultShippingAddress === "from google"? null : (
-                        <option value={true}>{defaultShippingAddress}</option>
+                    user.defaultShippingAddress === "from google"? null : (
+                        <option value={true}>{user.defaultShippingAddress}</option>
                     )
                 } 
                 <option value={""}>Otra dirección</option>
@@ -106,5 +101,5 @@ export default function DirectionForm(){
                 )
             }
         </div>
-    )
+      )
 }

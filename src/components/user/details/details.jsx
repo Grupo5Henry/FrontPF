@@ -26,12 +26,15 @@ const Details = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const favorites = useSelector((state) => state.favorites);
-  const userState = useSelector((state) => state.loggedIn);
+  const userState = useSelector((state) => state.user);
   const cart = useSelector((state) => state.cart);
 
   useEffect(() => {
-    dispatch(getFavorites(localStorage.userName));
+    dispatch(getFavorites(userState.userName));
     dispatch(detailProduct(id));
+    return () => {
+      dispatch(detailProduct());
+    };
   }, [dispatch, id]);
 
   // console.log(details, "Details")
@@ -66,15 +69,15 @@ const Details = () => {
                     aria-label="Add to cart"
                     onClick={() => {
                       if (isFavorite(id))
-                        return unSetFavorite(localStorage.userName, id);
-                      setFavorite(localStorage.userName, id);
+                        return unSetFavorite(userState.userName, id);
+                      setFavorite(userState.userName, id);
                     }}
                   >
-                    {favorites == "Missing Username" ? null : isFavorite(id) ? (
+                    {!userState.logged ? null : isFavorite(id) ? (
                       <Favorite
                         sx={{ color: "red" }}
                         fontSize="large"
-                        // onClick={() => unSetFavorite(localStorage.userName, product.id)}
+                        // onClick={() => unSetFavorite(userState.userName, product.id)}
                       />
                     ) : (
                       <FavoriteBorder fontSize="large" />
@@ -147,7 +150,7 @@ const Details = () => {
                   <button
                     className="bg-[#4F46E5] opacity-75 hover:opacity-100 text-gray-400 hover:text-gray-600 rounded-full px-10 py-2 font-semibold"
                     onClick={async () => {
-                      if (!userState) {
+                      if (!userState.logged) {
                         window.location = `${FRONT_URL}/home/log-in`;
                         alert(
                           "Debes estar registrado para realizar una compra"
@@ -175,15 +178,15 @@ const Details = () => {
                     aria-label="Add to cart"
                     onClick={() => {
                       if (!inCart(id)) {
-                        if (userState) {
-                          addToCart(localStorage.userName, id);
+                        if (userState.logged) {
+                          addToCart(userState.userName, id);
                           return;
                         }
                         updateOfflineCart(id, 1);
                         return;
                       }
-                      if (userState) {
-                        updateCart(localStorage.userName, id, 0);
+                      if (userState.logged) {
+                        updateCart(userState.userName, id, 0);
                         return;
                       }
                       updateOfflineCart(id, 0);

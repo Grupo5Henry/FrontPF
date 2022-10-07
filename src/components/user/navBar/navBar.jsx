@@ -5,15 +5,17 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, userDispatch, useSelector } from "react-redux";
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
+import { BACK_URL, FRONT_URL } from "../../../constantes";
 import {
-  getFavorites,
   clearCartStore,
-  userState,
   getCart,
+  getFavorites,
+  updateUserState,
 } from "../../../redux/action";
 import authHeader from "../../../services/auth-header";
 import AuthService from "../../../services/auth.service";
-import { BACK_URL, FRONT_URL } from "../../../constantes";
+import getUser from "../../../services/google-login";
+import tokenCheck from "../../../services/token-check";
 
 // import { Link } from "react-router-dom";
 // import { Icon } from "@iconify/react";
@@ -28,75 +30,46 @@ const NavBar = () => {
     fullName: "",
     picture: "",
   }); //google
-  const userStatus = useSelector((state) => state.loggedIn);
+  const userState = useSelector((state) => state.user);
   const favorites = useSelector((state) => state.favorites);
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    user && tokenCheck(dispatch);
 
- 
-  useEffect( () => {
-      const user = JSON.parse(localStorage.getItem("user"));
-      const tokenCheck =async ()=>{
-      const tokenStatus  =  await axios.get (`${BACK_URL}/token/tokenCheck`, { headers: authHeader() });
-      //console.log('log de tokenStatus',tokenStatus.data);
-      dispatch(userState(tokenStatus.data))
-      }
-      user && tokenCheck();
-  
-  //google login
-  const getUser = () => {
-    fetch(`${BACK_URL}/auth/login/success`, {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Credentials": true,
-      },
-    })
-      .then((response) => {
-        if (response.status === 200) return response.json();
-        throw new Error("authentication has been failed!");
-      })
-      .then((resObject) => {
-       localStorage.setItem("userName", "google:" + resObject.user.id);
-       localStorage.setItem("defaultShippingAddress", resObject.shipping )
-       localStorage.setItem("role", resObject.role);
-       setUsuario({
-        ...usuario,
-        signedIn:true,
-        userId: resObject.user.id,
-        fullName: resObject.user.displayName
-       })
+    //google login
 
-        })
-        .catch((err) => {
-          // console.log(err);
-        });
-    };
-    getUser();
-  }, [userStatus, dispatch]);
+    getUser(setUsuario, usuario);
+    dispatch(getFavorites(userState.userName));
+  }, [dispatch]);
 
   const handleLogOut = () => {
     AuthService.logout();
-    dispatch(userState(false));
+    dispatch(
+      updateUserState({
+        userName: null,
+        defaultShippingAddress: null,
+        role: null,
+        logged: false,
+      })
+    );
     dispatch(clearCartStore());
     window.open(`${BACK_URL}/auth/logout`, "_self");
   };
 
   const handleLogIn = () => {
-    navigate('/home/log-in')
-  }
+    navigate("/home/log-in");
+  };
 
   const checkCookie = () => {
-    window.open(`${BACK_URL}/auth/checkCookie`, "_self")
-  }
-
+    window.open(`${BACK_URL}/auth/checkCookie`, "_self");
+  };
 
   React.useEffect(() => {
-    dispatch(getFavorites(localStorage.userName));
-  }, []);
+    dispatch(getFavorites(userState.userName));
+  }, [userState]);
 
   return (
     <div className="box">
@@ -166,7 +139,7 @@ const NavBar = () => {
               </li>
 
               <li className="nav-item p-2">
-                {usuario.signedIn || userStatus ? (
+                {usuario.signedIn || userState.logged ? (
                   <Link
                     to={"/createProduct"}
                     className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"
@@ -178,7 +151,7 @@ const NavBar = () => {
               </li>
 
               <li className="nav-item p-2">
-                {usuario.signedIn || userStatus ? (
+                {usuario.signedIn || userState.logged ? (
                   <Link
                     to={"/modifyProduct"}
                     className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"
@@ -190,21 +163,24 @@ const NavBar = () => {
               </li>
 
               <li className="nav-item p-2">
+                {usuario.signedIn || userState.logged ? (
+                  <button
+                    onClick={() => handleLogOut()}
+                    className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"
+                  >
+                    Cerrar sesión
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => handleLogIn()}
+                    className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"
+                  >
+                    Ingresar
+                  </button>
+                )}
+              </li>
 
-              { usuario.signedIn || userStatus? (
-                <button onClick={()=>handleLogOut()} className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"  >
-                Cerrar sesión
-              </button>
-              ): (
-                <button onClick={()=>handleLogIn()} className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"  >
-                Ingresar
-              </button>
-              )             
-            }
-
-            </li>
-
-            {/* 
+              {/* 
             <li className="nav-item p-2">
               
                 <button onClick={()=>checkCookie()} className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"  >
@@ -213,20 +189,15 @@ const NavBar = () => {
              
             </li>
  */}
-
-
-
-
-
             </ul>
           </div>
           <div className="flex items-center relative">
             <button
               className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"
               onClick={async () => {
-                dispatch(getCart(localStorage.userName));
+                dispatch(getCart(userState.userName));
                 if (!cart.length) return alert("Carrito vacio");
-                if (!userStatus) {
+                if (!userState.logged) {
                   window.location = `${FRONT_URL}/home/log-in`;
                   alert("Debes estar registrado para realizar una compra");
                   return;
@@ -266,7 +237,7 @@ const NavBar = () => {
                 />
               </svg>
             </Link>
-            {(usuario.signedIn || userStatus) && (
+            {(usuario.signedIn || userState.logged) && (
               <div className="flex items-center relative mr-5">
                 <Link to={"/favorites"} className="hover:text-gray-200">
                   <svg
@@ -287,7 +258,7 @@ const NavBar = () => {
               </div>
             )}
 
-            {(usuario.signedIn || userStatus) && (
+            {(usuario.signedIn || userState.logged) && (
               <div className="dropdown relative mr-5">
                 <a
                   className="dropdown-toggle flex items-center hidden-arrow"

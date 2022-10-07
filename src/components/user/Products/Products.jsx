@@ -1,34 +1,34 @@
-import * as React from "react";
-import { styled } from "@mui/material/styles";
-import CardContent from "@mui/material/CardContent";
+import { AddShoppingCart, Favorite, FavoriteBorder } from "@mui/icons-material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
 import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
+import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { AddShoppingCart, Favorite, FavoriteBorder } from "@mui/icons-material";
 import accounting from "accounting";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  getCart,
-  getFavorites,
-  updateFilter,
-  userState,
-} from "../../../redux/action";
 import axios from "axios";
+import * as React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { BACK_URL } from "../../../constantes";
+import {
+  addToCart,
+  inCart,
+  updateCart,
+  updateOfflineCart,
+} from "../../../Controllers/Cart";
 import {
   isFavorite,
   setFavorite,
   unSetFavorite,
 } from "../../../Controllers/Favorite";
 import {
-  addToCart,
-  updateCart,
-  inCart,
-  updateOfflineCart,
-} from "../../../Controllers/Cart";
-import { BACK_URL } from "../../../constantes";
+  getCart,
+  getFavorites,
+  updateFilter,
+  userState,
+} from "../../../redux/action";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -44,15 +44,15 @@ function Products() {
   const [expanded, setExpanded] = React.useState(false);
   const products = useSelector((state) => state.products);
   const favorites = useSelector((state) => state.favorites);
-  const userState = useSelector((state) => state.loggedIn);
+  const userState = useSelector((state) => state.user);
   const filter = useSelector((state) => state.filter);
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    dispatch(getFavorites(localStorage.userName));
-    dispatch(getCart(localStorage.userName));
-  }, []);
+    dispatch(getFavorites(userState.userName));
+    dispatch(getCart(userState.userName));
+  }, [userState]);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -107,8 +107,8 @@ function Products() {
                   aria-label="Add to cart"
                   onClick={() => {
                     if (isFavorite(product.id))
-                      return unSetFavorite(localStorage.userName, product.id);
-                    setFavorite(localStorage.userName, product.id);
+                      return unSetFavorite(userState.userName, product.id);
+                    setFavorite(userState.userName, product.id);
                   }}
                 >
                   {favorites != "Missing Username" ? (
@@ -116,7 +116,7 @@ function Products() {
                       <Favorite
                         sx={{ color: "red" }}
                         fontSize="large"
-                        // onClick={() => unSetFavorite(localStorage.userName, product.id)}
+                        // onClick={() => unSetFavorite(userState.userName, product.id)}
                       />
                     ) : (
                       <FavoriteBorder fontSize="large" />
@@ -127,15 +127,15 @@ function Products() {
                   aria-label="Add to cart"
                   onClick={() => {
                     if (!inCart(product.id)) {
-                      if (userState) {
-                        addToCart(localStorage.userName, product.id);
+                      if (userState.logged) {
+                        addToCart(userState.userName, product.id);
                         return;
                       }
                       updateOfflineCart(product.id, 1);
                       return;
                     }
-                    if (userState) {
-                      updateCart(localStorage.userName, product.id, 0);
+                    if (userState.logged) {
+                      updateCart(userState.userName, product.id, 0);
                       return;
                     }
                     updateOfflineCart(product.id, 0);
