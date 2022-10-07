@@ -12,11 +12,15 @@ import {
   SEARCH_PRODUCT,
   UPDATE_CART,
   UPDATE_FILTER,
+  FETCH_ALL_USERS,
+  FETCH_ALL_ORDERS,
 } from "../action";
 
 const initialState = {
   products: [],
   favorites: [],
+  users: [],
+  orders: [],
   allProductsName: [],
   detail: {},
   categories: [],
@@ -95,6 +99,19 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         favorites: action.payload,
+      };
+
+    //ALL USERS
+    case FETCH_ALL_USERS:
+      return {
+        ...state,
+        users: action.payload,
+      };
+    //ORDERS
+    case FETCH_ALL_ORDERS:
+      return {
+        ...state,
+        orders: action.payload,
       };
 
     //Categories
