@@ -20,9 +20,13 @@ export default function Widget({ type }) {
 
   let earnings = 0;
 
-  //   orders.map((order) => {
-  //     for (let i = 3; i < order.length; i++) {}
-  //   });
+  orders.map((order) => {
+    for (let i = 3; i < order.length; i++) {
+      let product = order[i];
+
+      earnings += product.amount * product.price;
+    }
+  });
 
   //USE EFFECTS
 
@@ -71,7 +75,7 @@ export default function Widget({ type }) {
       data = {
         title: "INGRESOS DEL DÍA",
         isMoney: true,
-        content: earnings,
+        content: `\$${earnings}`,
 
         link: "Ver detalle",
         icon: <MonetizationOnIcon className="icon" />,
