@@ -25,7 +25,7 @@ const Details = () => {
     dispatch(detailProduct(id))
   },[dispatch, id])
 
-  // console.log(details, "Details")
+  console.log(details, "Details")
 
 
   return (

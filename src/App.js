@@ -15,6 +15,8 @@ import Error from './components/user/error/error';
 import CreateProduct from './components/user/CreateProduct/CreateProduct';
 import ModifyProduct from './components/user/ModifyProduct/ModifyProduct';
 import { useSelector } from 'react-redux';
+import Footer1 from './components/user/Footer/Footer';
+// import Login1 from './components/user/logIn/Login1';
 
 
 
@@ -37,6 +39,8 @@ function App() {
           <Route exact path='/cart' element={<Cart/>} />
           <Route exact path='/details' element={<Details />} />
           <Route exact path='/home/log-in' element={<LogIn />} />
+          {/* <Route exact path='/home/log-in' element={<Login1/>} /> */}
+
           <Route exact path='/home/sign-in' element={<SignIn />} />
           <Route exact path='/home/detail/:id' element={<Details />} />
           <Route exact path="/createProduct" element={<CreateProduct/>} />
@@ -45,6 +49,7 @@ function App() {
           <Route exact path='/home/details' element={<Details />} />
           <Route path='*' element={<Error/>}/>
         </Routes>
+        <Footer1/>
       </header>
     </div>
   );
