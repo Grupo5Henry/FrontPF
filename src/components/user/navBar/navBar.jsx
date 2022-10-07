@@ -5,17 +5,17 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, userDispatch, useSelector } from "react-redux";
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
+import { BACK_URL, FRONT_URL } from "../../../constantes";
 import {
-  getFavorites,
   clearCartStore,
-  userState,
   getCart,
+  getFavorites,
+  userState,
 } from "../../../redux/action";
 import authHeader from "../../../services/auth-header";
 import AuthService from "../../../services/auth.service";
-import tokenCheck from "../../../services/token-check";
 import getUser from "../../../services/google-login";
-import { BACK_URL, FRONT_URL } from "../../../constantes";
+import tokenCheck from "../../../services/token-check";
 
 // import { Link } from "react-router-dom";
 // import { Icon } from "@iconify/react";
@@ -67,7 +67,7 @@ const NavBar = () => {
   };
 
   React.useEffect(() => {
-    dispatch(getFavorites(localStorage.userName));
+    dispatch(getFavorites(userState.userName));
   }, []);
 
   return (
@@ -194,7 +194,7 @@ const NavBar = () => {
             <button
               className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"
               onClick={async () => {
-                dispatch(getCart(localStorage.userName));
+                dispatch(getCart(userState.userName));
                 if (!cart.length) return alert("Carrito vacio");
                 if (!userState.logged) {
                   window.location = `${FRONT_URL}/home/log-in`;

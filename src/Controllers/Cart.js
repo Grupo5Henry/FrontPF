@@ -3,6 +3,8 @@ import { BACK_URL } from "../constantes";
 import { getCart } from "../redux/action";
 import store from "../redux/store/index";
 
+const userState = store.getState().user;
+
 export const addToCart = async (userName, id) => {
   try {
     await axios.post(`${BACK_URL}/cart/add`, {
@@ -10,7 +12,7 @@ export const addToCart = async (userName, id) => {
       productId: id,
       amount: 1,
     });
-    store.dispatch(getCart(localStorage.userName));
+    store.dispatch(getCart(userState.userName));
   } catch (err) {
     console.log({ error: err.message });
   }
@@ -23,7 +25,7 @@ export const updateCart = async (userName, id, amount) => {
       productId: id,
       amount: amount,
     });
-    store.dispatch(getCart(localStorage.userName));
+    store.dispatch(getCart(userState.userName));
   } catch (err) {
     console.log({ error: err.message });
   }

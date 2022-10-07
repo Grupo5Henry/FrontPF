@@ -10,6 +10,15 @@ const tokenCheck = async (dispatch) => {
     });
     //console.log('log de tokenStatus', tokenStatus.data);
     tokenStatus && dispatch(userState({ ...tokenStatus.data, logged: true }));
-  } catch (err) {}
+  } catch (err) {
+    dispatch(
+      userState({
+        userName: null,
+        defaultShippingAddress: null,
+        role: null,
+        logged: false,
+      })
+    );
+  }
 };
 export default tokenCheck;

@@ -1,24 +1,24 @@
-import * as React from "react";
-import { styled } from "@mui/material/styles";
-import CardContent from "@mui/material/CardContent";
+import { AddShoppingCart, Favorite } from "@mui/icons-material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
 import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
+import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { AddShoppingCart, Favorite } from "@mui/icons-material";
 import accounting from "accounting";
-import { useDispatch, useSelector } from "react-redux";
-import { getCart, getFavorites } from "../../../redux/action";
 import axios from "axios";
-import { unSetFavorite } from "../../../Controllers/Favorite";
+import * as React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { BACK_URL } from "../../../constantes";
 import {
   addToCart,
   inCart,
   updateCart,
   updateOfflineCart,
 } from "../../../Controllers/Cart";
-import { BACK_URL } from "../../../constantes";
+import { unSetFavorite } from "../../../Controllers/Favorite";
+import { getCart, getFavorites } from "../../../redux/action";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -38,8 +38,8 @@ function Favorites() {
   const cart = useSelector((state) => state.cart);
 
   React.useEffect(() => {
-    dispatch(getFavorites(localStorage.userName));
-    dispatch(getCart(localStorage.userName));
+    dispatch(getFavorites(userState.userName));
+    dispatch(getCart(userState.userName));
   }, []);
 
   const handleExpandClick = () => {
@@ -85,7 +85,7 @@ function Favorites() {
                     <IconButton
                       aria-label="Toggle Favorite"
                       onClick={() =>
-                        unSetFavorite(localStorage.userName, product.id)
+                        unSetFavorite(userState.userName, product.id)
                       }
                     >
                       <Favorite sx={{ color: "red" }} fontSize="large" />
@@ -95,14 +95,14 @@ function Favorites() {
                       onClick={() => {
                         if (!inCart(product.id)) {
                           if (userState.logged) {
-                            addToCart(localStorage.userName, product.id);
+                            addToCart(userState.userName, product.id);
                             return;
                           }
                           updateOfflineCart(product.id, 1);
                           return;
                         }
                         if (userState.logged) {
-                          updateCart(localStorage.userName, product.id, 0);
+                          updateCart(userState.userName, product.id, 0);
                           return;
                         }
                         updateOfflineCart(product.id, 0);
