@@ -32,12 +32,13 @@ const NavBar = () => {
   const dispatch = useDispatch();
  
   useEffect( () => {
+      const user = JSON.parse(localStorage.getItem("user"));
       const tokenCheck =async ()=>{
       const tokenStatus  =  await axios.get (`${BACK_URL}/token/tokenCheck`, { headers: authHeader() });
       //console.log('log de tokenStatus',tokenStatus.data);
       dispatch(userState(tokenStatus.data))
       }
-      tokenCheck();
+      user && tokenCheck();
   
   //google login
   const getUser = () => {
@@ -56,6 +57,8 @@ const NavBar = () => {
       })
       .then((resObject) => {
        localStorage.setItem("userName", "google:" + resObject.user.id);
+       localStorage.setItem("defaultShippingAddress", resObject.shipping )
+       localStorage.setItem("role", resObject.role);
        setUsuario({
         ...usuario,
         signedIn:true,
@@ -86,6 +89,9 @@ const NavBar = () => {
     navigate('/home/log-in')
   }
 
+  const checkCookie = () => {
+    window.open(`${BACK_URL}/auth/checkCookie`, "_self")
+  }
 
   React.useEffect(() => {
     dispatch(getFavorites(localStorage.userName))
@@ -183,7 +189,22 @@ const NavBar = () => {
               </button>
               )             
             }
+
             </li>
+
+            {/* 
+            <li className="nav-item p-2">
+              
+                <button onClick={()=>checkCookie()} className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"  >
+                CheckCookie
+              </button>
+             
+            </li>
+ */}
+
+
+
+
             </ul>
           </div>
           <div className="flex items-center relative">

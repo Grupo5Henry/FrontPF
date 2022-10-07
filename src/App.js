@@ -10,7 +10,7 @@ import About from './components/user/about/about';
 import Profile from './components/user/profile/profile';
 import Favorites from './components/user/favorites/favorites';
 import History from './components/user/history/history';
-import Cart from './components/user/Cart/Cart';
+import Cart from './components/user/cart/cart';
 import Error from './components/user/error/error';
 import CreateProduct from './components/user/CreateProduct/CreateProduct';
 import ModifyProduct from './components/user/ModifyProduct/ModifyProduct';
