@@ -26,7 +26,7 @@ const Details = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const favorites = useSelector((state) => state.favorites);
-  const userState = useSelector((state) => state.loggedIn);
+  const userState = useSelector((state) => state.user);
   const cart = useSelector((state) => state.cart);
 
   useEffect(() => {
@@ -147,7 +147,7 @@ const Details = () => {
                   <button
                     className="bg-[#4F46E5] opacity-75 hover:opacity-100 text-gray-400 hover:text-gray-600 rounded-full px-10 py-2 font-semibold"
                     onClick={async () => {
-                      if (!userState) {
+                      if (!userState.logged) {
                         window.location = `${FRONT_URL}/home/log-in`;
                         alert(
                           "Debes estar registrado para realizar una compra"
@@ -175,14 +175,14 @@ const Details = () => {
                     aria-label="Add to cart"
                     onClick={() => {
                       if (!inCart(id)) {
-                        if (userState) {
+                        if (userState.logged) {
                           addToCart(localStorage.userName, id);
                           return;
                         }
                         updateOfflineCart(id, 1);
                         return;
                       }
-                      if (userState) {
+                      if (userState.logged) {
                         updateCart(localStorage.userName, id, 0);
                         return;
                       }

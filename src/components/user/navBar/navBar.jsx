@@ -13,10 +13,9 @@ import {
 } from "../../../redux/action";
 import authHeader from "../../../services/auth-header";
 import AuthService from "../../../services/auth.service";
-import tokenCheck from '../../../services/token-check';
-import getUser from '../../../services/google-login';
+import tokenCheck from "../../../services/token-check";
+import getUser from "../../../services/google-login";
 import { BACK_URL, FRONT_URL } from "../../../constantes";
-
 
 // import { Link } from "react-router-dom";
 // import { Icon } from "@iconify/react";
@@ -31,39 +30,41 @@ const NavBar = () => {
     fullName: "",
     picture: "",
   }); //google
-  const userStatus = useSelector((state) => state.loggedIn);
+  const userState = useSelector((state) => state.user);
   const favorites = useSelector((state) => state.favorites);
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    user && tokenCheck(dispatch);
 
- 
-  useEffect( () => {
-      const user = JSON.parse(localStorage.getItem("user"));
-      user && tokenCheck(dispatch);
-  
-  //google login
+    //google login
 
-  getUser(setUsuario, usuario);    
-      
-  }, [userStatus,dispatch]);
-
+    getUser(setUsuario, usuario);
+  }, [dispatch]);
 
   const handleLogOut = () => {
     AuthService.logout();
-    dispatch(userState(false));
+    dispatch(
+      userState({
+        userName: null,
+        defaultShippingAddress: null,
+        role: null,
+        logged: false,
+      })
+    );
     dispatch(clearCartStore());
     window.open(`${BACK_URL}/auth/logout`, "_self");
   };
 
   const handleLogIn = () => {
-    navigate('/home/log-in')
-  }
+    navigate("/home/log-in");
+  };
 
   const checkCookie = () => {
-    window.open(`${BACK_URL}/auth/checkCookie`, "_self")
-  }
-
+    window.open(`${BACK_URL}/auth/checkCookie`, "_self");
+  };
 
   React.useEffect(() => {
     dispatch(getFavorites(localStorage.userName));
@@ -137,7 +138,7 @@ const NavBar = () => {
               </li>
 
               <li className="nav-item p-2">
-                {usuario.signedIn || userStatus ? (
+                {usuario.signedIn || userState.logged ? (
                   <Link
                     to={"/createProduct"}
                     className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"
@@ -149,7 +150,7 @@ const NavBar = () => {
               </li>
 
               <li className="nav-item p-2">
-                {usuario.signedIn || userStatus ? (
+                {usuario.signedIn || userState.logged ? (
                   <Link
                     to={"/modifyProduct"}
                     className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"
@@ -161,21 +162,24 @@ const NavBar = () => {
               </li>
 
               <li className="nav-item p-2">
+                {usuario.signedIn || userState.logged ? (
+                  <button
+                    onClick={() => handleLogOut()}
+                    className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"
+                  >
+                    Cerrar sesión
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => handleLogIn()}
+                    className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"
+                  >
+                    Ingresar
+                  </button>
+                )}
+              </li>
 
-              { usuario.signedIn || userStatus? (
-                <button onClick={()=>handleLogOut()} className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"  >
-                Cerrar sesión
-              </button>
-              ): (
-                <button onClick={()=>handleLogIn()} className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"  >
-                Ingresar
-              </button>
-              )             
-            }
-
-            </li>
-
-            {/* 
+              {/* 
             <li className="nav-item p-2">
               
                 <button onClick={()=>checkCookie()} className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"  >
@@ -184,7 +188,6 @@ const NavBar = () => {
              
             </li>
  */}
-
             </ul>
           </div>
           <div className="flex items-center relative">
@@ -193,7 +196,7 @@ const NavBar = () => {
               onClick={async () => {
                 dispatch(getCart(localStorage.userName));
                 if (!cart.length) return alert("Carrito vacio");
-                if (!userStatus) {
+                if (!userState.logged) {
                   window.location = `${FRONT_URL}/home/log-in`;
                   alert("Debes estar registrado para realizar una compra");
                   return;
@@ -233,7 +236,7 @@ const NavBar = () => {
                 />
               </svg>
             </Link>
-            {(usuario.signedIn || userStatus) && (
+            {(usuario.signedIn || userState.logged) && (
               <div className="flex items-center relative mr-5">
                 <Link to={"/favorites"} className="hover:text-gray-200">
                   <svg
@@ -254,7 +257,7 @@ const NavBar = () => {
               </div>
             )}
 
-            {(usuario.signedIn || userStatus) && (
+            {(usuario.signedIn || userState.logged) && (
               <div className="dropdown relative mr-5">
                 <a
                   className="dropdown-toggle flex items-center hidden-arrow"

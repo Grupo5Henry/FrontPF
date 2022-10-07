@@ -44,7 +44,7 @@ function Products() {
   const [expanded, setExpanded] = React.useState(false);
   const products = useSelector((state) => state.products);
   const favorites = useSelector((state) => state.favorites);
-  const userState = useSelector((state) => state.loggedIn);
+  const userState = useSelector((state) => state.user);
   const filter = useSelector((state) => state.filter);
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
@@ -127,14 +127,14 @@ function Products() {
                   aria-label="Add to cart"
                   onClick={() => {
                     if (!inCart(product.id)) {
-                      if (userState) {
+                      if (userState.logged) {
                         addToCart(localStorage.userName, product.id);
                         return;
                       }
                       updateOfflineCart(product.id, 1);
                       return;
                     }
-                    if (userState) {
+                    if (userState.logged) {
                       updateCart(localStorage.userName, product.id, 0);
                       return;
                     }
