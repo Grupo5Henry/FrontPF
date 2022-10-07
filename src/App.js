@@ -10,12 +10,14 @@ import About from './components/user/about/about';
 import Profile from './components/user/profile/profile';
 import Favorites from './components/user/favorites/favorites';
 import History from './components/user/history/history';
-import Cart from './components/user/Cart/Cart';
+import Cart from './components/user/cart/cart';
 import Error from './components/user/error/error';
 import CreateProduct from './components/user/CreateProduct/CreateProduct';
 import ModifyProduct from './components/user/ModifyProduct/ModifyProduct';
 import { useSelector } from 'react-redux';
+import DirectionForm from './components/user/formDirection';
 import { CongratulationsCard } from './components/user/CongratulationsCard/CongratulationsCard';
+
 
 
 
@@ -37,6 +39,7 @@ function App() {
           <Route exact path='/history' element={<History/>} />
           <Route exact path='/cart' element={<Cart/>} />
           <Route exact path='/details' element={<Details />} />
+          <Route exact path='/direction' element={<DirectionForm />} />
           <Route exact path='/home/log-in' element={<LogIn />} />
           <Route exact path='/home/sign-in' element={<SignIn />} />
           <Route exact path='/home/detail/:id' element={<Details />} />
