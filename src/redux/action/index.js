@@ -61,12 +61,12 @@ export const getProductsName = () => {
 
 export const getProductsFiltered = (filter) => {
   return async (dispatch) => {
-    const { category, brand, model, search, minPrice, maxPrice, order, amount, page } = filter;
+    const { category, brand, model, search, minPrice, maxPrice, order, amount, page, stock } = filter;
     // console.log(filter, "Actions")
     // console.log(category, brand, model, search, minPrice, maxPrice, order, amount, page, "Actions")
     const products = await axios.get(
       `${BACK_URL}/product/filterBy`,
-      {params: { category, brand, model, search, minPrice, maxPrice, order, amount, page }}
+      {params: { category, brand, model, search, minPrice, maxPrice, order, amount, page, stock }}
       );
     dispatch({
       type: GET_PRODUCTS_FILTERED,
@@ -195,7 +195,7 @@ export function getCategories () {
 };
 
 
-export const clearCart = () => {
+export const clearCartStore = () => {
   return async (dispatch) => {
     dispatch({
     type: UPDATE_CART,
@@ -204,11 +204,16 @@ export const clearCart = () => {
 }
 
 export const getCart = (userName) => {
-
-
   if (!userName) {
     return async (dispatch) => {
       let cart = []
+      if (!localStorage.cart) {
+        dispatch({
+          type: UPDATE_CART,
+          payload: []
+        })
+        return
+      } 
       for (const [id, amount] of Object.entries(JSON.parse(localStorage.cart))) {
         try {
           const detail = await axios.get(`${BACK_URL}/product/ID/${id}`)

@@ -2,11 +2,11 @@ import * as React from "react";
 import { styled } from "@mui/material/styles";
 import CardActions from "@mui/material/CardActions";
 import IconButton from "@mui/material/IconButton";
-import { AddShoppingCart, Favorite, FavoriteBorder } from "@mui/icons-material";
+import { AddShoppingCart, Delete, Favorite, FavoriteBorder } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { getCart, getFavorites } from "../../../redux/action";
 import { isFavorite, setFavorite, unSetFavorite } from "../../../Controllers/Favorite";
-import { addToCart, inCart, updateCart, updateOfflineCart } from "../../../Controllers/Cart";
+import { addToCart, inCart, updateCart, updateOfflineCart, clearCart } from "../../../Controllers/Cart";
 import { NumberInput, NumberInputField, NumberInputStepper, NumberDecrementStepper, NumberIncrementStepper } from "@chakra-ui/react";
 
 
@@ -44,6 +44,14 @@ function Cart () {
   
   return (
     <div>
+      <IconButton onClick={() => {
+        clearCart(localStorage.userName)
+        }} sx={cart.length > 0 ? {color: "red"} : {color: "lightgray"}} >
+        <Delete></Delete>
+        <p>Limpiar el carrito</p>
+      </IconButton>
+
+
       <div className="mt-10 grid lg:grid-cols-2 gap-x-8 gap-y-8 items-center px-40 py-10">
         {cart !=="Missing Username" && cart.map((product) => {
           let detail = product.product 

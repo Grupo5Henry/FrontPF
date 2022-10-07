@@ -22,7 +22,8 @@ const initialState = {
         maxPrice: 2147483647, // Max integer value
         order: "ASC",
         amount: 10,
-        page: 0
+        page: 0,
+        stock: 0
     },
     loggedIn: false
 
