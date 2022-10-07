@@ -121,7 +121,7 @@ const rootReducer = (state = initialState, action) => {
     case "USER_STATE":
       return {
         ...state,
-        user: action.payload,
+        user: { ...state.user, ...action.payload },
       };
 
     case UPDATE_CART:
