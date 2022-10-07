@@ -28,9 +28,9 @@ const Details = () => {
   return (
     <div >
       {!details.id ? 
-        <div class="h-screen bg-white">
-        <div class="flex justify-center items-center h-full">
-          <img class="h-16 w-16" src="https://icons8.com/preloaders/preloaders/1488/Iphone-spinner-2.gif" alt=""/>
+        <div className="h-screen bg-white">
+        <div className="flex justify-center items-center h-full">
+          <img className="h-16 w-16" src="https://icons8.com/preloaders/preloaders/1488/Iphone-spinner-2.gif" alt=""/>
         </div>
         </div>
        : (
@@ -46,7 +46,7 @@ const Details = () => {
                   <div className="relative">
                     <img
                       src={details.thumbnail}
-                      className="w-full relative z-10"
+                      className="w-full relative "
                       alt=""
                     />
                     <div className="border-4 border-black-200 absolute top-10 bottom-10 left-10 right-10 z-0"></div>
@@ -78,11 +78,11 @@ const Details = () => {
                     <p className="text-sm">{details.description}</p>
                   </div>
                   <div>
-                    <div class="inline-block align-bottom mr-5">
-                      <span class="text-2xl leading-none align-baseline">
+                    <div className="inline-block align-bottom mr-5">
+                      <span className="text-2xl leading-none align-baseline">
                         $
                       </span>
-                      <span class="font-bold text-3xl leading-none align-baseline">
+                      <span className="font-bold text-3xl leading-none align-baseline">
                         {details.price}
                       </span>
                     </div>

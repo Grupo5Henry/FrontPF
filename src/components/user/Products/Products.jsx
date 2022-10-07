@@ -76,7 +76,7 @@ function Products() {
       <div className="mt-10 grid lg:grid-cols-2 gap-x-8 gap-y-8 items-center px-40 py-10">
         {products.map((product) => (
           <div key={`home${product.id}`} className="group group-hover:bg-opacity-60 transition duration-500 relative bg-gray-50 sm:p-28 py-36 px-10 flex justify-center items-center">
-            <Link to={`/home/detail/${product.id}`} onClick={() => dispatch(addHistory(product.id))}>
+            <Link to={`/home/detail/${product.id}`} onClick={() => dispatch(addHistory({ id:product.id, name: product.name, img:product.thumbnail, price:product.price}))}>
             <img
               className="group-hover:opacity-60 transition duration-500"
               src={product.thumbnail}
