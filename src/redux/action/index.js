@@ -110,6 +110,14 @@ export const resetFilter = () => {
 };
 
 export const detailProduct = (id) => {
+  if (!id) {
+    return async (dispatch) => {
+      dispatch({
+        type: DETAIL_PRODUCT,
+        payload: {},
+      });
+    };
+  }
   return async (dispatch) => {
     try {
       const product = await axios.get(`${BACK_URL}/product/ID/${id}`);
