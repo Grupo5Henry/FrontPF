@@ -52,7 +52,7 @@ export const getProductsName = () => {
         payload: products.data,
       });
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
 };
@@ -119,7 +119,7 @@ export const detailProduct = (id) => {
 
         });
       } catch (error) {
-        console.log(error);
+        //console.log(error);
       }
     };
   };
@@ -175,7 +175,7 @@ export const getFavorites = (userName) => {
         payload: favorites.data
       })
     } catch (err) {
-      console.log({error: err.message})
+      //console.log({error: err.message})
     }
   }
 }
@@ -215,7 +215,7 @@ export const getCart = (userName) => {
           const product = { amount, product: detail.data}
           cart.push(product)
         } catch (err) {
-          console.log({error: err.message})
+         // console.log({error: err.message})
         }
       }
       dispatch({
@@ -236,7 +236,7 @@ export const getCart = (userName) => {
         payload: cart.data
       })
     } catch (err) {
-      console.log({error: err.message})
+     // console.log({error: err.message})
     }
   }
 }

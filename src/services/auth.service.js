@@ -21,6 +21,7 @@ const signup = /* async */ (userName, password,role,email,defaultShippingAddress
         localStorage.setItem("defaultShippingAddress", defaultShippingAddress )
         localStorage.setItem("role", 'user');
       }
+     
       
       return response.data;
     });
@@ -35,6 +36,7 @@ const login = (userName, password) => {
     .then((response) => {
       if (response.data.accessToken) {
         localStorage.setItem("user", JSON.stringify(response.data));
+        /* localStorage.setItem("refreshToken", response.data.refreshToken) */
         localStorage.setItem("defaultShippingAddress", response.data.shippingAddress )
         localStorage.setItem("role", response.data.privileges);
       }
