@@ -13,7 +13,10 @@ import {
 } from "../../../redux/action";
 import authHeader from "../../../services/auth-header";
 import AuthService from "../../../services/auth.service";
+import tokenCheck from '../../../services/token-check';
+import getUser from '../../../services/google-login';
 import { BACK_URL, FRONT_URL } from "../../../constantes";
+
 
 // import { Link } from "react-router-dom";
 // import { Icon } from "@iconify/react";
@@ -37,46 +40,14 @@ const NavBar = () => {
  
   useEffect( () => {
       const user = JSON.parse(localStorage.getItem("user"));
-      const tokenCheck =async ()=>{
-      const tokenStatus  =  await axios.get (`${BACK_URL}/token/tokenCheck`, { headers: authHeader() });
-      //console.log('log de tokenStatus',tokenStatus.data);
-      dispatch(userState(tokenStatus.data))
-      }
-      user && tokenCheck();
+      user && tokenCheck(dispatch);
   
   //google login
-  const getUser = () => {
-    fetch(`${BACK_URL}/auth/login/success`, {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Credentials": true,
-      },
-    })
-      .then((response) => {
-        if (response.status === 200) return response.json();
-        throw new Error("authentication has been failed!");
-      })
-      .then((resObject) => {
-       localStorage.setItem("userName", "google:" + resObject.user.id);
-       localStorage.setItem("defaultShippingAddress", resObject.shipping )
-       localStorage.setItem("role", resObject.role);
-       setUsuario({
-        ...usuario,
-        signedIn:true,
-        userId: resObject.user.id,
-        fullName: resObject.user.displayName
-       })
 
-        })
-        .catch((err) => {
-          // console.log(err);
-        });
-    };
-    getUser();
-  }, [userStatus, dispatch]);
+  getUser(setUsuario, usuario);    
+      
+  }, [userStatus,dispatch]);
+
 
   const handleLogOut = () => {
     AuthService.logout();
@@ -213,10 +184,6 @@ const NavBar = () => {
              
             </li>
  */}
-
-
-
-
 
             </ul>
           </div>
