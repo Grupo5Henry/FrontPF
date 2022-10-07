@@ -35,7 +35,8 @@ function App() {
       {userState.role != "user" && userState.role != null ? (
         <header className="App-header">
           <Routes>
-            <Route exact path="/" element={<AdminHome />} />
+            <Route path="*" element={<AdminHome />} />
+            {/* <Route exact path="/home" element={<AdminHome />} /> */}
             <Route exact path="/users" element={<List />} />
             <Route exact path="/users/:id" element={<Single />} />
             <Route exact path="/products" element={<List />} />
@@ -43,7 +44,7 @@ function App() {
             <Route exact path="/createProduct" element={<CreateProduct />} />
             <Route exact path="/modifyProduct" element={<ModifyProduct />} />
             <Route exact path="/orders" element={<Ordenes />} />
-            <Route path="*" element={<Error />} />
+            {/* <Route path="*" element={<Error />} /> */}
           </Routes>
         </header>
       ) : (

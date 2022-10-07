@@ -210,7 +210,7 @@ export function getAllOrders() {
                 ...ordersGrouped[orderNumber],
                 {
                   amount: orderInstance.amount,
-                  productId: orderInstance.id,
+                  productId: orderInstance.productId,
                   price: orderInstance.product.price,
                 },
               ]
@@ -220,7 +220,7 @@ export function getAllOrders() {
                 orderInstance.createdAt,
                 {
                   amount: orderInstance.amount,
-                  productId: orderInstance.id,
+                  productId: orderInstance.productId,
                   price: orderInstance.product.price,
                 },
               ];

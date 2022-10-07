@@ -18,6 +18,7 @@ export default function Widget({ type }) {
 
   const totalUsers = users.length;
 
+  // Earnings/Ingresos
   let earnings = 0;
 
   orders.map((order) => {
@@ -45,10 +46,10 @@ export default function Widget({ type }) {
   // for(let element in obj){
   //     counterOrder.push(element)
   // }
+  const pendingOrder = orders.filter((order) => order[1] === "Pending");
 
   let data = {};
   //TEMPORAL
-  const amount = 100;
 
   switch (type) {
     case "user":
@@ -65,7 +66,7 @@ export default function Widget({ type }) {
       data = {
         title: "ORDENES PENDIENTES",
         isMoney: false,
-        content: orders.length,
+        content: pendingOrder.length,
         link: "Ver todos las ordenes",
         icon: <ShoppingCartIcon className="icon" />,
         linker: "/",
