@@ -1,46 +1,52 @@
-import { Icon } from '@iconify/react';
+import { Icon } from "@iconify/react";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getBrandAndModels, getProductsName, resetFilter, searchProduct } from "../../../redux/action";
+import {
+  getBrandAndModels,
+  getProductsName,
+  resetFilter,
+  searchProduct,
+} from "../../../redux/action";
 
 const SearchBar = () => {
-
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [suggestions, setSuggestions] = useState([]);
 
-  const allProductsName = useSelector(state => state.allProductsName);
-    const dispatch = useDispatch();
+  const allProductsName = useSelector((state) => state.allProductsName);
+  const dispatch = useDispatch();
 
-    useEffect(() => {
-      dispatch(getProductsName())
-      dispatch(getBrandAndModels())
-  }, [dispatch])
+  useEffect(() => {
+    dispatch(getProductsName());
+    dispatch(getBrandAndModels());
+  }, [dispatch]);
   // console.log(allProductsName, "SearchBar");
 
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(resetFilter())
+    dispatch(resetFilter());
     dispatch(searchProduct(search));
 
     setSearch('');
     setSuggestions([]);
 };
 
-const onClick = (s) => {
-  setSearch(s);
-  setSuggestions([])
-}
+  const onClick = (s) => {
+    setSearch(s);
+    setSuggestions([]);
+  };
 
-const onchange = (e) => {
-  let matches = []
-  if (e.length > 0) {
+  const onchange = (e) => {
+    let matches = [];
+    if (e.length > 0) {
+      matches = allProductsName.filter((p) => {
+        const regex = new RegExp(`${e}`, "gi");
+        return p.name.match(regex);
+      });
+    }
 
-      matches = allProductsName.filter(p => {
+    // console.log('matches', matches, "SearchBar")
 
-          const regex = new RegExp(`${e}`, "gi");
-          return p.name.match(regex)
-      })
-  }
+    setSuggestions(matches);
 
   setSuggestions(matches.slice(0,10))
     setSearch(e)
@@ -48,6 +54,7 @@ const onchange = (e) => {
 }
 console.log(suggestions)
 
+  // console.log(search, "SearchBar")
 
   return (
     <div className='flex justify-center flex-col items-center w-full'>

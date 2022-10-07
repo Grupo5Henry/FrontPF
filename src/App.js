@@ -12,7 +12,6 @@ import Cart from './components/user/cart/cart';
 import Error from './components/user/error/error';
 import CreateProduct from './components/user/CreateProduct/CreateProduct';
 import ModifyProduct from './components/user/ModifyProduct/ModifyProduct';
-import Shopping from './components/user/profile/shopping';
 
 
 
@@ -30,7 +29,6 @@ function App() {
           <Route exact path='/about' element={<About/>} />
           <Route exact path='/favorites' element={<Favorites/>} />
           <Route path='/profile/*' element={<Profile/>} />
-          <Route exact path='/history' element={<History/>} />
           <Route exact path='/cart' element={<Cart/>} />
           <Route exact path='/details' element={<Details />} />
           {/* <Route exact path='/home/log-in' element={<LogIn />} />

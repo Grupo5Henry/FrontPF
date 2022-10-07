@@ -1,6 +1,9 @@
 import {
-    ButtonBack,
-    ButtonNext, CarouselProvider, Slide, Slider
+  ButtonBack,
+  ButtonNext,
+  CarouselProvider,
+  Slide,
+  Slider,
 } from "pure-react-carousel";
 import "pure-react-carousel/dist/react-carousel.es.css";
 import React, { useState } from "react";
@@ -8,7 +11,9 @@ import React, { useState } from "react";
 export default function CarrouselHome() {
   return (
     <div className="container mx-auto">
-      <h2 className="text-2xl font-bold text-gray-900 py-10 px-5">Recomendados</h2>
+      <h2 className="text-2xl font-bold text-gray-900 py-10 px-5">
+        Recomendados
+      </h2>
 
       <div className="flex items-center justify-center w-full h-full py-0 sm:py-8 px-4">
         {/* Carousel for desktop and large size devices */}
@@ -64,7 +69,7 @@ export default function CarrouselHome() {
                         </h2>
                         <div className="flex h-full items-end pb-6">
                           <h3 className="text-xl lg:text-2xl font-semibold leading-5 lg:leading-6 text-white">
-                            $3.999.000
+                            $399
                           </h3>
                         </div>
                       </div>
@@ -83,7 +88,7 @@ export default function CarrouselHome() {
                         </h2>
                         <div className="flex h-full items-end pb-6">
                           <h3 className="text-xl lg:text-2xl font-semibold leading-5 lg:leading-6 text-white">
-                            $1.229.000
+                            $1.229
                           </h3>
                         </div>
                       </div>
@@ -102,7 +107,7 @@ export default function CarrouselHome() {
                         </h2>
                         <div className="flex h-full items-end pb-6">
                           <h3 className="text-xl lg:text-2xl font-semibold leading-5 lg:leading-6 text-white">
-                            $1.149.000
+                            $1.149
                           </h3>
                         </div>
                       </div>
@@ -121,7 +126,7 @@ export default function CarrouselHome() {
                         </h2>
                         <div className="flex h-full items-end pb-6">
                           <h3 className="text-xl lg:text-2xl font-semibold leading-5 lg:leading-6 text-white">
-                            2.999.000
+                            $2.999
                           </h3>
                         </div>
                       </div>
@@ -140,7 +145,7 @@ export default function CarrouselHome() {
                         </h2>
                         <div className="flex h-full items-end pb-6">
                           <h3 className="text-xl lg:text-2xl font-semibold leading-5 lg:leading-6 text-white">
-                            835.900
+                            $835
                           </h3>
                         </div>
                       </div>
@@ -159,7 +164,7 @@ export default function CarrouselHome() {
                         </h2>
                         <div className="flex h-full items-end pb-6">
                           <h3 className="text-xl lg:text-2xl font-semibold leading-5 lg:leading-6 text-white">
-                            12.999.000
+                            $1.299
                           </h3>
                         </div>
                       </div>
@@ -178,7 +183,7 @@ export default function CarrouselHome() {
                         </h2>
                         <div className="flex h-full items-end pb-6">
                           <h3 className="text-xl lg:text-2xl font-semibold leading-5 lg:leading-6 text-white">
-                            1.879.000
+                            $3.879
                           </h3>
                         </div>
                       </div>

@@ -9,20 +9,19 @@ import {
   GET_PRODUCTS_NAME,
   RESET_FILTER,
   SEARCH_PRODUCT,
-  UPDATE_FILTER,
-  ADD_HISTORY,
-  DELETE_HISTORY,
+  UPDATE_CART,
   RESET_DETAIL,
+  UPDATE_FILTER,
 } from "../action";
 
 const initialState = {
   products: [],
   favorites: [],
-
   allProductsName: [],
   detail: {},
   categories: [],
   brand: [],
+  cart: [],
   model: [],
   maxPages: 0,
   filter: {
@@ -35,10 +34,14 @@ const initialState = {
     order: "ASC",
     amount: 10,
     page: 0,
+    stock: 0,
   },
-  loggedIn: false,
-  review: [],
-  history: [],
+  user: {
+    userName: null,
+    defaultShippingAddress: null,
+    role: null,
+    logged: false,
+  },
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -129,16 +132,6 @@ const rootReducer = (state = initialState, action) => {
         review: action.payload,
       };
     // history
-    case ADD_HISTORY:
-      return {
-        ...state,
-        history: [...state.history, action.payload],
-      };
-    case DELETE_HISTORY:
-      return {
-        ...state,
-        history: state.history.filter((product) => product.id !== action.payload),
-      };
     case RESET_DETAIL: 
     return{
         ...state,
