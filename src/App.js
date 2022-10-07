@@ -47,7 +47,6 @@ function App() {
           <Route exact path="/home/details" element={<Details />} />
           <Route path="*" element={<Error />} />
         </Routes>
-        <Footer1/>
       </header>
     </div>
   );
