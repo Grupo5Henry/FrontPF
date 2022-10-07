@@ -33,39 +33,43 @@ const NavBar = () => {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const tokenCheck = async () => {
-      const tokenStatus = await axios.get(`${BACK_URL}/token/tokenCheck`, {
-        headers: authHeader(),
-      });
-      //console.log('log de tokenStatus',tokenStatus.data);
-      dispatch(userState(tokenStatus.data));
-    };
-    tokenCheck();
 
-    //google login
-    const getUser = () => {
-      fetch(`${BACK_URL}/auth/login/success`, {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Credentials": true,
-        },
+ 
+  useEffect( () => {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const tokenCheck =async ()=>{
+      const tokenStatus  =  await axios.get (`${BACK_URL}/token/tokenCheck`, { headers: authHeader() });
+      //console.log('log de tokenStatus',tokenStatus.data);
+      dispatch(userState(tokenStatus.data))
+      }
+      user && tokenCheck();
+  
+  //google login
+  const getUser = () => {
+    fetch(`${BACK_URL}/auth/login/success`, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Credentials": true,
+      },
+    })
+      .then((response) => {
+        if (response.status === 200) return response.json();
+        throw new Error("authentication has been failed!");
       })
-        .then((response) => {
-          if (response.status === 200) return response.json();
-          throw new Error("authentication has been failed!");
-        })
-        .then((resObject) => {
-          localStorage.setItem("userName", "google:" + resObject.user.id);
-          setUsuario({
-            ...usuario,
-            signedIn: true,
-            userId: resObject.user.id,
-            fullName: resObject.user.displayName,
-          });
+      .then((resObject) => {
+       localStorage.setItem("userName", "google:" + resObject.user.id);
+       localStorage.setItem("defaultShippingAddress", resObject.shipping )
+       localStorage.setItem("role", resObject.role);
+       setUsuario({
+        ...usuario,
+        signedIn:true,
+        userId: resObject.user.id,
+        fullName: resObject.user.displayName
+       })
+
         })
         .catch((err) => {
           // console.log(err);
@@ -82,8 +86,13 @@ const NavBar = () => {
   };
 
   const handleLogIn = () => {
-    navigate("/home/log-in");
-  };
+    navigate('/home/log-in')
+  }
+
+  const checkCookie = () => {
+    window.open(`${BACK_URL}/auth/checkCookie`, "_self")
+  }
+
 
   React.useEffect(() => {
     dispatch(getFavorites(localStorage.userName));
@@ -181,22 +190,34 @@ const NavBar = () => {
               </li>
 
               <li className="nav-item p-2">
-                {usuario.signedIn || userStatus ? (
-                  <button
-                    onClick={() => handleLogOut()}
-                    className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"
-                  >
-                    Cerrar sesión
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => handleLogIn()}
-                    className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"
-                  >
-                    Ingresar
-                  </button>
-                )}
-              </li>
+
+              { usuario.signedIn || userStatus? (
+                <button onClick={()=>handleLogOut()} className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"  >
+                Cerrar sesión
+              </button>
+              ): (
+                <button onClick={()=>handleLogIn()} className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"  >
+                Ingresar
+              </button>
+              )             
+            }
+
+            </li>
+
+            {/* 
+            <li className="nav-item p-2">
+              
+                <button onClick={()=>checkCookie()} className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"  >
+                CheckCookie
+              </button>
+             
+            </li>
+ */}
+
+
+
+
+
             </ul>
           </div>
           <div className="flex items-center relative">

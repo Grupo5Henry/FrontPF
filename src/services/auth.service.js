@@ -18,6 +18,8 @@ const signup = /* async */ (userName, password,role,email,defaultShippingAddress
     .then((response) => {
       if (response.data.accessToken) {
         localStorage.setItem("user", JSON.stringify(response.data));
+        localStorage.setItem("defaultShippingAddress", defaultShippingAddress )
+        localStorage.setItem("role", 'user');
       }
       
       return response.data;
@@ -33,6 +35,8 @@ const login = (userName, password) => {
     .then((response) => {
       if (response.data.accessToken) {
         localStorage.setItem("user", JSON.stringify(response.data));
+        localStorage.setItem("defaultShippingAddress", response.data.shippingAddress )
+        localStorage.setItem("role", response.data.privileges);
       }
       //console.log('auth.service signin: ', response.data);
       return response.data;
@@ -45,6 +49,8 @@ const login = (userName, password) => {
 const logout = () => {
   localStorage.removeItem("user");
   localStorage.removeItem("userName");
+  localStorage.removeItem("defaultShippingAddress");
+  localStorage.removeItem("role");
 };
 
 const getCurrentUser = () => {
