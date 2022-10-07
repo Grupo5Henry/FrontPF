@@ -3,11 +3,18 @@ import axios from "axios";
 
 // export const MULTI_ACTION = "MULTI_ACTION";
 
-
+//PRODUCTS
 export const GET_PRODUCTS_NAME = "GET_PRODUCTS_NAME";
 export const DETAIL_PRODUCT = "DETAIL_PRODUCT";
 export const SEARCH_PRODUCT = "SEARCH_PRODUCT";
 export const GET_PRODUCTS_FILTERED = "GET_PRODUCTS_FILTERED";
+
+//USERS
+export const FETCH_ALL_USERS = "FETCH_ALL_USERS";
+
+//ORDERS
+
+export const FETCH_ALL_ORDERS = "FETCH_ALL_ORDERS";
 
 
 export const FETCH_FAVORITES = "FETCH_FAVORITES";
@@ -189,6 +196,32 @@ export function getCategories () {
             }) 
         })
     }
+};
+
+export function getAllUsers () {
+  return async function (dispatch) {
+    fetch("https://backpf-production.up.railway.app/user")
+    .then(response => response.json())
+    .then((users) => {
+      dispatch({
+        type: FETCH_ALL_USERS,
+        payload: users
+      })
+    })
+  }
+};
+
+export function getAllOrders () {
+  return async function (dispatch) {
+    fetch("https://backpf-production.up.railway.app/order")
+    .then(response => response.json())
+    .then((orders) => {
+      dispatch({
+        type: FETCH_ALL_ORDERS,
+        payload: orders
+      })
+    })
+  }
 };
 
 

@@ -1,11 +1,14 @@
 
 import { act } from "react-dom/test-utils";
 
-import { CLEAR_CATEGORIES, DETAIL_PRODUCT, FETCH_BRANDS_MODELS, FETCH_CATEGORIES, FETCH_FAVORITES, GET_PRODUCTS_FILTERED, GET_PRODUCTS_NAME, RESET_FILTER, SEARCH_PRODUCT, UPDATE_FILTER } from "../action";
+import { CLEAR_CATEGORIES, DETAIL_PRODUCT, FETCH_BRANDS_MODELS, FETCH_CATEGORIES, FETCH_FAVORITES, GET_PRODUCTS_FILTERED,
+     GET_PRODUCTS_NAME, RESET_FILTER, SEARCH_PRODUCT, UPDATE_FILTER, FETCH_ALL_USERS, FETCH_ALL_ORDERS } from "../action";
 
 const initialState = {
     products: [],
     favorites: [],
+    users: [],
+    orders:[],
 
     allProductsName:[],
     detail: {},
@@ -87,6 +90,18 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 favorites: action.payload
             }
+//ALL USERS
+        case FETCH_ALL_USERS:
+            return{
+                ...state,
+                users: action.payload
+            }
+//ORDERS
+        case FETCH_ALL_ORDERS:
+            return{
+                ...state,
+                orders: action.payload
+            }
 
 
 //Categories            
@@ -121,6 +136,9 @@ const rootReducer = (state = initialState, action) => {
         default: return state
     }
 }
+
+
+
 
 
 

@@ -1,0 +1,17 @@
+.homeAdmin {
+    display: flex;
+    .homeContainer{
+
+        flex: 6;
+
+        .widgets, .charts{
+            display: flex;
+            padding: 25px;
+            gap: 25px;
+        }
+
+        .charts{
+            padding: 15px 25px;
+        }
+    }
+}

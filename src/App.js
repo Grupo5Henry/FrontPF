@@ -16,37 +16,75 @@ import CreateProduct from './components/user/CreateProduct/CreateProduct';
 import ModifyProduct from './components/user/ModifyProduct/ModifyProduct';
 import { useSelector } from 'react-redux';
 
+//ADMIN ROUTES
+import AdminHome from './components/Admin/AdminHome/AdminHome';
+import AdminUsers from './components/Admin/AdminUsers/AdminUsers';
+import List from './components/Admin/List/List';
+import Single from './components/Admin/Single/Single';
+import Ordenes from './components/Admin/Ordenes/Ordenes';
 
 
+console.log("Soy locale", localStorage.role)
 
 function App() {
-  const userState = useSelector((state)=>state.loggedIn)
+  const userState = useSelector((state)=>state.loggedIn);
 
 
   return (
     <div className="App">
-      <header className="App-header">
-        <NavBar />
-        <Routes>
-          <Route exact path='/' element={<Landing />} />
-          <Route exact path='/home' element={<Home />} />
-          <Route exact path='/about' element={<About/>} />
-          <Route exact path='/favorites' element={<Favorites/>} />
-          <Route exact path='/profile' element={<Profile/>} />
-          <Route exact path='/history' element={<History/>} />
-          <Route exact path='/cart' element={<Cart/>} />
-          <Route exact path='/details' element={<Details />} />
-          <Route exact path='/home/log-in' element={<LogIn />} />
-          <Route exact path='/home/sign-in' element={<SignIn />} />
-          <Route exact path='/home/detail/:id' element={<Details />} />
-          <Route exact path="/createProduct" element={<CreateProduct/>} />
-          <Route exact path="/modifyProduct" element={<ModifyProduct/>} />
-          { !userState? (<Route exact path='/home/sign-in' element={<SignIn />} />): null}
-          <Route exact path='/home/details' element={<Details />} />
-          <Route path='*' element={<Error/>}/>
 
-        </Routes>
-      </header>
+{/*           {localStorage.role === "admin" || localStorage.role === "SuperAdmin" ? 
+            <header className="App-header">
+              <Routes>
+                  <Route exact path="/" element={<AdminHome />} />
+                  <Route exact path="/users" element={<List />} />
+                  <Route exact path="/users/:id" element={<Single />} />
+                  <Route exact path="/products" element={<List />} />
+                  <Route exact path="/products/:id" element={<Single />} />
+                  <Route exact path="/createProduct" element={<CreateProduct/>} />
+                  <Route exact path="/modifyProduct" element={<ModifyProduct/>} />
+                  <Route exact path="/orders" element={<Ordenes/>} />
+                  <Route path='*' element={<Error/>}/>
+              </Routes>
+            </header>
+                      :
+            <header className="App-header">
+                <NavBar />
+                <Routes>
+                      <Route exact path='/' element={<Landing />} />
+                      <Route exact path='/home' element={<Home />} />
+                      <Route exact path='/about' element={<About/>} />
+                      <Route exact path='/favorites' element={<Favorites/>} />
+                      <Route exact path='/profile' element={<Profile/>} />
+                      <Route exact path='/history' element={<History/>} />
+                      <Route exact path='/cart' element={<Cart/>} />
+                      <Route exact path='/details' element={<Details />} />
+                      <Route exact path='/home/log-in' element={<LogIn />} />
+                      <Route exact path='/home/sign-in' element={<SignIn />} />
+                      <Route exact path='/home/detail/:id' element={<Details />} />
+                      { !userState? (<Route exact path='/home/sign-in' element={<SignIn />} />): null}
+                      <Route exact path='/home/details' element={<Details />} />
+                      <Route path='*' element={<Error/>}/>
+                  </Routes>
+                  </header>
+        } */}
+
+<header className="App-header">
+              <Routes>
+                  <Route exact path="/" element={<AdminHome />} />
+                  <Route exact path="/users" element={<List />} />
+                  <Route exact path="/users/:id" element={<Single />} />
+                  <Route exact path="/products" element={<List />} />
+                  <Route exact path="/products/:id" element={<Single />} />
+                  <Route exact path="/createProduct" element={<CreateProduct/>} />
+                  <Route exact path="/modifyProduct" element={<ModifyProduct/>} />
+                  <Route exact path="/orders" element={<Ordenes/>} />
+                  <Route path='*' element={<Error/>}/>
+              </Routes>
+            </header>
+
+
+
     </div>
   );
 }
