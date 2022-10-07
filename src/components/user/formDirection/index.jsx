@@ -1,9 +1,15 @@
+import axios from "axios";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { BACK_URL } from "../../../constantes";
+import { CreateOrder } from "../../../redux/action";
 
 
 export default function DirectionForm(){
-    // var {user} = useSelector(state => state) ???????
+    var dispatch = useDispatch()
+    var {cart} = useSelector(state => state)
+
+
     var [state,setState] = useState(true)
     var [direction,setDirection] = useState({
         provincia_estado: "",
@@ -12,33 +18,58 @@ export default function DirectionForm(){
     })
     var [porDefecto,setPorDefecto] = useState(false)
 
+    var {userName,defaultShippingAddress} = localStorage
+
+
     function onCha(e){
         setDirection({
             ...direction,
             [e.target.name]:e.target.value
         })
     }
-    function onSub(e){
+
+    async function onSub(e){
         e.preventDefault()
 
-        state? (
-            alert("Voy a usar la ubicacion por defecto y tengo que hacer la orden de compra")
-        ) : (
-            !direction.calle || !direction.provincia_estado? (
-                alert("Complete los campos pedidos")
-            ) :
-            porDefecto? (
-                alert("Tengo que modificar la shipping address y hacer la orden de compra")
-            ) : (
-                alert("Tengo que hacer la orden de compra con la nueva ubicacion pero no alterar la ubicacion por defecto")
-            )
-        )
+
+        
+        var shippingAddress = ""
+        
+        if(state){
+            shippingAddress = defaultShippingAddress
+        } else{
+            if(!direction.calle || !direction.provincia_estado){
+               return  alert("Complete los campos pedidos")
+            }else{
+                if(porDefecto){
+                    // PRIMERO TENRDIA QUE MODIFICAR LA DIRECCION
+                    shippingAddress = direction.line1? (
+                    `${direction.provincia_estado}, ${direction.calle}, ${direction.line1}`
+                    ) : (
+                        `${direction.provincia_estado}, ${direction.calle}`
+                        )
+                }else{
+                    shippingAddress = direction.line1? (
+                    `${direction.provincia_estado}, ${direction.calle}, ${direction.line1}`
+                    ) : (
+                        `${direction.provincia_estado}, ${direction.calle}`
+                        )
+                }
+            }
+        }
+        localStorage.shippingAddress = shippingAddress
+        console.log(localStorage);
+              
     }
     return (
         <div style={{display:"flex",flexDirection:"column",gap: "5px",alignItems:"center"}}>
             <h1 style={{color:"black",fontSize:"35px",fontWeight:"bold"}}>Dirección de Envio</h1>
             <select onChange={(e) => {setState(e.target.value);if(e.target.value){setPorDefecto(false)}}} style={{width:"90%"}}>
-                <option value={true}>{/* {user.defaultShippingAddress} */}Calle falsa 123</option>
+                {
+                    defaultShippingAddress === "from google"? null : (
+                        <option value={true}>{defaultShippingAddress}</option>
+                    )
+                } 
                 <option value={""}>Otra dirección</option>
             </select>
             {

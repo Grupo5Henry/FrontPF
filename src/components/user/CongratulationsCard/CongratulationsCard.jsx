@@ -8,6 +8,29 @@ import { clearCart } from "../../../Controllers/Cart";
 export const CongratulationsCard = () => {
   const cart = useSelector((state) => state.cart);
 
+  // var orderNumber = ""
+  // for (let i = 0; i < cart.length; i++) {
+  //   if(!i){
+  //           try {
+  //               var {data} = await axios.get(`${BACK_URL}/order/largestOrderNumber`)
+  //               console.log(data);
+  //               orderNumber = data.length? Number(data[0].orderNumber + 1) : 1
+  //           } catch (error) {
+  //               alert("No se pudo traer el numero de orden mas alto")
+  //           }    
+  //   }
+  //   console.log("numero de orden",orderNumber);
+  //   console.log("direccion",shippingAddress);
+  //   dispatch(CreateOrder({
+  //       productId: cart[i].productId,
+  //       userName,
+  //       orderNumber,
+  //       shippingAddress,
+  //       amount: cart[i].amount 
+  //   }))
+            
+// }     
+
   return (
     <div class="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
       <a href="#">

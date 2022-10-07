@@ -247,3 +247,10 @@ export const getCart = (userName) => {
 }
 
 
+export function CreateOrder(obj){
+  return function(dispatch){
+    axios.post(`${BACK_URL}/order`,obj)
+    .then(() => alert("Se hizo la orden de compra"))
+    .catch(err => alert(err))
+  }
+}

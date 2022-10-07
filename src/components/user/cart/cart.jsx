@@ -8,7 +8,7 @@ import { getCart, getFavorites } from "../../../redux/action";
 import { isFavorite, setFavorite, unSetFavorite } from "../../../Controllers/Favorite";
 import { addToCart, inCart, updateCart, updateOfflineCart, clearCart } from "../../../Controllers/Cart";
 import { NumberInput, NumberInputField, NumberInputStepper, NumberDecrementStepper, NumberIncrementStepper } from "@chakra-ui/react";
-
+import {useNavigate} from "react-router-dom"
 
 
 
@@ -30,6 +30,8 @@ function Cart () {
   const userState = useSelector(state => state.loggedIn);
   const favorites = useSelector(state => state.favorites)
   const dispatch = useDispatch()
+
+  var navigate = useNavigate()
 
 
   React.useEffect(() => {
@@ -137,6 +139,9 @@ function Cart () {
           //   </div>
           // </div>
         )})}
+      </div>
+      <div style={{display:"flex",justifyContent:"center"}}>
+        <button onClick={() => navigate("/direction")} style={{width:"90%"}} className="datepicker-footer-btn">Continuar</button>
       </div>
     </div>
   );
