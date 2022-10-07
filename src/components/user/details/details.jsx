@@ -38,7 +38,14 @@ const Details = () => {
 
   return (
     <div>
-      <style>
+      {
+        !detail.id ? 
+        <div className="h-screen bg-white">
+        <div className="flex justify-center items-center h-full">
+          <img className="h-16 w-16" src="https://icons8.com/preloaders/preloaders/1488/Iphone-spinner-2.gif" alt=""/>
+        </div>
+        </div>: <div>
+        <style>
         @import
         url(https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css);
       </style>
@@ -91,17 +98,6 @@ const Details = () => {
                   </span>
                   <span className="font-bold text-3xl leading-none align-baseline">
                     {detail.price}
-                  </span>
-                </div>
-              </div>
-
-              <div className="mt-2">
-                <div className="inline-block align-bottom mr-5">
-                  <span className="text-2xl leading-none align-baseline">
-                    brand{" "}
-                  </span>
-                  <span className="font-bold text-3xl leading-none align-baseline">
-                    {detail.brand}
                   </span>
                 </div>
               </div>
@@ -198,11 +194,38 @@ const Details = () => {
               </div>
             </div>
           </div>
+
+          <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
+                <div className="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12">
+                  <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto">
+                    <span className="relative inline-block"></span>{" "}
+                    Caracteristicas
+                  </h2>
+                </div>
+                <div className="grid gap-8 row-gap-10 lg:grid-cols-2">
+                  <div className="max-w-md sm:mx-auto sm:text-center">
+                    <h6 className="mb-3 text-xl font-bold leading-5">Modelo</h6>
+                    <p className="mb-3 text-sm text-gray-900">
+                      {detail.model}
+                    </p>
+                  </div>
+                  <div className="max-w-md sm:mx-auto sm:text-center">
+                    <h6 className="mb-3 text-xl font-bold leading-5">Marca</h6>
+                    <p className="mb-3 text-sm text-gray-900">
+                      {detail.brand}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
           {/* {<------------------ comentarios ------------------------>} */}
           <Comment />
           {/* {<------------------------------------------>} */}
         </div>
         </div>
+        </div>
+      }
+      
     </div>
   );
 };

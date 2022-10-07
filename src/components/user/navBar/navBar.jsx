@@ -1,40 +1,20 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import HomeIcon from "@mui/icons-material/Home";
-import IconButton from "@mui/material/IconButton";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useDispatch, userDispatch, useSelector } from "react-redux";
-import { Link, Route, Routes, useNavigate } from "react-router-dom";
-import {
-  getFavorites,
-  clearCartStore,
-  userState,
-  getCart,
-} from "../../../redux/action";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { getFavorites, userState } from "../../../redux/action";
 import authHeader from "../../../services/auth-header";
 import AuthService from "../../../services/auth.service";
-import tokenCheck from "../../../services/token-check";
-import getUser from "../../../services/google-login";
-import { BACK_URL, FRONT_URL } from "../../../constantes";
-
-// import { Link } from "react-router-dom";
-// import { Icon } from "@iconify/react";
-import SearchBar from "../searchBar/searchBar.jsx";
+import Modal from "react-modal";
 import "./navBar.css";
 import LogIn from "../logIn/logIn";
 import SignIn from "../signIn/signIn";
 
+Modal.setAppElement("#root");
+
 const NavBar = () => {
-  const navigate = useNavigate();
-  const [usuario, setUsuario] = useState({
-    signedIn: false,
-    userId: "",
-    fullName: "",
-    picture: "",
-  }); //google
-  const userState = useSelector((state) => state.user);
-  const favorites = useSelector((state) => state.favorites);
-  const cart = useSelector((state) => state.cart);
+  const userStatus = useSelector((state) => state.loggedIn);;
   const dispatch = useDispatch();
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [modalOpen, setOpen] = React.useState(false);
@@ -193,9 +173,9 @@ const NavBar = () => {
                     stroke="currentColor"
                   >
                     <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
                       d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
                     />
                   </svg>

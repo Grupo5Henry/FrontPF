@@ -1,6 +1,4 @@
 import axios from "axios";
-
-import { useSelector } from "react-redux";
 import { BACK_URL } from "../../constantes";
 
 // export const MULTI_ACTION = "MULTI_ACTION";
@@ -129,15 +127,6 @@ export const resetDetail = () => {
   return {
       type: RESET_DETAIL,
   }
-};
-
-
-
-export function clearCategories() {
-    return {
-        type: CLEAR_CATEGORIES,
-        payload: []
-    }
 };
 
 export const detailProduct = (id) => {

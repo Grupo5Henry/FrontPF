@@ -10,7 +10,6 @@ import {
   RESET_FILTER,
   SEARCH_PRODUCT,
   UPDATE_CART,
-  RESET_DETAIL,
   UPDATE_FILTER,
 } from "../action";
 
@@ -42,6 +41,7 @@ const initialState = {
     role: null,
     logged: false,
   },
+  review:[]
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -113,7 +113,6 @@ const rootReducer = (state = initialState, action) => {
     case FETCH_BRANDS_MODELS:
       return {
         ...state,
-
         brand: action.payload.brands,
         model: action.payload.models,
       };
@@ -122,21 +121,19 @@ const rootReducer = (state = initialState, action) => {
     case "USER_STATE":
       return {
         ...state,
-        loggedIn: action.payload,
+        user: action.payload,
       };
 
-    // agregar review
-    case GET_REVIEW:
+    case UPDATE_CART:
+      return {
+        ...state,
+        cart: action.payload,
+      };
+      case GET_REVIEW:
       return {
         ...state,
         review: action.payload,
       };
-    // history
-    case RESET_DETAIL: 
-    return{
-        ...state,
-        detail:{},
-    }
 
     default:
       return state;
