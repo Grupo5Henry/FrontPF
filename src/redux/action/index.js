@@ -11,8 +11,6 @@ export const GET_PRODUCTS_FILTERED = "GET_PRODUCTS_FILTERED";
 export const FETCH_FAVORITES = "FETCH_FAVORITES";
 
 export const GET_REVIEW = "GET_REVIEW";
-export const ADD_HISTORY = "ADD_HISTORY";
-export const DELETE_HISTORY = "DELETE_HISTORY";
 export const RESET_DETAIL = "RESET_DETAIL";
 export const UPDATE_CART = "UPDATE_CART";
 export const GET_CART = "GET_CART";
@@ -214,22 +212,6 @@ export const getReview = (id) => {
     }
   }
 };
-
-
-export const addHistory = (productId) => {
-  return {
-    type: ADD_HISTORY,
-    payload: productId
-  }
-}
-
-export const deleteHistory = (productId) => {
-  return {
-    type: DELETE_HISTORY,
-    payload: productId
-  }
-}
-
 
 
 

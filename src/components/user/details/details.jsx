@@ -56,7 +56,7 @@ const Details = () => {
               <div className="relative">
                 <img
                   src={detail.thumbnail}
-                  className="w-full relative z-10"
+                  className="w-full relative "
                   alt=""
                 />
                 <div className="border-4 border-black-200 absolute top-10 bottom-10 left-10 right-10 z-0"></div>
@@ -219,7 +219,7 @@ const Details = () => {
               </div>
 
           {/* {<------------------ comentarios ------------------------>} */}
-          <Comment />
+          <Comment id={id}/>
           {/* {<------------------------------------------>} */}
         </div>
         </div>

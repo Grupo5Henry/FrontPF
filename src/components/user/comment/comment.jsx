@@ -1,10 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addReview, updateReview } from "../../../Controllers/review";
-import { getReview, userState } from "../../../redux/action";
-import authHeader from "../../../services/auth-header";
+import { getReview } from "../../../redux/action";
 
 const Comment = ({ id }) => {
 
@@ -16,25 +14,13 @@ const Comment = ({ id }) => {
   const [active, setActive] = useState(false)
 
   const reviews = useSelector((state) => state.review);
-  const userStatus = useSelector((state) => state.loggedIn);
+  const userState = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getReview(id));
   }, [dispatch, id]);
 
-  useEffect(() => {
-    const tokenCheck = async () => {
-      const tokenStatus = await axios.get(
-        "https://backpf-production.up.railway.app/token/tokenCheck",
-        { headers: authHeader() }
-      );
-      /*  const tokenStatus  =  await axios.get ('http://localhost:3001/token/tokenCheck', { headers: authHeader() }); */
-      console.log("log de tokenStatus", tokenStatus.data);
-      dispatch(userState(tokenStatus.data));
-    };
-    tokenCheck();
-  }, [userStatus, dispatch]);
 
   const une = () => {
     if (stars === 0) {
@@ -175,19 +161,23 @@ const Comment = ({ id }) => {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     if (stars > 0 && description.length > 3) {
-      addReview(localStorage.userName, id, description,stars);
+      addReview(userState.userName, id, description,stars);
       setStars(0);
       setDescription("");
     } else {
       console.log("No se Pudo Enviar El Formulario");
     }
   };
+  console.log(userState.userName)
+  console.log(id)
+  console.log(description)
+  console.log(stars)
   // localStorage.userName, id, eDescription, eStars
 
   const OnSubmit = (e) => {
     e.preventDefault();
     if (eStars > 0 && eDescription.length > 3) {
-      updateReview(localStorage.userName, id, eDescription, eStars);
+      updateReview(userState.userName, id, eDescription, eStars);
       setEstars(0);
       setEdescription("");
       setActive(false)
@@ -215,7 +205,7 @@ const Comment = ({ id }) => {
                       {e.userName}
                     </h1>
                     {
-                      localStorage.userName === e.userName ? <div className="dropdown relative mr-5 flex justify-end">
+                      userState.userName === e.userName ? <div className="dropdown relative mr-5 flex justify-end">
                       <a
                         className="dropdown-toggle flex items-center hidden-arrow"
                         href="#"
@@ -589,7 +579,7 @@ const Comment = ({ id }) => {
 
         {/* creacion de el comentario del producto */}
 
-        {userStatus ? (
+        {userState.logged ? (
           <form onSubmit={handleOnSubmit}>
             <textarea
               onChange={(e) => setDescription(e.target.value)}
