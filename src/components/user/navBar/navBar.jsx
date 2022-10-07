@@ -1,12 +1,24 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import axios from "axios";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { getFavorites, userState } from "../../../redux/action";
+import Modal from "react-modal";
+import React, { useEffect, useState } from "react";
+import { useDispatch, userDispatch, useSelector } from "react-redux";
+import { Link, Route, Routes, useNavigate } from "react-router-dom";
+import { BACK_URL, FRONT_URL } from "../../../constantes";
+import {
+  clearCartStore,
+  getCart,
+  getFavorites,
+  updateUserState,
+} from "../../../redux/action";
 import authHeader from "../../../services/auth-header";
 import AuthService from "../../../services/auth.service";
-import Modal from "react-modal";
+import getUser from "../../../services/google-login";
+import tokenCheck from "../../../services/token-check";
+
+// import { Link } from "react-router-dom";
+// import { Icon } from "@iconify/react";
+import SearchBar from "../searchBar/searchBar.jsx";
 import "./navBar.css";
 import LogIn from "../logIn/logIn";
 import SignIn from "../signIn/signIn";
@@ -14,33 +26,52 @@ import SignIn from "../signIn/signIn";
 Modal.setAppElement("#root");
 
 const NavBar = () => {
-  const userStatus = useSelector((state) => state.loggedIn);;
+  
+  const [usuario, setUsuario] = useState({
+    signedIn: false,
+    userId: "",
+    fullName: "",
+    picture: "",
+  });
+  const userState = useSelector((state) => state.user);
+  const favorites = useSelector((state) => state.favorites);
+  const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [modalOpen, setOpen] = React.useState(false);
 
   useEffect(() => {
-    const tokenCheck = async () => {
-      const tokenStatus = await axios.get(
-        "https://backpf-production.up.railway.app/token/tokenCheck",
-        { headers: authHeader() }
-      );
-      /*  const tokenStatus  =  await axios.get ('http://localhost:3001/token/tokenCheck', { headers: authHeader() }); */
-      console.log("log de tokenStatus", tokenStatus.data);
-      dispatch(userState(tokenStatus.data));
-    };
-    tokenCheck();
-  }, [userStatus, dispatch]);
-  console.log(AuthService, "leeer");
+    const user = JSON.parse(localStorage.getItem("user"));
+    user && tokenCheck(dispatch);
+
+    //google login
+
+    getUser(setUsuario, usuario);
+    dispatch(getFavorites(userState.userName));
+  }, [dispatch]);
 
   const handleLogOut = () => {
     AuthService.logout();
-    dispatch(userState(false));
+    dispatch(
+      updateUserState({
+        userName: null,
+        defaultShippingAddress: null,
+        role: null,
+        logged: false,
+      })
+    );
+    dispatch(clearCartStore());
+    window.open(`${BACK_URL}/auth/logout`, "_self");
+  };
+
+
+  const checkCookie = () => {
+    window.open(`${BACK_URL}/auth/checkCookie`, "_self");
   };
 
   React.useEffect(() => {
-    dispatch(getFavorites(localStorage.userName));
-  }, [dispatch]);
+    dispatch(getFavorites(userState.userName));
+  }, [userState]);
 
   return (
     <div className="box">
@@ -118,7 +149,7 @@ const NavBar = () => {
               </li>
 
               <li className="nav-item p-2">
-                {userStatus ? (
+                {usuario.signedIn || userState.logged ? (
                   <Link
                     to={"/createProduct"}
                     className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"
@@ -130,7 +161,7 @@ const NavBar = () => {
               </li>
 
               <li className="nav-item p-2">
-                {userStatus ? (
+                {usuario.signedIn || userState.logged ? (
                   <Link
                     to={"/modifyProduct"}
                     className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"
@@ -143,6 +174,32 @@ const NavBar = () => {
             </ul>
           </div>
           <div className="flex items-center relative">
+            <button
+              className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"
+              onClick={async () => {
+                dispatch(getCart(userState.userName));
+                if (!cart.length) return alert("Carrito vacio");
+                if (!userState.logged) {
+                  window.location = `${FRONT_URL}/home/log-in`;
+                  alert("Debes estar registrado para realizar una compra");
+                  return;
+                }
+                try {
+                  const url = await axios.post(
+                    `${BACK_URL}/checkout`,
+                    { cart: cart },
+                    { headers: { "Content-Type": "application/json" } }
+                  );
+                  // console.log(url)
+                  window.location = url.data.url;
+                } catch (err) {
+                  console.log({ error: err.message });
+                }
+              }}
+            >
+              Checkout
+            </button>
+
             <Link
               to="/cart"
               className="flex items-center hover:text-gray-200 mr-5"
@@ -162,7 +219,7 @@ const NavBar = () => {
                 />
               </svg>
             </Link>
-            {userStatus && (
+            {(usuario.signedIn || userState.logged) && (
               <div className="flex items-center relative mr-5">
                 <Link to={"/favorites"} className="hover:text-gray-200">
                   <svg
@@ -182,7 +239,7 @@ const NavBar = () => {
                 </Link>
               </div>
             )}
-            {userStatus ? (
+            {usuario.signedIn || userState.logged ? (
               <div className="dropdown relative mr-5">
                 <a
                   className="dropdown-toggle flex items-center hidden-arrow"

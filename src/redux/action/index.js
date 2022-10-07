@@ -143,6 +143,13 @@ export const detailProduct = (id) => {
   };
 };
 
+export const updateUserState = (payload) => {
+  return {
+    type: "USER_STATE",
+    payload,
+  };
+};
+
 export function clearCategories() {
   return {
     type: CLEAR_CATEGORIES,

@@ -1,34 +1,34 @@
-import * as React from "react";
-import { styled } from "@mui/material/styles";
-import CardActions from "@mui/material/CardActions";
-import IconButton from "@mui/material/IconButton";
+import {
+  NumberDecrementStepper,
+  NumberIncrementStepper,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+} from "@chakra-ui/react";
 import {
   AddShoppingCart,
   Delete,
   Favorite,
   FavoriteBorder,
 } from "@mui/icons-material";
+import CardActions from "@mui/material/CardActions";
+import IconButton from "@mui/material/IconButton";
+import { styled } from "@mui/material/styles";
+import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCart, getFavorites } from "../../../redux/action";
+import {
+  addToCart,
+  clearCart,
+  inCart,
+  updateCart,
+  updateOfflineCart,
+} from "../../../Controllers/Cart";
 import {
   isFavorite,
   setFavorite,
   unSetFavorite,
 } from "../../../Controllers/Favorite";
-import {
-  addToCart,
-  inCart,
-  updateCart,
-  updateOfflineCart,
-  clearCart,
-} from "../../../Controllers/Cart";
-import {
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-} from "@chakra-ui/react";
+import { getCart, getFavorites } from "../../../redux/action";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -49,9 +49,9 @@ function Cart() {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    dispatch(getFavorites(localStorage.userName));
-    dispatch(getCart(localStorage.userName));
-  }, []);
+    dispatch(getFavorites(userState.userName));
+    dispatch(getCart(userState.userName));
+  }, [userState]);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -61,7 +61,7 @@ function Cart() {
     <div>
       <IconButton
         onClick={() => {
-          clearCart(localStorage.userName);
+          clearCart(userState.userName);
         }}
         sx={cart.length > 0 ? { color: "red" } : { color: "lightgray" }}
       >
@@ -100,8 +100,8 @@ function Cart() {
                     aria-label="Add to cart"
                     onClick={() => {
                       if (isFavorite(detail.id))
-                        return unSetFavorite(localStorage.userName, detail.id);
-                      setFavorite(localStorage.userName, detail.id);
+                        return unSetFavorite(userState.userName, detail.id);
+                      setFavorite(userState.userName, detail.id);
                     }}
                   >
                     {favorites != "Missing Username" ? (
@@ -109,7 +109,7 @@ function Cart() {
                         <Favorite
                           sx={{ color: "red" }}
                           fontSize="large"
-                          // onClick={() => unSetFavorite(localStorage.userName, product.id)}
+                          // onClick={() => unSetFavorite(userState.userName, product.id)}
                         />
                       ) : (
                         <FavoriteBorder fontSize="large" />
@@ -122,7 +122,7 @@ function Cart() {
                     min={0}
                     onChange={(value) => {
                       if (userState.logged) {
-                        updateCart(localStorage.userName, detail.id, value);
+                        updateCart(userState.userName, detail.id, value);
                         return;
                       }
                       updateOfflineCart(detail.id, value);

@@ -5,7 +5,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { offlineToOnlineCart } from "../../../Controllers/Cart";
-import { userState } from "../../../redux/action";
+import { updateUserState } from "../../../redux/action";
 import AuthService from "../../../services/auth.service";
 import "./logIn.css";
 import { BACK_URL } from "../../../constantes";
@@ -29,7 +29,7 @@ const dispatch = useDispatch();
         await AuthService.login(userName, password).then(
           (response) => {
             navigate("/home");
-            dispatch(userState({ ...response, logged: true }));
+            dispatch(updateUserState({ ...response, logged: true }));
             offlineToOnlineCart(userName);
           },
           (error) => {

@@ -30,7 +30,7 @@ const Details = () => {
   const cart = useSelector((state) => state.cart);
 
   useEffect(() => {
-    dispatch(getFavorites(localStorage.userName));
+    dispatch(getFavorites(userState.userName));
     dispatch(detailProduct(id));
   }, [dispatch, id]);
 
@@ -73,15 +73,15 @@ const Details = () => {
                     aria-label="Add to cart"
                     onClick={() => {
                       if (isFavorite(id))
-                        return unSetFavorite(localStorage.userName, id);
-                      setFavorite(localStorage.userName, id);
+                        return unSetFavorite(userState.userName, id);
+                      setFavorite(userState.userName, id);
                     }}
                   >
-                    {favorites == "Missing Username" ? null : isFavorite(id) ? (
+                    {!userState.logged ? null : isFavorite(id) ? (
                       <Favorite
                         sx={{ color: "red" }}
                         fontSize="large"
-                        // onClick={() => unSetFavorite(localStorage.userName, product.id)}
+                        // onClick={() => unSetFavorite(userState.userName, product.id)}
                       />
                     ) : (
                       <FavoriteBorder fontSize="large" />
@@ -172,14 +172,14 @@ const Details = () => {
                     onClick={() => {
                       if (!inCart(id)) {
                         if (userState.logged) {
-                          addToCart(localStorage.userName, id);
+                          addToCart(userState.userName, id);
                           return;
                         }
                         updateOfflineCart(id, 1);
                         return;
                       }
                       if (userState.logged) {
-                        updateCart(localStorage.userName, id, 0);
+                        updateCart(userState.userName, id, 0);
                         return;
                       }
                       updateOfflineCart(id, 0);
