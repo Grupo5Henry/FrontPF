@@ -1,6 +1,5 @@
-import { act } from "react-dom/test-utils";
-
 import {
+  GET_REVIEW,
   CLEAR_CATEGORIES,
   DETAIL_PRODUCT,
   FETCH_BRANDS_MODELS,
@@ -8,6 +7,7 @@ import {
   FETCH_FAVORITES,
   GET_PRODUCTS_FILTERED,
   GET_PRODUCTS_NAME,
+  NEW_SHIPPING_ADDRESS,
   RESET_FILTER,
   SEARCH_PRODUCT,
   UPDATE_CART,
@@ -48,6 +48,7 @@ const initialState = {
     role: null,
     logged: false,
   },
+  review:[]
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -153,6 +154,21 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         cart: action.payload,
       };
+    case NEW_SHIPPING_ADDRESS:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          defaultShippingAddress: action.payload
+        }
+      }
+      case GET_REVIEW:
+      return {
+        ...state,
+        review: action.payload,
+      };
+
+      
 
     default:
       return state;

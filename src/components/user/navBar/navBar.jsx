@@ -3,6 +3,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import IconButton from "@mui/material/IconButton";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import Modal from "react-modal";
 import { useDispatch, userDispatch, useSelector } from "react-redux";
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
 import { BACK_URL, FRONT_URL } from "../../../constantes";
@@ -19,31 +20,49 @@ import tokenCheck from "../../../services/token-check";
 
 // import { Link } from "react-router-dom";
 // import { Icon } from "@iconify/react";
+import LogIn from "../logIn/logIn";
 import SearchBar from "../searchBar/searchBar.jsx";
+import SignIn from "../signIn/signIn";
 import "./navBar.css";
+
+Modal.setAppElement("#root");
 
 const NavBar = () => {
   const navigate = useNavigate();
+  const [refresher, setRefresher] = useState(true);
+
   const [usuario, setUsuario] = useState({
     signedIn: false,
     userId: "",
     fullName: "",
     picture: "",
-  }); //google
+  });
+
   const userState = useSelector((state) => state.user);
   const favorites = useSelector((state) => state.favorites);
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+  const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [modalOpen, setOpen] = React.useState(false);
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
-    user && tokenCheck(dispatch);
 
-    //google login
+    user && tokenCheck(dispatch);
+    var delayedTokenCheck = function (user) {
+      var promise = new Promise(function (resolve, reject) {
+        setTimeout(function () {
+          user && tokenCheck(dispatch);
+          setRefresher(!refresher)
+          //resolve();
+        }, 3600000);
+      });
+      return promise;
+    };
+    user!=='undefined' && delayedTokenCheck(user);
 
     getUser(setUsuario, usuario);
-    dispatch(getFavorites(userState.userName));
-  }, [dispatch]);
+  }, [refresher,dispatch]);
 
   const handleLogOut = () => {
     AuthService.logout();
@@ -59,10 +78,6 @@ const NavBar = () => {
     window.open(`${BACK_URL}/auth/logout`, "_self");
   };
 
-  const handleLogIn = () => {
-    navigate("/home/log-in");
-  };
-
   const checkCookie = () => {
     window.open(`${BACK_URL}/auth/checkCookie`, "_self");
   };
@@ -74,7 +89,7 @@ const NavBar = () => {
   return (
     <div className="box">
       <nav className="relative w-full flex flex-wrap items-center justify-between py-3 bg-gray-900 text-gray-200 shadow-lg navbar navbar-expand-lg navbar-light">
-        <div className="container-fluid w-full flex flex-wrap items-center justify-between px-6">
+        <div className="container-fluid w-full flex flex-wrap items-center justify-between px-3">
           <button
             className="navbar-toggler text-gray-200 border-0 hover:shadow-none hover:no-underline py-2 px-2.5 bg-transparent focus:outline-none focus:ring-0 focus:shadow-none focus:no-underline"
             type="button"
@@ -137,58 +152,6 @@ const NavBar = () => {
                   Historial
                 </Link>
               </li>
-
-              <li className="nav-item p-2">
-                {usuario.signedIn || userState.logged ? (
-                  <Link
-                    to={"/createProduct"}
-                    className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"
-                    href="#!"
-                  >
-                    Crear Producto
-                  </Link>
-                ) : null}
-              </li>
-
-              <li className="nav-item p-2">
-                {usuario.signedIn || userState.logged ? (
-                  <Link
-                    to={"/modifyProduct"}
-                    className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"
-                    href="#!"
-                  >
-                    Modificar Producto
-                  </Link>
-                ) : null}
-              </li>
-
-              <li className="nav-item p-2">
-                {usuario.signedIn || userState.logged ? (
-                  <button
-                    onClick={() => handleLogOut()}
-                    className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"
-                  >
-                    Cerrar sesión
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => handleLogIn()}
-                    className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"
-                  >
-                    Ingresar
-                  </button>
-                )}
-              </li>
-
-              {/* 
-            <li className="nav-item p-2">
-              
-                <button onClick={()=>checkCookie()} className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"  >
-                CheckCookie
-              </button>
-             
-            </li>
- */}
             </ul>
           </div>
           <div className="flex items-center relative">
@@ -257,8 +220,7 @@ const NavBar = () => {
                 </Link>
               </div>
             )}
-
-            {(usuario.signedIn || userState.logged) && (
+            {usuario.signedIn || userState.logged ? (
               <div className="dropdown relative mr-5">
                 <a
                   className="dropdown-toggle flex items-center hidden-arrow"
@@ -268,16 +230,23 @@ const NavBar = () => {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  <img
-                    src="https://mdbootstrap.com/img/new/avatars/2.jpg"
-                    className="rounded-full h-8 w-8"
-                    alt=""
-                    loading="lazy"
-                  />
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6 hover:text-gray-200"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
                 </a>
-
                 <ul
-                  className="dropdown-menu min-w-max absolute hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded-lg shadow-lg mt-1 hidden m-0 bg-clip-padding border-none left-auto right-0"
+                  className="dropdown-menu min-w-max absolute hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded-lg shadow-lg mt-1 m-0 bg-clip-padding border-none left-auto right-0"
                   aria-labelledby="dropdownMenuButton2"
                 >
                   <li>
@@ -289,11 +258,67 @@ const NavBar = () => {
                     </Link>
                   </li>
                   <li>
-                    <a className="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100">
-                      Close
+                    <a
+                      onClick={() => handleLogOut()}
+                      className="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100"
+                    >
+                      Cerrar sesión
                     </a>
                   </li>
                 </ul>
+              </div>
+            ) : (
+              <div>
+                <div className="flex space-x-1 justify-center">
+                  <button
+                    onClick={() => setIsOpen(true)}
+                    type="button"
+                    className="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                  >
+                    Ingresar
+                  </button>
+                  <button
+                    onClick={() => setOpen(true)}
+                    type="button"
+                    className="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                  >
+                    Crear Cuenta
+                  </button>
+                </div>
+                <Modal
+                  isOpen={modalIsOpen}
+                  onRequestClose={() => setIsOpen(false)}
+                  overlayClassName={{
+                    base: "overlay-base",
+                    afterOpen: "overlay-after",
+                    beforeClose: "overlay-before",
+                  }}
+                  className={{
+                    base: "content-base",
+                    afterOpen: "content-after",
+                    beforeClose: "content-before",
+                  }}
+                  closeTimeoutMS={500}
+                >
+                  <LogIn setIsOpen={setIsOpen} setOpen={setOpen} />
+                </Modal>
+                <Modal
+                  isOpen={modalOpen}
+                  onRequestClose={() => setOpen(false)}
+                  overlayClassName={{
+                    base: "overlay-base",
+                    afterOpen: "overlay-after",
+                    beforeClose: "overlay-before",
+                  }}
+                  className={{
+                    base: "content-base",
+                    afterOpen: "content-box",
+                    beforeClose: "content-before",
+                  }}
+                  closeTimeoutMS={500}
+                >
+                  <SignIn setIsOpen={setIsOpen} setOpen={setOpen} />
+                </Modal>
               </div>
             )}
           </div>

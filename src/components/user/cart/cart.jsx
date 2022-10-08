@@ -16,6 +16,7 @@ import IconButton from "@mui/material/IconButton";
 import { styled } from "@mui/material/styles";
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   addToCart,
   clearCart,
@@ -47,6 +48,8 @@ function Cart() {
   const userState = useSelector((state) => state.user);
   const favorites = useSelector((state) => state.favorites);
   const dispatch = useDispatch();
+
+  var navigate = useNavigate()
 
   React.useEffect(() => {
     dispatch(getFavorites(userState.userName));
@@ -176,6 +179,9 @@ function Cart() {
               // </div>
             );
           })}
+      </div>
+      <div style={{display:"flex",justifyContent:"center"}}>
+        <button onClick={() => navigate("/direction")} className="datepicker-footer-btn" style={{width:"90%"}}>Comprar</button>
       </div>
     </div>
   );

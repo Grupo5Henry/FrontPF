@@ -1,6 +1,4 @@
 import axios from "axios";
-
-import { useSelector } from "react-redux";
 import { BACK_URL } from "../../constantes";
 
 //PRODUCTS
@@ -19,6 +17,8 @@ export const FETCH_ALL_ORDERS = "FETCH_ALL_ORDERS";
 
 export const FETCH_FAVORITES = "FETCH_FAVORITES";
 
+export const GET_REVIEW = "GET_REVIEW";
+export const RESET_DETAIL = "RESET_DETAIL";
 export const UPDATE_CART = "UPDATE_CART";
 export const GET_CART = "GET_CART";
 
@@ -29,6 +29,8 @@ export const FETCH_FILTERED = "FETCH_FILTERED";
 export const FETCH_CATEGORIES = "FETCH_CATEGORIES";
 export const ADD_CATEGORIES = "ADD_CATEGORIES";
 export const CLEAR_CATEGORIES = "CLEAR_CATEGORIES";
+
+export const NEW_SHIPPING_ADDRESS = "NEW_SHIPPING_ADDRESS";
 
 export const FETCH_BRANDS_MODELS = "FETCH_BRANDS_MODELS";
 
@@ -47,7 +49,7 @@ export const getProductsName = () => {
         payload: products.data,
       });
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
 };
@@ -116,7 +118,28 @@ export const resetFilter = () => {
   };
 };
 
+export const userState = (payload) => {
+  return {
+    type: "USER_STATE",
+    payload,
+  };
+};
+
+export const resetDetail = () => {
+  return {
+    type: RESET_DETAIL,
+  };
+};
+
 export const detailProduct = (id) => {
+  if (!id) {
+    return async (dispatch) => {
+      dispatch({
+        type: DETAIL_PRODUCT,
+        payload: {},
+      });
+    };
+  }
   return async (dispatch) => {
     try {
       const product = await axios.get(`${BACK_URL}/product/ID/${id}`);
@@ -167,7 +190,7 @@ export const getFavorites = (userName) => {
         payload: favorites.data,
       });
     } catch (err) {
-      console.log({ error: err.message });
+      //console.log({error: err.message})
     }
   };
 };
@@ -184,6 +207,23 @@ export function getCategories() {
       });
   };
 }
+// review
+
+export const getReview = (id) => {
+  return async (dispatch) => {
+    try {
+      const review = await axios.get(
+        `https://backpf-production.up.railway.app/review/ID/${id}`
+      );
+      dispatch({
+        type: GET_REVIEW,
+        payload: review.data,
+      });
+    } catch (err) {
+      console.log({ error: err.message });
+    }
+  };
+};
 
 export function getAllProducts() {
   return async function (dispatch) {
@@ -202,7 +242,7 @@ export function getAllProducts() {
 
 export function getAllUsers() {
   return async function (dispatch) {
-    fetch("https://backpf-production.up.railway.app/user")
+    fetch(`${BACK_URL}/user`)
       .then((response) => response.json())
       .then((users) => {
         dispatch({
@@ -215,12 +255,16 @@ export function getAllUsers() {
 
 export function getAllOrders() {
   return async function (dispatch) {
-    fetch("https://backpf-production.up.railway.app/order")
+    fetch(`${BACK_URL}/order`)
       .then((response) => response.json())
       .then((orders) => {
         const ordersGrouped = [];
         orders.map((orderInstance) => {
           let orderNumber = orderInstance.orderNumber;
+          let date = orderInstance.createdAt.split("-");
+          date[0] = date[0].substring(2);
+          date[2] = date[2].substring(0, 2);
+          date = date.reverse().join("/");
           ordersGrouped[orderNumber] = ordersGrouped[orderNumber]
             ? [
                 ...ordersGrouped[orderNumber],
@@ -231,9 +275,10 @@ export function getAllOrders() {
                 },
               ]
             : [
+                orderNumber,
                 orderInstance.shippingAddress,
                 orderInstance.status,
-                orderInstance.createdAt,
+                date,
                 {
                   amount: orderInstance.amount,
                   productId: orderInstance.productId,
@@ -277,7 +322,7 @@ export const getCart = (userName) => {
           const product = { amount, product: detail.data };
           cart.push(product);
         } catch (err) {
-          console.log({ error: err.message });
+          // console.log({error: err.message})
         }
       }
       dispatch({
@@ -297,7 +342,30 @@ export const getCart = (userName) => {
         payload: cart.data,
       });
     } catch (err) {
-      console.log({ error: err.message });
+      // console.log({error: err.message})
     }
   };
 };
+
+export function CreateOrder(obj) {
+  return function (dispatch) {
+    axios
+      .post(`${BACK_URL}/order`, obj)
+      .then(() => console.log("Se hizo la orden de compra"))
+      .catch((err) => console.log(err));
+  };
+}
+
+export function UpdateUserDefaultAddress(obj) {
+  return function (dispatch) {
+    axios
+      .put(`${BACK_URL}/user/newShippingAddress`, obj)
+      .then(() =>
+        dispatch({
+          type: NEW_SHIPPING_ADDRESS,
+          payload: obj.defaultShippingAddress,
+        })
+      )
+      .catch((err) => console.log(err));
+  };
+}
