@@ -28,9 +28,8 @@ import SignIn from "../signIn/signIn";
 Modal.setAppElement("#root");
 
 const NavBar = () => {
-
-  const navigate = useNavigate(); 
-  const [refresher, setRefresher] = useState(true)
+  const navigate = useNavigate();
+  const [refresher, setRefresher] = useState(true);
 
   const [usuario, setUsuario] = useState({
     signedIn: false,
@@ -46,30 +45,23 @@ const NavBar = () => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [modalOpen, setOpen] = React.useState(false);
 
- 
-  useEffect( () => {
-      const user = JSON.parse(localStorage.getItem("user"));
-      
-      user && tokenCheck(dispatch);
-      var delayedTokenCheck = function() {
-        var promise = new Promise(function(resolve, reject){
-            setTimeout(function() {
-              user && tokenCheck(dispatch);
-              //resolve(); 
-           }, 3600000);
-        });
-        return promise;
-      
-     };
-     delayedTokenCheck();
-     
-  //google login
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
 
-  getUser(setUsuario, usuario);    
-      
+    user && tokenCheck(dispatch);
+    var delayedTokenCheck = function () {
+      var promise = new Promise(function (resolve, reject) {
+        setTimeout(function () {
+          user && tokenCheck(dispatch);
+          //resolve();
+        }, 3600000);
+      });
+      return promise;
+    };
+    delayedTokenCheck();
+
+    getUser(setUsuario, usuario);
   }, [dispatch]);
-
-  
 
   const handleLogOut = () => {
     AuthService.logout();

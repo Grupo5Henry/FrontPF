@@ -10,9 +10,11 @@ const tokenCheck = async (dispatch) => {
       headers: authHeader(),
     });
     //console.log('log de tokenStatus', tokenStatus.data);
+
     console.log(tokenStatus);
     tokenStatus &&
       dispatch(updateUserState({ ...tokenStatus.data, logged: true }));
+
   } catch (err) {
     /* dispatch(userState(false)) */
     tokenRefresh(dispatch);
@@ -32,10 +34,12 @@ const tokenRefresh = async (dispatch) => {
             response.data.shippingAddress
           );
           localStorage.setItem("role", response.data.role);
+
         }
         //console.log('auth.service signin: ', response.data);
         return response.data;
       });
+
 
     tokenStatus &&
       dispatch(
@@ -49,6 +53,7 @@ const tokenRefresh = async (dispatch) => {
   } catch (err) {
     dispatch(updateUserState(false));
     localStorage.removeItem("user");
+
   }
 };
 
