@@ -1,9 +1,5 @@
 import React from "react";
 
-export default function Profile(){
-    return (
-        <div>
-            Estas en / profile
-        </div>
-    )
+export default function Profile() {
+  return <div>Estas en / profile</div>;
 }

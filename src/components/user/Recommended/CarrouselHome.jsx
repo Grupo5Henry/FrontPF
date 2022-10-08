@@ -1,6 +1,9 @@
 import {
-    ButtonBack,
-    ButtonNext, CarouselProvider, Slide, Slider
+  ButtonBack,
+  ButtonNext,
+  CarouselProvider,
+  Slide,
+  Slider,
 } from "pure-react-carousel";
 import "pure-react-carousel/dist/react-carousel.es.css";
 import React, { useState } from "react";
@@ -8,7 +11,9 @@ import React, { useState } from "react";
 export default function CarrouselHome() {
   return (
     <div className="container mx-auto">
-      <h2 className="text-2xl font-bold text-gray-900 py-10 px-5">Recomendados</h2>
+      <h2 className="text-2xl font-bold text-gray-900 py-10 px-5">
+        Recomendados
+      </h2>
 
       <div className="flex items-center justify-center w-full h-full py-0 sm:py-8 px-4">
         {/* Carousel for desktop and large size devices */}
