@@ -3,7 +3,7 @@ import "../Datatable/datatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
 
 import { useDispatch, useSelector } from "react-redux";
-import { getAllUsers } from "../../../redux/action";
+import { getAllOrders } from "../../../redux/action";
 import axios from "axios";
 import { BACK_URL } from "../../../constantes";
 import { authHeader } from "../../../services/auth-header";
@@ -32,25 +32,51 @@ import { authHeader } from "../../../services/auth-header";
 //CONSTANTE PARA SETEAR LAS COLUMNAS
 
 const columns = [
-  { field: "userName", headerName: "Name", width: 150 },
-  { field: "email", headerName: "Correo", width: 300 },
   {
-    field: "billingAddress",
-    headerName: "Dirección de facturación",
-    width: 300,
+    field: "Order Number",
+    headerName: "Order Number",
+    width: 150,
+    renderCell: (params) => {
+      return <div> {params.row[0]} </div>;
+    },
   },
-  { field: "defaultShippingAddress", headerName: "Dirección", width: 300 },
   {
-    field: "role",
-    headerName: "Rol",
+    field: "Status",
+    headerName: "Status",
+    width: 100,
+    renderCell: (params) => {
+      return <div> {params.row[2]} </div>;
+    },
+  },
+  // { field: "Date", headerName: "Dirección", width: 300 },
+  {
+    field: "Dirección",
+    headerName: "Dirección",
+    width: 200,
+    renderCell: (params) => {
+      return <div> {params.row[1]} </div>;
+    },
+  },
+  {
+    field: "Total",
+    headerName: "Total",
     width: 130,
     renderCell: (params) => {
-      return (
-        <div className={`cellWithStatus ${params.row.role}`}>
-          {" "}
-          {params.row.role}{" "}
-        </div>
-      );
+      let earnings = 0;
+      for (let i = 4; i < params.row.length; i++) {
+        let product = params.row[i];
+
+        earnings += product.amount * product.price;
+      }
+      return <div> {earnings} </div>;
+    },
+  },
+  {
+    field: "Date",
+    headerName: "Fecha",
+    width: 130,
+    renderCell: (params) => {
+      return <div> {params.row[3]} </div>;
     },
   },
   /* { field: 'createdAt', headerName: 'Creación de usuario', width: 300 }, */
@@ -58,11 +84,11 @@ const columns = [
 
 // Evitar que se ponga un borde cuando se hace click en una celda
 
-export default function Datatable() {
+export default function OrdersDatatable() {
   //ESTA FUNCION SE RENDERIZA DENTRO DEL COMPONENTE LIST PARA MOSTRAR LOS USUARIOS
 
   //ESTADOS
-  const users = useSelector((state) => state.users);
+  const orders = useSelector((state) => state.orders);
   const userState = useSelector((state) => state.user);
 
   // console.log(users)
@@ -75,7 +101,7 @@ export default function Datatable() {
       field: "action",
       headerName: "Acciones",
       sortable: false,
-      width: 180,
+      width: 90,
       renderCell: (params) => {
         return (
           <div className="cellAction">
@@ -83,20 +109,10 @@ export default function Datatable() {
               className="adminButton"
               onClick={(e) => {
                 e.stopPropagation();
-                handleAdminButton(params);
               }}
             >
-              Privilegios
+              Detalle
             </button>
-            <div
-              className="banButton"
-              onClick={(e) => {
-                e.stopPropagation();
-                handleBanButton(params);
-              }}
-            >
-              Baneo
-            </div>
           </div>
         );
       },
@@ -106,52 +122,16 @@ export default function Datatable() {
   //USE EFFECTS
 
   useEffect(() => {
-    dispatch(getAllUsers());
+    dispatch(getAllOrders());
   }, [dispatch]);
 
   //CONTROL DE BOTONES
 
-  const handleAdminButton = async (e) => {
-    let { userName, role } = e.row;
-    role == "user" ? (role = "admin") : (role = "user");
-    try {
-      await axios.put(
-        `${BACK_URL}/user/modify`,
-        {
-          userName,
-          role,
-        },
-        { headers: authHeader() }
-      );
-      dispatch(getAllUsers());
-    } catch (err) {
-      console.log({ error: err.message });
-    }
-  };
-
-  const handleBanButton = async (e) => {
-    // e.preventDefault();
-    let { userName, banned } = e.row;
-    banned ? (banned = false) : (banned = true);
-    try {
-      await axios.put(
-        `${BACK_URL}/user/modify`,
-        {
-          userName,
-          banned,
-        },
-        { headers: authHeader() }
-      );
-    } catch (err) {
-      console.log({ error: err.message });
-    }
-  };
-
   return (
     <div className="datatable">
-      {users.length ? (
+      {orders.length ? (
         <DataGrid
-          rows={users.filter((user) => user.userName !== userState.userName)}
+          rows={orders}
           sx={{
             "&.MuiDataGrid-root .MuiDataGrid-cell:focus-within": {
               outline: "none !important",
@@ -161,7 +141,7 @@ export default function Datatable() {
           pageSize={10}
           rowsPerPageOptions={[5]}
           /* checkboxSelection */
-          getRowId={(row) => row.userName}
+          getRowId={(row) => row[0]}
         />
       ) : (
         <p>Cargando...</p>
