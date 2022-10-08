@@ -8,53 +8,9 @@ import axios from "axios";
 import { BACK_URL } from "../../../constantes";
 import { authHeader } from "../../../services/auth-header";
 
-/* const columns = [
-  { field: 'id', headerName: 'ID', width: 70 },
-  { field: 'firstName', headerName: 'First name', width: 130 },
-  { field: 'lastName', headerName: 'Last name', width: 130 },
-  {
-    field: 'age',
-    headerName: 'Age',
-    type: 'number',
-    width: 90,
-  },
-  {
-    field: 'fullName',
-    headerName: 'Full name',
-    description: 'This column has a value getter and is not sortable.',
-    sortable: false,
-    width: 160,
-    valueGetter: (params) =>
-      `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-  },
-]; */
+import swal from "sweetalert";
 
 //CONSTANTE PARA SETEAR LAS COLUMNAS
-
-const columns = [
-  { field: "userName", headerName: "Name", width: 150 },
-  { field: "email", headerName: "Correo", width: 300 },
-  {
-    field: "billingAddress",
-    headerName: "Dirección de facturación",
-    width: 300,
-  },
-  { field: "defaultShippingAddress", headerName: "Dirección", width: 300 },
-  {
-    field: "role",
-    headerName: "Rol",
-    width: 130,
-    renderCell: (params) => {
-      return (
-        <div className={`cellWithStatus ${params.row.role}`}>
-          {" "}
-          {params.row.role}{" "}
-        </div>
-      );
-    },
-  },
-  /* { field: 'createdAt', headerName: 'Creación de usuario', width: 300 }, */
-];
 
 // Evitar que se ponga un borde cuando se hace click en una celda
 
@@ -65,10 +21,47 @@ export default function Datatable() {
   const users = useSelector((state) => state.users);
   const userState = useSelector((state) => state.user);
 
-  // console.log(users)
-
   //CONSTANTES
   const dispatch = useDispatch();
+
+  //CONSTANTE PARA SETEAR LAS COLUMNAS
+
+  const columns = [
+    { field: "userName", headerName: "Name", width: 150 },
+    {
+      field: "banned",
+      headerName: "Status",
+      width: 130,
+      renderCell: (params) => {
+        return (
+          <div className={`cellWithBan ${params.row.banned}`}>
+            {" "}
+            {params.row.banned ? "Baneado" : "Activo"}{" "}
+          </div>
+        );
+      },
+    },
+    { field: "email", headerName: "Correo", width: 300 },
+    {
+      field: "billingAddress",
+      headerName: "Dirección de facturación",
+      width: 300,
+    },
+    { field: "defaultShippingAddress", headerName: "Dirección", width: 300 },
+    {
+      field: "role",
+      headerName: "Rol",
+      width: 130,
+      renderCell: (params) => {
+        return (
+          <div className={`cellWithStatus ${params.row.role}`}>
+            {" "}
+            {params.row.role}{" "}
+          </div>
+        );
+      },
+    },
+  ];
 
   const dataTableButton = [
     {
@@ -88,15 +81,16 @@ export default function Datatable() {
             >
               Privilegios
             </button>
-            <div
+            <button
               className="banButton"
               onClick={(e) => {
                 e.stopPropagation();
+                console.log(e);
                 handleBanButton(params);
               }}
             >
               Baneo
-            </div>
+            </button>
           </div>
         );
       },
@@ -110,9 +104,45 @@ export default function Datatable() {
   }, [dispatch]);
 
   //CONTROL DE BOTONES
+  //ADMIN
+  const handleAdminButton = (params) => {
+    let userName = params.row.userName;
+    let role = params.row.role;
+    let banned = params.row.banned;
+    swal({
+      title: banned
+        ? "Imposible dar privilegios a un usuario baneado"
+        : role === "admin"
+        ? "¿Desea quitar el rol de Admin?"
+        : "¿Desea otorgar privilegios de Admin?",
+      icon: banned ? "error" : "warning",
+      buttons: banned ? false : ["Cancel", "I am sure"],
+    }).then((response) => {
+      if (response) toggleAdmin(userName, role);
+    });
+  };
 
-  const handleAdminButton = async (e) => {
-    let { userName, role } = e.row;
+  //BAN
+
+  const handleBanButton = (params) => {
+    let userName = params.row.userName;
+    let role = params.row.role;
+    let banned = params.row.banned;
+    swal({
+      title:
+        role === "admin"
+          ? "Imposible banear a un admin"
+          : banned
+          ? "¿Desea quitar ban a usuario?"
+          : "¿Desea banear al usuario?",
+      icon: role === "admin" ? "error" : "warning",
+      buttons: role === "admin" ? false : ["Cancel", "I am sure"],
+    }).then((response) => {
+      if (response) toggleBan(userName, banned);
+    });
+  };
+
+  const toggleAdmin = async (userName, role) => {
     role == "user" ? (role = "admin") : (role = "user");
     try {
       await axios.put(
@@ -129,9 +159,8 @@ export default function Datatable() {
     }
   };
 
-  const handleBanButton = async (e) => {
+  const toggleBan = async (userName, banned) => {
     // e.preventDefault();
-    let { userName, banned } = e.row;
     banned ? (banned = false) : (banned = true);
     try {
       await axios.put(
@@ -142,6 +171,7 @@ export default function Datatable() {
         },
         { headers: authHeader() }
       );
+      dispatch(getAllUsers());
     } catch (err) {
       console.log({ error: err.message });
     }
@@ -149,15 +179,15 @@ export default function Datatable() {
 
   return (
     <div className="datatable">
-      {users.length ? (
+      {users ? (
         <DataGrid
-          rows={users.filter((user) => user.userName !== userState.userName)}
+          rows={users}
+          columns={columns.concat(dataTableButton)}
           sx={{
             "&.MuiDataGrid-root .MuiDataGrid-cell:focus-within": {
               outline: "none !important",
             },
           }}
-          columns={columns.concat(dataTableButton)}
           pageSize={10}
           rowsPerPageOptions={[5]}
           /* checkboxSelection */
