@@ -33,7 +33,7 @@ const LogIn = () => {
             dispatch(
               updateUserState({
                 userName: response.userName,
-                role: response.privileges,
+                role: response.role,
                 defaultShippingAddress: response.defaultShippingAddress,
                 logged: true,
               })
