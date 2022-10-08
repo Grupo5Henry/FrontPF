@@ -116,6 +116,14 @@ export const resetFilter = () => {
 };
 
 export const detailProduct = (id) => {
+  if (!id) {
+    return async (dispatch) => {
+      dispatch({
+        type: DETAIL_PRODUCT,
+        payload: {},
+      });
+    };
+  }
   return async (dispatch) => {
     try {
       const product = await axios.get(`${BACK_URL}/product/ID/${id}`);
@@ -283,5 +291,14 @@ export const getCart = (userName) => {
     } catch (err) {
       console.log({ error: err.message });
     }
-  };
-};
+  }
+}
+
+
+export function CreateOrder(obj){
+  return function(dispatch){
+    axios.post(`${BACK_URL}/order`,obj)
+    .then(() => alert("Se hizo la orden de compra"))
+    .catch(err => alert(err))
+  }
+}
