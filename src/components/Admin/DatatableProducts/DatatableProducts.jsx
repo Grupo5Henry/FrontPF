@@ -18,7 +18,7 @@ export default function DatatableProducts () {
     }, [dispatch]);
 
     const columns = [
-        { field: 'id', headerName: 'ID', width: 300 },
+        /* { field: 'id', headerName: 'ID', width: 300 }, */
         {
             field: 'thumbnail',
             headerName: 'Imagen',
@@ -33,7 +33,7 @@ export default function DatatableProducts () {
         { field: 'model', headerName: 'Modelo', width: 180 },
         { field: 'stock', headerName: 'Stock', width: 130 },
         { field: 'price', headerName: 'Precio', width: 130 },
-        { field: 'condition', headerName: 'Condición', width: 130 },
+        /* { field: 'condition', headerName: 'Condición', width: 130 }, */
       ];
 
       const dataTableButton = [{ field: 'action', headerName: 'Acción', width: 180, 
@@ -57,6 +57,7 @@ export default function DatatableProducts () {
                 columns={columns.concat(dataTableButton)}
                 pageSize={12}
                 rowsPerPageOptions={[5]}
+                getRowId={(row) => row.name}
                 /* checkboxSelection */
             />
             :
