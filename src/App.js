@@ -87,7 +87,9 @@ function App() {
           <Route exact path="/orders" element={<Ordenes />} />
           <Route path="*" element={<Error />} />
         </Routes>
-      </header> */}
+        <Footer1/>
+      </header>
+
     </div>
   );
 }
