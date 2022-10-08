@@ -57,7 +57,7 @@ export default function DirectionForm() {
             }
         }
         localStorage.shippingAddress = shippingAddress
-        console.log(localStorage);
+        // console.log(localStorage);
 
         try {
             const url = await axios.post(

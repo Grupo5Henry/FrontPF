@@ -52,7 +52,7 @@ const SearchBar = () => {
     setSearch(e)
   
 }
-console.log(suggestions)
+// console.log(suggestions)
 
   // console.log(search, "SearchBar")
 
