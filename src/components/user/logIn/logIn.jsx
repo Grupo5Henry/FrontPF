@@ -56,9 +56,11 @@ const onModal = (e) => {
                 <input className="flex items-center h-12 px-4 w-64 bg-gray-200 mt-2 rounded focus:outline-none focus:ring-2" type="text" required="required" value={userName} onChange={(e) => setUserName(e.target.value)}/>
                 <label className="font-semibold text-xs mt-3" for="passwordField">Constraseña</label>
                 <input className="flex items-center h-12 px-4 w-64 bg-gray-200 mt-2 rounded focus:outline-none focus:ring-2" type="password" required="required" value={password} onChange={(e) => setPassword(e.target.value)}/>
-                <input className="flex items-center justify-center h-12 px-6 w-64 bg-blue-600 mt-8 rounded font-semibold text-sm text-blue-100 hover:bg-blue-700" onClick={handleLogin} type="button" value="Ingresar" />
+                <input className="flex items-center justify-center h-12 px-6 w-64 bg-blue-600 mt-8 rounded font-semibold text-sm text-blue-100 hover:bg-blue-700" type="button" value="Ingresar" />
+                <input className="w-full max-w-xs font-bold shadow-sm mt-2 rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline" type="button" onClick={handleGoogleLogin} value="Ingresar con Google"/>
                 <div className="flex mt-6 justify-center text-xs">
                     <p onClick={() => setIsOpen(false)} className="text-blue-400 hover:text-blue-500 cursor-pointer">Vaolver al Inicio</p>
+                    
                     <span className="mx-2 text-gray-300">/</span>
                     <p onClick={onModal} className="text-blue-400 cursor-pointer hover:text-blue-500">Crear cuenta</p>
                 </div>

@@ -10,7 +10,6 @@ const Comment = ({ id }) => {
   const [description, setDescription] = useState("");
   const [stars, setStars] = useState(0);
   const [noUser, setNoUser] = React.useState(false);
-  const [exist, setExist] = React.useState(false);
 
   const [eDescription, setEdescription] = useState("");
   const [eStars, setEstars] = useState(0);
@@ -162,7 +161,7 @@ const Comment = ({ id }) => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    if (reviews.map((e) => userState.userName === e.userName)) {
+    if (reviews.map((e) => userState.userName === e.userName).includes(true)) {
       setNoUser(true);
       setStars(0);
       setDescription("");
@@ -174,8 +173,7 @@ const Comment = ({ id }) => {
       console.log("No se Pudo Enviar El Formulario");
     }
   };
-  console.log(reviews.map((e) => userState.userName === e.userName));
-  // localStorage.userName, id, eDescription, eStars
+  console.log(reviews.map((e) => e.userName === userState.userName).includes(true));
 
   const OnSubmit = (e) => {
     e.preventDefault();
