@@ -57,8 +57,10 @@ export default function SideBar() {
             </Link>
           </li>
           <li>
-            <Inventory2OutlinedIcon className="icon" />
-            <span>Productos</span>
+            <Link to={"/products"}>
+              <Inventory2OutlinedIcon className="icon" />
+              <span>Productos</span>
+            </Link>
           </li>
           <li>
             <Link to={"/createProduct"}>

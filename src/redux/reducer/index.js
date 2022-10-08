@@ -14,10 +14,12 @@ import {
   UPDATE_FILTER,
   FETCH_ALL_USERS,
   FETCH_ALL_ORDERS,
+  FETCH_ALL_PRODUCTS,
 } from "../action";
 
 const initialState = {
   products: [],
+  adminProducts: [],
   favorites: [],
   users: [],
   orders: [],
@@ -87,6 +89,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         detail: action.payload,
+      };
+    case FETCH_ALL_PRODUCTS:
+      return {
+        ...state,
+        adminProducts: action.payload.rows
       };
 
     case SEARCH_PRODUCT:

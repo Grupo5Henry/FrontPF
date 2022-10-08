@@ -8,6 +8,7 @@ export const GET_PRODUCTS_NAME = "GET_PRODUCTS_NAME";
 export const DETAIL_PRODUCT = "DETAIL_PRODUCT";
 export const SEARCH_PRODUCT = "SEARCH_PRODUCT";
 export const GET_PRODUCTS_FILTERED = "GET_PRODUCTS_FILTERED";
+export const FETCH_ALL_PRODUCTS = "FETCH_ALL_PRODUCTS";
 
 //USERS
 export const FETCH_ALL_USERS = "FETCH_ALL_USERS";
@@ -183,6 +184,21 @@ export function getCategories() {
       });
   };
 }
+
+export function getAllProducts() {
+  return async function (dispatch) {
+    fetch("https://backpf-production.up.railway.app/product//itemsPerPage?amount=3000")
+      .then((response) => response.json())
+      .then((adminProducts) => {
+        dispatch({
+          type: FETCH_ALL_PRODUCTS,
+          payload: adminProducts
+        })
+      })
+  }
+};
+
+
 
 export function getAllUsers() {
   return async function (dispatch) {
