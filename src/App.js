@@ -9,7 +9,7 @@ import Landing from "./components/user/Landing/Landing";
 import About from "./components/user/about/about";
 import Profile from "./components/user/profile/profile";
 import Favorites from "./components/user/favorites/favorites";
-import History from "./components/user/history/history";
+// import History from "./components/user/history/history";
 import Cart from "./components/user/cart/cart";
 import Error from "./components/user/error/error";
 import CreateProduct from "./components/user/CreateProduct/CreateProduct";
@@ -26,7 +26,7 @@ import Single from "./components/Admin/Single/Single";
 import Ordenes from "./components/Admin/Ordenes/Ordenes";
 import Footer1 from "./components/user/Footer/Footer";
 
-console.log("Soy locale", localStorage.role);
+// console.log("Soy locale", localStorage.role);
 
 function App() {
   const userState = useSelector((state) => state.user);
@@ -57,19 +57,19 @@ function App() {
             <Route exact path="/about" element={<About />} />
             <Route exact path="/favorites" element={<Favorites />} />
             <Route exact path="/profile" element={<Profile />} />
-            <Route exact path="/history" element={<History />} />
+            {/* <Route exact path="/history" element={<History />} /> */}
             <Route exact path="/cart" element={<Cart />} />
             <Route exact path="/details" element={<Details />} />
             <Route exact path="/direction" element={<DirectionForm />} />
-            <Route exact path="/home/log-in" element={<LogIn />} />
-            <Route exact path="/home/sign-in" element={<SignIn />} />
+            {/* <Route exact path="/home/log-in" element={<LogIn />} /> */}
+            {/* <Route exact path="/home/sign-in" element={<SignIn />} /> */}
             <Route exact path="/home/detail/:id" element={<Details />} />
             <Route exact path="/createProduct" element={<CreateProduct />} />
             <Route exact path="/modifyProduct" element={<ModifyProduct />} />
             <Route exact path="/congrats" element={<CongratulationsCard />} />
-            {!userState.logged ? (
+            {/* {!userState.logged ? (
               <Route exact path="/home/sign-in" element={<SignIn />} />
-            ) : null}
+            ) : null} */}
             <Route exact path="/home/details" element={<Details />} />
             <Route path="*" element={<Error />} />
           </Routes>
