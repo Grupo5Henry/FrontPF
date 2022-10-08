@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from "react";
 import "../Datatable/datatable.scss";
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid } from "@mui/x-data-grid";
 
 import { useDispatch, useSelector } from "react-redux";
 import { getAllUsers } from "../../../redux/action";
@@ -29,70 +29,86 @@ import { getAllUsers } from "../../../redux/action";
 //CONSTANTE PARA SETEAR LAS COLUMNAS
 
 const columns = [
-
-  { field: 'userName', headerName: 'Name', width: 150 },
-  { field: 'email', headerName: 'Correo', width: 300 },
-  { field: 'billingAddress', headerName: 'Dirección de facturación', width: 300 },
-  { field: 'defaultShippingAddress', headerName: 'Dirección', width: 300 },
-  { field: 'role', headerName: 'Rol', width: 130, 
-      renderCell: (params) => {
-        return <div className={`cellWithStatus ${params.row.role}`}> {params.row.role} </div>
-      } },
-      /* { field: 'createdAt', headerName: 'Creación de usuario', width: 300 }, */
-
+  { field: "userName", headerName: "Name", width: 150 },
+  { field: "email", headerName: "Correo", width: 300 },
+  {
+    field: "billingAddress",
+    headerName: "Dirección de facturación",
+    width: 300,
+  },
+  { field: "defaultShippingAddress", headerName: "Dirección", width: 300 },
+  {
+    field: "role",
+    headerName: "Rol",
+    width: 130,
+    renderCell: (params) => {
+      return (
+        <div className={`cellWithStatus ${params.row.role}`}>
+          {" "}
+          {params.row.role}{" "}
+        </div>
+      );
+    },
+  },
+  /* { field: 'createdAt', headerName: 'Creación de usuario', width: 300 }, */
 ];
 
-
-
-export default function Datatable () {
-
+export default function Datatable() {
   //ESTA FUNCION SE RENDERIZA DENTRO DEL COMPONENTE LIST PARA MOSTRAR LOS USUARIOS
 
-    //ESTADOS
-    const users = useSelector((state) => state.users);
+  //ESTADOS
+  const users = useSelector((state) => state.users);
 
-    console.log(users)
+  // console.log(users)
 
-    //CONSTANTES
-    const dispatch = useDispatch();
+  //CONSTANTES
+  const dispatch = useDispatch();
 
-    const dataTableButton = [{ field: 'action', headerName: 'Acciones', width: 180, 
+  const dataTableButton = [
+    {
+      field: "action",
+      headerName: "Acciones",
+      width: 180,
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            <button className="adminButton" onClick={e=>handleAdminButton}>Privilegios</button>
+            <button className="adminButton" onClick={(e) => handleAdminButton}>
+              Privilegios
+            </button>
             <div className="banButton">Baneo</div>
-            </div> 
-        )} 
+          </div>
+        );
       },
-    ]
+    },
+  ];
 
-    //USE EFFECTS
+  //USE EFFECTS
 
-    useEffect(() => {
-        dispatch(getAllUsers());
-    }, [dispatch]);
+  useEffect(() => {
+    dispatch(getAllUsers());
+  }, [dispatch]);
 
-    //CONTROL DE BOTONES
+  //CONTROL DE BOTONES
 
-    const handleAdminButton = (e) => {
-      e.preventDefault();
-      console.log("SE HIZO CLICK ADMIN BUTTON")
-    }
+  const handleAdminButton = (e) => {
+    e.preventDefault();
+    console.log("SE HIZO CLICK ADMIN BUTTON");
+  };
 
-    return(
-        <div className='datatable'>
-            {users.length ? 
-                <DataGrid
-                rows={users}
-                columns={columns.concat(dataTableButton)}
-                pageSize={10}
-                rowsPerPageOptions={[5]}
-                /* checkboxSelection */
-                getRowId={(row) => row.userName}
-                />
-            :
-            <p>Cargando...</p>}
-        </div>
-    )
-};
+  return (
+    <div className="datatable">
+      {users.length ? (
+        <DataGrid
+          rows={users}
+          columns={columns.concat(dataTableButton)}
+          pageSize={10}
+          rowsPerPageOptions={[5]}
+          /* checkboxSelection */
+          getRowId={(row) => row.userName}
+        />
+      ) : (
+        <p>Cargando...</p>
+      )}
+    </div>
+  );
+}

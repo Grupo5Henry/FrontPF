@@ -11,7 +11,10 @@ const tokenCheck = async (dispatch) => {
     });
     //console.log('log de tokenStatus', tokenStatus.data);
 
-    tokenStatus && dispatch(updateUserState(tokenStatus.data));
+    console.log(tokenStatus);
+    tokenStatus &&
+      dispatch(updateUserState({ ...tokenStatus.data, logged: true }));
+
   } catch (err) {
     /* dispatch(userState(false)) */
     tokenRefresh(dispatch);
@@ -30,19 +33,27 @@ const tokenRefresh = async (dispatch) => {
             "defaultShippingAddress",
             response.data.shippingAddress
           );
-          localStorage.setItem("role", response.data.privileges);
+          localStorage.setItem("role", response.data.role);
+
         }
         //console.log('auth.service signin: ', response.data);
         return response.data;
       });
 
-    tokenStatus && dispatch(updateUserState(tokenStatus.data));
+
+    tokenStatus &&
+      dispatch(
+        updateUserState({
+          username: tokenStatus.data.username,
+          role: tokenStatus.data.role,
+          defaultShippingAddress: tokenStatus.data.defaultShippingAddress,
+          logged: true,
+        })
+      );
   } catch (err) {
     dispatch(updateUserState(false));
     localStorage.removeItem("user");
-    localStorage.removeItem("userName");
-    localStorage.removeItem("defaultShippingAddress");
-    localStorage.removeItem("role");
+
   }
 };
 

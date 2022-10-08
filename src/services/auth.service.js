@@ -3,33 +3,38 @@ import axios from "axios";
 /* const API_URL="https://backpf-production.up.railway.app/user"; */
 import { BACK_URL } from "../constantes";
 
-
 //const API_URL = "/auth";
 
-const signup = /* async */ (userName, password,role,email,defaultShippingAddress,billingAddress) => {
-  return axios.post(`${BACK_URL}/user/signup`, {
-    role,
-    userName,
-    email,
-    password,
-    defaultShippingAddress,
-    billingAddress
+const signup = /* async */ (
+  userName,
+  password,
+  role,
+  email,
+  defaultShippingAddress,
+  billingAddress
+) => {
+  return axios
+    .post(`${BACK_URL}/user/signup`, {
+      role,
+      userName,
+      email,
+      password,
+      defaultShippingAddress,
+      billingAddress,
     })
     .then((response) => {
+      console.log(response);
       if (response.data.accessToken) {
         localStorage.setItem("user", JSON.stringify(response.data));
-        localStorage.setItem("defaultShippingAddress", defaultShippingAddress )
-        localStorage.setItem("role", 'user');
       }
-     
-      
+
       return response.data;
     });
 };
 
 const login = (userName, password) => {
-  
-  return axios.post(`${BACK_URL}/user/login`, {
+  return axios
+    .post(`${BACK_URL}/user/login`, {
       userName,
       password,
     })
@@ -37,15 +42,15 @@ const login = (userName, password) => {
       if (response.data.accessToken) {
         localStorage.setItem("user", JSON.stringify(response.data));
         /* localStorage.setItem("refreshToken", response.data.refreshToken) */
-        localStorage.setItem("defaultShippingAddress", response.data.shippingAddress )
-        localStorage.setItem("role", response.data.privileges);
+        localStorage.setItem(
+          "defaultShippingAddress",
+          response.data.shippingAddress
+        );
+        localStorage.setItem("role", response.data.role);
       }
       //console.log('auth.service signin: ', response.data);
       return response.data;
     });
-
-
-    
 };
 
 const logout = () => {
@@ -67,4 +72,3 @@ const authService = {
 };
 
 export default authService;
-
