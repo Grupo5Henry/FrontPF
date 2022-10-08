@@ -49,19 +49,20 @@ const NavBar = () => {
     const user = JSON.parse(localStorage.getItem("user"));
 
     user && tokenCheck(dispatch);
-    var delayedTokenCheck = function () {
+    var delayedTokenCheck = function (user) {
       var promise = new Promise(function (resolve, reject) {
         setTimeout(function () {
           user && tokenCheck(dispatch);
+          setRefresher(!refresher)
           //resolve();
         }, 3600000);
       });
       return promise;
     };
-    delayedTokenCheck();
+    user!=='undefined' && delayedTokenCheck(user);
 
     getUser(setUsuario, usuario);
-  }, [dispatch]);
+  }, [refresher,dispatch]);
 
   const handleLogOut = () => {
     AuthService.logout();

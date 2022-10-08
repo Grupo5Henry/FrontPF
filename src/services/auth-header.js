@@ -12,6 +12,7 @@ export function authHeader() {
 
 export function authHeaderRefresh() {
   const user = JSON.parse(localStorage.getItem("user"));
+ 
   if (user && user.refreshToken) {
     // return { Authorization: 'Bearer ' + user.accessToken };
     return { "x-auth-token": user.refreshToken };
