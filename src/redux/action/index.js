@@ -186,7 +186,7 @@ export function getCategories() {
 
 export function getAllUsers() {
   return async function (dispatch) {
-    fetch("https://backpf-production.up.railway.app/user")
+    fetch(`${BACK_URL}/user`)
       .then((response) => response.json())
       .then((users) => {
         dispatch({
@@ -199,7 +199,7 @@ export function getAllUsers() {
 
 export function getAllOrders() {
   return async function (dispatch) {
-    fetch("https://backpf-production.up.railway.app/order")
+    fetch(`${BACK_URL}/order`)
       .then((response) => response.json())
       .then((orders) => {
         const ordersGrouped = [];

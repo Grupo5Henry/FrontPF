@@ -29,7 +29,15 @@ const LogIn = () => {
         await AuthService.login(userName, password).then(
           (response) => {
             navigate("/home");
-            dispatch(updateUserState({ ...response, logged: true }));
+            console.log(response);
+            dispatch(
+              updateUserState({
+                userName: response.userName,
+                role: response.privileges,
+                defaultShippingAddress: response.defaultShippingAddress,
+                logged: true,
+              })
+            );
             offlineToOnlineCart(userName);
           },
           (error) => {

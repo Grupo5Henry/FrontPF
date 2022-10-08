@@ -42,11 +42,11 @@ const login = (userName, password) => {
     .then((response) => {
       if (response.data.accessToken) {
         localStorage.setItem("user", JSON.stringify(response.data));
-        localStorage.setItem(
-          "defaultShippingAddress",
-          response.data.shippingAddress
-        );
-        localStorage.setItem("role", response.data.privileges);
+        // localStorage.setItem(
+        //   "defaultShippingAddress",
+        //   response.data.shippingAddress
+        // );
+        // localStorage.setItem("role", response.data.privileges);
       }
       //console.log('auth.service signin: ', response.data);
       return response.data;
