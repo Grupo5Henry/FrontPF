@@ -23,9 +23,8 @@ import SearchBar from "../searchBar/searchBar.jsx";
 import "./navBar.css";
 
 const NavBar = () => {
-
-  const navigate = useNavigate(); 
-  const [refresher, setRefresher] = useState(true)
+  const navigate = useNavigate();
+  const [refresher, setRefresher] = useState(true);
 
   const [usuario, setUsuario] = useState({
     signedIn: false,
@@ -38,30 +37,25 @@ const NavBar = () => {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
- 
-  useEffect( () => {
-      const user = JSON.parse(localStorage.getItem("user"));
-      
-      user && tokenCheck(dispatch);
-      var delayedTokenCheck = function() {
-        var promise = new Promise(function(resolve, reject){
-            setTimeout(function() {
-              user && tokenCheck(dispatch);
-              //resolve(); 
-           }, 3600000);
-        });
-        return promise;
-      
-     };
-     delayedTokenCheck();
-     
-  //google login
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
 
-  getUser(setUsuario, usuario);    
-      
-  }, [userStatus, dispatch]);
+    user && tokenCheck(dispatch);
+    var delayedTokenCheck = function () {
+      var promise = new Promise(function (resolve, reject) {
+        setTimeout(function () {
+          user && tokenCheck(dispatch);
+          //resolve();
+        }, 3600000);
+      });
+      return promise;
+    };
+    delayedTokenCheck();
 
-  
+    //google login
+
+    getUser(setUsuario, usuario);
+  }, [dispatch]);
 
   const handleLogOut = () => {
     AuthService.logout();
