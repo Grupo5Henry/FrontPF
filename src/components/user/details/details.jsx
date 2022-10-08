@@ -37,8 +37,6 @@ const Details = () => {
     };
   }, [dispatch, id]);
 
-  console.log(details, "Details")
-
   return (
     <div>
       <style>
