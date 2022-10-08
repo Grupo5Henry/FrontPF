@@ -8,6 +8,7 @@ import {
   FETCH_FAVORITES,
   GET_PRODUCTS_FILTERED,
   GET_PRODUCTS_NAME,
+  NEW_SHIPPING_ADDRESS,
   RESET_FILTER,
   SEARCH_PRODUCT,
   UPDATE_CART,
@@ -146,6 +147,14 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         cart: action.payload,
       };
+    case NEW_SHIPPING_ADDRESS:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          defaultShippingAddress: action.payload
+        }
+      }
 
     default:
       return state;

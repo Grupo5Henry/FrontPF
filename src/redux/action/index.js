@@ -29,6 +29,8 @@ export const FETCH_CATEGORIES = "FETCH_CATEGORIES";
 export const ADD_CATEGORIES = "ADD_CATEGORIES";
 export const CLEAR_CATEGORIES = "CLEAR_CATEGORIES";
 
+export const NEW_SHIPPING_ADDRESS = "NEW_SHIPPING_ADDRESS"
+
 export const FETCH_BRANDS_MODELS = "FETCH_BRANDS_MODELS";
 
 // export const multiAction = (actions) => ({
@@ -305,7 +307,17 @@ export const getCart = (userName) => {
 export function CreateOrder(obj){
   return function(dispatch){
     axios.post(`${BACK_URL}/order`,obj)
-    .then(() => alert("Se hizo la orden de compra"))
-    .catch(err => alert(err))
+    .then(() => console.log("Se hizo la orden de compra"))
+    .catch(err => console.log(err))
   }
+}
+
+
+export function UpdateUserDefaultAddress(obj){
+  return function(dispatch){
+    axios.put(`${BACK_URL}/user/newShippingAddress`,obj)
+    .then(() => dispatch({type: NEW_SHIPPING_ADDRESS,payload: obj.defaultShippingAddress}))
+    .catch(err => console.log(err))
+  }
+  
 }

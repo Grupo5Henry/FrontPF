@@ -1,10 +1,14 @@
+import axios from "axios";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { BACK_URL } from "../../../constantes";
+import { UpdateUserDefaultAddress } from "../../../redux/action";
 
 
 export default function DirectionForm() {
-    var {user} = useSelector(state => state)
+    var {user,cart} = useSelector(state => state)
 
+    var dispatch = useDispatch()
 
     var [state,setState] = useState(true)
     var [direction,setDirection] = useState({
@@ -36,13 +40,13 @@ export default function DirectionForm() {
                return  alert("Complete los campos pedidos")
             }else{
                 if(porDefecto){
-                    // PRIMERO TENRDIA QUE MODIFICAR LA DIRECCION
                     console.log("MODIFICO LA DIRECCION POR DEFECTO DEL USUARIO EN LA DB");
                     shippingAddress = direction.line1? (
                     `${direction.provincia_estado}, ${direction.calle}, ${direction.line1}`
                     ) : (
                         `${direction.provincia_estado}, ${direction.calle}`
                         )
+                    dispatch(UpdateUserDefaultAddress({userName: user.userName, defaultShippingAddress: shippingAddress}))
                 }else{
                     shippingAddress = direction.line1? (
                     `${direction.provincia_estado}, ${direction.calle}, ${direction.line1}`
@@ -54,6 +58,18 @@ export default function DirectionForm() {
         }
         localStorage.shippingAddress = shippingAddress
         console.log(localStorage);
+
+        try {
+            const url = await axios.post(
+              `${BACK_URL}/checkout`,
+              { cart: cart },
+              { headers: { "Content-Type": "application/json" } }
+            );
+            // console.log(url)
+            window.location = url.data.url;
+          } catch (err) {
+            console.log({ error: err.message });
+          }
               
     }
     return (
