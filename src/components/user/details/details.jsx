@@ -32,9 +32,12 @@ const Details = () => {
   useEffect(() => {
     dispatch(getFavorites(userState.userName));
     dispatch(detailProduct(id));
+    return () => {
+      dispatch(detailProduct());
+    };
   }, [dispatch, id]);
 
-  // console.log(details, "Details")
+  console.log(details, "Details")
 
   return (
     <div>

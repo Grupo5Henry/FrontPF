@@ -8,15 +8,20 @@ import {
   FETCH_FAVORITES,
   GET_PRODUCTS_FILTERED,
   GET_PRODUCTS_NAME,
+  NEW_SHIPPING_ADDRESS,
   RESET_FILTER,
   SEARCH_PRODUCT,
   UPDATE_CART,
   UPDATE_FILTER,
+  FETCH_ALL_USERS,
+  FETCH_ALL_ORDERS,
 } from "../action";
 
 const initialState = {
   products: [],
   favorites: [],
+  users: [],
+  orders: [],
   allProductsName: [],
   detail: {},
   categories: [],
@@ -97,6 +102,19 @@ const rootReducer = (state = initialState, action) => {
         favorites: action.payload,
       };
 
+    //ALL USERS
+    case FETCH_ALL_USERS:
+      return {
+        ...state,
+        users: action.payload,
+      };
+    //ORDERS
+    case FETCH_ALL_ORDERS:
+      return {
+        ...state,
+        orders: action.payload,
+      };
+
     //Categories
     case FETCH_CATEGORIES:
       return {
@@ -129,6 +147,14 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         cart: action.payload,
       };
+    case NEW_SHIPPING_ADDRESS:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          defaultShippingAddress: action.payload
+        }
+      }
 
     default:
       return state;

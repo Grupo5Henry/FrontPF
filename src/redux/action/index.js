@@ -3,12 +3,18 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { BACK_URL } from "../../constantes";
 
-// export const MULTI_ACTION = "MULTI_ACTION";
-
+//PRODUCTS
 export const GET_PRODUCTS_NAME = "GET_PRODUCTS_NAME";
 export const DETAIL_PRODUCT = "DETAIL_PRODUCT";
 export const SEARCH_PRODUCT = "SEARCH_PRODUCT";
 export const GET_PRODUCTS_FILTERED = "GET_PRODUCTS_FILTERED";
+
+//USERS
+export const FETCH_ALL_USERS = "FETCH_ALL_USERS";
+
+//ORDERS
+
+export const FETCH_ALL_ORDERS = "FETCH_ALL_ORDERS";
 
 export const FETCH_FAVORITES = "FETCH_FAVORITES";
 
@@ -22,6 +28,8 @@ export const FETCH_FILTERED = "FETCH_FILTERED";
 export const FETCH_CATEGORIES = "FETCH_CATEGORIES";
 export const ADD_CATEGORIES = "ADD_CATEGORIES";
 export const CLEAR_CATEGORIES = "CLEAR_CATEGORIES";
+
+export const NEW_SHIPPING_ADDRESS = "NEW_SHIPPING_ADDRESS"
 
 export const FETCH_BRANDS_MODELS = "FETCH_BRANDS_MODELS";
 
@@ -40,7 +48,7 @@ export const getProductsName = () => {
         payload: products.data,
       });
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
 };
@@ -110,6 +118,15 @@ export const resetFilter = () => {
 };
 
 export const detailProduct = (id) => {
+  if (!id) {
+    return async (dispatch) => {
+      dispatch({
+        type: DETAIL_PRODUCT,
+        payload: {},
+      });
+
+    };
+  }
   return async (dispatch) => {
     try {
       const product = await axios.get(`${BACK_URL}/product/ID/${id}`);
@@ -160,7 +177,9 @@ export const getFavorites = (userName) => {
         payload: favorites.data,
       });
     } catch (err) {
-      console.log({ error: err.message });
+
+      //console.log({error: err.message})
+
     }
   };
 };
@@ -173,6 +192,55 @@ export function getCategories() {
         dispatch({
           type: FETCH_CATEGORIES,
           payload: categories,
+        });
+      });
+  };
+}
+
+export function getAllUsers() {
+  return async function (dispatch) {
+    fetch(`${BACK_URL}/user`)
+      .then((response) => response.json())
+      .then((users) => {
+        dispatch({
+          type: FETCH_ALL_USERS,
+          payload: users,
+        });
+      });
+  };
+}
+
+export function getAllOrders() {
+  return async function (dispatch) {
+    fetch(`${BACK_URL}/order`)
+      .then((response) => response.json())
+      .then((orders) => {
+        const ordersGrouped = [];
+        orders.map((orderInstance) => {
+          let orderNumber = orderInstance.orderNumber;
+          ordersGrouped[orderNumber] = ordersGrouped[orderNumber]
+            ? [
+                ...ordersGrouped[orderNumber],
+                {
+                  amount: orderInstance.amount,
+                  productId: orderInstance.productId,
+                  price: orderInstance.product.price,
+                },
+              ]
+            : [
+                orderInstance.shippingAddress,
+                orderInstance.status,
+                orderInstance.createdAt,
+                {
+                  amount: orderInstance.amount,
+                  productId: orderInstance.productId,
+                  price: orderInstance.product.price,
+                },
+              ];
+        });
+        dispatch({
+          type: FETCH_ALL_ORDERS,
+          payload: ordersGrouped,
         });
       });
   };
@@ -206,7 +274,9 @@ export const getCart = (userName) => {
           const product = { amount, product: detail.data };
           cart.push(product);
         } catch (err) {
-          console.log({ error: err.message });
+
+         // console.log({error: err.message})
+
         }
       }
       dispatch({
@@ -226,7 +296,28 @@ export const getCart = (userName) => {
         payload: cart.data,
       });
     } catch (err) {
-      console.log({ error: err.message });
+
+     // console.log({error: err.message})
+
     }
-  };
-};
+  }
+}
+
+
+export function CreateOrder(obj){
+  return function(dispatch){
+    axios.post(`${BACK_URL}/order`,obj)
+    .then(() => console.log("Se hizo la orden de compra"))
+    .catch(err => console.log(err))
+  }
+}
+
+
+export function UpdateUserDefaultAddress(obj){
+  return function(dispatch){
+    axios.put(`${BACK_URL}/user/newShippingAddress`,obj)
+    .then(() => dispatch({type: NEW_SHIPPING_ADDRESS,payload: obj.defaultShippingAddress}))
+    .catch(err => console.log(err))
+  }
+  
+}
