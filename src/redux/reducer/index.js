@@ -1,6 +1,5 @@
-import { act } from "react-dom/test-utils";
-
 import {
+  GET_REVIEW,
   CLEAR_CATEGORIES,
   DETAIL_PRODUCT,
   FETCH_BRANDS_MODELS,
@@ -47,6 +46,7 @@ const initialState = {
     role: null,
     logged: false,
   },
+  review:[]
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -155,6 +155,13 @@ const rootReducer = (state = initialState, action) => {
           defaultShippingAddress: action.payload
         }
       }
+      case GET_REVIEW:
+      return {
+        ...state,
+        review: action.payload,
+      };
+
+      
 
     default:
       return state;
