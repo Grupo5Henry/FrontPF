@@ -16,4 +16,25 @@
             color: goldenrod;
         }
     }
+
+    .cellAction{
+        display: flex;
+        align-items: center;
+        gap: 15px;
+
+        .adminButton{
+            padding: 3px 6px;
+            border-radius: 5px;
+            color: goldenrod;
+            border: 1px dotted goldenrod;
+            cursor: pointer;
+        }
+        .banButton{
+            padding: 3px 6px;
+            border-radius: 5px;
+            color: red;
+            border: 1px dotted red;
+            cursor: pointer;
+        }
+    }
 }
