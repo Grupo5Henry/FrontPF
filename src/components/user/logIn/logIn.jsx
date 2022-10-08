@@ -4,11 +4,11 @@ import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { BACK_URL } from "../../../constantes";
 import { offlineToOnlineCart } from "../../../Controllers/Cart";
 import { updateUserState } from "../../../redux/action";
 import AuthService from "../../../services/auth.service";
 import "./logIn.css";
-import { BACK_URL } from "../../../constantes";
 
 const LogIn = ({ setIsOpen, setOpen }) => {
   const dispatch = useDispatch();
@@ -89,7 +89,7 @@ const LogIn = ({ setIsOpen, setOpen }) => {
     //     </form>
     <form
       onSubmit={handleLogin}
-      autocomplete="off"
+      autoComplete="off"
       className="flex flex-col bg-white rounded shadow-lg p-6 mt-0"
       // action=""
     >

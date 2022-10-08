@@ -22,7 +22,7 @@ export default function Widget({ type }) {
   let earnings = 0;
 
   orders.map((order) => {
-    for (let i = 3; i < order.length; i++) {
+    for (let i = 4; i < order.length; i++) {
       let product = order[i];
 
       earnings += product.amount * product.price;
@@ -46,7 +46,7 @@ export default function Widget({ type }) {
   // for(let element in obj){
   //     counterOrder.push(element)
   // }
-  const pendingOrder = orders.filter((order) => order[1] === "Pending");
+  const pendingOrder = orders.filter((order) => order[2] === "Pending");
 
   let data = {};
   //TEMPORAL

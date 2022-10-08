@@ -3,9 +3,9 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
+import { BACK_URL } from "../../../constantes";
 import { clearCategories, getCategories } from "../../../redux/action";
 import "../CreateProduct/CreateProduct.css";
-import { BACK_URL } from "../../../constantes";
 
 export default function CreateProduct() {
   //ESTADOS DEL PRODUCTO
