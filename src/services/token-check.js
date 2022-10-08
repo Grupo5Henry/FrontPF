@@ -11,7 +11,15 @@ const tokenCheck = async (dispatch) => {
     });
     //console.log('log de tokenStatus', tokenStatus.data);
 
-    tokenStatus && dispatch(updateUserState(tokenStatus.data));
+    tokenStatus &&
+      dispatch(
+        updateUserState({
+          role: tokenStatus.data.role,
+          defaultShippingAddress: tokenStatus.data.defaultShippingAddress,
+          userName: tokenStatus.data.userName,
+          logged: true,
+        })
+      );
   } catch (err) {
     /* dispatch(userState(false)) */
     tokenRefresh(dispatch);
@@ -26,23 +34,23 @@ const tokenRefresh = async (dispatch) => {
         if (response.data.accessToken) {
           localStorage.setItem("user", JSON.stringify(response.data));
           /* localStorage.setItem("refreshToken", response.data.refreshToken) */
-          localStorage.setItem(
-            "defaultShippingAddress",
-            response.data.shippingAddress
-          );
-          localStorage.setItem("role", response.data.privileges);
         }
         //console.log('auth.service signin: ', response.data);
         return response.data;
       });
 
-    tokenStatus && dispatch(updateUserState(tokenStatus.data));
+    tokenStatus &&
+      dispatch(
+        updateUserState({
+          role: tokenStatus.data.role,
+          defaultShippingAddress: tokenStatus.data.defaultShippingAddress,
+          userName: tokenStatus.data.userName,
+          logged: true,
+        })
+      );
   } catch (err) {
     dispatch(updateUserState(false));
     localStorage.removeItem("user");
-    localStorage.removeItem("userName");
-    localStorage.removeItem("defaultShippingAddress");
-    localStorage.removeItem("role");
   }
 };
 

@@ -48,6 +48,7 @@ const SignIn = () => {
           input.billingAddress
         ).then(
           (response) => {
+            console.log(response);
             // check for token and user already exists with 200
             //   console.log("Sign up successfully", response);
             navigate("/home");
