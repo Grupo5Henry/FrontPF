@@ -24,6 +24,7 @@ import AdminUsers from "./components/Admin/AdminUsers/AdminUsers";
 import List from "./components/Admin/List/List";
 import Single from "./components/Admin/Single/Single";
 import Ordenes from "./components/Admin/Ordenes/Ordenes";
+import Footer1 from "./components/user/Footer/Footer";
 
 console.log("Soy locale", localStorage.role);
 
@@ -72,6 +73,7 @@ function App() {
             <Route exact path="/home/details" element={<Details />} />
             <Route path="*" element={<Error />} />
           </Routes>
+          <Footer1 />
         </header>
       )}
     </div>
