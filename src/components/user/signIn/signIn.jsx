@@ -53,7 +53,6 @@ const SignIn = ({ setIsOpen, setOpen }) => {
             //   console.log("Sign up successfully", response);
             navigate("/home");
             /* window.location.reload(); */
-            console.log(response);
             dispatch(updateUserState({ ...response, logged: true }));
             offlineToOnlineCart(input.userName);
           },

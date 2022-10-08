@@ -26,14 +26,17 @@ import Single from "./components/Admin/Single/Single";
 import Ordenes from "./components/Admin/Ordenes/Ordenes";
 import Footer1 from "./components/user/Footer/Footer";
 
+//PAGINA DE REFRESH
+import PageRefresh from "./components/services/PageRefresh";
+
 // console.log("Soy locale", localStorage.role);
 
 function App() {
   const userState = useSelector((state) => state.user);
-
+  if(userState.role=='admin'){
   return (
     <div className="App">
-      {userState.role != "user" && userState.role != null ? (
+    
         <header className="App-header">
           <Routes>
             <Route path="*" element={<AdminHome />} />
@@ -48,7 +51,12 @@ function App() {
             {/* <Route path="*" element={<Error />} /> */}
           </Routes>
         </header>
-      ) : (
+     </div> 
+  )
+  }
+  if(userState.role=='user' || userState.role=='desconocido'){
+    return (
+    <div className="App">
         <header className="App-header">
           <NavBar />
           <Routes>
@@ -75,9 +83,14 @@ function App() {
           </Routes>
           <Footer1 />
         </header>
-      )}
+      
     </div>
-  );
-}
-
+  )} else{
+    return (
+    <Routes>
+      <Route path="*" element={<PageRefresh/>}/>
+    </Routes>
+    )}
+    }
 export default App;
+
