@@ -1,6 +1,4 @@
 import axios from "axios";
-
-import { useSelector } from "react-redux";
 import { BACK_URL } from "../../constantes";
 
 //PRODUCTS
@@ -18,6 +16,8 @@ export const FETCH_ALL_ORDERS = "FETCH_ALL_ORDERS";
 
 export const FETCH_FAVORITES = "FETCH_FAVORITES";
 
+export const GET_REVIEW = "GET_REVIEW";
+export const RESET_DETAIL = "RESET_DETAIL";
 export const UPDATE_CART = "UPDATE_CART";
 export const GET_CART = "GET_CART";
 
@@ -115,6 +115,24 @@ export const resetFilter = () => {
       payload: null,
     });
   };
+}
+
+
+
+
+
+export const userState = (payload) => {
+    return { 
+        type: "USER_STATE",
+        payload
+    }
+}
+
+
+export const resetDetail = () => {
+  return {
+      type: RESET_DETAIL,
+  }
 };
 
 export const detailProduct = (id) => {
@@ -195,7 +213,26 @@ export function getCategories() {
         });
       });
   };
-}
+};
+// review
+
+export const getReview = (id) => {
+  return async (dispatch) => {
+    try {
+      const review = await axios.get(
+        `https://backpf-production.up.railway.app/review/ID/${id}`
+      )
+      dispatch({
+        type: GET_REVIEW,
+        payload: review.data
+      })
+    } catch (err) {
+      console.log({error: err.message})
+    }
+  }
+};
+
+
 
 export function getAllUsers() {
   return async function (dispatch) {

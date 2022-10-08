@@ -16,7 +16,7 @@ import {
   setFavorite,
   unSetFavorite,
 } from "../../../Controllers/Favorite";
-import { detailProduct, getFavorites } from "../../../redux/action";
+import { detailProduct, getFavorites, resetDetail } from "../../../redux/action";
 import Comment from "../comment/comment";
 
 // Detalle del Producto
@@ -36,12 +36,23 @@ const Details = () => {
       dispatch(detailProduct());
     };
   }, [dispatch, id]);
+  useEffect(()=> {
+    dispatch(resetDetail())
+  },[dispatch])
+  
 
   console.log(details, "Details")
 
   return (
     <div>
-      <style>
+      {
+        !detail.id ? 
+        <div className="h-screen bg-white">
+        <div className="flex justify-center items-center h-full">
+          <img className="h-16 w-16" src="https://icons8.com/preloaders/preloaders/1488/Iphone-spinner-2.gif" alt=""/>
+        </div>
+        </div>: <div>
+        <style>
         @import
         url(https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css);
       </style>
@@ -52,7 +63,7 @@ const Details = () => {
               <div className="relative">
                 <img
                   src={detail.thumbnail}
-                  className="w-full relative z-10"
+                  className="w-full relative "
                   alt=""
                 />
                 <div className="border-4 border-black-200 absolute top-10 bottom-10 left-10 right-10 z-0"></div>
@@ -65,7 +76,8 @@ const Details = () => {
                   <h1 className="font-bold uppercase text-2xl mb-5">
                     {detail.name}
                   </h1>
-                  <IconButton
+                  <div className="mt-0">
+                  <IconButton 
                     aria-label="Add to cart"
                     onClick={() => {
                       if (isFavorite(id))
@@ -74,7 +86,7 @@ const Details = () => {
                     }}
                   >
                     {!userState.logged ? null : isFavorite(id) ? (
-                      <Favorite
+                      <Favorite 
                         sx={{ color: "red" }}
                         fontSize="large"
                         // onClick={() => unSetFavorite(userState.userName, product.id)}
@@ -83,6 +95,8 @@ const Details = () => {
                       <FavoriteBorder fontSize="large" />
                     )}
                   </IconButton>
+
+                  </div>
                 </div>
 
                 <p className="text-sm">{detail.description}</p>
@@ -94,17 +108,6 @@ const Details = () => {
                   </span>
                   <span className="font-bold text-3xl leading-none align-baseline">
                     {detail.price}
-                  </span>
-                </div>
-              </div>
-
-              <div className="mt-2">
-                <div className="inline-block align-bottom mr-5">
-                  <span className="text-2xl leading-none align-baseline">
-                    brand{" "}
-                  </span>
-                  <span className="font-bold text-3xl leading-none align-baseline">
-                    {detail.brand}
                   </span>
                 </div>
               </div>
@@ -201,14 +204,38 @@ const Details = () => {
               </div>
             </div>
           </div>
+
+          <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
+                <div className="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12">
+                  <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto">
+                    <span className="relative inline-block"></span>{" "}
+                    Caracteristicas
+                  </h2>
+                </div>
+                <div className="grid gap-8 row-gap-10 lg:grid-cols-2">
+                  <div className="max-w-md sm:mx-auto sm:text-center">
+                    <h6 className="mb-3 text-xl font-bold leading-5">Modelo</h6>
+                    <p className="mb-3 text-sm text-gray-900">
+                      {detail.model}
+                    </p>
+                  </div>
+                  <div className="max-w-md sm:mx-auto sm:text-center">
+                    <h6 className="mb-3 text-xl font-bold leading-5">Marca</h6>
+                    <p className="mb-3 text-sm text-gray-900">
+                      {detail.brand}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
           {/* {<------------------ comentarios ------------------------>} */}
-          <Comment />
+          <Comment id={id}/>
           {/* {<------------------------------------------>} */}
         </div>
-      </div>
-      <div className="flex items-end justify-end fixed bottom-0 right-0 mb-4 mr-4 z-10">
-        <div></div>
-      </div>
+        </div>
+        </div>
+      }
+      
     </div>
   );
 };
