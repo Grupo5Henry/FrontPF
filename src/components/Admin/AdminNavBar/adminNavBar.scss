@@ -1,0 +1,57 @@
+.adminNavBar{
+    height: 57px;
+    border-bottom: 0.5px solid rgb(231, 228, 228);
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #555;
+
+    .wrapper{
+        width: 100%;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .search{
+            display: flex;
+            margin-left: 50px;
+            width: 400px;
+            align-items: center;
+            border: 0.5px solid lightgray;
+            padding: 3px;
+
+            input{
+                border: none;
+                outline: none;
+                background: transparent;
+                width: 400px;
+
+                &::placeholder{
+                    font-size: 15px;
+                }
+            }
+        }
+
+        .items{
+            display: flex;
+            align-items: center;
+
+            .item{
+                display: flex;
+                align-items: center;
+                margin-right: 35px;
+
+
+            }
+        }
+        .icon{
+            font-size: 36px;
+            cursor: pointer;
+
+            &:hover{
+                background-color: #ece8ff;
+            }
+        }
+    }
+}

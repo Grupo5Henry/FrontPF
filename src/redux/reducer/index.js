@@ -1,6 +1,5 @@
-import { act } from "react-dom/test-utils";
-
 import {
+  GET_REVIEW,
   CLEAR_CATEGORIES,
   DETAIL_PRODUCT,
   FETCH_BRANDS_MODELS,
@@ -8,15 +7,22 @@ import {
   FETCH_FAVORITES,
   GET_PRODUCTS_FILTERED,
   GET_PRODUCTS_NAME,
+  NEW_SHIPPING_ADDRESS,
   RESET_FILTER,
   SEARCH_PRODUCT,
   UPDATE_CART,
   UPDATE_FILTER,
+  FETCH_ALL_USERS,
+  FETCH_ALL_ORDERS,
+  FETCH_ALL_PRODUCTS,
 } from "../action";
 
 const initialState = {
   products: [],
+  adminProducts: [],
   favorites: [],
+  users: [],
+  orders: [],
   allProductsName: [],
   detail: {},
   categories: [],
@@ -42,6 +48,7 @@ const initialState = {
     role: null,
     logged: false,
   },
+  review:[]
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -84,6 +91,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         detail: action.payload,
       };
+    case FETCH_ALL_PRODUCTS:
+      return {
+        ...state,
+        adminProducts: action.payload.rows
+      };
 
     case SEARCH_PRODUCT:
       return {
@@ -95,6 +107,19 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         favorites: action.payload,
+      };
+
+    //ALL USERS
+    case FETCH_ALL_USERS:
+      return {
+        ...state,
+        users: action.payload,
+      };
+    //ORDERS
+    case FETCH_ALL_ORDERS:
+      return {
+        ...state,
+        orders: action.payload,
       };
 
     //Categories
@@ -129,6 +154,21 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         cart: action.payload,
       };
+    case NEW_SHIPPING_ADDRESS:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          defaultShippingAddress: action.payload
+        }
+      }
+      case GET_REVIEW:
+      return {
+        ...state,
+        review: action.payload,
+      };
+
+      
 
     default:
       return state;
