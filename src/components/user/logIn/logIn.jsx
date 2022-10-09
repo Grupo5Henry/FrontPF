@@ -23,6 +23,9 @@ const LogIn = ({ setIsOpen, setOpen }) => {
   };
 
   const handleLogin = async (e) => {
+    if(!userName || !password){
+      toast('Faltan campos por completar');
+  }
     if (userName && password) {
       e.preventDefault();
       try {
