@@ -17,6 +17,7 @@ import ModifyProduct from "./components/user/ModifyProduct/ModifyProduct";
 import { useSelector } from "react-redux";
 import DirectionForm from "./components/user/formDirection";
 import { CongratulationsCard } from "./components/user/CongratulationsCard/CongratulationsCard";
+import Footer1 from "./components/user/Footer/Footer";
 
 function App() {
   const userState = useSelector((state) => state.user);
@@ -47,6 +48,7 @@ function App() {
           <Route exact path="/home/details" element={<Details />} />
           <Route path="*" element={<Error />} />
         </Routes>
+        <Footer1/>
       </header>
     </div>
   );
