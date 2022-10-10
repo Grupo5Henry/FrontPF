@@ -3,6 +3,7 @@ import { act } from "react-dom/test-utils";
 import {
   CLEAR_CATEGORIES,
   DETAIL_PRODUCT,
+  DELETE_DETAIL_PRODUCT,
   FETCH_BRANDS_MODELS,
   FETCH_CATEGORIES,
   FETCH_FAVORITES,
@@ -90,6 +91,12 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         detail: action.payload,
       };
+    case DELETE_DETAIL_PRODUCT:
+      return {
+        ...state,
+        detail: action.payload,
+      }
+
     case FETCH_ALL_PRODUCTS:
       return {
         ...state,

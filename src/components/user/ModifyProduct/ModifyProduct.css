@@ -1,4 +1,4 @@
-.title {
+/* .title {
   margin-left: 43%;
   color: black;
   font-size: 50px;
@@ -6,7 +6,7 @@
   margin-top: 25px;
 }
 .formulario {
-  background-color: /* #101930 */ #16213e;
+  background-color:  #16213e;
 
   margin-left: 30%;
   margin-right: 30%;
@@ -27,7 +27,6 @@
   font-size: 20px;
   width: 50%;
   border-radius: 2 rem;
-  /* margin-left: 10px; */
   width: 65%;
   height: 65%;
 }
@@ -62,7 +61,7 @@
 }
 
 .contenedor {
-  display: flex; /* las cajas una al lado de la otra */
+  display: flex; 
   padding: 15px;
   justify-content: space-between;
   margin-top: 1.5%;
@@ -84,4 +83,4 @@
 
 .button:hover {
   background-color: #67bee1;
-}
+} */

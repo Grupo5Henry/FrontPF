@@ -1,21 +1,21 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import swal from "sweetalert";
-import { clearCategories, getCategories } from "../../../redux/action";
+import { clearCategories, getCategories, detailProduct, deleteDetailProduct } from "../../../redux/action";
 import "../ModifyProduct/ModifyProduct.css";
 import { BACK_URL } from "../../../constantes";
 
-export default function ModifyProduct() {
+export default function ModifyProduct(props) { //NUEVO PROPS
   //ESTADOS DEL PRODUCTO
   const [id, setId] = useState("");
 
-  const [name, setName] = useState("");
-  const [brand, setBrand] = useState("");
-  const [model, setModel] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState(null);
+  const [name, setName] = useState("")/* (productDetail.name); */
+  const [brand, setBrand] = useState("")/* (productDetail.brand); */
+  const [model, setModel] = useState("")/* (productDetail.model); */
+  const [description, setDescription] = useState("")/* (productDetail.description); */
+  const [price, setPrice] = useState("")/* (productDetail.price); */
   const [categories, setCategories] = useState([]);
 
   const [condition, setCondition] = useState("");
@@ -26,12 +26,15 @@ export default function ModifyProduct() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const category = useSelector((state) => state.categories);
+  const productDetail = useSelector((state) => state.detail);
 
   //TRAER LAS CATEGORIAS Y LUEGO VACIAR EL ESTADO
-  useEffect(() => {
+/*   useEffect(() => {
+    dispatch(detailProduct(props.match.params.id));  //NUEVO
+    dispatch(deleteDetailProduct());              //NUEVO
     dispatch(getCategories());
     dispatch(clearCategories());
-  }, [dispatch]);
+  }, [dispatch]); */
 
   //AL DAR AL BOTON DE CREAR PRODUCTO
   async function handleOnSubmit(e) {
@@ -156,7 +159,7 @@ export default function ModifyProduct() {
         )
         .then((response) =>
           axios.put(BACK_URL + "/product/modify", {
-            id,
+            /* id: productDetail.id, */
             name,
             model,
             brand,
@@ -171,15 +174,11 @@ export default function ModifyProduct() {
         .then(() => {
           swal({
             title: "¡Producto modificado correctamente!",
-            text: "¿Desea modificar otro producto?",
             icon: "success",
-            buttons: ["No", "Sí"],
-          }).then((resp) => {
-            if (resp) {
-              window.location.reload();
-            } else {
-              navigate("/");
-            }
+            buttons: "Ok",
+            timer: 2000
+          }).then(() => {
+              navigate("/products");
           });
         })
         .catch((error) => {
@@ -197,7 +196,7 @@ export default function ModifyProduct() {
         noValidate
         onSubmit={handleOnSubmit}
       >
-        <div className="contenedor">
+{/*         <div className="contenedor">
           <p className="p">Id del producto a modificar: </p>
           <input
             type="text"
@@ -206,14 +205,14 @@ export default function ModifyProduct() {
             placeholder="Id del producto a modificar:"
             onChange={(e) => setId(e.target.value)}
           />
-        </div>
+        </div> */}
         <div className="contenedor">
           <p className="p">Nombre del producto: </p>
           <input
             type="text"
             name="name"
             className="inputs"
-            placeholder="Se presentará como el título"
+            /* placeholder={productDetail.name} */
             onChange={(e) => setName(e.target.value)}
           />
         </div>
@@ -223,7 +222,7 @@ export default function ModifyProduct() {
             type="text"
             name="brand"
             className="inputs"
-            placeholder="Por ejemplo LG, Samsung, Lenovo"
+            /* placeholder={productDetail.brand} */
             onChange={(e) => setBrand(e.target.value)}
           />
         </div>
@@ -233,7 +232,7 @@ export default function ModifyProduct() {
             type="text"
             name="model"
             className="inputs"
-            placeholder="Modelo"
+            /* placeholder="Modelo" */
             onChange={(e) => setModel(e.target.value)}
           />
         </div>
@@ -243,7 +242,7 @@ export default function ModifyProduct() {
             type="text"
             name="description"
             className="inputs"
-            placeholder="Decripción de los componentes del producto"
+            /* placeholder="Decripción de los componentes del producto" */
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>
@@ -252,7 +251,6 @@ export default function ModifyProduct() {
           <input
             type="file"
             className="inputImage"
-            /* className="block text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" */
             onChange={(e) => {
               setImageSelected(e.target.files[0]);
             }}
@@ -264,7 +262,7 @@ export default function ModifyProduct() {
             type="number"
             name="price"
             className="inputPrecio"
-            placeholder="Precio"
+            /* placeholder="Precio" */
             onChange={(e) => setPrice(e.target.value)}
           />
         </div>
@@ -298,9 +296,14 @@ export default function ModifyProduct() {
               })}
           </select>
         </div>
-        <button className="button" type="submit">
-          Crear Producto
-        </button>
+        <div className="buttons">
+            <button className="button" type="submit">
+              Modificar
+            </button>
+            <Link to={`/products`}>
+              <button className="buttonCancel">Cancelar</button>
+            </Link>
+        </div>
       </form>
     </>
   );

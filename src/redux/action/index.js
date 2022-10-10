@@ -6,6 +6,7 @@ import { BACK_URL } from "../../constantes";
 //PRODUCTS
 export const GET_PRODUCTS_NAME = "GET_PRODUCTS_NAME";
 export const DETAIL_PRODUCT = "DETAIL_PRODUCT";
+export const DELETE_DETAIL_PRODUCT = "DELETE_DETAIL_PRODUCT";
 export const SEARCH_PRODUCT = "SEARCH_PRODUCT";
 export const GET_PRODUCTS_FILTERED = "GET_PRODUCTS_FILTERED";
 export const FETCH_ALL_PRODUCTS = "FETCH_ALL_PRODUCTS";
@@ -128,6 +129,15 @@ export const detailProduct = (id) => {
       console.log(error);
     }
   };
+};
+
+export function deleteDetailProduct() {
+  return async (dispatch) => {
+    dispatch({
+      type: "DELETE_DETAIL_PRODUCT",
+      payload: {}
+    })
+  }
 };
 
 export const updateUserState = (payload) => {

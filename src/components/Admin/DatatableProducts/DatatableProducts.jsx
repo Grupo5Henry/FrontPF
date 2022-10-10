@@ -40,7 +40,7 @@ export default function DatatableProducts () {
       renderCell: (params) => {
         return (
           <div className="cellAction">
-              <Link to={"/modifyProduct"}>
+              <Link to={`/modifyProduct/${params.row.id}`}>
                     <button className="modifyButton" >Modificar</button> 
               </Link>
             </div> 

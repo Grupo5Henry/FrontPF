@@ -20,32 +20,35 @@ import { CongratulationsCard } from "./components/user/CongratulationsCard/Congr
 
 //ADMIN ROUTES
 import AdminHome from "./components/Admin/AdminHome/AdminHome";
-import AdminUsers from "./components/Admin/AdminUsers/AdminUsers";
 import List from "./components/Admin/List/List";
 import Single from "./components/Admin/Single/Single";
 import Ordenes from "./components/Admin/Ordenes/Ordenes";
+import ListProducts from "./components/Admin/ListProducts/ListProducts.jsx";
+import CreateBrand from "./components/Admin/CreateBrand/CreateBrand.jsx"; 
+import NewProduct from "./components/Admin/NewProduct/NewProduct.jsx";
+import FixProduct from "./components/Admin/FixProduct/FixProduct.jsx"; 
 
-console.log("Soy locale", localStorage.role);
+
 
 function App() {
   const userState = useSelector((state) => state.user);
 
   return (
     <div className="App">
-      {userState.role != "user" && userState.role != null ? (
+{/*       {userState.role != "user" && userState.role != null ? (
         <header className="App-header">
           <Routes>
-            <Route path="*" element={<AdminHome />} />
+            <Route path="*" element={<AdminHome />} /> */}
             {/* <Route exact path="/home" element={<AdminHome />} /> */}
-            <Route exact path="/users" element={<List />} />
+{/*             <Route exact path="/users" element={<List />} />
             <Route exact path="/users/:id" element={<Single />} />
             <Route exact path="/products" element={<List />} />
             <Route exact path="/products/:id" element={<Single />} />
             <Route exact path="/createProduct" element={<CreateProduct />} />
             <Route exact path="/modifyProduct" element={<ModifyProduct />} />
-            <Route exact path="/orders" element={<Ordenes />} />
+            <Route exact path="/orders" element={<Ordenes />} /> */}
             {/* <Route path="*" element={<Error />} /> */}
-          </Routes>
+{/*           </Routes>
         </header>
       ) : (
         <header className="App-header">
@@ -73,21 +76,22 @@ function App() {
             <Route path="*" element={<Error />} />
           </Routes>
         </header>
-      )}
+      )} */}
 
-      {/* <header className="App-header">
+      <header className="App-header">
         <Routes>
           <Route exact path="/" element={<AdminHome />} />
           <Route exact path="/users" element={<List />} />
           <Route exact path="/users/:id" element={<Single />} />
-          <Route exact path="/products" element={<List />} />
+          <Route exact path="/products" element={<ListProducts />} />
           <Route exact path="/products/:id" element={<Single />} />
-          <Route exact path="/createProduct" element={<CreateProduct />} />
-          <Route exact path="/modifyProduct" element={<ModifyProduct />} />
+          <Route exact path="/createProduct" element={<NewProduct />} />
+          <Route exact path="/modifyProduct" element={<FixProduct />} />
           <Route exact path="/orders" element={<Ordenes />} />
+          <Route exact path="/createBrand-Category" element={<CreateBrand />} />
           <Route path="*" element={<Error />} />
         </Routes>
-      </header> */}
+      </header>
     </div>
   );
 }
