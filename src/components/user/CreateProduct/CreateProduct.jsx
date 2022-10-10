@@ -186,16 +186,18 @@ export default function CreateProduct() {
   }
 
   return (
-    <>
-      <h1 className="title">Creación de Producto</h1>
+    <div className="login">
+    <div className="form-container">
+      <h1 className="title2">Creación de Producto</h1>
       <form
         className="formulario"
         autoComplete="off"
         noValidate
         onSubmit={handleOnSubmit}
       >
+        <div>
         <div className="contenedor">
-          <p className="p">Nombre del producto: </p>
+          <label className="subtitle" >Nombre del producto: </label>
           <input
             type="text"
             name="name"
@@ -205,7 +207,7 @@ export default function CreateProduct() {
           />
         </div>
         <div className="contenedor">
-          <p className="p">Marca: </p>
+          <label className="subtitle" >Marca: </label>
           <input
             type="text"
             name="brand"
@@ -215,7 +217,7 @@ export default function CreateProduct() {
           />
         </div>
         <div className="contenedor">
-          <p className="p">Modelo: </p>
+          <label className="subtitle"> Modelo: </label>
           <input
             type="text"
             name="model"
@@ -225,7 +227,7 @@ export default function CreateProduct() {
           />
         </div>
         <div className="contenedor">
-          <p className="p">Descripción: </p>
+          <label className="subtitle" >Descripción: </label>
           <input
             type="text"
             name="description"
@@ -235,28 +237,17 @@ export default function CreateProduct() {
           />
         </div>
         <div className="contenedor">
-          <p className="p">Imagen: </p>
-          <input
-            type="file"
-            className="inputImage"
-            /* className="block text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" */
-            onChange={(e) => {
-              setImageSelected(e.target.files[0]);
-            }}
-          />
-        </div>
-        <div className="contenedor">
-          <p className="p">Precio: </p>
+          <label className="subtitle" >Precio: </label>
           <input
             type="number"
             name="price"
-            className="inputPrecio"
+            className="inputSelect"
             placeholder="Precio"
             onChange={(e) => setPrice(e.target.value)}
           />
         </div>
         <div className="contenedor">
-          <p className="p">Condición: </p>
+          <label className="subtitle" >Condición: </label>
           <select
             name="condition"
             className="inputSelect"
@@ -268,7 +259,7 @@ export default function CreateProduct() {
           </select>
         </div>
         <div className="contenedor">
-          <p className="p">Categoría: </p>
+          <label className="subtitle" >Categoría: </label>
           <select
             name="category"
             className="inputSelect"
@@ -285,10 +276,23 @@ export default function CreateProduct() {
               })}
           </select>
         </div>
+        <div className="contenedor">
+          <label className="subtitle" >Imagen: </label>
+          <input
+            type="file"
+            className="inputImage"
+            /* className="block text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" */
+            onChange={(e) => {
+              setImageSelected(e.target.files[0]);
+            }}
+          />
+        </div>
         <button className="button" type="submit">
           Crear Producto
         </button>
+        </div>
       </form>
-    </>
+    </div>
+    </div>
   );
 }
