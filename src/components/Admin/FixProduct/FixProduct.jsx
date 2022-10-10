@@ -1,26 +1,27 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useParams } from "react-router-dom";
 import swal from "sweetalert";
 import "../FixProduct/fixProduct.scss";
 import SideBar from "../SideBar/SideBar.jsx"
 import AdminNavBar from "../AdminNavBar/AdminNavBar.jsx";
-import { clearCategories, getCategories, detailProduct, deleteDetailProduct } from "../../../redux/action/index.js";
+import { clearCategories, getCategories, detailProduct, deleteDetailProduct,
+getBrandAndModels } from "../../../redux/action/index.js";
 import { BACK_URL } from "../../../constantes";
 
 
-export default function FixProduct (props) {
+export default function FixProduct () {
 
       //ESTADOS DEL PRODUCTO
-  const [id, setId] = useState("");
 
-  const [name, setName] = useState("")/* (productDetail.name); */
+  const [name, setName] = useState("");
   const [brand, setBrand] = useState([])
-  const [model, setModel] = useState("")/* (productDetail.model); */
-  const [description, setDescription] = useState("")/* (productDetail.description); */
-  const [price, setPrice] = useState("")/* (productDetail.price); */
+  const [model, setModel] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
   const [categories, setCategories] = useState([]);
+  const [stock, setStock] = useState("");
 
   const [condition, setCondition] = useState("");
   //ESTADO DE LA IMAGEN
@@ -28,17 +29,25 @@ export default function FixProduct (props) {
 
   //OTRAS CONSTANTES
   const navigate = useNavigate();
+  const { id } = useParams();
   const dispatch = useDispatch();
   const category = useSelector((state) => state.categories);
   const productDetail = useSelector((state) => state.detail);
+  const brandsOwned = useSelector((state) => state.brand);
+  /* const modelsOwned = useSelector((state) => state.model); */
+  const brandsOrdered = brandsOwned.sort((a, b) => a.brand > b.brand);
+
+  console.log("SOY STOCK", stock);
+
 
   //TRAER LAS CATEGORIAS Y LUEGO VACIAR EL ESTADO
-/*   useEffect(() => {
-    dispatch(detailProduct(props.match.params.id));  //NUEVO
+  useEffect(() => {
+    dispatch(detailProduct(id)); //NUEVO 
     dispatch(deleteDetailProduct());              //NUEVO
+    dispatch(getBrandAndModels());
     dispatch(getCategories());
     dispatch(clearCategories());
-  }, [dispatch]); */
+  }, [dispatch]);
 
   //AL DAR AL BOTON DE CREAR PRODUCTO
   async function handleOnSubmit(e) {
@@ -52,6 +61,7 @@ export default function FixProduct (props) {
         title: "El nombre debe tener al menos tres caracteres",
         icon: "error",
         button: "Ok",
+        timer: 500,
       });
     }
 
@@ -61,6 +71,7 @@ export default function FixProduct (props) {
         title: "El campo de marca no puede estar vacío",
         icon: "error",
         button: "Ok",
+        timer: 500,
       });
     }
 
@@ -70,6 +81,7 @@ export default function FixProduct (props) {
         title: "El campo de modelo no puede estar vacío",
         icon: "error",
         button: "Ok",
+        timer: 500,
       });
     }
 
@@ -79,6 +91,7 @@ export default function FixProduct (props) {
         title: "El campo de descripción no puede estar vacío",
         icon: "error",
         button: "Ok",
+        timer: 500,
       });
     }
 
@@ -88,26 +101,54 @@ export default function FixProduct (props) {
         title: "Debe agregar un número como precio",
         icon: "error",
         button: "Ok",
+        timer: 500,
       });
     } else if (isNaN(price) === true) {
       return swal({
         title: "El precio debe ser un número",
         icon: "error",
         button: "Ok",
+        timer: 500,
       });
     } else if (price <= 0) {
       return swal({
         title: "El precio debe ser mayor a cero",
         icon: "error",
         button: "Ok",
+        timer: 500,
       });
     } else if (price === 0) {
       return swal({
         title: "El precio no puede ser un cero",
         icon: "error",
         button: "Ok",
+        timer: 500,
       });
     }
+
+    //STOCK
+    if (!stock) {
+      return swal({
+        title: "Debe agregar un número como stock",
+        icon: "error",
+        button: "Ok",
+        timer: 500,
+      });
+    } else if (isNaN(stock) === true) {
+      return swal({
+        title: "El stock debe ser un número",
+        icon: "error",
+        button: "Ok",
+        timer: 500,
+      });
+    } else if (stock < 0) {
+      return swal({
+        title: "El stock no puede ser negativo",
+        icon: "error",
+        button: "Ok",
+        timer: 500,
+      });
+    };
 
     //CONDICION
     if (condition.length === 0) {
@@ -115,6 +156,7 @@ export default function FixProduct (props) {
         title: "Debe señalar si el producto es nuevo o usado",
         icon: "error",
         button: "Ok",
+        timer: 500,
       });
     }
 
@@ -123,6 +165,7 @@ export default function FixProduct (props) {
         title: "Debe señalar si el producto es nuevo o usado",
         icon: "error",
         button: "Ok",
+        timer: 500,
       });
     }
 
@@ -132,6 +175,7 @@ export default function FixProduct (props) {
         title: "Debe agregar una categoría",
         icon: "error",
         button: "Ok",
+        timer: 500,
       });
     }
 
@@ -140,6 +184,7 @@ export default function FixProduct (props) {
         title: "Debe señalar una categoría válida",
         icon: "error",
         button: "Ok",
+        timer: 500,
       });
     }
     //IMAGEN
@@ -148,6 +193,7 @@ export default function FixProduct (props) {
         title: "Debe cargar una imagen",
         icon: "error",
         button: "Ok",
+        timer: 500,
       });
     } else {
       //SI PASAN LAS VALIDACIONES
@@ -163,13 +209,14 @@ export default function FixProduct (props) {
         )
         .then((response) =>
           axios.put(BACK_URL + "/product/modify", {
-            /* id: productDetail.id, */
+            id: productDetail.id,
             name,
             model,
             brand,
             description,
             thumbnail: response.data.secure_url,
             price,
+            stock,
             condition,
             categories,
           })
@@ -241,6 +288,16 @@ export default function FixProduct (props) {
                         onChange={(e) => setPrice(e.target.value)}
                     />
                     </div>
+
+                    <div className="inputsContainer">
+                    <label>Stock: </label>
+                    <input
+                        type="number"
+                        name="stock"
+                        onChange={(e) => setStock(e.target.value)}
+                    />
+                    </div>
+
                     <div className="inputsContainerImg">
                     <label className="labelImg">Imagen: </label>
                     <input
@@ -252,6 +309,8 @@ export default function FixProduct (props) {
                     />
                     </div>
 
+                    
+
 
                     <div className="inputsContainer">
                     <label>Marca: </label>
@@ -260,11 +319,11 @@ export default function FixProduct (props) {
                         onChange={(e) => setBrand(e.target.value)}
                     >
                         <option value="select">Seleccionar</option>
-                        {category &&
-                        category.map((c) => {
+                        {brandsOrdered &&
+                        brandsOrdered.map((c) => {
                             return (
-                            <option key={c.name} value={c.name}>
-                                {c.name}
+                            <option key={c.brand} value={c.brand}>
+                                {c.brand}
                             </option>
                             );
                         })}

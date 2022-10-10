@@ -35,20 +35,21 @@ function App() {
 
   return (
     <div className="App">
-{/*       {userState.role != "user" && userState.role != null ? (
+      {userState.role != "user" && userState.role != null ? (
         <header className="App-header">
           <Routes>
-            <Route path="*" element={<AdminHome />} /> */}
-            {/* <Route exact path="/home" element={<AdminHome />} /> */}
-{/*             <Route exact path="/users" element={<List />} />
+            <Route path="*" element={<AdminHome />} />
+            <Route exact path="/home" element={<AdminHome />} />
+            <Route exact path="/users" element={<List />} />
             <Route exact path="/users/:id" element={<Single />} />
-            <Route exact path="/products" element={<List />} />
+            <Route exact path="/products" element={<ListProducts />} />
             <Route exact path="/products/:id" element={<Single />} />
-            <Route exact path="/createProduct" element={<CreateProduct />} />
-            <Route exact path="/modifyProduct" element={<ModifyProduct />} />
-            <Route exact path="/orders" element={<Ordenes />} /> */}
+            <Route exact path="/createProduct" element={<NewProduct />} />
+            <Route exact path="/modifyProduct/:id" element={<FixProduct />} />
+            <Route exact path="/orders" element={<Ordenes />} />
+            <Route exact path="/createBrand-Category" element={<CreateBrand />} />
             {/* <Route path="*" element={<Error />} /> */}
-{/*           </Routes>
+          </Routes>
         </header>
       ) : (
         <header className="App-header">
@@ -76,22 +77,7 @@ function App() {
             <Route path="*" element={<Error />} />
           </Routes>
         </header>
-      )} */}
-
-      <header className="App-header">
-        <Routes>
-          <Route exact path="/" element={<AdminHome />} />
-          <Route exact path="/users" element={<List />} />
-          <Route exact path="/users/:id" element={<Single />} />
-          <Route exact path="/products" element={<ListProducts />} />
-          <Route exact path="/products/:id" element={<Single />} />
-          <Route exact path="/createProduct" element={<NewProduct />} />
-          <Route exact path="/modifyProduct" element={<FixProduct />} />
-          <Route exact path="/orders" element={<Ordenes />} />
-          <Route exact path="/createBrand-Category" element={<CreateBrand />} />
-          <Route path="*" element={<Error />} />
-        </Routes>
-      </header>
+      )}
     </div>
   );
 }
