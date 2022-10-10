@@ -37,7 +37,6 @@ function Carrusel() {
               className="block w-full"
               alt="..."
             />
-           
           </div>
           <div className="carousel-item relative float-left w-full">
             <img
@@ -45,7 +44,6 @@ function Carrusel() {
               className="block w-full"
               alt="..."
             />
-            
           </div>
           <div className="carousel-item relative float-left w-full">
             <img
@@ -53,7 +51,6 @@ function Carrusel() {
               className="block w-full"
               alt="..."
             />
-            
           </div>
         </div>
         <button

@@ -1,0 +1,49 @@
+.datatableProducts{
+    height: 900px;
+    padding: 40px;
+    align-items: center;
+
+    .cellWithBan{
+        padding: 5px;
+        border-radius: 5px;
+
+        &.Activo{
+            background-color: rgba(0, 128, 0, 0.05);
+            color: green;
+        }
+
+        &.Baneado{
+            background-color: rgba(255, 217, 0, 0.05);
+            color: goldenrod;
+        }
+    }
+    
+    .cellWithStatus{
+        padding: 5px;
+        border-radius: 5px;
+
+        &.user{
+            background-color: rgba(0, 128, 0, 0.05);
+            color: green;
+        }
+
+        &.admin{
+            background-color: rgba(255, 217, 0, 0.05);
+            color: goldenrod;
+        }
+    }
+
+    .cellAction{
+        display: flex;
+        align-items: center;
+        gap: 15px;
+
+        .modifyButton{
+            padding: 3px 6px;
+            border-radius: 5px;
+            color: blue;
+            border: 1px dotted blue;
+            cursor: pointer;
+        }
+    }
+}
