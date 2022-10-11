@@ -1,56 +1,67 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "../Featured/featured.scss";
-import BalanceIcon from '@mui/icons-material/Balance';
+import BalanceIcon from "@mui/icons-material/Balance";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllReviews, deleteAllReviews, getAllProducts  } from "../../../redux/action";
+import {
+  getAllReviews,
+  deleteAllReviews,
+  getAllProducts,
+} from "../../../redux/action";
 
+export default function Featured() {
+  //ESTADOS
+  const reviews = useSelector((state) => state.allReviews);
+  const products = useSelector((state) => state.adminProducts);
+  const [data, setData] = useState({
+    name: false,
+    image: false,
+  });
 
-export default function Featured () {
+  const lastCommentedProduct = (reviews, products) => {
+    try {
+      let lastReview = reviews[reviews.length - 1];
+      let product = products.filter((p) => p.id === lastReview.productId);
+      product = product[0] ? product[0] : product;
+      setData({
+        name: product.name ? product.name : "Cargando...",
+        image: product.thumbnail ? product.thumbnail : null,
+      });
+    } catch (err) {}
+  };
 
-    //ESTADOS
-    const reviews = useSelector((state) => state.allReviews);
-    const productos = useSelector((state) => state.adminProducts);
+  //CONSTANTES
+  const dispatch = useDispatch();
 
-    //CONSTANTES
-    const dispatch = useDispatch();
-  
-  
-    const lastComment = reviews[reviews.length - 1];
-
-    const productElegido = productos.filter(p => p.id === lastComment.productId);
-    const productoComentado = productElegido[0];
-
-
-
-
-      //USE EFFECTS
+  //USE EFFECTS
 
   useEffect(() => {
     dispatch(getAllReviews());
     dispatch(getAllProducts());
     dispatch(deleteAllReviews());
-  }, [dispatch]);
+  }, []);
 
+  useEffect(() => {
+    lastCommentedProduct(reviews, products);
+  }, [reviews]);
 
-    let data = {
-        name: productoComentado ? productoComentado.name : "Cargando...",
-        image: productoComentado ? productoComentado.thumbnail : null
-    }
-
-    return(
-        <div className="featured">
-            <div className="top">
-                <span className="title">PRODUCTO COMENTADO</span>
-                <BalanceIcon className="icon"/>
-            </div>
-            <div className="bottom">
-                <div>
-                <span className="titleProduct">{data.name}</span>
-
-                </div>
-                <img src={data.image} alt="IMG not found" className="img" />
-            </div>
-        
+  return (
+    <div className="featured">
+      <div className="top">
+        <span className="title">PRODUCTO COMENTADO</span>
+        <BalanceIcon className="icon" />
+      </div>
+      <div className="bottom">
+        <div>
+          <span className="titleProduct">
+            {data.name ? data.name : "Cargando..."}
+          </span>
         </div>
-    )
-};
+        <img
+          src={data.image ? data.image : null}
+          alt="IMG not found"
+          className="img"
+        />
+      </div>
+    </div>
+  );
+}
