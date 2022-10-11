@@ -33,10 +33,9 @@ import PageRefresh from "./components/services/PageRefresh";
 
 function App() {
   const userState = useSelector((state) => state.user);
-  if(userState.role=='admin'){
-  return (
-    <div className="App">
-    
+  if (userState.role == "admin") {
+    return (
+      <div className="App">
         <header className="App-header">
           <Routes>
             <Route path="*" element={<AdminHome />} />
@@ -51,12 +50,12 @@ function App() {
             {/* <Route path="*" element={<Error />} /> */}
           </Routes>
         </header>
-     </div> 
-  )
+      </div>
+    );
   }
-  if(userState.role=='user' || userState.role=='desconocido'){
+  if (userState.role == "user" || userState.role == "desconocido") {
     return (
-    <div className="App">
+      <div className="App">
         <header className="App-header">
           <NavBar />
           <Routes>
@@ -83,14 +82,14 @@ function App() {
           </Routes>
           <Footer1 />
         </header>
-      
-    </div>
-  )} else{
+      </div>
+    );
+  } else {
     return (
-    <Routes>
-      <Route path="*" element={<PageRefresh/>}/>
-    </Routes>
-    )}
-    }
+      <Routes>
+        <Route path="*" element={<PageRefresh />} />
+      </Routes>
+    );
+  }
+}
 export default App;
-

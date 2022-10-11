@@ -227,18 +227,18 @@ export const getReview = (id) => {
 
 export function getAllProducts() {
   return async function (dispatch) {
-    fetch("https://backpf-production.up.railway.app/product//itemsPerPage?amount=3000")
+    fetch(
+      "https://backpf-production.up.railway.app/product//itemsPerPage?amount=3000"
+    )
       .then((response) => response.json())
       .then((adminProducts) => {
         dispatch({
           type: FETCH_ALL_PRODUCTS,
-          payload: adminProducts
-        })
-      })
-  }
-};
-
-
+          payload: adminProducts,
+        });
+      });
+  };
+}
 
 export function getAllUsers() {
   return async function (dispatch) {
@@ -285,6 +285,7 @@ export function getAllOrders() {
                   price: orderInstance.product.price,
                 },
               ];
+          return orderInstance;
         });
         dispatch({
           type: FETCH_ALL_ORDERS,
@@ -354,6 +355,14 @@ export function CreateOrder(obj) {
       .then(() => console.log("Se hizo la orden de compra"))
       .catch((err) => console.log(err));
   };
+}
+
+export function reduceStock(id, stock, amount) {
+  try {
+    axios.put(`${BACK_URL}/product/modify`, { id, stock: stock - amount });
+  } catch (err) {
+    console.log({ error: err.message });
+  }
 }
 
 export function UpdateUserDefaultAddress(obj) {
