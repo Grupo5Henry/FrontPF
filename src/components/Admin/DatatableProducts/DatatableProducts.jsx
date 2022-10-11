@@ -1,13 +1,20 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from "react";
 import "../DatatableProducts/datatableProducts.scss";
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid } from "@mui/x-data-grid";
 
 import { useDispatch, useSelector } from "react-redux";
-import { getAllProducts } from '../../../redux/action';
-import {Link} from "react-router-dom";
+import { getAllProducts } from "../../../redux/action";
+import { Link } from "react-router-dom";
 
+export default function DatatableProducts() {
+  const productos = useSelector((state) => state.adminProducts);
+  const dispatch = useDispatch();
+  // console.log(productos)
 
-export default function DatatableProducts () {
+  useEffect(() => {
+    dispatch(getAllProducts());
+  }, [dispatch]);
+
 
     const productos = useSelector((state) => state.adminProducts);
     const dispatch = useDispatch();
@@ -36,32 +43,38 @@ export default function DatatableProducts () {
         /* { field: 'condition', headerName: 'Condición', width: 130 }, */
       ];
 
-      const dataTableButton = [{ field: 'action', headerName: 'Acción', width: 180, 
+
+  const dataTableButton = [
+    {
+      field: "action",
+      headerName: "Acción",
+      width: 180,
       renderCell: (params) => {
         return (
           <div className="cellAction">
-              <Link to={`/modifyProduct/${params.row.id}`}>
-                    <button className="modifyButton" >Modificar</button> 
-              </Link>
-            </div> 
-        )} 
+            <Link to={`/modifyProduct/${params.row.id}`}>
+              <button className="modifyButton">Modificar</button>
+            </Link>
+          </div>
+        );
       },
-    ]
-      
+    },
+  ];
 
-    return(
-        <div className="datatableProducts">
-                {productos.length?
-            <DataGrid
-                rows={productos}
-                columns={columns.concat(dataTableButton)}
-                pageSize={12}
-                rowsPerPageOptions={[5]}
-                getRowId={(row) => row.name}
-                /* checkboxSelection */
-            />
-            :
-            <p>Cargando...</p> }
-        </div>
-    )
-};
+  return (
+    <div className="datatableProducts">
+      {productos.length ? (
+        <DataGrid
+          rows={productos}
+          columns={columns.concat(dataTableButton)}
+          pageSize={12}
+          rowsPerPageOptions={[5]}
+          getRowId={(row) => row.name}
+          /* checkboxSelection */
+        />
+      ) : (
+        <p>Cargando...</p>
+      )}
+    </div>
+  );
+}

@@ -16,7 +16,6 @@ export const FETCH_ALL_USERS = "FETCH_ALL_USERS";
 export const FECH_ALL_REVIEWS = "FECH_ALL_REVIEWS";
 export const DELETE_REVIEWS = "DELETE_REVIEWS";
 
-
 //ORDERS
 
 export const FETCH_ALL_ORDERS = "FETCH_ALL_ORDERS";
@@ -163,10 +162,10 @@ export function deleteDetailProduct() {
   return async (dispatch) => {
     dispatch({
       type: "DELETE_DETAIL_PRODUCT",
-      payload: {}
-    })
-  }
-};
+      payload: {},
+    });
+  };
+}
 
 export const updateUserState = (payload) => {
   return {
@@ -243,15 +242,15 @@ export const getReview = (id) => {
 export function getAllReviews() {
   return async (dispatch) => {
     fetch(`${BACK_URL}/review/all`)
-    .then(response => response.json())
-    .then((reviews) => {
-      dispatch({
-        type: FECH_ALL_REVIEWS,
-        payload: reviews
-      })
-    })
-  }
-};
+      .then((response) => response.json())
+      .then((reviews) => {
+        dispatch({
+          type: FECH_ALL_REVIEWS,
+          payload: reviews,
+        });
+      });
+  };
+}
 
 export function deleteAllReviews() {
   return {
@@ -262,18 +261,18 @@ export function deleteAllReviews() {
 
 export function getAllProducts() {
   return async function (dispatch) {
-    fetch("https://backpf-production.up.railway.app/product//itemsPerPage?amount=3000")
+    fetch(
+      "https://backpf-production.up.railway.app/product//itemsPerPage?amount=3000"
+    )
       .then((response) => response.json())
       .then((adminProducts) => {
         dispatch({
           type: FETCH_ALL_PRODUCTS,
-          payload: adminProducts
-        })
-      })
-  }
-};
-
-
+          payload: adminProducts,
+        });
+      });
+  };
+}
 
 export function getAllUsers() {
   return async function (dispatch) {
@@ -320,6 +319,7 @@ export function getAllOrders() {
                   price: orderInstance.product.price,
                 },
               ];
+          return orderInstance;
         });
         dispatch({
           type: FETCH_ALL_ORDERS,
@@ -383,12 +383,18 @@ export const getCart = (userName) => {
 };
 
 export function CreateOrder(obj) {
-  return function (dispatch) {
-    axios
-      .post(`${BACK_URL}/order`, obj)
-      .then(() => console.log("Se hizo la orden de compra"))
-      .catch((err) => console.log(err));
-  };
+  axios
+    .post(`${BACK_URL}/order`, obj)
+    .then(() => console.log("Se hizo la orden de compra"))
+    .catch((err) => console.log(err));
+}
+
+export function reduceStock(id, stock, amount) {
+  try {
+    axios.put(`${BACK_URL}/product/modify`, { id, stock: stock - amount });
+  } catch (err) {
+    console.log({ error: err.message });
+  }
 }
 
 export function UpdateUserDefaultAddress(obj) {

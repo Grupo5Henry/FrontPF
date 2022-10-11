@@ -5,13 +5,12 @@ import axios from "axios";
 import { authHeader, authHeaderRefresh } from "./auth-header";
 
 const tokenCheck = async (dispatch) => {
-  
   try {
     const tokenStatus = await axios.get(`${BACK_URL}/token/tokenCheck`, {
       headers: authHeader(),
     });
     //console.log('log de tokenStatus', tokenStatus.data);
-   
+
     tokenStatus &&
       dispatch(
         updateUserState({
@@ -21,7 +20,7 @@ const tokenCheck = async (dispatch) => {
           logged: true,
         })
       );
-     // !tokenStatus &&  tokenRefresh(dispatch);
+    // !tokenStatus &&  tokenRefresh(dispatch);
   } catch (err) {
     /* dispatch(userState(false)) */
     tokenRefresh(dispatch);
@@ -29,7 +28,6 @@ const tokenCheck = async (dispatch) => {
 };
 
 const tokenRefresh = async (dispatch) => {
-  
   try {
     const tokenStatus = await axios
       .get(`${BACK_URL}/token/tokenRefresh`, { headers: authHeaderRefresh() })
@@ -49,9 +47,9 @@ const tokenRefresh = async (dispatch) => {
           defaultShippingAddress: tokenStatus.defaultShippingAddress,
           logged: true,
         })
-      ); 
+      );
   } catch (err) {
-    console.log(err)
+    // console.log(err)
     dispatch(updateUserState(false));
     localStorage.removeItem("user");
   }

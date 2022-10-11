@@ -12,7 +12,7 @@ const role = "user";
 const SignIn = ({ setIsOpen, setOpen }) => {
   const dispatch = useDispatch();
 
-  const [error, setError] = useState({})
+  const [error, setError] = useState({});
   const [input, setInput] = useState({
     userName: "",
     password: "",
@@ -23,36 +23,39 @@ const SignIn = ({ setIsOpen, setOpen }) => {
 
   const navigate = useNavigate();
 
-  function validator(value){
-    let error = {}
+  function validator(value) {
+    let error = {};
 
-    if(!value.userName)error.userName = 'No hay nombre'
-    if(!value.password)error.password = 'No hay contraseña'
-    if(!value.email){
-      error.email = 'No hay Email'
-      }
-     else if(!/^\w+([\.-]?\w)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value.email)){
-       error.email = 'No es un email valido'
-      }
-     if(!value.defaultShippingAddress) error.defaultShippingAddress = 'Requerido'
-     if(!value.billingAddress)error.billingAddress= 'Requerido'
+    if (!value.userName) error.userName = "No hay nombre";
+    if (!value.password) error.password = "No hay contraseña";
+    if (!value.email) {
+      error.email = "No hay Email";
+    } else if (
+      !/^\w+([\.-]?\w)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value.email)
+    ) {
+      error.email = "No es un email valido";
+    }
+    if (!value.defaultShippingAddress)
+      error.defaultShippingAddress = "Requerido";
+    if (!value.billingAddress) error.billingAddress = "Requerido";
     return error;
   }
 
-const handleInputChange = (e)=>{
+  const handleInputChange = (e) => {
     setInput({
       ...input,
-      [e.target.name]:e.target.value
-    })
+      [e.target.name]: e.target.value,
+    });
 
-    setError(validator({
-      ...input,
-      [e.target.name] : e.target.value
-    }))
-    console.log(error)
-    console.log(input)
-  }
-
+    setError(
+      validator({
+        ...input,
+        [e.target.name]: e.target.value,
+      })
+    );
+    // console.log(error);
+    // console.log(input);
+  };
 
   const handleSignIn = async (e) => {
     if (
@@ -73,7 +76,7 @@ const handleInputChange = (e)=>{
           input.billingAddress
         ).then(
           (response) => {
-            console.log(response);
+            // console.log(response);
             // check for token and user already exists with 200
             //   console.log("Sign up successfully", response);
             navigate("/home");
@@ -102,9 +105,11 @@ const handleInputChange = (e)=>{
           <div className="w-full bg-white p-5 rounded-lg lg:rounded-l-none mt-5 mb-5">
             <h3 className="pt-2 text-2xl text-center">¡Crea una cuenta!</h3>
             <form className="px-8 pt-6 pb-8 mb-2 bg-white rounded">
-            <div className = "formControl">
-                { error && error.userName ? <span style = {{color : 'red'}}>{ error.userName }</span>: null}
-                </div>
+              <div className="formControl">
+                {error && error.userName ? (
+                  <span style={{ color: "red" }}>{error.userName}</span>
+                ) : null}
+              </div>
               <div className="mb-0">
                 <label className="block mb-2 text-sm font-bold text-gray-700">
                   Usuario
@@ -120,8 +125,10 @@ const handleInputChange = (e)=>{
                 />
               </div>
 
-              <div className = "formControl">
-                    { error.email ? <span style = {{color : 'red'}}>{ error.email }</span>: null}
+              <div className="formControl">
+                {error.email ? (
+                  <span style={{ color: "red" }}>{error.email}</span>
+                ) : null}
               </div>
               <div className="mb-1">
                 <label className="block mb-2 text-sm font-bold text-gray-700">
@@ -138,9 +145,10 @@ const handleInputChange = (e)=>{
                 />
               </div>
 
-
-              <div className = "formControl">
-                    { error && error.password ? <span style = {{color : 'red'}}>{ error.password }</span>: null}
+              <div className="formControl">
+                {error && error.password ? (
+                  <span style={{ color: "red" }}>{error.password}</span>
+                ) : null}
               </div>
               <div className="mb-4 md:mr-2 md:mb-0">
                 <label
@@ -175,7 +183,7 @@ const handleInputChange = (e)=>{
                     />
                   </div>
                 </div> */}
-                
+
               <div className="mb-2 md:flex md:justify-between">
                 <div className="mb-4 md:mr-2 md:mb-0">
                   <label className="block mb-2 text-sm font-bold text-gray-700">
@@ -189,9 +197,13 @@ const handleInputChange = (e)=>{
                     value={input.defaultShippingAddress}
                     onChange={(e) => handleInputChange(e)}
                   />
-                <div className = "formControl">
-                    { error && error.defaultShippingAddress ? <span style = {{color : 'red'}}>{ error.defaultShippingAddress }</span>: null}
-                </div>
+                  <div className="formControl">
+                    {error && error.defaultShippingAddress ? (
+                      <span style={{ color: "red" }}>
+                        {error.defaultShippingAddress}
+                      </span>
+                    ) : null}
+                  </div>
                 </div>
 
                 <div className="md:ml-2">
@@ -209,9 +221,13 @@ const handleInputChange = (e)=>{
                     value={input.billingAddress}
                     onChange={(e) => handleInputChange(e)}
                   />
-                  <div className = "formControl">
-                     { error && error.billingAddress ? <span style = {{color : 'red'}}>{ error.billingAddress}</span>: null}
-                 </div>
+                  <div className="formControl">
+                    {error && error.billingAddress ? (
+                      <span style={{ color: "red" }}>
+                        {error.billingAddress}
+                      </span>
+                    ) : null}
+                  </div>
                 </div>
               </div>
               <div className="mb-2 text-center">

@@ -4,19 +4,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link, useParams } from "react-router-dom";
 import swal from "sweetalert";
 import "../FixProduct/fixProduct.scss";
-import SideBar from "../SideBar/SideBar.jsx"
+import SideBar from "../SideBar/SideBar.jsx";
 import AdminNavBar from "../AdminNavBar/AdminNavBar.jsx";
-import { clearCategories, getCategories, detailProduct, deleteDetailProduct,
-getBrandAndModels } from "../../../redux/action/index.js";
+import {
+  clearCategories,
+  getCategories,
+  detailProduct,
+  deleteDetailProduct,
+  getBrandAndModels,
+} from "../../../redux/action/index.js";
 import { BACK_URL } from "../../../constantes";
 
-
-export default function FixProduct () {
-
-      //ESTADOS DEL PRODUCTO
+export default function FixProduct() {
+  //ESTADOS DEL PRODUCTO
 
   const [name, setName] = useState("");
-  const [brand, setBrand] = useState([])
+  const [brand, setBrand] = useState([]);
   const [model, setModel] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -36,15 +39,14 @@ export default function FixProduct () {
   const brandsOwned = useSelector((state) => state.brand);
   /* const modelsOwned = useSelector((state) => state.model); */
   const brandsOrdered = brandsOwned.sort((a, b) => a.brand > b.brand);
-  console.log("SOY CATEGORIAS",category)
+  // console.log("SOY CATEGORIAS",category)
 
-  console.log("SOY STOCK", stock);
-
+  // console.log("SOY STOCK", stock);
 
   //TRAER LAS CATEGORIAS Y LUEGO VACIAR EL ESTADO
   useEffect(() => {
-    dispatch(detailProduct(id)); //NUEVO 
-    dispatch(deleteDetailProduct());              //NUEVO
+    dispatch(detailProduct(id)); //NUEVO
+    dispatch(deleteDetailProduct()); //NUEVO
     dispatch(getBrandAndModels());
     dispatch(getCategories());
     dispatch(clearCategories());
@@ -149,7 +151,7 @@ export default function FixProduct () {
         button: "Ok",
         timer: 500,
       });
-    };
+    }
 
     //CONDICION
     if (condition.length === 0) {
@@ -228,9 +230,9 @@ export default function FixProduct () {
             title: "¡Producto modificado correctamente!",
             icon: "success",
             buttons: "Ok",
-            timer: 2000
+            timer: 2000,
           }).then(() => {
-              navigate("/products");
+            navigate("/products");
           });
         })
         .catch((error) => {
@@ -239,142 +241,125 @@ export default function FixProduct () {
     }
   }
 
-
-
-    return(
-        <div className="fixProduct">
-        <SideBar/>
-        <div className="fixProductContainer">
-            <AdminNavBar/>
-            <div className="top">
-                <h1>MODIFICAR PRODUCTO</h1>
-            </div>
-            <div className="bottom">
-                <form
-                autoComplete="off"
-                noValidate
-                onSubmit={handleOnSubmit}>
-
-                    <div className="inputsContainer">
-                    <label>Nombre del producto: </label>
-                    <input
-                        type="text"
-                        name="name"
-                        onChange={(e) => setName(e.target.value)}
-                    />
-                    </div>
-
-                    <div className="inputsContainer">
-                    <label>Descripción: </label>
-                    <input
-                        type="text"
-                        name="description"
-                        onChange={(e) => setDescription(e.target.value)}
-                    />
-                    </div>
-                    
-                    <div className="inputsContainer">
-                    <label>Modelo: </label>
-                    <input
-                        type="text"
-                        name="model"
-                        onChange={(e) => setModel(e.target.value)}
-                    />
-                    </div>
-                    <div className="inputsContainer">
-                    <label>Precio: </label>
-                    <input
-                        type="number"
-                        name="price"
-                        onChange={(e) => setPrice(e.target.value)}
-                    />
-                    </div>
-
-                    <div className="inputsContainer">
-                    <label>Stock: </label>
-                    <input
-                        type="number"
-                        name="stock"
-                        onChange={(e) => setStock(e.target.value)}
-                    />
-                    </div>
-
-                    <div className="inputsContainerImg">
-                    <label className="labelImg">Imagen: </label>
-                    <input
-                        className="inputImg"
-                        type="file"
-                        onChange={(e) => {
-                        setImageSelected(e.target.files[0]);
-                        }}
-                    />
-                    </div>
-
-                    
-
-
-                    <div className="inputsContainer">
-                    <label>Marca: </label>
-                    <select
-                        name="brand"
-                        onChange={(e) => setBrand(e.target.value)}
-                    >
-                        <option value="select">Seleccionar</option>
-                        {brandsOrdered &&
-                        brandsOrdered.map((c) => {
-                            return (
-                            <option key={c.brand} value={c.brand}>
-                                {c.brand}
-                            </option>
-                            );
-                        })}
-                    </select>
-                     </div>
-
-
-
-                    <div className="inputsContainer">
-                    <label>Condición: </label>
-                    <select
-                        name="condition"
-                        onChange={(e) => setCondition(e.target.value)}
-                    >
-                        <option value="Seleccionar">Seleccionar</option>
-                        <option value="Nuevo">Nuevo</option>
-                        <option value="Usado">Usado</option>
-                    </select>
-                    </div>
-                    <div className="inputsContainer">
-                    <label>Categoría: </label>
-                    <select
-                        name="category"
-                        onChange={(e) => setCategories(e.target.value)}
-                    >
-                        <option value="select">Seleccionar</option>
-                        {category &&
-                        category.map((c) => {
-                            return (
-                            <option key={c.name} value={c.name}>
-                                {c.name}
-                            </option>
-                            );
-                        })}
-                    </select>
-                    </div>
-                    <div className="buttonsContainer">
-                    <Link to={`/products`}>
-                        <button className="buttonCancel">
-                            Cancelar
-                        </button>
-                        </Link>
-                        <button className="buttonModify" type="submit">
-                        Modificar
-                        </button>
-
-                    </div>
-                </form>
-            </div>
+  return (
+    <div className="fixProduct">
+      <SideBar />
+      <div className="fixProductContainer">
+        <AdminNavBar />
+        <div className="top">
+          <h1>MODIFICAR PRODUCTO</h1>
         </div>
+        <div className="bottom">
+          <form autoComplete="off" noValidate onSubmit={handleOnSubmit}>
+            <div className="inputsContainer">
+              <label>Nombre del producto: </label>
+              <input
+                type="text"
+                name="name"
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+
+            <div className="inputsContainer">
+              <label>Descripción: </label>
+              <input
+                type="text"
+                name="description"
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </div>
+
+            <div className="inputsContainer">
+              <label>Modelo: </label>
+              <input
+                type="text"
+                name="model"
+                onChange={(e) => setModel(e.target.value)}
+              />
+            </div>
+            <div className="inputsContainer">
+              <label>Precio: </label>
+              <input
+                type="number"
+                name="price"
+                onChange={(e) => setPrice(e.target.value)}
+              />
+            </div>
+
+            <div className="inputsContainer">
+              <label>Stock: </label>
+              <input
+                type="number"
+                name="stock"
+                onChange={(e) => setStock(e.target.value)}
+              />
+            </div>
+
+            <div className="inputsContainerImg">
+              <label className="labelImg">Imagen: </label>
+              <input
+                className="inputImg"
+                type="file"
+                onChange={(e) => {
+                  setImageSelected(e.target.files[0]);
+                }}
+              />
+            </div>
+
+            <div className="inputsContainer">
+              <label>Marca: </label>
+              <select name="brand" onChange={(e) => setBrand(e.target.value)}>
+                <option value="select">Seleccionar</option>
+                {brandsOrdered &&
+                  brandsOrdered.map((c) => {
+                    return (
+                      <option key={c.brand} value={c.brand}>
+                        {c.brand}
+                      </option>
+                    );
+                  })}
+              </select>
+            </div>
+
+            <div className="inputsContainer">
+              <label>Condición: </label>
+              <select
+                name="condition"
+                onChange={(e) => setCondition(e.target.value)}
+              >
+                <option value="Seleccionar">Seleccionar</option>
+                <option value="Nuevo">Nuevo</option>
+                <option value="Usado">Usado</option>
+              </select>
+            </div>
+            <div className="inputsContainer">
+              <label>Categoría: </label>
+              <select
+                name="category"
+                onChange={(e) => setCategories(e.target.value)}
+              >
+                <option value="select">Seleccionar</option>
+                {category &&
+                  category.map((c) => {
+                    return (
+                      <option key={c.name} value={c.name}>
+                        {c.name}
+                      </option>
+                    );
+                  })}
+              </select>
+            </div>
+            <div className="buttonsContainer">
+              <Link to={`/products`}>
+                <button className="buttonCancel">Cancelar</button>
+              </Link>
+              <button className="buttonModify" type="submit">
+                Modificar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
-        )
-};
+  );
+}
