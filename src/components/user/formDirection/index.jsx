@@ -53,7 +53,7 @@ export default function DirectionForm() {
         }
       }
     }
-    localStorage.shippingAddress = shippingAddress;
+    localStorage.setItem("shippingAddress", shippingAddress);
     // console.log(localStorage);
 
     try {
