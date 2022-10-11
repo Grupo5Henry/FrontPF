@@ -2,6 +2,7 @@ import {
   GET_REVIEW,
   CLEAR_CATEGORIES,
   DETAIL_PRODUCT,
+  DELETE_DETAIL_PRODUCT,
   FETCH_BRANDS_MODELS,
   FETCH_CATEGORIES,
   FETCH_FAVORITES,
@@ -15,6 +16,8 @@ import {
   FETCH_ALL_USERS,
   FETCH_ALL_ORDERS,
   FETCH_ALL_PRODUCTS,
+  DELETE_REVIEWS,
+  FECH_ALL_REVIEWS,
 } from "../action";
 
 const initialState = {
@@ -29,6 +32,7 @@ const initialState = {
   brand: [],
   cart: [],
   model: [],
+  allReviews: [],
   maxPages: 0,
   filter: {
     category: "",
@@ -91,6 +95,12 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         detail: action.payload,
       };
+    case DELETE_DETAIL_PRODUCT:
+      return {
+        ...state,
+        detail: action.payload,
+      }
+
     case FETCH_ALL_PRODUCTS:
       return {
         ...state,
@@ -121,6 +131,18 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         orders: action.payload,
       };
+    //REVIEWS
+    case FECH_ALL_REVIEWS:
+      return {
+        ...state,
+        allReviews: action.payload
+      };
+
+    case DELETE_REVIEWS:
+      return {
+        ...state,
+        allReviews: action.payload
+      }
 
     //Categories
     case FETCH_CATEGORIES:

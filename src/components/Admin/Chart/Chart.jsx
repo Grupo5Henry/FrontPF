@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../Chart/chart.scss";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Area, AreaChart } from 'recharts';
+
+import { useDispatch, useSelector } from "react-redux";
+import { getAllOrders } from "../../../redux/action";
 
 const data = [
     {
@@ -43,6 +46,48 @@ const data = [
 
 
 export default function Chart () {
+
+    //ESTADOS
+    const orders = useSelector((state) => state.orders);
+    const userState = useSelector((state) => state.user);
+  
+    /* console.log("SOY OREDERS", orders) */
+    const ordenado = orders.sort((a, b) => Date(a[3]).getMonth > Date(b[3]).getMonth )
+    /* console.log("SOY ORDENADO", ordenado) */
+    /* const monto = ordenado */
+  /*   const ordenprueba = ordenado[3].getMonth
+     console.log("SOY ORDENPRUEBA", ordenprueba) */
+  
+    //CONSTANTES
+    const dispatch = useDispatch();
+
+    
+  //USE EFFECTS
+
+  useEffect(() => {
+    dispatch(getAllOrders());
+  }, [dispatch]);
+
+  //MANEJO DE FECHAS
+/*   let fechas = {
+    enero: [],
+    febrero: [],
+    marzo: [],
+    abril: [],
+    mayo: [],
+    junio: [],
+    julio: [],
+    agosto: [],
+    septiembre: [],
+    octubre: [],
+    noviembre: [],
+    diciembre: [],
+  }
+  for(let i = 0; i < ordenado.length; i++) {
+    ordenado[i][3]
+  } */
+
+
     return(
         <div className="chart">
             <div className="title">Ventas en los últimos 6 meses</div>

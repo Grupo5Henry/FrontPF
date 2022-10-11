@@ -91,7 +91,6 @@ export default function OrdersDatatable() {
   const orders = useSelector((state) => state.orders);
   const userState = useSelector((state) => state.user);
 
-  // console.log(users)
 
   //CONSTANTES
   const dispatch = useDispatch();
