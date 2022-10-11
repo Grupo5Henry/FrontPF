@@ -249,7 +249,7 @@ export default function CreateProduct() {
               />
             </div>
             <div className="contenedor">
-              <label className="subtitle">Precio: </label>
+              <label className="subtitle">Stock: </label>
               <input
                 type="number"
                 name="stock"
