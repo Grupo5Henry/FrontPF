@@ -20,7 +20,7 @@ export const CongratulationsCard = () => {
   }, [user]);
 
   useEffect(() => {
-    if (cart.length) {
+    if (cart.length && shippingAddress) {
       var orderNumber = "";
       async function ordenes() {
         for (let i = 0; i < cart.length; i++) {
@@ -47,6 +47,7 @@ export const CongratulationsCard = () => {
       }
       ordenes();
       localStorage.removeItem("shippingAddress");
+      console.log("una vez");
     }
   }, [cart]);
 
