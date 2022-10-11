@@ -15,6 +15,7 @@ export default function CreateProduct() {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(null);
   const [categories, setCategories] = useState([]);
+  const [stock, setStock] = useState(0);
 
   const [condition, setCondition] = useState("");
   //ESTADO DE LA IMAGEN
@@ -162,6 +163,7 @@ export default function CreateProduct() {
             price,
             condition,
             categories,
+            stock,
           })
         )
 
@@ -187,112 +189,122 @@ export default function CreateProduct() {
 
   return (
     <div className="login">
-    <div className="form-container">
-      <h1 className="title2">Creación de Producto</h1>
-      <form
-        className="formulario"
-        autoComplete="off"
-        noValidate
-        onSubmit={handleOnSubmit}
-      >
-        <div>
-        <div className="contenedor">
-          <label className="subtitle" >Nombre del producto: </label>
-          <input
-            type="text"
-            name="name"
-            className="inputs"
-            placeholder="Se presentará como el título"
-            onChange={(e) => setName(e.target.value)}
-          />
-        </div>
-        <div className="contenedor">
-          <label className="subtitle" >Marca: </label>
-          <input
-            type="text"
-            name="brand"
-            className="inputs"
-            placeholder="Por ejemplo LG, Samsung, Lenovo"
-            onChange={(e) => setBrand(e.target.value)}
-          />
-        </div>
-        <div className="contenedor">
-          <label className="subtitle"> Modelo: </label>
-          <input
-            type="text"
-            name="model"
-            className="inputs"
-            placeholder="Modelo"
-            onChange={(e) => setModel(e.target.value)}
-          />
-        </div>
-        <div className="contenedor">
-          <label className="subtitle" >Descripción: </label>
-          <input
-            type="text"
-            name="description"
-            className="inputs"
-            placeholder="Decripción de los componentes del producto"
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </div>
-        <div className="contenedor">
-          <label className="subtitle" >Precio: </label>
-          <input
-            type="number"
-            name="price"
-            className="inputSelect"
-            placeholder="Precio"
-            onChange={(e) => setPrice(e.target.value)}
-          />
-        </div>
-        <div className="contenedor">
-          <label className="subtitle" >Condición: </label>
-          <select
-            name="condition"
-            className="inputSelect"
-            onChange={(e) => setCondition(e.target.value)}
-          >
-            <option value="Seleccionar">Seleccionar</option>
-            <option value="Nuevo">Nuevo</option>
-            <option value="Usado">Usado</option>
-          </select>
-        </div>
-        <div className="contenedor">
-          <label className="subtitle" >Categoría: </label>
-          <select
-            name="category"
-            className="inputSelect"
-            onChange={(e) => setCategories(e.target.value)}
-          >
-            <option value="select">Seleccionar</option>
-            {category &&
-              category.map((c) => {
-                return (
-                  <option key={c.name} value={c.name}>
-                    {c.name}
-                  </option>
-                );
-              })}
-          </select>
-        </div>
-        <div className="contenedor">
-          <label className="subtitle" >Imagen: </label>
-          <input
-            type="file"
-            className="inputImage"
-            /* className="block text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" */
-            onChange={(e) => {
-              setImageSelected(e.target.files[0]);
-            }}
-          />
-        </div>
-        <button className="button" type="submit">
-          Crear Producto
-        </button>
-        </div>
-      </form>
-    </div>
+      <div className="form-container">
+        <h1 className="title2">Creación de Producto</h1>
+        <form
+          className="formulario"
+          autoComplete="off"
+          noValidate
+          onSubmit={handleOnSubmit}
+        >
+          <div>
+            <div className="contenedor">
+              <label className="subtitle">Nombre del producto: </label>
+              <input
+                type="text"
+                name="name"
+                className="inputs"
+                placeholder="Se presentará como el título"
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+            <div className="contenedor">
+              <label className="subtitle">Marca: </label>
+              <input
+                type="text"
+                name="brand"
+                className="inputs"
+                placeholder="Por ejemplo LG, Samsung, Lenovo"
+                onChange={(e) => setBrand(e.target.value)}
+              />
+            </div>
+            <div className="contenedor">
+              <label className="subtitle"> Modelo: </label>
+              <input
+                type="text"
+                name="model"
+                className="inputs"
+                placeholder="Modelo"
+                onChange={(e) => setModel(e.target.value)}
+              />
+            </div>
+            <div className="contenedor">
+              <label className="subtitle">Descripción: </label>
+              <input
+                type="text"
+                name="description"
+                className="inputs"
+                placeholder="Decripción de los componentes del producto"
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </div>
+            <div className="contenedor">
+              <label className="subtitle">Precio: </label>
+              <input
+                type="number"
+                name="price"
+                className="inputSelect"
+                placeholder="Precio"
+                onChange={(e) => setPrice(e.target.value)}
+              />
+            </div>
+            <div className="contenedor">
+              <label className="subtitle">Precio: </label>
+              <input
+                type="number"
+                name="stock"
+                className="inputSelect"
+                placeholder="Stock"
+                onChange={(e) => setStock(e.target.value)}
+              />
+            </div>
+            <div className="contenedor">
+              <label className="subtitle">Condición: </label>
+              <select
+                name="condition"
+                className="inputSelect"
+                onChange={(e) => setCondition(e.target.value)}
+              >
+                <option value="Seleccionar">Seleccionar</option>
+                <option value="Nuevo">Nuevo</option>
+                <option value="Usado">Usado</option>
+              </select>
+            </div>
+            <div className="contenedor">
+              <label className="subtitle">Categoría: </label>
+              <select
+                name="category"
+                className="inputSelect"
+                onChange={(e) => setCategories(e.target.value)}
+              >
+                <option value="select">Seleccionar</option>
+                {category &&
+                  category.map((c) => {
+                    return (
+                      <option key={c.name} value={c.name}>
+                        {c.name}
+                      </option>
+                    );
+                  })}
+              </select>
+            </div>
+            <div className="contenedor">
+              <label className="subtitle">Imagen: </label>
+              <input
+                type="file"
+                className="inputImage"
+                /* className="block text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" */
+                onChange={(e) => {
+                  setImageSelected(e.target.files[0]);
+                }}
+              />
+            </div>
+            <button className="button" type="submit">
+              Crear Producto
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
