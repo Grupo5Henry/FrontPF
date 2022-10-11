@@ -75,7 +75,6 @@ function Products() {
             key={`home${product.id}`}
             className="group group-hover:bg-opacity-60 transition duration-500 relative bg-gray-50 sm:p-28 py-36 px-10 flex justify-center items-center"
           >
-            
             <Link to={`/home/detail/${product.id}`}>
               <img
                 className="group-hover:opacity-60 transition duration-500"
@@ -83,14 +82,16 @@ function Products() {
                 alt="sofa-2"
               />
               <div className="absolute sm:top-8 top-4 left-4 sm:left-8 flex justify-start items-start flex-col space-y-2">
-              <div>
-            {
-              product.stock && product.stock > 3 ? null:
-                <p className="group-hover:opacity-60 transition duration-500 text-xl leading-5 text-gray-600" style = {{color : 'rgba(255, 0, 0, 0.51)'}}>
-                Quedan pocos productos en tiendatienda: {product.stock}
-                </p>
-            } 
-            </div>
+                <div>
+                  {product.stock && product.stock > 3 ? null : (
+                    <p
+                      className="group-hover:opacity-60 transition duration-500 text-xl leading-5 text-gray-600"
+                      style={{ color: "rgba(255, 0, 0, 0.51)" }}
+                    >
+                      Quedan pocos productos en tienda: {product.stock}
+                    </p>
+                  )}
+                </div>
                 <div>
                   <p className="group-hover:opacity-60 transition duration-500 text-xl leading-5 text-gray-600">
                     {product.name}
@@ -109,7 +110,7 @@ function Products() {
                 </div>
               </div>
             </Link>
-            
+
             <div className="flex flex-col bottom-8 left-8 space-y-4 absolute opacity-0 group-hover:opacity-100 transition duration-500">
               <CardActions disableSpacing>
                 <IconButton
