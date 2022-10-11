@@ -1,8 +1,8 @@
-import { act } from "react-dom/test-utils";
-
 import {
+  GET_REVIEW,
   CLEAR_CATEGORIES,
   DETAIL_PRODUCT,
+  DELETE_DETAIL_PRODUCT,
   FETCH_BRANDS_MODELS,
   FETCH_CATEGORIES,
   FETCH_FAVORITES,
@@ -15,10 +15,14 @@ import {
   UPDATE_FILTER,
   FETCH_ALL_USERS,
   FETCH_ALL_ORDERS,
+  FETCH_ALL_PRODUCTS,
+  DELETE_REVIEWS,
+  FECH_ALL_REVIEWS,
 } from "../action";
 
 const initialState = {
   products: [],
+  adminProducts: [],
   favorites: [],
   users: [],
   orders: [],
@@ -28,6 +32,7 @@ const initialState = {
   brand: [],
   cart: [],
   model: [],
+  allReviews: [],
   maxPages: 0,
   filter: {
     category: "",
@@ -47,6 +52,7 @@ const initialState = {
     role: null,
     logged: false,
   },
+  review: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -89,6 +95,17 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         detail: action.payload,
       };
+    case DELETE_DETAIL_PRODUCT:
+      return {
+        ...state,
+        detail: action.payload,
+      };
+
+    case FETCH_ALL_PRODUCTS:
+      return {
+        ...state,
+        adminProducts: action.payload.rows,
+      };
 
     case SEARCH_PRODUCT:
       return {
@@ -113,6 +130,18 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         orders: action.payload,
+      };
+    //REVIEWS
+    case FECH_ALL_REVIEWS:
+      return {
+        ...state,
+        allReviews: action.payload,
+      };
+
+    case DELETE_REVIEWS:
+      return {
+        ...state,
+        allReviews: action.payload,
       };
 
     //Categories
@@ -152,9 +181,14 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         user: {
           ...state.user,
-          defaultShippingAddress: action.payload
-        }
-      }
+          defaultShippingAddress: action.payload,
+        },
+      };
+    case GET_REVIEW:
+      return {
+        ...state,
+        review: action.payload,
+      };
 
     default:
       return state;

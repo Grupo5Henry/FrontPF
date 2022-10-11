@@ -1,6 +1,7 @@
-.datatable{
-    height: 800px;
-    padding: 30px;
+.datatableProducts{
+    height: 900px;
+    padding: 40px;
+    align-items: center;
 
     .cellWithBan{
         padding: 5px;
@@ -37,18 +38,11 @@
         align-items: center;
         gap: 15px;
 
-        .adminButton{
+        .modifyButton{
             padding: 3px 6px;
             border-radius: 5px;
-            color: goldenrod;
-            border: 1px dotted goldenrod;
-            cursor: pointer;
-        }
-        .banButton{
-            padding: 3px 6px;
-            border-radius: 5px;
-            color: red;
-            border: 1px dotted red;
+            color: blue;
+            border: 1px dotted blue;
             cursor: pointer;
         }
     }
