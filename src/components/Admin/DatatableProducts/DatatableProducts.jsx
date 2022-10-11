@@ -11,7 +11,7 @@ export default function DatatableProducts () {
 
     const productos = useSelector((state) => state.adminProducts);
     const dispatch = useDispatch();
-    console.log(productos)
+
 
     useEffect (() => {
         dispatch(getAllProducts());

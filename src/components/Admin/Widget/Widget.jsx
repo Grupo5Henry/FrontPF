@@ -22,6 +22,9 @@ export default function Widget({ type }) {
 
   const totalUsers = users.length;
 
+  const lastComment = reviews[reviews.length - 1]
+  
+
   // Earnings/Ingresos
   let earnings = 0;
 
@@ -36,13 +39,11 @@ export default function Widget({ type }) {
   //USE EFFECTS
 
   useEffect(() => {
+    dispatch(getAllReviews());
     dispatch(getAllUsers());
     dispatch(getAllOrders());
-    dispatch(getAllReviews());
-    /* dispatch(deleteAllReviews()); */
+  /*   dispatch(deleteAllReviews()); */
   }, [dispatch]);
-
-  const lastReview = reviews[reviews.length - 1];
 
 
   //FILTROS Y CONTADORES
@@ -78,7 +79,7 @@ export default function Widget({ type }) {
         content: pendingOrder.length,
         link: "Ver todos las ordenes",
         icon: <ShoppingCartIcon className="icon" />,
-        linker: "/",
+        linker: "/orders",
       };
       break;
     case "earning":
@@ -89,15 +90,15 @@ export default function Widget({ type }) {
 
         link: "Ver detalle",
         icon: <MonetizationOnIcon className="icon" />,
-        linker: "/",
+        linker: "/orders",
       };
       break;
     case "comment":
       data = {
         title: "ÚLTIMO COMENTARIO",
         isMoney: true,
-        content: `${lastReview.description}`,
-        link: "Ver detalles",
+        content: lastComment ? lastComment.description : "Cargando...",
+        link: "",
         icon: <CommentIcon className="icon" />,
         linker: "/",
       };
