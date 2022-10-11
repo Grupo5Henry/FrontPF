@@ -6,48 +6,49 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { BACK_URL } from "../../../constantes";
 import { clearCart } from "../../../Controllers/Cart";
-import { CreateOrder, getCart } from "../../../redux/action";
+import { CreateOrder, getCart, reduceStock } from "../../../redux/action";
 
 export const CongratulationsCard = () => {
-  const {cart,user} = useSelector((state) => state);
-  var dispatch = useDispatch()
-  var {shippingAddress} = localStorage
+  const { cart, user } = useSelector((state) => state);
+  var dispatch = useDispatch();
+  var { shippingAddress } = localStorage;
 
   useEffect(() => {
-    if(user.userName && !cart.length) {
-      dispatch(getCart(user.userName))
+    if (user.userName && !cart.length) {
+      dispatch(getCart(user.userName));
     }
-  },[user])
+  }, [user]);
 
   useEffect(() => {
-    if(cart.length){
-      var orderNumber = ""
-      async function ordenes(){
+    if (cart.length) {
+      var orderNumber = "";
+      async function ordenes() {
         for (let i = 0; i < cart.length; i++) {
-          if(!i){
-                  try {
-                      var {data} = await axios.get(`${BACK_URL}/order/largestOrderNumber`)
-                      orderNumber = data.length? Number(data[0].orderNumber + 1) : 1
-                  } catch (error) {
-                     console.error("No se pudo traer el nro de orden mas alto")
-                  }
+          if (!i) {
+            try {
+              var { data } = await axios.get(
+                `${BACK_URL}/order/largestOrderNumber`
+              );
+              orderNumber = data.length ? Number(data[0].orderNumber + 1) : 1;
+            } catch (error) {
+              console.error("No se pudo traer el nro de orden mas alto");
+            }
           }
-          
-          dispatch(CreateOrder({
-              productId: cart[i].productId,
-              userName: user.userName,
-              orderNumber,
-              shippingAddress,
-              amount: cart[i].amount
-          }))
+          reduceStock(cart[i].productId, cart[i].product.stock, cart[i].amount);
+          CreateOrder({
+            productId: cart[i].productId,
+            userName: user.userName,
+            orderNumber,
+            shippingAddress,
+            amount: cart[i].amount,
+          });
         }
-        dispatch(clearCart(user.userName))
+        clearCart(user.userName);
       }
-      ordenes()
-    } 
-  },[cart])
-
-  
+      ordenes();
+      localStorage.removeItem("shippingAddress");
+    }
+  }, [cart]);
 
   // }
 

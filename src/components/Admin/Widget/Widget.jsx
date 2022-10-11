@@ -5,7 +5,12 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import CommentIcon from "@mui/icons-material/Comment";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllUsers, getAllOrders, getAllReviews, deleteAllReviews } from "../../../redux/action";
+import {
+  getAllUsers,
+  getAllOrders,
+  getAllReviews,
+  deleteAllReviews,
+} from "../../../redux/action";
 import { Link } from "react-router-dom";
 
 export default function Widget({ type }) {
@@ -13,9 +18,6 @@ export default function Widget({ type }) {
   const users = useSelector((state) => state.users);
   const orders = useSelector((state) => state.orders);
   const reviews = useSelector((state) => state.allReviews);
- 
-
-
 
   //CONSTANTES
   const dispatch = useDispatch();
@@ -41,9 +43,7 @@ export default function Widget({ type }) {
     dispatch(getAllReviews());
     /* dispatch(deleteAllReviews()); */
   }, [dispatch]);
-
   const lastReview = reviews[reviews.length - 1];
-
 
   //FILTROS Y CONTADORES
   // let obj = {};
@@ -96,7 +96,7 @@ export default function Widget({ type }) {
       data = {
         title: "ÚLTIMO COMENTARIO",
         isMoney: true,
-        content: `${lastReview.description}`,
+        content: lastReview ? `${lastReview.description}` : "Cargando",
         link: "Ver detalles",
         icon: <CommentIcon className="icon" />,
         linker: "/",

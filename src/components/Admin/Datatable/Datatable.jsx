@@ -85,7 +85,7 @@ export default function Datatable() {
               className="banButton"
               onClick={(e) => {
                 e.stopPropagation();
-                console.log(e);
+                // console.log(e);
                 handleBanButton(params);
               }}
             >
@@ -181,7 +181,7 @@ export default function Datatable() {
     <div className="datatable">
       {users ? (
         <DataGrid
-          rows={users}
+          rows={users.filter((user) => user.userName != userState.userName)}
           columns={columns.concat(dataTableButton)}
           sx={{
             "&.MuiDataGrid-root .MuiDataGrid-cell:focus-within": {

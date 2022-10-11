@@ -23,23 +23,20 @@ import List from "./components/Admin/List/List";
 import Single from "./components/Admin/Single/Single";
 import Ordenes from "./components/Admin/Ordenes/Ordenes";
 import ListProducts from "./components/Admin/ListProducts/ListProducts.jsx";
-import CreateBrand from "./components/Admin/CreateBrand/CreateBrand.jsx"; 
+import CreateBrand from "./components/Admin/CreateBrand/CreateBrand.jsx";
 import NewProduct from "./components/Admin/NewProduct/NewProduct.jsx";
-import FixProduct from "./components/Admin/FixProduct/FixProduct.jsx"; 
-
+import FixProduct from "./components/Admin/FixProduct/FixProduct.jsx";
 
 import Footer1 from "./components/user/Footer/Footer";
 
 //PAGINA DE REFRESH
 import PageRefresh from "./components/services/PageRefresh";
 
-
 function App() {
   const userState = useSelector((state) => state.user);
-  if(userState.role=='admin'){
-  return (
-    <div className="App">
-    
+  if (userState.role == "admin") {
+    return (
+      <div className="App">
         <header className="App-header">
           <Routes>
             <Route path="*" element={<AdminHome />} />
@@ -51,16 +48,20 @@ function App() {
             <Route exact path="/createProduct" element={<NewProduct />} />
             <Route exact path="/modifyProduct/:id" element={<FixProduct />} />
             <Route exact path="/orders" element={<Ordenes />} />
-            <Route exact path="/createBrand-Category" element={<CreateBrand />} />
+            <Route
+              exact
+              path="/createBrand-Category"
+              element={<CreateBrand />}
+            />
             {/* <Route path="*" element={<Error />} /> */}
           </Routes>
         </header>
-     </div> 
-  )
+      </div>
+    );
   }
-  if(userState.role=='user' || userState.role=='desconocido'){
+  if (userState.role == "user" || userState.role == "desconocido") {
     return (
-    <div className="App">
+      <div className="App">
         <header className="App-header">
           <NavBar />
           <Routes>
@@ -86,14 +87,14 @@ function App() {
           </Routes>
           <Footer1 />
         </header>
-
-    </div>
-  )} else{
+      </div>
+    );
+  } else {
     return (
-    <Routes>
-      <Route path="*" element={<PageRefresh/>}/>
-    </Routes>
-    )}
-    }
+      <Routes>
+        <Route path="*" element={<PageRefresh />} />
+      </Routes>
+    );
+  }
+}
 export default App;
-

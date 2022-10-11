@@ -52,7 +52,7 @@ const initialState = {
     role: null,
     logged: false,
   },
-  review:[]
+  review: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -99,12 +99,12 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         detail: action.payload,
-      }
+      };
 
     case FETCH_ALL_PRODUCTS:
       return {
         ...state,
-        adminProducts: action.payload.rows
+        adminProducts: action.payload.rows,
       };
 
     case SEARCH_PRODUCT:
@@ -135,14 +135,14 @@ const rootReducer = (state = initialState, action) => {
     case FECH_ALL_REVIEWS:
       return {
         ...state,
-        allReviews: action.payload
+        allReviews: action.payload,
       };
 
     case DELETE_REVIEWS:
       return {
         ...state,
-        allReviews: action.payload
-      }
+        allReviews: action.payload,
+      };
 
     //Categories
     case FETCH_CATEGORIES:
@@ -181,16 +181,14 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         user: {
           ...state.user,
-          defaultShippingAddress: action.payload
-        }
-      }
-      case GET_REVIEW:
+          defaultShippingAddress: action.payload,
+        },
+      };
+    case GET_REVIEW:
       return {
         ...state,
         review: action.payload,
       };
-
-      
 
     default:
       return state;

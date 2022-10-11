@@ -17,6 +17,7 @@ import { styled } from "@mui/material/styles";
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { FRONT_URL } from "../../../constantes";
 import {
   addToCart,
   clearCart,
@@ -49,7 +50,7 @@ function Cart() {
   const favorites = useSelector((state) => state.favorites);
   const dispatch = useDispatch();
 
-  var navigate = useNavigate()
+  var navigate = useNavigate();
 
   React.useEffect(() => {
     dispatch(getFavorites(userState.userName));
@@ -180,8 +181,31 @@ function Cart() {
             );
           })}
       </div>
-      <div style={{display:"flex",justifyContent:"center"}}>
-        <button onClick={() => navigate("/direction")} className="datepicker-footer-btn" style={{width:"90%"}}>Comprar</button>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <button
+          onClick={async () => {
+            dispatch(getCart(userState.userName));
+            if (!userState.logged) {
+              window.location = `${FRONT_URL}/home/log-in`;
+              alert("Debes estar registrado para realizar una compra");
+              return;
+            }
+            if (!cart.length) return alert("Carrito vacio");
+            if (
+              cart.some((product) => product.product.stock - product.amount < 0)
+            ) {
+              alert(
+                "Estas intentando comprar un producto en mayor cantidad a la disponible"
+              );
+              return;
+            }
+            navigate("/direction");
+          }}
+          className="datepicker-footer-btn"
+          style={{ width: "90%" }}
+        >
+          Comprar
+        </button>
       </div>
     </div>
   );
