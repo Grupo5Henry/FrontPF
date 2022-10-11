@@ -34,29 +34,20 @@ export const CongratulationsCard = () => {
               console.error("No se pudo traer el nro de orden mas alto");
             }
           }
-
-          dispatch(
-            reduceStock(
-              cart[i].productId,
-              cart[i].product.stock,
-              cart[i].amount
-            )
-          );
-          dispatch(
-            CreateOrder({
-              productId: cart[i].productId,
-              userName: user.userName,
-              orderNumber,
-              shippingAddress,
-              amount: cart[i].amount,
-            })
-          );
+          reduceStock(cart[i].productId, cart[i].product.stock, cart[i].amount);
+          CreateOrder({
+            productId: cart[i].productId,
+            userName: user.userName,
+            orderNumber,
+            shippingAddress,
+            amount: cart[i].amount,
+          });
         }
-        dispatch(clearCart(user.userName));
+        clearCart(user.userName);
       }
       ordenes();
+      localStorage.removeItem("shippingAddress");
     }
-    localStorage.removeItem("shippingAddress");
   }, [cart]);
 
   // }

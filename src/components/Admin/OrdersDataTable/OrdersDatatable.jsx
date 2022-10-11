@@ -33,7 +33,7 @@ import { authHeader } from "../../../services/auth-header";
 
 const columns = [
   {
-    field: "Order Number",
+    field: [0],
     headerName: "Order Number",
     width: 150,
     renderCell: (params) => {
@@ -41,7 +41,7 @@ const columns = [
     },
   },
   {
-    field: "Status",
+    field: [2],
     headerName: "Status",
     width: 100,
     renderCell: (params) => {
@@ -50,7 +50,7 @@ const columns = [
   },
   // { field: "Date", headerName: "Dirección", width: 300 },
   {
-    field: "Dirección",
+    field: [1],
     headerName: "Dirección",
     width: 200,
     renderCell: (params) => {
@@ -58,21 +58,21 @@ const columns = [
     },
   },
   {
-    field: "Total",
+    type: "number",
     headerName: "Total",
     width: 130,
-    renderCell: (params) => {
+    valueGetter: (params) => {
       let earnings = 0;
       for (let i = 4; i < params.row.length; i++) {
         let product = params.row[i];
 
         earnings += product.amount * product.price;
       }
-      return <div> {earnings} </div>;
+      return earnings;
     },
   },
   {
-    field: "Date",
+    field: [3],
     headerName: "Fecha",
     width: 130,
     renderCell: (params) => {
@@ -90,8 +90,6 @@ export default function OrdersDatatable() {
   //ESTADOS
   const orders = useSelector((state) => state.orders);
   const userState = useSelector((state) => state.user);
-
-  // console.log(users)
 
   //CONSTANTES
   const dispatch = useDispatch();

@@ -13,23 +13,24 @@ import Favorites from "./components/user/favorites/favorites";
 import Cart from "./components/user/cart/cart";
 import Error from "./components/user/error/error";
 import CreateProduct from "./components/user/CreateProduct/CreateProduct";
-import ModifyProduct from "./components/user/ModifyProduct/ModifyProduct";
 import { useSelector } from "react-redux";
 import DirectionForm from "./components/user/formDirection";
 import { CongratulationsCard } from "./components/user/CongratulationsCard/CongratulationsCard";
 
 //ADMIN ROUTES
 import AdminHome from "./components/Admin/AdminHome/AdminHome";
-import AdminUsers from "./components/Admin/AdminUsers/AdminUsers";
 import List from "./components/Admin/List/List";
 import Single from "./components/Admin/Single/Single";
 import Ordenes from "./components/Admin/Ordenes/Ordenes";
+import ListProducts from "./components/Admin/ListProducts/ListProducts.jsx";
+import CreateBrand from "./components/Admin/CreateBrand/CreateBrand.jsx";
+import NewProduct from "./components/Admin/NewProduct/NewProduct.jsx";
+import FixProduct from "./components/Admin/FixProduct/FixProduct.jsx";
+
 import Footer1 from "./components/user/Footer/Footer";
 
 //PAGINA DE REFRESH
 import PageRefresh from "./components/services/PageRefresh";
-
-// console.log("Soy locale", localStorage.role);
 
 function App() {
   const userState = useSelector((state) => state.user);
@@ -39,14 +40,19 @@ function App() {
         <header className="App-header">
           <Routes>
             <Route path="*" element={<AdminHome />} />
-            {/* <Route exact path="/home" element={<AdminHome />} /> */}
+            <Route exact path="/home" element={<AdminHome />} />
             <Route exact path="/users" element={<List />} />
             <Route exact path="/users/:id" element={<Single />} />
-            <Route exact path="/products" element={<List />} />
+            <Route exact path="/products" element={<ListProducts />} />
             <Route exact path="/products/:id" element={<Single />} />
-            <Route exact path="/createProduct" element={<CreateProduct />} />
-            <Route exact path="/modifyProduct" element={<ModifyProduct />} />
+            <Route exact path="/createProduct" element={<NewProduct />} />
+            <Route exact path="/modifyProduct/:id" element={<FixProduct />} />
             <Route exact path="/orders" element={<Ordenes />} />
+            <Route
+              exact
+              path="/createBrand-Category"
+              element={<CreateBrand />}
+            />
             {/* <Route path="*" element={<Error />} /> */}
           </Routes>
         </header>
@@ -72,7 +78,6 @@ function App() {
             {/* <Route exact path="/home/sign-in" element={<SignIn />} /> */}
             <Route exact path="/home/detail/:id" element={<Details />} />
             <Route exact path="/createProduct" element={<CreateProduct />} />
-            <Route exact path="/modifyProduct" element={<ModifyProduct />} />
             <Route exact path="/congrats" element={<CongratulationsCard />} />
             {/* {!userState.logged ? (
               <Route exact path="/home/sign-in" element={<SignIn />} />

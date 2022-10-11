@@ -85,7 +85,7 @@ export default function Datatable() {
               className="banButton"
               onClick={(e) => {
                 e.stopPropagation();
-                console.log(e);
+                // console.log(e);
                 handleBanButton(params);
               }}
             >
