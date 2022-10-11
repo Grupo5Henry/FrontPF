@@ -5,18 +5,27 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import CommentIcon from "@mui/icons-material/Comment";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllUsers, getAllOrders } from "../../../redux/action";
+import {
+  getAllUsers,
+  getAllOrders,
+  getAllReviews,
+  deleteAllReviews,
+} from "../../../redux/action";
 import { Link } from "react-router-dom";
 
 export default function Widget({ type }) {
   //ESTADOS
   const users = useSelector((state) => state.users);
   const orders = useSelector((state) => state.orders);
+  const reviews = useSelector((state) => state.allReviews);
 
   //CONSTANTES
   const dispatch = useDispatch();
 
   const totalUsers = users.length;
+
+  const lastComment = reviews[reviews.length - 1]
+  
 
   // Earnings/Ingresos
   let earnings = 0;
@@ -32,9 +41,12 @@ export default function Widget({ type }) {
   //USE EFFECTS
 
   useEffect(() => {
+    dispatch(getAllReviews());
     dispatch(getAllUsers());
     dispatch(getAllOrders());
+  /*   dispatch(deleteAllReviews()); */
   }, [dispatch]);
+
 
   //FILTROS Y CONTADORES
   // let obj = {};
@@ -69,7 +81,7 @@ export default function Widget({ type }) {
         content: pendingOrder.length,
         link: "Ver todos las ordenes",
         icon: <ShoppingCartIcon className="icon" />,
-        linker: "/",
+        linker: "/orders",
       };
       break;
     case "earning":
@@ -80,15 +92,15 @@ export default function Widget({ type }) {
 
         link: "Ver detalle",
         icon: <MonetizationOnIcon className="icon" />,
-        linker: "/",
+        linker: "/orders",
       };
       break;
     case "comment":
       data = {
         title: "ÚLTIMO COMENTARIO",
         isMoney: true,
-        content: "Tardó en despachar el producto",
-        link: "Ver detalles",
+        content: lastComment ? lastComment.description : "Cargando...",
+        link: "",
         icon: <CommentIcon className="icon" />,
         linker: "/",
       };

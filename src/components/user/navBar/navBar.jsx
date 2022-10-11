@@ -53,16 +53,16 @@ const NavBar = () => {
       var promise = new Promise(function (resolve, reject) {
         setTimeout(function () {
           user && tokenCheck(dispatch);
-          setRefresher(!refresher)
+          setRefresher(!refresher);
           //resolve();
         }, 3600000);
       });
       return promise;
     };
-    user!=='undefined' && delayedTokenCheck(user);
+    user !== "undefined" && delayedTokenCheck(user);
 
     getUser(setUsuario, usuario);
-  }, [refresher,dispatch]);
+  }, [refresher, dispatch]);
 
   const handleLogOut = () => {
     AuthService.logout();
@@ -159,26 +159,26 @@ const NavBar = () => {
               className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"
               onClick={async () => {
                 dispatch(getCart(userState.userName));
-                if (!cart.length) return alert("Carrito vacio");
                 if (!userState.logged) {
                   window.location = `${FRONT_URL}/home/log-in`;
                   alert("Debes estar registrado para realizar una compra");
                   return;
                 }
-                try {
-                  const url = await axios.post(
-                    `${BACK_URL}/checkout`,
-                    { cart: cart },
-                    { headers: { "Content-Type": "application/json" } }
+                if (!cart.length) return alert("Carrito vacio");
+                if (
+                  cart.some(
+                    (product) => product.product.stock - product.amount < 0
+                  )
+                ) {
+                  alert(
+                    "Estas intentando comprar un producto en mayor cantidad a la disponible"
                   );
-                  // console.log(url)
-                  window.location = url.data.url;
-                } catch (err) {
-                  console.log({ error: err.message });
+                  return;
                 }
+                navigate("/direction");
               }}
             >
-              Checkout
+              Comprar
             </button>
 
             <Link

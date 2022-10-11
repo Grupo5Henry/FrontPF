@@ -1,19 +1,46 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../Featured/featured.scss";
 import BalanceIcon from '@mui/icons-material/Balance';
-import { Title } from "@mui/icons-material";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllReviews, deleteAllReviews, getAllProducts  } from "../../../redux/action";
+
 
 export default function Featured () {
 
+    //ESTADOS
+    const reviews = useSelector((state) => state.allReviews);
+    const productos = useSelector((state) => state.adminProducts);
+
+    //CONSTANTES
+    const dispatch = useDispatch();
+  
+  
+    const lastComment = reviews[reviews.length - 1];
+
+    const productElegido = productos.filter(p => p.id === lastComment.productId);
+    const productoComentado = productElegido[0];
+
+
+
+
+      //USE EFFECTS
+
+  useEffect(() => {
+    dispatch(getAllReviews());
+    dispatch(getAllProducts());
+    dispatch(deleteAllReviews());
+  }, [dispatch]);
+
+
     let data = {
-        name: "Notebook Lenovo",
-        image: "https://tecnocompro.com/pub/media/catalog/product/cache/f2fda30fa08589bc3d50957538fec3cf/n/o/notebook_lenovo_ip_3_14alc6_r3_4g_256g_windows_10s_2_.png"
+        name: productoComentado ? productoComentado.name : "Cargando...",
+        image: productoComentado ? productoComentado.thumbnail : null
     }
 
     return(
         <div className="featured">
             <div className="top">
-                <span className="title">PRODUCTO MÁS VENDIDO</span>
+                <span className="title">PRODUCTO COMENTADO</span>
                 <BalanceIcon className="icon"/>
             </div>
             <div className="bottom">
