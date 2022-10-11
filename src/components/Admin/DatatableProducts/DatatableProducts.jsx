@@ -15,34 +15,26 @@ export default function DatatableProducts() {
     dispatch(getAllProducts());
   }, [dispatch]);
 
-
-    const productos = useSelector((state) => state.adminProducts);
-    const dispatch = useDispatch();
-
-
-    useEffect (() => {
-        dispatch(getAllProducts());
-    }, [dispatch]);
-
-    const columns = [
-        /* { field: 'id', headerName: 'ID', width: 300 }, */
-        {
-            field: 'thumbnail',
-            headerName: 'Imagen',
-            width: 150,
-            renderCell: (params) => {
-              return (
-              <div className="cellWithImg">
-                  <img className='cellImg' src={params.row.thumbnail} alt="logo" />
-              </div>)
-            } },
-        { field: 'name', headerName: 'Nombre', width: 400 },
-        { field: 'model', headerName: 'Modelo', width: 180 },
-        { field: 'stock', headerName: 'Stock', width: 130 },
-        { field: 'price', headerName: 'Precio', width: 130 },
-        /* { field: 'condition', headerName: 'Condición', width: 130 }, */
-      ];
-
+  const columns = [
+    /* { field: 'id', headerName: 'ID', width: 300 }, */
+    {
+      field: "thumbnail",
+      headerName: "Imagen",
+      width: 150,
+      renderCell: (params) => {
+        return (
+          <div className="cellWithImg">
+            <img className="cellImg" src={params.row.thumbnail} alt="logo" />
+          </div>
+        );
+      },
+    },
+    { field: "name", headerName: "Nombre", width: 400 },
+    { field: "model", headerName: "Modelo", width: 180 },
+    { field: "stock", headerName: "Stock", width: 130 },
+    { field: "price", headerName: "Precio", width: 130 },
+    /* { field: 'condition', headerName: 'Condición', width: 130 }, */
+  ];
 
   const dataTableButton = [
     {
