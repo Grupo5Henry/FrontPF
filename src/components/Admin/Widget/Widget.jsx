@@ -5,13 +5,17 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import CommentIcon from "@mui/icons-material/Comment";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllUsers, getAllOrders } from "../../../redux/action";
+import { getAllUsers, getAllOrders, getAllReviews, deleteAllReviews } from "../../../redux/action";
 import { Link } from "react-router-dom";
 
 export default function Widget({ type }) {
   //ESTADOS
   const users = useSelector((state) => state.users);
   const orders = useSelector((state) => state.orders);
+  const reviews = useSelector((state) => state.allReviews);
+ 
+
+
 
   //CONSTANTES
   const dispatch = useDispatch();
@@ -22,7 +26,7 @@ export default function Widget({ type }) {
   let earnings = 0;
 
   orders.map((order) => {
-    for (let i = 3; i < order.length; i++) {
+    for (let i = 4; i < order.length; i++) {
       let product = order[i];
 
       earnings += product.amount * product.price;
@@ -34,7 +38,12 @@ export default function Widget({ type }) {
   useEffect(() => {
     dispatch(getAllUsers());
     dispatch(getAllOrders());
+    dispatch(getAllReviews());
+    /* dispatch(deleteAllReviews()); */
   }, [dispatch]);
+
+  const lastReview = reviews[reviews.length - 1];
+
 
   //FILTROS Y CONTADORES
   // let obj = {};
@@ -46,7 +55,7 @@ export default function Widget({ type }) {
   // for(let element in obj){
   //     counterOrder.push(element)
   // }
-  const pendingOrder = orders.filter((order) => order[1] === "Pending");
+  const pendingOrder = orders.filter((order) => order[2] === "Pending");
 
   let data = {};
   //TEMPORAL
@@ -87,7 +96,7 @@ export default function Widget({ type }) {
       data = {
         title: "ÚLTIMO COMENTARIO",
         isMoney: true,
-        content: "Tardó en despachar el producto",
+        content: `${lastReview.description}`,
         link: "Ver detalles",
         icon: <CommentIcon className="icon" />,
         linker: "/",

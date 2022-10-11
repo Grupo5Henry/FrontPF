@@ -22,6 +22,7 @@ const Home = () => {
     dispatch(getProductsFiltered(filter));
   }, [filter]);
   // console.log(products, "Home")
+  products.map(e => console.log(e.stock))
   return (
     <>
       <div>

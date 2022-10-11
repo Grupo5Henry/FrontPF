@@ -36,6 +36,7 @@ export default function FixProduct () {
   const brandsOwned = useSelector((state) => state.brand);
   /* const modelsOwned = useSelector((state) => state.model); */
   const brandsOrdered = brandsOwned.sort((a, b) => a.brand > b.brand);
+  console.log("SOY CATEGORIAS",category)
 
   console.log("SOY STOCK", stock);
 
