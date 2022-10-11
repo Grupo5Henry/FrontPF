@@ -1,15 +1,20 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateFilter } from "../../../../../redux/action";
+import { resetFilter, updateFilter } from "../../../../../redux/action";
 
 export default function ByModel({ actual }) {
   var dispatch = useDispatch();
   var models = useSelector((state) => state.model);
+  var {filter} = useSelector((state) => state);
   return (
     <>
       <select
+        value={filter.model}
         onChange={(e) =>
-          dispatch(updateFilter({ model: e.target.value, page: 0 }))
+          {
+            if(filter.search) dispatch(resetFilter());
+            dispatch(updateFilter({ model: e.target.value, page: 0 }))
+          }
         }
       >
         <option hidden>Model</option>

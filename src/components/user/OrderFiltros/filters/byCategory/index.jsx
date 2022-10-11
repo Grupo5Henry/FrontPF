@@ -1,15 +1,18 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateFilter } from "../../../../../redux/action";
+import { resetFilter, updateFilter } from "../../../../../redux/action";
 
 export default function ByCategory({ actual }) {
   var dispatch = useDispatch();
-  var categories = useSelector((state) => state.categories);
+  var {categories,filter} = useSelector((state) => state);
   return (
     <>
       <select
-        onChange={(e) =>
+        value={filter.category}
+        onChange={(e) => {
+          if(filter.search) dispatch(resetFilter());
           dispatch(updateFilter({ category: e.target.value, page: 0 }))
+        }
         }
       >
         <option hidden>Category</option>
