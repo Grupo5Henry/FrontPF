@@ -4,5 +4,110 @@
 
     .newProductContainer{
         flex: 6;
+
+        .top{
+            margin-bottom: 30px;
+            margin-top: 20px;
+        }
+
+        .top, .bottom{
+            -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+            box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+            padding: 20px;
+            margin-left: 10%;
+            margin-right: 10%;
+ 
+
+            h1{
+                color: rgb(160, 158, 158);
+                font-size: 20px;
+                align-items: center;
+            }
+
+
+            form{
+                width: 100%;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 20px;
+                margin-bottom: 20px;
+                justify-content: space-between;
+
+                .inputsContainerImg{
+                    width: 100%;
+                    padding: 10px;
+                    display: flex;
+
+                    .labelImg{
+                        color: rgb(160, 158, 158);
+                        width: 250px;
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+                        margin-bottom: 10px;
+                        
+                    }
+
+                    .inputImg{
+                        width: 100%;
+                        padding: 8px;
+                        border: none;
+                        background: transparent;
+
+                    }
+                }
+                .inputsContainer{
+                    width: 100%;
+                    padding: 10px;
+                    display: flex;
+
+                    label{
+                        color: rgb(160, 158, 158);
+                        width: 250px;
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+                        margin-bottom: 10px;
+                        
+                    }
+
+                    input{
+                        width: 100%;
+                        padding: 8px;
+                        border: none;
+                        border-bottom: 1px solid gray;
+                        background: transparent;
+                    }
+
+                }
+            }
+            .buttonsContainer{
+                
+                display: flex;
+                justify-content: space-between;
+                margin-left: 2%;
+                margin-right: 0%;
+                width: 90%;
+
+                
+            }
+            .buttonModify, .modalButton, .buttonCancel{
+                width: 150px;
+                padding: 15px;
+                border: none;
+                background-color: #6e47f8b8;
+                color: white;
+                font-weight: bold;
+                cursor: pointer;
+
+
+                &:hover{
+                    background-color: #7551f856;
+                }
+            }
+            .buttonModify{
+                margin-right: 0%;
+            }
+        }
     }
 }
