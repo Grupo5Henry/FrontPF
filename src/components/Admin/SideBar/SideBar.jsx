@@ -71,15 +71,9 @@ export default function SideBar() {
           <li>
             <Link to={"/createBrand-category"}>
               <CategoryIcon className="icon" />
-              <span>Categorías/Marcas</span>
+              <span>Crear Categorías</span>
             </Link>
           </li>
-{/*           <li>
-            <Link to={"/createBrand"}>
-              <BrandingWatermarkOutlinedIcon className="icon" />
-              <span>Crear Marcas</span>
-            </Link>
-          </li> */}
           <li>
             <Link to={"/orders"}>
               <InventoryOutlinedIcon className="icon" />
