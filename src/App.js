@@ -48,6 +48,7 @@ function App() {
             <Route exact path="/createProduct" element={<NewProduct />} />
             <Route exact path="/modifyProduct/:id" element={<FixProduct />} />
             <Route exact path="/orders" element={<Ordenes />} />
+            <Route exact path="/products/detail/:id" element={<AdminProductDetail />} />  
             <Route
               exact
               path="/createBrand-Category"
