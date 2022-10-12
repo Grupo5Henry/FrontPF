@@ -43,10 +43,14 @@
             font-size: 18px;
             font-weight: bold;
             color: rgb(160, 158, 158);
+            flex-wrap: wrap;
         }
         .img{
             height: 500;
             width: 500;
+            margin-top: 10px;
+            align-items: center;
+            justify-content: center;
         }
     }
 }

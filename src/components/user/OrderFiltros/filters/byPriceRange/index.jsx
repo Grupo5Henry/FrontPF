@@ -15,8 +15,18 @@ export default function ByPriceRange() {
   function onSub(e) {
     e.preventDefault();
     // if(rango.maxPrice === "" && rango.minPrice === "") return alert("Pasar rango de precio")
+    if(Number(rango.maxPrice) < Number(rango.minPrice)){
+       setRango({
+        minPrice: rango.maxPrice,
+        maxPrice: rango.minPrice
+      })
+      return dispatch(updateFilter({
+        minPrice: rango.maxPrice,
+        maxPrice: rango.minPrice,
+        page: 0
+      }))
+    }
     dispatch(updateFilter({ ...rango, page: 0 }));
-    setRango({ maxPrice: "", minPrice: "" });
   }
 
   return (
@@ -41,6 +51,7 @@ export default function ByPriceRange() {
           name="minPrice"
           onChange={(e) => onChan(e)}
           value={rango.minPrice}
+          onClick={e => e.target.value? setRango({...rango,minPrice: ""}) : null}
         />
         <input
           type="number"
@@ -48,6 +59,7 @@ export default function ByPriceRange() {
           name="maxPrice"
           onChange={(e) => onChan(e)}
           value={rango.maxPrice}
+          onClick={e => e.target.value? setRango({...rango,maxPrice: ""}) : null}
         />
         <input type="submit" />
       </form>

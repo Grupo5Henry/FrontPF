@@ -30,6 +30,8 @@ import {
   userState,
 } from "../../../redux/action";
 
+/// demo front-wheat-gamma.vercel.app
+
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -82,6 +84,16 @@ function Products() {
                 alt="sofa-2"
               />
               <div className="absolute sm:top-8 top-4 left-4 sm:left-8 flex justify-start items-start flex-col space-y-2">
+                <div>
+                  {product.stock && product.stock > 3 ? null : (
+                    <p
+                      className="group-hover:opacity-60 transition duration-500 text-xl leading-5 text-gray-600"
+                      style={{ color: "rgba(255, 0, 0, 0.51)" }}
+                    >
+                      Quedan pocos productos en tienda: {product.stock}
+                    </p>
+                  )}
+                </div>
                 <div>
                   <p className="group-hover:opacity-60 transition duration-500 text-xl leading-5 text-gray-600">
                     {product.name}

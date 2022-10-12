@@ -4,7 +4,7 @@ import SearchSharpIcon from "@mui/icons-material/SearchSharp";
 import EmailIcon from "@mui/icons-material/Email";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import HomeIcon from "@mui/icons-material/Home";
-
+import { Link } from "react-router-dom";
 import { userState } from "../../../redux/action";
 import { useDispatch, useSelector } from "react-redux";
 import authHeader from "../../../services/auth-header";
@@ -16,12 +16,14 @@ export default function AdminNavBar() {
     <div className="adminNavBar">
       <div className="wrapper">
         <div className="search">
-          <input type="text" placeholder="Buscar..." />
-          <SearchSharpIcon className="icon" />
+{/*           <input type="text" placeholder="Buscar..." />
+          <SearchSharpIcon className="icon" /> */}
         </div>
         <div className="items">
           <div className="item">
-            <HomeIcon className="icon" />
+            <Link to={"/"}>
+              <HomeIcon className="icon" />
+            </Link>
           </div>
           <div className="item">
             <EmailIcon className="icon" />

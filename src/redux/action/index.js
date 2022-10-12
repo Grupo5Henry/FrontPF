@@ -4,12 +4,17 @@ import { BACK_URL } from "../../constantes";
 //PRODUCTS
 export const GET_PRODUCTS_NAME = "GET_PRODUCTS_NAME";
 export const DETAIL_PRODUCT = "DETAIL_PRODUCT";
+export const DELETE_DETAIL_PRODUCT = "DELETE_DETAIL_PRODUCT";
 export const SEARCH_PRODUCT = "SEARCH_PRODUCT";
 export const GET_PRODUCTS_FILTERED = "GET_PRODUCTS_FILTERED";
 export const FETCH_ALL_PRODUCTS = "FETCH_ALL_PRODUCTS";
 
 //USERS
 export const FETCH_ALL_USERS = "FETCH_ALL_USERS";
+
+//REVIEWS
+export const FECH_ALL_REVIEWS = "FECH_ALL_REVIEWS";
+export const DELETE_REVIEWS = "DELETE_REVIEWS";
 
 //ORDERS
 
@@ -153,6 +158,15 @@ export const detailProduct = (id) => {
   };
 };
 
+export function deleteDetailProduct() {
+  return async (dispatch) => {
+    dispatch({
+      type: "DELETE_DETAIL_PRODUCT",
+      payload: {},
+    });
+  };
+}
+
 export const updateUserState = (payload) => {
   return {
     type: "USER_STATE",
@@ -225,20 +239,40 @@ export const getReview = (id) => {
   };
 };
 
+export function getAllReviews() {
+  return async (dispatch) => {
+    fetch(`${BACK_URL}/review/all`)
+      .then((response) => response.json())
+      .then((reviews) => {
+        dispatch({
+          type: FECH_ALL_REVIEWS,
+          payload: reviews,
+        });
+      });
+  };
+}
+
+export function deleteAllReviews() {
+  return {
+    type: DELETE_REVIEWS,
+    payload: [],
+  };
+}
+
 export function getAllProducts() {
   return async function (dispatch) {
-    fetch("https://backpf-production.up.railway.app/product//itemsPerPage?amount=3000")
+    fetch(
+      `${BACK_URL}/product//itemsPerPage?amount=3000`
+    )
       .then((response) => response.json())
       .then((adminProducts) => {
         dispatch({
           type: FETCH_ALL_PRODUCTS,
-          payload: adminProducts
-        })
-      })
-  }
-};
-
-
+          payload: adminProducts,
+        });
+      });
+  };
+}
 
 export function getAllUsers() {
   return async function (dispatch) {
@@ -285,6 +319,7 @@ export function getAllOrders() {
                   price: orderInstance.product.price,
                 },
               ];
+          return orderInstance;
         });
         dispatch({
           type: FETCH_ALL_ORDERS,
@@ -348,12 +383,18 @@ export const getCart = (userName) => {
 };
 
 export function CreateOrder(obj) {
-  return function (dispatch) {
-    axios
-      .post(`${BACK_URL}/order`, obj)
-      .then(() => console.log("Se hizo la orden de compra"))
-      .catch((err) => console.log(err));
-  };
+  axios
+    .post(`${BACK_URL}/order`, obj)
+    .then(() => console.log("Se hizo la orden de compra"))
+    .catch((err) => console.log(err));
+}
+
+export function reduceStock(id, stock, amount) {
+  try {
+    axios.put(`${BACK_URL}/product/modify`, { id, stock: stock - amount });
+  } catch (err) {
+    console.log({ error: err.message });
+  }
 }
 
 export function UpdateUserDefaultAddress(obj) {
