@@ -15,10 +15,10 @@ export default function AdminNavBar() {
   return (
     <div className="adminNavBar">
       <div className="wrapper">
-        <div className="search">
-{/*           <input type="text" placeholder="Buscar..." />
-          <SearchSharpIcon className="icon" /> */}
-        </div>
+{/*         <div className="search">
+          <input type="text" placeholder="Buscar..." />
+          <SearchSharpIcon className="icon" />
+        </div> */}
         <div className="items">
           <div className="item">
             <Link to={"/"}>

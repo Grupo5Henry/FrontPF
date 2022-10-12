@@ -343,6 +343,9 @@ export default function NewProduct () {
                   })}
               </select>
             </div>
+                          <button className="buttonModify" type="submit">
+                              Crear Producto
+                          </button>
           </form>
             <div className="buttonsContainer">
               <Link to={`/`}>
@@ -369,9 +372,6 @@ export default function NewProduct () {
                         >
                     <ModalCreateCategory setIsOpen={setIsOpen} setOpen={setOpen} />
                     </Modal>
-                <button className="buttonModify" type="submit">
-                    Crear Producto
-                </button>
             </div>
         </div>
     </div>

@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import "../Modals/modalCreateCategory.scss";
-import SideBar from "../SideBar/SideBar.jsx";
-import AdminNavBar from '../AdminNavBar/AdminNavBar';
+import { useDispatch } from 'react-redux';
 import swal from "sweetalert";
 import { BACK_URL } from '../../../constantes';
 import axios from "axios";
+import { getCategories } from "../../../redux/action/index.js";
 
 
 export default function ModalCreateCategory () {
@@ -13,6 +13,8 @@ export default function ModalCreateCategory () {
 
     const [category, setCategory] = useState("");
 
+    //CONSTANTES
+    const dispatch = useDispatch();
 
     //CONTROLADOR DE CATEGORIAS
 
@@ -30,6 +32,7 @@ export default function ModalCreateCategory () {
                 name: category
             })
             .then((resp) => {
+                dispatch(getCategories())
                 setCategory("")
                 swal({
                     title: "¡Categoría creada con éxito!",
