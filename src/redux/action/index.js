@@ -319,7 +319,7 @@ export const getCart = (userName) => {
       )) {
         try {
           const detail = await axios.get(`${BACK_URL}/product/ID/${id}`);
-          const product = { amount, product: detail.data };
+          const product = { amount, product: detail.data.product };
           cart.push(product);
         } catch (err) {
           // console.log({error: err.message})

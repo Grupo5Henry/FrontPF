@@ -7,6 +7,7 @@ import SearchBar from "../searchBar/searchBar";
 import Categories from "../Caterories/Categories";
 import CarrouselHome from "../Recommended/CarrouselHome";
 import Pagination from "../Pagination/Pagination";
+import RecommendedDetail from "../details/RecommendedDetail";
 
 const Home = () => {
   const products = useSelector((state) => state.products);
@@ -34,6 +35,7 @@ const Home = () => {
         <OrderFilt />
         <Products />
         <Pagination />
+        <RecommendedDetail/>
       </div>
     </>
   );

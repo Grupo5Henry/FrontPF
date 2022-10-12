@@ -22,7 +22,10 @@ import Comment from "../comment/comment";
 // Detalle del Producto
 
 const Details = () => {
-  const detail = useSelector((state) => state.detail);
+  let detail = useSelector((state) => state.detail);
+  const suggest = detail?.suggested;
+  detail = detail?.product;
+  console.log(suggest)
   const dispatch = useDispatch();
   const { id } = useParams();
   const favorites = useSelector((state) => state.favorites);
@@ -39,7 +42,7 @@ const Details = () => {
 
   return (
     <div>
-      {!detail.id ? (
+      {!detail?.id ? (
         <div className="h-screen bg-white">
           <div className="flex justify-center items-center h-full">
             <img
@@ -232,6 +235,8 @@ const Details = () => {
             </div>
           </div>
         </div>
+        //Carrusel recomendaciones 
+        
       )}
     </div>
   );

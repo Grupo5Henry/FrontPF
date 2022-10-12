@@ -25,7 +25,7 @@ import AdminUsers from "./components/Admin/AdminUsers/AdminUsers";
 import List from "./components/Admin/List/List";
 import Single from "./components/Admin/Single/Single";
 import Ordenes from "./components/Admin/Ordenes/Ordenes";
-import Footer1 from "./components/user/Footer/Footer";
+// import Footer1 from "./components/user/Footer/Footer";
 
 //PAGINA DE REFRESH
 import PageRefresh from "./components/services/PageRefresh";
