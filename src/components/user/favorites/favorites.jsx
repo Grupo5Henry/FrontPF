@@ -10,6 +10,7 @@ import accounting from "accounting";
 import axios from "axios";
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { BACK_URL } from "../../../constantes";
 import {
   addToCart,
@@ -45,9 +46,18 @@ function Favorites() {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+  var navigate = useNavigate()
   return (
     <div>
-      <div className="mt-10 grid lg:grid-cols-2 gap-x-8 gap-y-8 items-center px-40 py-10">
+      {
+        !favorites.length? (
+        <div style={{display:"flex",gap:"12px",flexDirection:"column",width:"100%",justifyContent:"center",height:"200px",alignItems:"center"}}>
+          <h1 style={{fontSize:"23px"}}>No tienes productos agregados como favoritos</h1>
+          <button className="datepicker-footer-btn" onClick={() => navigate("/home")}>Ir a agregar</button>
+        </div>
+      ) : (
+        <div className="mt-10 grid lg:grid-cols-2 gap-x-8 gap-y-8 items-center px-40 py-10">
         {favorites !== "Missing Username" &&
           favorites.map((product) => {
             product = product.product;
@@ -139,6 +149,9 @@ function Favorites() {
             );
           })}
       </div>
+      )
+      }
+      
     </div>
   );
 }
