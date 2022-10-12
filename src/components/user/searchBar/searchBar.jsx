@@ -75,7 +75,9 @@ const SearchBar = () => {
         />
       </form>
       {suggestions ? (
-        <ul className="absolute top-28 flex flex-col bg-white w-10/12 z-10">
+        <div style={{width:"100%"}} className="flex justify-center relative">
+
+        <ul className="absolute top-0 flex flex-col bg-white w-10/12 z-10">
           {suggestions &&
             suggestions.map((suggestion, i) => (
               <li className="pl-8 pr-2 py-1 border-b-2 border-l-2 border-r-2 border-gray-100 relative cursor-pointer hover:bg-yellow-50 hover:text-gray-900">
@@ -101,6 +103,7 @@ const SearchBar = () => {
               </li>
             ))}
         </ul>
+        </div>
       ) : (
         <div></div>
       )}
