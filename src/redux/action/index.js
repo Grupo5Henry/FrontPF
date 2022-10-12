@@ -262,7 +262,7 @@ export function deleteAllReviews() {
 export function getAllProducts() {
   return async function (dispatch) {
     fetch(
-      "https://backpf-production.up.railway.app/product//itemsPerPage?amount=3000"
+      `${BACK_URL}/product//itemsPerPage?amount=3000`
     )
       .then((response) => response.json())
       .then((adminProducts) => {
