@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "../Featured/featured.scss";
-import BalanceIcon from "@mui/icons-material/Balance";
+import InfoIcon from '@mui/icons-material/Info';
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import {
   getAllReviews,
   deleteAllReviews,
@@ -15,6 +16,7 @@ export default function Featured() {
   const [data, setData] = useState({
     name: false,
     image: false,
+    id: false,
   });
 
   const lastCommentedProduct = (reviews, products) => {
@@ -25,6 +27,7 @@ export default function Featured() {
       setData({
         name: product.name ? product.name : "Cargando...",
         image: product.thumbnail ? product.thumbnail : null,
+        id: product.id ? product.id : null,
       });
     } catch (err) {}
   };
@@ -48,7 +51,9 @@ export default function Featured() {
     <div className="featured">
       <div className="top">
         <span className="title">PRODUCTO COMENTADO</span>
-        <BalanceIcon className="icon" />
+        <Link to={data.id ? `/products/detail/${data.id}` : "/"}>
+          <InfoIcon className="icon" />
+        </Link>
       </div>
       <div className="bottom">
         <div>

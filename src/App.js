@@ -30,14 +30,21 @@ import AdminProductDetail from "./components/Admin/AdminProductDetail/AdminProdu
 
 import Footer1 from "./components/user/Footer/Footer";
 
+//MODO OSCURO
+import "./style/dark.scss";
+import { useContext } from "react";
+import { DarkModeContext } from "./components/Admin/context/darkModeContext.js";
+
 //PAGINA DE REFRESH
 import PageRefresh from "./components/services/PageRefresh";
 
 function App() {
+  const {darkMode} = useContext(DarkModeContext);
+
   const userState = useSelector((state) => state.user);
   if (userState.role == "admin") {
     return (
-      <div className="App">
+      <div className={darkMode ? "app dark" : "app"}>
         <header className="App-header">
           <Routes>
             <Route path="*" element={<AdminHome />} />
