@@ -100,7 +100,7 @@ export default function Chart() {
   return (
     <div className="chart">
       <div className="title">Ventas en los últimos 6 meses</div>
-      <ResponsiveContainer width="100%" aspect={2 / 1.3}>
+      <ResponsiveContainer width="100%" aspect={2 / 0.8}>
         <AreaChart
           width={730}
           height={250}

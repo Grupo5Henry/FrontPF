@@ -100,9 +100,9 @@ export default function Widget({ type }) {
         title: "ÚLTIMO COMENTARIO",
         isMoney: true,
         content: lastComment ? lastComment.description : "Cargando...",
-        link: "",
+        link: "Ver detalle",
         icon: <CommentIcon className="icon" />,
-        linker: "/",
+        linker: lastComment ? `/products/detail/${lastComment.productId}` : "/",
       };
       break;
     default:

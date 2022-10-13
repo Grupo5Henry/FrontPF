@@ -15,7 +15,26 @@ import {
 } from "../../../redux/action/index.js";
 import { BACK_URL } from "../../../constantes";
 
+import ModalCreateCategory from "../Modals/ModalCreateCategory.jsx";
+import Modal from "react-modal";
+
 export default function FixProduct() {
+
+  //MODAL
+
+  //CONECTAMOS LA MODAL CON EL ELEMENTO A MOSTRAR
+
+  Modal.setAppElement("#root");
+  
+      //DETALLES DE LA MODAL A PROBAR
+  
+  
+      const [modalIsOpen, setIsOpen] = React.useState(false);
+      const [modalOpen, setOpen] = React.useState(false);
+  
+  
+///////////////////////////////////////////////////////MODAL CERRADA ///////////////////////////////////
+
   //ESTADOS DEL PRODUCTO
 
   const [name, setName] = useState("");
@@ -63,8 +82,8 @@ export default function FixProduct() {
       return swal({
         title: "El nombre debe tener al menos tres caracteres",
         icon: "error",
-        button: "Ok",
-        timer: 500,
+        buttons: false,
+        timer: 700
       });
     }
 
@@ -73,8 +92,8 @@ export default function FixProduct() {
       return swal({
         title: "El campo de marca no puede estar vacío",
         icon: "error",
-        button: "Ok",
-        timer: 500,
+        buttons: false,
+        timer: 700
       });
     }
 
@@ -83,8 +102,8 @@ export default function FixProduct() {
       return swal({
         title: "El campo de modelo no puede estar vacío",
         icon: "error",
-        button: "Ok",
-        timer: 500,
+        buttons: false,
+        timer: 700
       });
     }
 
@@ -93,8 +112,8 @@ export default function FixProduct() {
       return swal({
         title: "El campo de descripción no puede estar vacío",
         icon: "error",
-        button: "Ok",
-        timer: 500,
+        buttons: false,
+        timer: 700
       });
     }
 
@@ -103,29 +122,29 @@ export default function FixProduct() {
       return swal({
         title: "Debe agregar un número como precio",
         icon: "error",
-        button: "Ok",
-        timer: 500,
+        buttons: false,
+        timer: 700
       });
     } else if (isNaN(price) === true) {
       return swal({
         title: "El precio debe ser un número",
         icon: "error",
-        button: "Ok",
-        timer: 500,
+        buttons: false,
+        timer: 700
       });
     } else if (price <= 0) {
       return swal({
         title: "El precio debe ser mayor a cero",
         icon: "error",
-        button: "Ok",
-        timer: 500,
+        buttons: false,
+        timer: 700
       });
     } else if (price === 0) {
       return swal({
         title: "El precio no puede ser un cero",
         icon: "error",
-        button: "Ok",
-        timer: 500,
+        buttons: false,
+        timer: 700
       });
     }
 
@@ -134,22 +153,22 @@ export default function FixProduct() {
       return swal({
         title: "Debe agregar un número como stock",
         icon: "error",
-        button: "Ok",
-        timer: 500,
+        buttons: false,
+        timer: 700
       });
     } else if (isNaN(stock) === true) {
       return swal({
         title: "El stock debe ser un número",
         icon: "error",
-        button: "Ok",
-        timer: 500,
+        buttons: false,
+        timer: 700
       });
     } else if (stock < 0) {
       return swal({
         title: "El stock no puede ser negativo",
         icon: "error",
-        button: "Ok",
-        timer: 500,
+        buttons: false,
+        timer: 700
       });
     }
 
@@ -158,8 +177,8 @@ export default function FixProduct() {
       return swal({
         title: "Debe señalar si el producto es nuevo o usado",
         icon: "error",
-        button: "Ok",
-        timer: 500,
+        buttons: false,
+        timer: 700
       });
     }
 
@@ -167,8 +186,8 @@ export default function FixProduct() {
       return swal({
         title: "Debe señalar si el producto es nuevo o usado",
         icon: "error",
-        button: "Ok",
-        timer: 500,
+        buttons: false,
+        timer: 700
       });
     }
 
@@ -177,8 +196,8 @@ export default function FixProduct() {
       return swal({
         title: "Debe agregar una categoría",
         icon: "error",
-        button: "Ok",
-        timer: 500,
+        buttons: false,
+        timer: 700
       });
     }
 
@@ -186,8 +205,8 @@ export default function FixProduct() {
       return swal({
         title: "Debe señalar una categoría válida",
         icon: "error",
-        button: "Ok",
-        timer: 500,
+        buttons: false,
+        timer: 700
       });
     }
     //IMAGEN
@@ -195,8 +214,8 @@ export default function FixProduct() {
       return swal({
         title: "Debe cargar una imagen",
         icon: "error",
-        button: "Ok",
-        timer: 500,
+        buttons: false,
+        timer: 700
       });
     } else {
       //SI PASAN LAS VALIDACIONES
@@ -229,8 +248,8 @@ export default function FixProduct() {
           swal({
             title: "¡Producto modificado correctamente!",
             icon: "success",
-            buttons: "Ok",
-            timer: 2000,
+            buttons: false,
+            timer: 500
           }).then(() => {
             navigate("/products");
           });
@@ -349,15 +368,37 @@ export default function FixProduct() {
                   })}
               </select>
             </div>
+                          <button className="buttonModify" type="submit">
+                            Modificar
+                          </button>
+          </form>
             <div className="buttonsContainer">
               <Link to={`/products`}>
                 <button className="buttonCancel">Cancelar</button>
               </Link>
-              <button className="buttonModify" type="submit">
-                Modificar
-              </button>
+
+
+              <button className="modalButton" onClick={() => setOpen(true)} type="button">
+                    Crear Categoria
+                </button>
+                    <Modal
+                          isOpen={modalOpen}
+                          onRequestClose={() => setOpen(false)}
+                          overlayClassName={{
+                              base: "overlay-base",
+                              afterOpen: "overlay-after",
+                              beforeClose: "overlay-before",
+                            }}
+                          className={{
+                              base: "content-base",
+                              afterOpen: "content-box",
+                              beforeClose: "content-before",
+                            }}
+                          closeTimeoutMS={500}
+                        >
+                    <ModalCreateCategory setIsOpen={setIsOpen} setOpen={setOpen} />
+                    </Modal>
             </div>
-          </form>
         </div>
       </div>
     </div>

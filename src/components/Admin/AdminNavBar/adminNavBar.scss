@@ -11,9 +11,10 @@
         padding: 20px;
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        /* justify-content: space-between; */
+        justify-content: flex-end;
 
-        .search{
+/*         .search{
             display: flex;
             margin-left: 50px;
             width: 400px;
@@ -31,11 +32,12 @@
                     font-size: 15px;
                 }
             }
-        }
+        } */
 
         .items{
             display: flex;
-            align-items: center;
+            /* align-items: center; */
+            /* justify-content: flex-end; */
 
             .item{
                 display: flex;
