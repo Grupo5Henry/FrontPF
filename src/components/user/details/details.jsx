@@ -51,10 +51,6 @@ const Details = () => {
         </div>
       ) : (
         <div>
-          <style>
-            @import
-            url(https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css);
-          </style>
           <div className="min-w-screen min-h-screen flex  p-5 lg:p-10 overflow-hidden relative">
             <div className="w-screen max-w-7xl rounded bg-white shadow-xl p-10 lg:p-20 mx-auto text-gray-800 relative md:text-left">
               <div className="md:flex items-center -mx-10">
@@ -65,7 +61,7 @@ const Details = () => {
                       className="w-full relative "
                       alt=""
                     />
-                    <div className="border-4 border-black-200 absolute top-10 bottom-10 left-10 right-10 z-0"></div>
+                    
                   </div>
                 </div>
 

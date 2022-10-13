@@ -17,8 +17,6 @@ const SignIn = ({ setIsOpen, setOpen }) => {
     userName: "",
     password: "",
     email: "",
-    defaultShippingAddress: "",
-    billingAddress: "",
   });
 
   const navigate = useNavigate();
@@ -35,9 +33,6 @@ const SignIn = ({ setIsOpen, setOpen }) => {
     ) {
       error.email = "No es un email valido";
     }
-    if (!value.defaultShippingAddress)
-      error.defaultShippingAddress = "Requerido";
-    if (!value.billingAddress) error.billingAddress = "Requerido";
     return error;
   }
 
@@ -61,9 +56,7 @@ const SignIn = ({ setIsOpen, setOpen }) => {
     if (
       input.userName &&
       input.password &&
-      input.email &&
-      input.defaultShippingAddress &&
-      input.billingAddress
+      input.email 
     ) {
       e.preventDefault();
       try {
@@ -72,8 +65,6 @@ const SignIn = ({ setIsOpen, setOpen }) => {
           input.password,
           role,
           input.email,
-          input.defaultShippingAddress,
-          input.billingAddress
         ).then(
           (response) => {
             // console.log(response);
@@ -99,12 +90,9 @@ const SignIn = ({ setIsOpen, setOpen }) => {
   };
 
   return (
-    <div className="container mx-auto">
-      <div className="flex justify-center px-6 my-12">
-        <div className="w-full flex justify-center">
-          <div className="w-full bg-white p-5 rounded-lg lg:rounded-l-none mt-5 mb-5">
+          
+            <form className="px-8 pt-6 pb-8  m-0 bg-white rounded" >
             <h3 className="pt-2 text-2xl text-center">¡Crea una cuenta!</h3>
-            <form className="px-8 pt-6 pb-8 mb-2 bg-white rounded">
               <div className="formControl">
                 {error && error.userName ? (
                   <span style={{ color: "red" }}>{error.userName}</span>
@@ -183,53 +171,6 @@ const SignIn = ({ setIsOpen, setOpen }) => {
                     />
                   </div>
                 </div> */}
-
-              <div className="mb-2 md:flex md:justify-between">
-                <div className="mb-4 md:mr-2 md:mb-0">
-                  <label className="block mb-2 text-sm font-bold text-gray-700">
-                    Direccion de entrega
-                  </label>
-                  <input
-                    className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                    type="text"
-                    required="required"
-                    name="defaultShippingAddress"
-                    value={input.defaultShippingAddress}
-                    onChange={(e) => handleInputChange(e)}
-                  />
-                  <div className="formControl">
-                    {error && error.defaultShippingAddress ? (
-                      <span style={{ color: "red" }}>
-                        {error.defaultShippingAddress}
-                      </span>
-                    ) : null}
-                  </div>
-                </div>
-
-                <div className="md:ml-2">
-                  <label
-                    className="block mb-2 text-sm font-bold text-gray-700"
-                    f
-                  >
-                    Direccion de facturación
-                  </label>
-                  <input
-                    className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                    type="text"
-                    required="required"
-                    name="billingAddress"
-                    value={input.billingAddress}
-                    onChange={(e) => handleInputChange(e)}
-                  />
-                  <div className="formControl">
-                    {error && error.billingAddress ? (
-                      <span style={{ color: "red" }}>
-                        {error.billingAddress}
-                      </span>
-                    ) : null}
-                  </div>
-                </div>
-              </div>
               <div className="mb-2 text-center">
                 <input
                   onClick={handleSignIn}
@@ -249,10 +190,8 @@ const SignIn = ({ setIsOpen, setOpen }) => {
                 </p>
               </div>
             </form>
-          </div>
-        </div>
-      </div>
-    </div>
+
+      
   );
 };
 

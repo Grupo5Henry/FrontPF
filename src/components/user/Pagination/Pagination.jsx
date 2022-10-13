@@ -1,3 +1,6 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable array-callback-return */
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { useDispatch, useSelector } from "react-redux";
 import { updateFilter } from "../../../redux/action";
 
@@ -12,7 +15,7 @@ const Pagination = () => {
 
   return (
     <nav aria-label="Page navigation example">
-      <ul className="inline-flex -space-x-px">
+      <ul className="inline-flex -space-x-px w-full justify-center">
         <li key="Prev">
           <a
             href="#"
