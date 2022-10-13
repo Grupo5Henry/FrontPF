@@ -38,6 +38,7 @@ const LogIn = ({ setIsOpen, setOpen }) => {
                 userName: response.userName,
                 role: response.role,
                 defaultShippingAddress: response.defaultShippingAddress,
+                billingAddres: response.billingAddres,
                 logged: true,
               })
             );

@@ -227,7 +227,7 @@ export const getReview = (id) => {
   return async (dispatch) => {
     try {
       const review = await axios.get(
-        `https://backpf-production.up.railway.app/review/ID/${id}`
+        `${BACK_URL}/review/ID/${id}`
       );
       dispatch({
         type: GET_REVIEW,
