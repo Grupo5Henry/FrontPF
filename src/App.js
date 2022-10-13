@@ -26,6 +26,7 @@ import ListProducts from "./components/Admin/ListProducts/ListProducts.jsx";
 import CreateBrand from "./components/Admin/CreateBrand/CreateBrand.jsx";
 import NewProduct from "./components/Admin/NewProduct/NewProduct.jsx";
 import FixProduct from "./components/Admin/FixProduct/FixProduct.jsx";
+import AdminProductDetail from "./components/Admin/AdminProductDetail/AdminProductDetail";
 
 import Footer1 from "./components/user/Footer/Footer";
 
@@ -48,7 +49,11 @@ function App() {
             <Route exact path="/createProduct" element={<NewProduct />} />
             <Route exact path="/modifyProduct/:id" element={<FixProduct />} />
             <Route exact path="/orders" element={<Ordenes />} />
-            <Route exact path="/products/detail/:id" element={<AdminProductDetail />} />  
+            <Route
+              exact
+              path="/products/detail/:id"
+              element={<AdminProductDetail />}
+            />
             <Route
               exact
               path="/createBrand-Category"
