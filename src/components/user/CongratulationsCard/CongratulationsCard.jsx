@@ -13,42 +13,43 @@ export const CongratulationsCard = () => {
   var dispatch = useDispatch();
   var { shippingAddress } = localStorage;
 
-  useEffect(() => {
-    if (user.userName && !cart.length) {
-      dispatch(getCart(user.userName));
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (user.userName && !cart.length) {
+  //     dispatch(getCart(user.userName));
+  //   }
+  // }, [user]);
 
-  useEffect(() => {
-    if (cart.length) {
-      var orderNumber = "";
-      async function ordenes() {
-        for (let i = 0; i < cart.length; i++) {
-          if (!i) {
-            try {
-              var { data } = await axios.get(
-                `${BACK_URL}/order/largestOrderNumber`
-              );
-              orderNumber = data.length ? Number(data[0].orderNumber + 1) : 1;
-            } catch (error) {
-              console.error("No se pudo traer el nro de orden mas alto");
-            }
-          }
-          reduceStock(cart[i].productId, cart[i].product.stock, cart[i].amount);
-          CreateOrder({
-            productId: cart[i].productId,
-            userName: user.userName,
-            orderNumber,
-            shippingAddress,
-            amount: cart[i].amount,
-          });
-        }
-        clearCart(user.userName);
-      }
-      ordenes();
-      localStorage.removeItem("shippingAddress");
-    }
-  }, [cart]);
+  // useEffect(() => {
+  //   if (cart.length && shippingAddress) {
+  //     var orderNumber = "";
+  //     async function ordenes() {
+  //       for (let i = 0; i < cart.length; i++) {
+  //         if (!i) {
+  //           try {
+  //             var { data } = await axios.get(
+  //               `${BACK_URL}/order/largestOrderNumber`
+  //             );
+  //             orderNumber = data.length ? Number(data[0].orderNumber + 1) : 1;
+  //           } catch (error) {
+  //             console.error("No se pudo traer el nro de orden mas alto");
+  //           }
+  //         }
+  //         reduceStock(cart[i].productId, cart[i].product.stock, cart[i].amount);
+  //         CreateOrder({
+  //           productId: cart[i].productId,
+  //           userName: user.userName,
+  //           orderNumber,
+  //           shippingAddress,
+  //           amount: cart[i].amount,
+  //         });
+  //       }
+  //       clearCart(user.userName);
+  //     }
+  //     ordenes();
+  //     localStorage.removeItem("shippingAddress");
+  //     console.log("una vez");
+  //   }
+  // }, [cart]);
 
   // }
 

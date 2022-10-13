@@ -23,9 +23,9 @@ const LogIn = ({ setIsOpen, setOpen }) => {
   };
 
   const handleLogin = async (e) => {
-    if(!userName || !password){
-      toast('Faltan campos por completar');
-  }
+    if (!userName || !password) {
+      toast("Faltan campos por completar");
+    }
     if (userName && password) {
       e.preventDefault();
       try {
@@ -38,7 +38,7 @@ const LogIn = ({ setIsOpen, setOpen }) => {
                 userName: response.userName,
                 role: response.role,
                 defaultShippingAddress: response.defaultShippingAddress,
-                billingAddres: response.billingAddres,
+                billingAddress: response.billingAddress,
                 logged: true,
               })
             );

@@ -147,7 +147,7 @@ const Details = () => {
                     </button>
                   </div>
                   <div className="mt-7">
-                    <div className="inline-block align-bottom">
+                    {/* <div className="inline-block align-bottom">
                       <button
                         className="bg-[#4F46E5] opacity-75 hover:opacity-100 text-gray-400 hover:text-gray-600 rounded-full px-10 py-2 font-semibold"
                         onClick={async () => {
@@ -160,7 +160,7 @@ const Details = () => {
                           }
                           try {
                             const url = await axios.post(
-                              `${BACK_URL}/checkout`,
+                              `${BACK_URL}/stripe/checkout`,
                               { productId: detail.id },
                               {
                                 headers: { "Content-Type": "application/json" },
@@ -175,7 +175,7 @@ const Details = () => {
                       >
                         Buy Now
                       </button>
-                    </div>
+                    </div> */}
                     <div className="inline-block align-bottom">
                       <IconButton
                         aria-label="Add to cart"
