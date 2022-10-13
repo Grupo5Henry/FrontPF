@@ -414,13 +414,9 @@ export function UpdateUserDefaultAddress(obj) {
 
 
 export function BorrarDelCarrito(productId,userName){
-  return function(dispatch){
-    if(userName){
-      return axios.delete(`${BACK_URL}/cart/delete`,{data: {productId, userName }})
+  return function(dispatch){ 
+     axios.delete(`${BACK_URL}/cart/delete`,{data: {productId, userName }})
       .then(() => {console.log(userName); dispatch(getCart(userName))})
       .catch(err => console.log(err))
-    }
-    
-
   }
 }
