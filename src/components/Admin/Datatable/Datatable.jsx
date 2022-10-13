@@ -99,9 +99,9 @@ export default function Datatable() {
 
   //USE EFFECTS
 
-  useEffect(() => {
-    dispatch(getAllUsers());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getAllUsers());
+  // }, [dispatch]);
 
   //CONTROL DE BOTONES
   //ADMIN

@@ -26,7 +26,7 @@ export const GET_REVIEW = "GET_REVIEW";
 export const RESET_DETAIL = "RESET_DETAIL";
 export const UPDATE_CART = "UPDATE_CART";
 export const GET_CART = "GET_CART";
-export const DELETE_PRODUCT_CARRITO = "DELETE_PRODUCT_CARRITO"
+export const DELETE_PRODUCT_CARRITO = "DELETE_PRODUCT_CARRITO";
 
 export const RESET_FILTER = "RESET_FILTER";
 export const UPDATE_FILTER = "UPDATE_FILTER";
@@ -227,9 +227,7 @@ export function getCategories() {
 export const getReview = (id) => {
   return async (dispatch) => {
     try {
-      const review = await axios.get(
-        `${BACK_URL}/review/ID/${id}`
-      );
+      const review = await axios.get(`${BACK_URL}/review/ID/${id}`);
       dispatch({
         type: GET_REVIEW,
         payload: review.data,
@@ -262,9 +260,7 @@ export function deleteAllReviews() {
 
 export function getAllProducts() {
   return async function (dispatch) {
-    fetch(
-      `${BACK_URL}/product//itemsPerPage?amount=3000`
-    )
+    fetch(`${BACK_URL}/product//itemsPerPage?amount=3000`)
       .then((response) => response.json())
       .then((adminProducts) => {
         dispatch({
@@ -307,17 +303,22 @@ export function getAllOrders() {
                   amount: orderInstance.amount,
                   productId: orderInstance.productId,
                   price: orderInstance.product.price,
+                  name: orderInstance.product.name,
+                  thumbnail: orderInstance.product.thumbnail,
                 },
               ]
             : [
                 orderNumber,
-                orderInstance.shippingAddress,
                 orderInstance.status,
+                orderInstance.userName,
+                orderInstance.shippingAddress,
                 date,
                 {
                   amount: orderInstance.amount,
                   productId: orderInstance.productId,
                   price: orderInstance.product.price,
+                  name: orderInstance.product.name,
+                  thumbnail: orderInstance.product.thumbnail,
                 },
               ];
           return orderInstance;
@@ -412,15 +413,16 @@ export function UpdateUserDefaultAddress(obj) {
   };
 }
 
-
-export function BorrarDelCarrito(productId,userName){
-  return function(dispatch){
-    if(userName){
-      return axios.delete(`${BACK_URL}/cart/delete`,{data: {productId, userName }})
-      .then(() => {console.log(userName); dispatch(getCart(userName))})
-      .catch(err => console.log(err))
+export function BorrarDelCarrito(productId, userName) {
+  return function (dispatch) {
+    if (userName) {
+      return axios
+        .delete(`${BACK_URL}/cart/delete`, { data: { productId, userName } })
+        .then(() => {
+          console.log(userName);
+          dispatch(getCart(userName));
+        })
+        .catch((err) => console.log(err));
     }
-    
-
-  }
+  };
 }

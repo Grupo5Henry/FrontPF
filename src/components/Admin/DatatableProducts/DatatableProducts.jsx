@@ -10,13 +10,12 @@ export default function DatatableProducts() {
   const productos = useSelector((state) => state.adminProducts);
   const dispatch = useDispatch();
 
-
-  useEffect(() => {
-    dispatch(getAllProducts());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getAllProducts());
+  // }, [dispatch]);
 
   const columns = [
-    { field: 'id', headerName: "ID", width: 300 },
+    { field: "id", headerName: "ID", width: 300 },
     {
       field: "thumbnail",
       headerName: "Imagen",

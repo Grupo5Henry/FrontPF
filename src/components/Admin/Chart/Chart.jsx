@@ -61,9 +61,7 @@ export default function Chart() {
   const userState = useSelector((state) => state.user);
 
   /* console.log("SOY OREDERS", orders) */
-  const ordenado = orders.sort(
-    (a, b) => Date(a[3]).getMonth > Date(b[3]).getMonth
-  );
+
   /* console.log("SOY ORDENADO", ordenado) */
   /* const monto = ordenado */
   /*   const ordenprueba = ordenado[3].getMonth
@@ -74,28 +72,13 @@ export default function Chart() {
 
   //USE EFFECTS
 
-  useEffect(() => {
-    dispatch(getAllOrders());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getAllOrders());
+  // }, []);
 
-  //MANEJO DE FECHAS
-  /*   let fechas = {
-    enero: [],
-    febrero: [],
-    marzo: [],
-    abril: [],
-    mayo: [],
-    junio: [],
-    julio: [],
-    agosto: [],
-    septiembre: [],
-    octubre: [],
-    noviembre: [],
-    diciembre: [],
-  }
-  for(let i = 0; i < ordenado.length; i++) {
-    ordenado[i][3]
-  } */
+  // const ordenado = orders.sort(
+  //   (a, b) => Date(a[3]).getMonth > Date(b[3]).getMonth
+  // );
 
   return (
     <div className="chart">

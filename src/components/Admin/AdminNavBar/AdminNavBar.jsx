@@ -5,17 +5,30 @@ import EmailIcon from "@mui/icons-material/Email";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import HomeIcon from "@mui/icons-material/Home";
 import { Link } from "react-router-dom";
-import { userState } from "../../../redux/action";
+import {
+  getAllOrders,
+  getAllProducts,
+  getAllUsers,
+  userState,
+} from "../../../redux/action";
 import { useDispatch, useSelector } from "react-redux";
 import authHeader from "../../../services/auth-header";
 import AuthService from "../../../services/auth.service";
 import axios from "axios";
 
 export default function AdminNavBar() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllOrders());
+    dispatch(getAllProducts());
+    dispatch(getAllUsers());
+  }, [dispatch]);
+
   return (
     <div className="adminNavBar">
       <div className="wrapper">
-{/*         <div className="search">
+        {/*         <div className="search">
           <input type="text" placeholder="Buscar..." />
           <SearchSharpIcon className="icon" />
         </div> */}
