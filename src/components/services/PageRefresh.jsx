@@ -13,9 +13,9 @@ const PageRefresh = () =>{
     if(!user){
       dispatch(updateUserState({
         role: "desconocido",
-        defaultShippingAddress: "desconocido",
+        /* defaultShippingAddress: "desconocido",
         userName: "desconocido",
-        logged: false,
+        logged: false, */
       }))
     }
   }, [dispatch]);
