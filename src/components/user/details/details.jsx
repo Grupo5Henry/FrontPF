@@ -1,5 +1,6 @@
 import { AddShoppingCart, Favorite, FavoriteBorder } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
+import { Link } from 'react-router-dom'
 import axios from "axios";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -39,8 +40,11 @@ const Details = () => {
 
   return (
     <div>
-      {!detail.id ? (
+      {
+      detail.stock && detail.stock !== 0 ? <Link to ='/home'><div style = {{color: 'red'}}>El producto no esta disponible </div></Link>:
+      !detail.id ? (
         <div className="h-screen bg-white">
+          <div style = {{color: 'red'}}>Cantidad de productos en tienda: {detail.stock}</div>
           <div className="flex justify-center items-center h-full">
             <img
               className="h-16 w-16"
@@ -232,7 +236,8 @@ const Details = () => {
             </div>
           </div>
         </div>
-      )}
+      )
+          }
     </div>
   );
 };
