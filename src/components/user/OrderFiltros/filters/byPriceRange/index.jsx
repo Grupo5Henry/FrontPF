@@ -30,12 +30,12 @@ export default function ByPriceRange() {
   }
 
   return (
-    <div style={{ position: "relative" }}>
+    <div style={{ position: "relative", margin:'3px'}}>
       <button
         onClick={() => setState(state ? false : true)}
         style={{ marginBottom: state ? "50px" : "0" }}
       >
-        {state ? "<" : "Price"}
+        {state ? "<" : <div className="filter" >Rango de precios</div>}
       </button>
       <form
         onSubmit={(e) => onSub(e)}
@@ -45,7 +45,7 @@ export default function ByPriceRange() {
           top: "30px",
         }}
       >
-        <input
+        <input style={{borderRadius: '10px',borderBlockColor: '#ff30004f',margin: '3px'}}
           type="number"
           placeholder="Min"
           name="minPrice"
@@ -53,7 +53,7 @@ export default function ByPriceRange() {
           value={rango.minPrice}
           onClick={e => e.target.value? setRango({...rango,minPrice: ""}) : null}
         />
-        <input
+        <input style={{borderRadius: '10px',borderBlockColor: '#ff30004f',margin: '3px'}}
           type="number"
           placeholder="Max"
           name="maxPrice"

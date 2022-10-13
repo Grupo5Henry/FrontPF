@@ -18,8 +18,8 @@ export default function ByBrand({ actual }) {
   var dispatch = useDispatch();
 
   return (
-    <>
-      <select
+    
+      <select style = {{ margin: '3px',color: 'rgb(85, 29, 29)', borderRadius:'10px',backgroundColor:'rgba(215, 123, 13, 0.11'}}
         value={filter.brand}
         onChange={(e) => {
           if(filter.search) dispatch(resetFilter());
@@ -27,12 +27,11 @@ export default function ByBrand({ actual }) {
         }
         }
       >
-        <option hidden>Brand</option>
+        <option hidden><div className="filter">Brand</div></option>
         {actual ? <option value={""}>All the brands</option> : null}
         {brands.map((b, i) => (
           <option key={i}>{b.brand}</option>
         ))}
       </select>
-    </>
   );
 }

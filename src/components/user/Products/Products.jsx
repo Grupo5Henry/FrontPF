@@ -6,8 +6,8 @@ import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
 import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
+import './products.css'
 import accounting from "accounting";
-import axios from "axios";
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -62,14 +62,13 @@ function Products() {
 
   return (
     <div>
-      <button
+      <button style = {{margin: '3px'}}
         onClick={() => {
           if (filter.stock == 0) return dispatch(updateFilter({ stock: 1 }));
           dispatch(updateFilter({ stock: 0 }));
         }}
       >
-        {" "}
-        No mostrar productos agotados{" "}
+        <div className="filter1">No mostrar productos agotados</div>
       </button>
       {
         !products.length? 
