@@ -41,10 +41,9 @@ const Details = () => {
   return (
     <div>
       {
-      detail.stock && detail.stock !== 0 ? <Link to ='/home'><div style = {{color: 'red'}}>El producto no esta disponible </div></Link>:
+        detail.stock === 0 ? <Link to ='/home'><div style = {{color: 'red'}}>El producto no esta disponible </div></Link>:
       !detail.id ? (
         <div className="h-screen bg-white">
-          <div style = {{color: 'red'}}>Cantidad de productos en tienda: {detail.stock}</div>
           <div className="flex justify-center items-center h-full">
             <img
               className="h-16 w-16"
@@ -60,6 +59,8 @@ const Details = () => {
               <div className="md:flex items-center -mx-10">
                 <div className="w-full md:w-1/2 px-10 mb-10 md:mb-0">
                   <div className="relative">
+                   <div style = {{color: 'red', backgroundColor: '#0000004d', textAlign: 'center', borderRadius:'10px'
+                   }}>Cantidad de productos en tienda: {detail.stock}</div>
                     <img
                       src={detail.thumbnail}
                       className="w-full relative "

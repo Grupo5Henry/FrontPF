@@ -84,6 +84,8 @@ function Cart() {
           cart.map((product) => {
             let detail = product.product;
             return (
+              <>
+               <div style= {{color: 'red',backgroundColor: '#0000004d', textAlign: 'center', borderRadius:'10px'}}>Cantidad de productos en tienda: {favorites[0].product.stock}</div>
               <a
                 key={`cart${detail.id}`}
                 href="#"
@@ -154,6 +156,7 @@ function Cart() {
                   </NumberInput>
                 </CardActions>
               </a>
+              </>
 
               // <div key={`cart${detail.id}`} className="group group-hover:bg-opacity-60 transition duration-500 relative bg-gray-50 sm:p-28 py-36 px-10 flex justify-center items-center">
               //   <img

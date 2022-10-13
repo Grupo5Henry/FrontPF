@@ -1,4 +1,4 @@
-import { AddShoppingCart, Favorite } from "@mui/icons-material";
+import { AddShoppingCart, Favorite, FavoriteBorderSharp } from "@mui/icons-material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -62,9 +62,11 @@ function Favorites() {
           favorites.map((product) => {
             product = product.product;
             return (
+              <>
+              <div style= {{color: 'red',backgroundColor: '#0000004d', textAlign: 'center', borderRadius:'10px'}}>Cantidad de productos en tienda: {favorites[0].product.stock}</div>
               <div
-                key={`fav${product.id}`}
-                className="group group-hover:bg-opacity-60 transition duration-500 relative bg-gray-50 sm:p-28 py-36 px-10 flex justify-center items-center"
+              key={`fav${product.id}`}
+              className="group group-hover:bg-opacity-60 transition duration-500 relative bg-gray-50 sm:p-28 py-36 px-10 flex justify-center items-center"
               >
                 <img
                   className="group-hover:opacity-60 transition duration-500"
@@ -146,6 +148,7 @@ function Favorites() {
                   </Collapse>
                 </div>
               </div>
+              </>
             );
           })}
       </div>
@@ -154,6 +157,7 @@ function Favorites() {
       
     </div>
   );
+
 }
 
 export default Favorites;
