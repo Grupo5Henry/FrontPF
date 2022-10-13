@@ -73,20 +73,67 @@
     height: 20%;
   }
 
-  @media  (max-width: 500px){
-    .content-box{
-      width: 100%;
-    }
+
+  .mega-menu {
+    display: none;
+    left: 0;
+    position: absolute;
+    text-align: left;
+    width: 100%;
   }
 
-  @media  (max-width: 600px){
-    .content-box{
-      width: 50%;
-    }
+
+
+  /* #hoverable Class Styles
+  –––––––––––––––––––––––––––––––––––––––––––––––––– */
+  .hoverable {
+    position: static;
   }
 
-  @media  (max-width: 1000px){
-    .content-box{
-      width: 70%;
-    }
+  .hoverable > a:after {
+    content: "\25BC";
+    font-size: 10px;
+    padding-left: 6px;
+    position: relative;
+    top: -1px;
+  }
+
+  .hoverable:hover .mega-menu {
+    display: block;
+  }
+
+
+  /* #toggle Class Styles
+  –––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+  .toggleable > label:after {
+    content: "\25BC";
+    font-size: 10px;
+    padding-left: 6px;
+    position: relative;
+    top: -1px;
+  }
+
+  .toggle-input {
+    display: none;
+  }
+  .toggle-input:not(checked) ~ .mega-menu {
+    display: none;
+  }
+
+  .toggle-input:checked ~ .mega-menu {
+    display: block;
+  }
+
+  .toggle-input:checked + label {
+    color: white;
+    background: #2c5282; /*@apply bg-blue-800 */
+  }
+
+  .toggle-input:checked ~ label:after {
+    content: "\25B2";
+    font-size: 10px;
+    padding-left: 6px;
+    position: relative;
+    top: -1px;
   }

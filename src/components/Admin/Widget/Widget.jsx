@@ -24,8 +24,7 @@ export default function Widget({ type }) {
 
   const totalUsers = users.length;
 
-  const lastComment = reviews[reviews.length - 1]
-  
+  const lastComment = reviews[reviews.length - 1];
 
   // Earnings/Ingresos
   let earnings = 0;
@@ -44,23 +43,19 @@ export default function Widget({ type }) {
     dispatch(getAllReviews());
     dispatch(getAllUsers());
     dispatch(getAllOrders());
-  /*   dispatch(deleteAllReviews()); */
+    /*   dispatch(deleteAllReviews()); */
   }, [dispatch]);
 
-
   //FILTROS Y CONTADORES
-  // let obj = {};
-  // ordersSorted.map((order)=> {
-  //     obj[order.orderNumber] = obj[order.orderNumber] ? [... obj[order.orderNumber]] : [];
-  //      obj[order.orderNumber].push([order.orderNumber, order.shippingAddress, order.amount, order.productId, order.userName])      })
+  const [orderPage, setOrderPage] = useState(1);
 
-  // let counterOrder = []
-  // for(let element in obj){
-  //     counterOrder.push(element)
-  // }
-  const pendingOrder = orders.filter((order) => order[2] === "Pending");
+  const [pendingOrder, setPendingOrders] = useState({
+    title: "Esperando pago",
+    content: false,
+  });
 
   let data = {};
+
   //TEMPORAL
 
   switch (type) {
@@ -75,12 +70,57 @@ export default function Widget({ type }) {
       };
       break;
     case "order":
+      const toggleOrders = () => {
+        const states = [
+          {
+            title: "Esperando pago",
+            content: orders.filter((order) => order[2] === "PaymentPending")
+              .length,
+          },
+          {
+            title: "Siendo procesadas",
+            content: orders.filter(
+              (order) => order[2] === "PaidPendingDelivery"
+            ).length,
+          },
+          {
+            title: "Canceladas",
+            content: orders.filter((order) => order[2] === "Cancelled").length,
+          },
+          {
+            title: "En ruta",
+            content: orders.filter((order) => order[2] === "InDelivery").length,
+          },
+          {
+            title: "Entregadas",
+            content: orders.filter((order) => order[2] === "Delivered").length,
+          },
+        ];
+
+        setPendingOrders(states[orderPage % 5]);
+      };
+
+      const initial = orders.filter(
+        (order) => order[2] === "PaymentPending"
+      ).length;
+
       data = {
-        title: "ORDENES PENDIENTES",
+        title: pendingOrder
+          ? `ORDENES: \n \n ${pendingOrder.title}`
+          : "Cargando...",
         isMoney: false,
-        content: pendingOrder.length,
+        content:
+          pendingOrder.content !== false ? pendingOrder.content : initial,
         link: "Ver todos las ordenes",
-        icon: <ShoppingCartIcon className="icon" />,
+        icon: (
+          <ShoppingCartIcon
+            className="icon"
+            onClick={() => {
+              setOrderPage(orderPage + 1);
+              toggleOrders();
+            }}
+          />
+        ),
         linker: "/orders",
       };
       break;
@@ -100,9 +140,9 @@ export default function Widget({ type }) {
         title: "ÚLTIMO COMENTARIO",
         isMoney: true,
         content: lastComment ? lastComment.description : "Cargando...",
-        link: "",
+        link: "Ver detalle",
         icon: <CommentIcon className="icon" />,
-        linker: "/",
+        linker: lastComment ? `/products/detail/${lastComment.productId}` : "/",
       };
       break;
     default:

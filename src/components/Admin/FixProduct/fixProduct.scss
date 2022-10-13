@@ -85,13 +85,13 @@
                 
                 display: flex;
                 justify-content: space-between;
-                margin-left: 19%;
-                margin-right: 19%;
-                width: 100%;
+                margin-left: 2%;
+                margin-right: 0%;
+                width: 50%;
 
                 
             }
-            .buttonModify, .buttonCancel{
+            .buttonModify, .modalButton, .buttonCancel{
                 width: 150px;
                 padding: 15px;
                 border: none;
@@ -107,6 +107,8 @@
             }
             .buttonModify{
                 margin-right: 0%;
+                margin-left: 80.6%;
+                margin-bottom: 30px;
             }
         }
     }
