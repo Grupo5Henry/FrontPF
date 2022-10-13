@@ -15,8 +15,11 @@ export default function DirectionForm() {
   var dispatch = useDispatch();
 
   var [state, setState] = useState({
-    shipping: user.defaultShippingAddress,
-    billing: false,
+    shipping:
+      user.defaultShippingAddress === "from google"
+        ? false
+        : user.defaultShippingAddress,
+    billing: user.billing === "from google" ? false : user.billingAddress,
   });
 
   var [direction, setDirection] = useState({
@@ -145,7 +148,7 @@ export default function DirectionForm() {
       </h1>
       <select
         onChange={(e) => {
-          setState({ shipping: e.target.value });
+          setState({ ...state, shipping: e.target.value });
           if (e.target.value) {
             setPorDefecto({ shipping: false });
           }
@@ -286,7 +289,7 @@ export default function DirectionForm() {
       </h1>
       <select
         onChange={(e) => {
-          setState({ billing: e.target.value });
+          setState({ ...state, billing: e.target.value });
           if (e.target.value) {
             setPorDefecto({ billing: false });
           }
