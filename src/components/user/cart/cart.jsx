@@ -30,7 +30,7 @@ import {
   setFavorite,
   unSetFavorite,
 } from "../../../Controllers/Favorite";
-import { getCart, getFavorites } from "../../../redux/action";
+import { BorrarDelCarrito, getCart, getFavorites } from "../../../redux/action";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -84,8 +84,11 @@ function Cart() {
           cart.map((product) => {
             let detail = product.product;
             return (
-              <a
-                key={`cart${detail.id}`}
+              <div key={`cart${detail.id}`}>
+                <div style={{border:"solid red 1px",position:"relative",display:"flex",justifyContent:"flex-end"}}>
+                    <button onClick={() => dispatch(BorrarDelCarrito(product.productId,userState.userName))} style={{position:"absolute",zIndex:"50",border:"solid blue 2px",padding:"2px 7px",margin:"3px"}}>X</button>
+                </div>
+                <a
                 href="#"
                 className="flex flex-col items-center bg-white rounded-lg border shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
               >
@@ -154,6 +157,8 @@ function Cart() {
                   </NumberInput>
                 </CardActions>
               </a>
+              </div>
+              
 
               // <div key={`cart${detail.id}`} className="group group-hover:bg-opacity-60 transition duration-500 relative bg-gray-50 sm:p-28 py-36 px-10 flex justify-center items-center">
               //   <img
