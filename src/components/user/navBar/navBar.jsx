@@ -61,7 +61,7 @@ const NavBar = () => {
     };
     user !== "undefined" && delayedTokenCheck(user);
 
-    getUser(setUsuario, usuario);
+    getUser(setUsuario, usuario, dispatch);
   }, [refresher, dispatch]);
 
   const handleLogOut = () => {

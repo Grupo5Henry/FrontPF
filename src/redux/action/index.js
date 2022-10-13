@@ -227,7 +227,7 @@ export const getReview = (id) => {
   return async (dispatch) => {
     try {
       const review = await axios.get(
-        `https://backpf-production.up.railway.app/review/ID/${id}`
+        `${BACK_URL}/review/ID/${id}`
       );
       dispatch({
         type: GET_REVIEW,
@@ -400,7 +400,7 @@ export function reduceStock(id, stock, amount) {
 export function UpdateUserDefaultAddress(obj) {
   return function (dispatch) {
     axios
-      .put(`${BACK_URL}/user/newShippingAddress`, obj)
+      .put(`${BACK_URL}/user/newAddress`, obj)
       .then(() =>
         dispatch({
           type: NEW_SHIPPING_ADDRESS,
