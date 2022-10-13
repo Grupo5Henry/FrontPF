@@ -12,7 +12,7 @@ import Favorites from "./components/user/favorites/favorites";
 // import History from "./components/user/history/history";
 import Cart from "./components/user/cart/cart";
 import Error from "./components/user/error/error";
-import CreateProduct from "./components/user/CreateProduct/CreateProduct";
+
 import { useSelector } from "react-redux";
 import DirectionForm from "./components/user/formDirection";
 import { CongratulationsCard } from "./components/user/CongratulationsCard/CongratulationsCard";
@@ -26,6 +26,7 @@ import ListProducts from "./components/Admin/ListProducts/ListProducts.jsx";
 import CreateBrand from "./components/Admin/CreateBrand/CreateBrand.jsx";
 import NewProduct from "./components/Admin/NewProduct/NewProduct.jsx";
 import FixProduct from "./components/Admin/FixProduct/FixProduct.jsx";
+import AdminProductDetail from "./components/Admin/AdminProductDetail/AdminProductDetail";
 
 import Footer1 from "./components/user/Footer/Footer";
 
@@ -48,6 +49,11 @@ function App() {
             <Route exact path="/createProduct" element={<NewProduct />} />
             <Route exact path="/modifyProduct/:id" element={<FixProduct />} />
             <Route exact path="/orders" element={<Ordenes />} />
+            <Route
+              exact
+              path="/products/detail/:id"
+              element={<AdminProductDetail />}
+            />
             <Route
               exact
               path="/createBrand-Category"
@@ -77,7 +83,6 @@ function App() {
             {/* <Route exact path="/home/log-in" element={<LogIn />} /> */}
             {/* <Route exact path="/home/sign-in" element={<SignIn />} /> */}
             <Route exact path="/home/detail/:id" element={<Details />} />
-            <Route exact path="/createProduct" element={<CreateProduct />} />
             <Route exact path="/congrats" element={<CongratulationsCard />} />
             {/* {!userState.logged ? (
               <Route exact path="/home/sign-in" element={<SignIn />} />

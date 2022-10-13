@@ -10,15 +10,15 @@ const PageRefresh = () => {
     const user = JSON.parse(localStorage.getItem("user"));
 
     user && tokenCheck(dispatch);
-    if (!user) {
-      dispatch(
-        updateUserState({
-          role: "desconocido",
-          defaultShippingAddress: "desconocido",
-          userName: false,
-          logged: false,
-        })
-      );
+
+    if(!user){
+      dispatch(updateUserState({
+        role: "desconocido",
+        /* defaultShippingAddress: "desconocido",
+        userName: "desconocido",
+        logged: false, */
+      }))
+
     }
   }, [dispatch]);
 

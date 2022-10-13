@@ -11,15 +11,18 @@ import {
   clearCartStore,
   getCart,
   getFavorites,
+  resetFilter,
+  updateFilter,
   updateUserState,
 } from "../../../redux/action";
 import authHeader from "../../../services/auth-header";
 import AuthService from "../../../services/auth.service";
 import getUser from "../../../services/google-login";
 import tokenCheck from "../../../services/token-check";
+import Alert from "../alert/alert";
 
 // import { Link } from "react-router-dom";
-// import { Icon } from "@iconify/react";
+import { Icon } from "@iconify/react";
 import LogIn from "../logIn/logIn";
 import SearchBar from "../searchBar/searchBar.jsx";
 import SignIn from "../signIn/signIn";
@@ -42,8 +45,12 @@ const NavBar = () => {
   const favorites = useSelector((state) => state.favorites);
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+
+  ////////////////modales///////////////////////
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [modalOpen, setOpen] = React.useState(false);
+  const [openAlert, setOpenAlert] = React.useState(false);
+//////////////////////////////////////////////
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -61,7 +68,7 @@ const NavBar = () => {
     };
     user !== "undefined" && delayedTokenCheck(user);
 
-    getUser(setUsuario, usuario);
+    getUser(setUsuario, usuario, dispatch);
   }, [refresher, dispatch]);
 
   const handleLogOut = () => {
@@ -81,6 +88,15 @@ const NavBar = () => {
   const checkCookie = () => {
     window.open(`${BACK_URL}/auth/checkCookie`, "_self");
   };
+
+  const onComp = (e) => {
+    dispatch(resetFilter());
+    dispatch(updateFilter({category: e}))
+  }
+  const onCell = (e) => {
+    dispatch(resetFilter());
+    dispatch(updateFilter({category: e}))
+  }
 
   React.useEffect(() => {
     dispatch(getFavorites(userState.userName));
@@ -126,12 +142,12 @@ const NavBar = () => {
             >
               Techno Trade
             </Link>
-            <ul className="navbar-nav flex flex-col pl-0 list-style-none mr-auto">
+            <ul className="navbar-nav justify-center items-center flex flex-col pl-0 list-style-none mr-auto">
               <li className="nav-item p-2">
-                <Link to={"/home"} className="nav-link text-white" href="#!">
-                  <IconButton>
-                    <HomeIcon fontSize="medium" color="primary" />
-                  </IconButton>
+                <Link to={"/home"}  className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0">
+                  
+                    Inicio
+                  
                 </Link>
               </li>
 
@@ -144,14 +160,45 @@ const NavBar = () => {
                 </Link>
               </li>
 
-              <li className="nav-item p-2">
-                <Link
-                  to={"/history"}
-                  className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"
-                >
-                  Historial
-                </Link>
-              </li>
+              <li class="hoverable hover:bg-blue-800 hover:text-white">
+            <a href="#" class="relative block py-2 px-4 lg:p-2 text-sm lg:text-base font-bold hover:bg-blue-800 hover:text-white">Categorias</a>
+            <div class="z-10 p-6 mega-menu w-8/12 mb-16 sm:mb-0 shadow-xl bg-blue-800">
+              <div class="container mx-auto w-full flex z-20 flex-wrap justify-between">
+                <div class="w-full text-white mb-8">
+                  <h2 class="font-bold text-2xl">Categorias</h2>
+                  <p>Puedes filtrar los productos por tu preferincia</p>
+                </div>
+                <ul class="px-4 w-full sm:w-1/2 lg:w-2/4 border-gray-600 border-b sm:border-r lg:border-b-0 pb-6 pt-6 lg:pt-3">
+                  <div class="flex items-center">
+                    <Icon icon="tabler:devices-pc" class="h-12 w-12 mb-3 mr-3 fill-current text-white"/>
+                    <h3 class="font-bold text-xl text-white text-bold mb-2">Computadoras</h3>
+                  </div>
+                  <p class="text-gray-100 text-sm">Monitores, CPUs, Accesorios y Mas...</p>
+                  <div class="flex items-center py-3">
+                    <svg class="h-6 pr-3 fill-current text-blue-300"
+                      xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                      <path d="M20 10a10 10 0 1 1-20 0 10 10 0 0 1 20 0zm-2 0a8 8 0 1 0-16 0 8 8 0 0 0 16 0zm-8 2H5V8h5V5l5 5-5 5v-3z"/>
+                    </svg>
+                    <button value='Computadoras' onClick={(e)=>onComp(e.target.value)} href="#" class="text-white bold border-b-2 border-blue-300 hover:text-blue-300">Ver...</button>
+                  </div>
+                </ul>
+                <ul class="px-4 w-full sm:w-1/2 lg:w-2/4 border-gray-600 border-b sm:border-r-0 lg:border-r lg:border-b-0 pb-6 pt-6 lg:pt-3">
+                  <div class="flex items-center">
+                  <Icon icon="clarity:mobile-phone-solid" class="h-12 w-12 mb-3 mr-3 fill-current text-white"/>
+                    <h3 class="font-bold text-xl text-white text-bold mb-2">Celulares</h3>
+                  </div>
+                  <p class="text-gray-100 text-sm">Samsung, Iphone, Xiaomi, Alcatel y Mas...</p>
+                  <div class="flex items-center py-3">
+                    <svg class="h-6 pr-3 fill-current text-blue-300"
+                      xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                      <path d="M20 10a10 10 0 1 1-20 0 10 10 0 0 1 20 0zm-2 0a8 8 0 1 0-16 0 8 8 0 0 0 16 0zm-8 2H5V8h5V5l5 5-5 5v-3z"/>
+                    </svg>
+                    <button value='Celulares' onClick={(e)=>onCell(e.target.value)} href="#" class="text-white bold border-b-2 border-blue-300 hover:text-blue-300">Ver...</button>
+                  </div>
+                </ul>
+              </div>
+            </div>
+          </li>
             </ul>
           </div>
           <div className="flex items-center relative">
@@ -160,8 +207,7 @@ const NavBar = () => {
               onClick={async () => {
                 dispatch(getCart(userState.userName));
                 if (!userState.logged) {
-                  window.location = `${FRONT_URL}/home/log-in`;
-                  alert("Debes estar registrado para realizar una compra");
+                  setOpenAlert(true)
                   return;
                 }
                 if (!cart.length) return alert("Carrito vacio");
@@ -321,6 +367,24 @@ const NavBar = () => {
                 </Modal>
               </div>
             )}
+            
+            <Modal
+        isOpen={openAlert}
+        onRequestClose={() => setOpenAlert(false)}
+        overlayClassName={{
+          base: "overlay-base",
+          afterOpen: "overlay-after",
+          beforeClose: "overlay-before",
+        }}
+        className={{
+          base: "content-base",
+          afterOpen: "content-after",
+          beforeClose: "content-before",
+        }}
+        closeTimeoutMS={500}
+      >
+        <Alert setOpenAlert={setOpenAlert} setIsOpen={setIsOpen} openAlert={openAlert}/>
+      </Modal>
           </div>
         </div>
       </nav>

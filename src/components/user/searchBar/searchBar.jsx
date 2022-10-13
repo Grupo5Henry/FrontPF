@@ -11,6 +11,8 @@ import {
 const SearchBar = () => {
   const [search, setSearch] = useState("");
   const [suggestions, setSuggestions] = useState([]);
+  const [empty, setEmpty] = useState(false);
+
 
   const allProductsName = useSelector((state) => state.allProductsName);
   const dispatch = useDispatch();
@@ -22,12 +24,18 @@ const SearchBar = () => {
   // console.log(allProductsName, "SearchBar");
 
   const onSubmit = (e) => {
-    e.preventDefault();
-    dispatch(resetFilter());
-    dispatch(searchProduct(search));
-
-    setSearch("");
-    setSuggestions([]);
+    if (search === '') {
+      e.preventDefault();
+      setEmpty(true)
+    }else{
+      e.preventDefault();
+      dispatch(resetFilter());
+      dispatch(searchProduct(search));
+  
+      setSearch("");
+      setSuggestions([]);
+      setEmpty(false)
+    }
   };
 
   const onClick = (s) => {
@@ -36,20 +44,26 @@ const SearchBar = () => {
   };
 
   const onchange = (e) => {
-    let matches = [];
-    if (e.length > 0) {
-      matches = allProductsName.filter((p) => {
-        const regex = new RegExp(`${e}`, "gi");
-        return p.name.match(regex);
-      });
+    if (e==='') {
+      setSearch(e);
+      setSuggestions([]);
+    }else{
+      let matches = [];
+      if (e.length > 0) {
+        matches = allProductsName.filter((p) => {
+          const regex = new RegExp(`${e}`, "gi");
+          return p.name.match(regex);
+        });
+      }
+  
+      // console.log('matches', matches, "SearchBar")
+  
+      setSuggestions(matches);
+  
+      setSuggestions(matches.slice(0, 10));
+      setSearch(e);
+      setEmpty(false)
     }
-
-    // console.log('matches', matches, "SearchBar")
-
-    setSuggestions(matches);
-
-    setSuggestions(matches.slice(0, 10));
-    setSearch(e);
   };
   // console.log(suggestions)
 
@@ -71,9 +85,16 @@ const SearchBar = () => {
           type="text"
           name="text"
           placeholder="¿Qué estás buscando?"
-          className="bg-transparent py-2 text-gray-600 px-4 focus:outline-none w-full"
+
+          className={empty === false ? "bg-transparent py-2 text-gray-600 px-4 rounded focus:outline-none w-full":"w-full text-gray-600 bg-transparent rounded focus:outline-none py-2 px-4 border-red-500"}
         />
       </form>
+      {
+        empty === true ? <span class="absolute top-28 flex font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+        No hay prductos que coincidan con tu búsqueda. 
+      </span>:
+      null
+      }
       {suggestions ? (
         <div style={{width:"100%"}} className="flex justify-center relative">
 

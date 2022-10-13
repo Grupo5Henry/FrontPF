@@ -17,6 +17,7 @@ const tokenCheck = async (dispatch) => {
           role: tokenStatus.data.role,
           defaultShippingAddress: tokenStatus.data.defaultShippingAddress,
           userName: tokenStatus.data.userName,
+          billingAddress: tokenStatus.data.billingAddress,
           logged: true,
         })
       );
@@ -45,6 +46,7 @@ const tokenRefresh = async (dispatch) => {
           userName: tokenStatus.userName,
           role: tokenStatus.role,
           defaultShippingAddress: tokenStatus.defaultShippingAddress,
+          billingAddress: tokenStatus.billingAddress,
           logged: true,
         })
       );
