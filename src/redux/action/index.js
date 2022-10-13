@@ -26,6 +26,7 @@ export const GET_REVIEW = "GET_REVIEW";
 export const RESET_DETAIL = "RESET_DETAIL";
 export const UPDATE_CART = "UPDATE_CART";
 export const GET_CART = "GET_CART";
+export const DELETE_PRODUCT_CARRITO = "DELETE_PRODUCT_CARRITO"
 
 export const RESET_FILTER = "RESET_FILTER";
 export const UPDATE_FILTER = "UPDATE_FILTER";
@@ -409,4 +410,17 @@ export function UpdateUserDefaultAddress(obj) {
       )
       .catch((err) => console.log(err));
   };
+}
+
+
+export function BorrarDelCarrito(productId,userName){
+  return function(dispatch){
+    if(userName){
+      return axios.delete(`${BACK_URL}/cart/delete`,{data: {productId, userName }})
+      .then(() => {console.log(userName); dispatch(getCart(userName))})
+      .catch(err => console.log(err))
+    }
+    
+
+  }
 }
