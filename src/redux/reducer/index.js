@@ -49,6 +49,7 @@ const initialState = {
   user: {
     userName: null,
     defaultShippingAddress: null,
+    billingAddress: null,
     role: null,
     logged: false,
   },
@@ -181,7 +182,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         user: {
           ...state.user,
-          defaultShippingAddress: action.payload,
+          ...action.payload,
         },
       };
     case GET_REVIEW:
