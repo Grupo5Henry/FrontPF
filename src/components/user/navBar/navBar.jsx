@@ -10,6 +10,7 @@ import { BACK_URL, FRONT_URL } from "../../../constantes";
 import {
   clearCartStore,
   getCart,
+  getCategories,
   getFavorites,
   resetFilter,
   updateFilter,
@@ -27,6 +28,9 @@ import LogIn from "../logIn/logIn";
 import SearchBar from "../searchBar/searchBar.jsx";
 import SignIn from "../signIn/signIn";
 import "./navBar.css";
+import EmptyCart from "../alert/emptyCart";
+import OutStock from "../alert/outStock";
+import { getValue } from "@mui/system";
 
 Modal.setAppElement("#root");
 
@@ -43,6 +47,7 @@ const NavBar = () => {
 
   const userState = useSelector((state) => state.user);
   const favorites = useSelector((state) => state.favorites);
+  const categories = useSelector((state) => state.categories);
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
@@ -50,6 +55,8 @@ const NavBar = () => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [modalOpen, setOpen] = React.useState(false);
   const [openAlert, setOpenAlert] = React.useState(false);
+  const [openCart, setOpenCart] = React.useState(false);
+  const [openStock, setOpenStock] = React.useState(false);
 //////////////////////////////////////////////
 
   useEffect(() => {
@@ -92,15 +99,14 @@ const NavBar = () => {
   const onComp = (e) => {
     dispatch(resetFilter());
     dispatch(updateFilter({category: e}))
-  }
-  const onCell = (e) => {
-    dispatch(resetFilter());
-    dispatch(updateFilter({category: e}))
+    navigate('/home')
   }
 
   React.useEffect(() => {
     dispatch(getFavorites(userState.userName));
+    dispatch(getCategories())
   }, [userState]);
+
 
   return (
     <div className="box">
@@ -159,7 +165,6 @@ const NavBar = () => {
                   Equipo
                 </Link>
               </li>
-
               <li class="hoverable hover:bg-blue-800 hover:text-white">
             <a href="#" class="relative block py-2 px-4 lg:p-2 text-sm lg:text-base font-bold hover:bg-blue-800 hover:text-white">Categorias</a>
             <div class="z-10 p-6 mega-menu w-8/12 mb-16 sm:mb-0 shadow-xl bg-blue-800">
@@ -168,34 +173,23 @@ const NavBar = () => {
                   <h2 class="font-bold text-2xl">Categorias</h2>
                   <p>Puedes filtrar los productos por tu preferincia</p>
                 </div>
-                <ul class="px-4 w-full sm:w-1/2 lg:w-2/4 border-gray-600 border-b sm:border-r lg:border-b-0 pb-6 pt-6 lg:pt-3">
+              {
+                categories && categories.map((e,i)=>(
+                <ul key={i} class="px-4 w-full sm:w-1/2 lg:w-1/6 border-gray-600 border-b sm:border-r lg:border-b-0 pb-6 pt-6 lg:pt-3">
                   <div class="flex items-center">
-                    <Icon icon="tabler:devices-pc" class="h-12 w-12 mb-3 mr-3 fill-current text-white"/>
-                    <h3 class="font-bold text-xl text-white text-bold mb-2">Computadoras</h3>
+                    <h3 class="font-bold text-xl text-white text-bold mb-2">{e.name}</h3>
                   </div>
-                  <p class="text-gray-100 text-sm">Monitores, CPUs, Accesorios y Mas...</p>
                   <div class="flex items-center py-3">
                     <svg class="h-6 pr-3 fill-current text-blue-300"
                       xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                       <path d="M20 10a10 10 0 1 1-20 0 10 10 0 0 1 20 0zm-2 0a8 8 0 1 0-16 0 8 8 0 0 0 16 0zm-8 2H5V8h5V5l5 5-5 5v-3z"/>
                     </svg>
-                    <button value='Computadoras' onClick={(e)=>onComp(e.target.value)} href="#" class="text-white bold border-b-2 border-blue-300 hover:text-blue-300">Ver...</button>
+                    <button value={e.name} onClick={(e)=>onComp(e.target.value)} href="#" class="text-white bold border-b-2 border-blue-300 hover:text-blue-300">Ver...</button>
                   </div>
                 </ul>
-                <ul class="px-4 w-full sm:w-1/2 lg:w-2/4 border-gray-600 border-b sm:border-r-0 lg:border-r lg:border-b-0 pb-6 pt-6 lg:pt-3">
-                  <div class="flex items-center">
-                  <Icon icon="clarity:mobile-phone-solid" class="h-12 w-12 mb-3 mr-3 fill-current text-white"/>
-                    <h3 class="font-bold text-xl text-white text-bold mb-2">Celulares</h3>
-                  </div>
-                  <p class="text-gray-100 text-sm">Samsung, Iphone, Xiaomi, Alcatel y Mas...</p>
-                  <div class="flex items-center py-3">
-                    <svg class="h-6 pr-3 fill-current text-blue-300"
-                      xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                      <path d="M20 10a10 10 0 1 1-20 0 10 10 0 0 1 20 0zm-2 0a8 8 0 1 0-16 0 8 8 0 0 0 16 0zm-8 2H5V8h5V5l5 5-5 5v-3z"/>
-                    </svg>
-                    <button value='Celulares' onClick={(e)=>onCell(e.target.value)} href="#" class="text-white bold border-b-2 border-blue-300 hover:text-blue-300">Ver...</button>
-                  </div>
-                </ul>
+
+                ))
+              }
               </div>
             </div>
           </li>
@@ -210,15 +204,13 @@ const NavBar = () => {
                   setOpenAlert(true)
                   return;
                 }
-                if (!cart.length) return alert("Carrito vacio");
+                if (!cart.length) return setOpenCart(true)
                 if (
                   cart.some(
                     (product) => product.product.stock - product.amount < 0
                   )
                 ) {
-                  alert(
-                    "Estas intentando comprar un producto en mayor cantidad a la disponible"
-                  );
+                  setOpenStock(true)
                   return;
                 }
                 navigate("/direction");
@@ -385,6 +377,41 @@ const NavBar = () => {
       >
         <Alert setOpenAlert={setOpenAlert} setIsOpen={setIsOpen} openAlert={openAlert}/>
       </Modal>
+      <Modal
+        isOpen={openCart}
+        onRequestClose={() => setOpenCart(false)}
+        overlayClassName={{
+          base: "overlay-base",
+          afterOpen: "overlay-after",
+          beforeClose: "overlay-before",
+        }}
+        className={{
+          base: "content-base",
+          afterOpen: "content-after",
+          beforeClose: "content-before",
+        }}
+        closeTimeoutMS={500}
+      >
+        <EmptyCart setOpenCart={setOpenCart}/>
+      </Modal>
+      <Modal
+        isOpen={openStock}
+        onRequestClose={() => setOpenStock(false)}
+        overlayClassName={{
+          base: "overlay-base",
+          afterOpen: "overlay-after",
+          beforeClose: "overlay-before",
+        }}
+        className={{
+          base: "content-base",
+          afterOpen: "content-after",
+          beforeClose: "content-before",
+        }}
+        closeTimeoutMS={500}
+      >
+        <OutStock setOpenStock={setOpenStock}/>
+      </Modal>
+      
           </div>
         </div>
       </nav>

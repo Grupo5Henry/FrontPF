@@ -1,7 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const NavProfile = () => {
+const NavProfile = ({setCompras, setPost}) => {
+
+  const onCompras = ()=>{
+    setCompras(true);
+    setPost(false)
+  }
+  const onPost = ()=>{
+    setCompras(false);
+    setPost(true)
+  }
+
   return (
     <div className="">
       <link
@@ -43,7 +53,7 @@ const NavProfile = () => {
               role="tablist"
             >
               <li className="mr-2" role="presentation">
-                <button
+                <button onClick={onCompras}
                   className="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-400 dark:hover:text-gray-300"
                   id="profile-tab"
                   data-tabs-target="#profile"
@@ -55,25 +65,10 @@ const NavProfile = () => {
                   Profile
                 </button>
               </li>
-              <Link
-                to={"/profile/shopping"}
-                className="mr-2"
-                role="presentation"
-              >
-                <button
-                  className="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-400 dark:hover:text-gray-300 active"
-                  id="dashboard-tab"
-                  data-tabs-target="#dashboard"
-                  type="button"
-                  role="tab"
-                  aria-controls="dashboard"
-                  aria-selected="true"
-                >
-                  Compras
-                </button>
-              </Link>
+          
+            
               <li className="mr-2" role="presentation">
-                <button
+                <button onClick={onPost}
                   className="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-400 dark:hover:text-gray-300"
                   id="settings-tab"
                   data-tabs-target="#settings"
@@ -83,19 +78,6 @@ const NavProfile = () => {
                   aria-selected="false"
                 >
                   Settings
-                </button>
-              </li>
-              <li role="presentation">
-                <button
-                  className="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-400 dark:hover:text-gray-300"
-                  id="contacts-tab"
-                  data-tabs-target="#contacts"
-                  type="button"
-                  role="tab"
-                  aria-controls="contacts"
-                  aria-selected="false"
-                >
-                  Contacts
                 </button>
               </li>
             </ul>

@@ -31,6 +31,15 @@ import {
   unSetFavorite,
 } from "../../../Controllers/Favorite";
 import { getCart, getFavorites } from "../../../redux/action";
+import Modal from "react-modal";
+import EmptyCart from "../alert/emptyCart";
+import OutStock from "../alert/outStock";
+import Alert from "../alert/alert";
+
+Modal.setAppElement("#root");
+
+
+
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -50,6 +59,10 @@ function Cart() {
   const favorites = useSelector((state) => state.favorites);
   const dispatch = useDispatch();
 
+  const [openAlert, setOpenAlert] = React.useState(false);
+  const [openCart, setOpenCart] = React.useState(false);
+  const [openStock, setOpenStock] = React.useState(false);
+
   var navigate = useNavigate();
 
   React.useEffect(() => {
@@ -68,7 +81,9 @@ function Cart() {
           <button className="datepicker-footer-btn" onClick={() => navigate("/home")}>Ir a agregar</button>
         </div>
     ) :
-    <div>
+    <div className="flex flex-col justify-center items-center max-w-full p-6 space-y-4 sm:p-10 dark:bg-gray-900 dark:text-gray-100">
+      <div className="flex flex-row  items-center w-5/12 justify-between" >
+        <h2 className="text-xl font-semibold">Tu Compra</h2>
       <IconButton
         onClick={() => {
           clearCart(userState.userName);
@@ -78,23 +93,96 @@ function Cart() {
         <Delete></Delete>
         <p>Limpiar el carrito</p>
       </IconButton>
+      </div>
 
-      <div className="mt-10 grid lg:grid-cols-2 gap-x-8 gap-y-8 items-center px-40 py-10">
+      <ul className="flex flex-col divide-y divide-gray-700">
         {cart !== "Missing Username" &&
           cart.map((product) => {
             let detail = product.product;
             return (
-              <a
-                key={`cart${detail.id}`}
-                href="#"
-                className="flex flex-col items-center bg-white rounded-lg border shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
-              >
-                <img
-                  className="object-cover w-full h-96 rounded-t-lg md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
-                  src={detail.thumbnail}
-                  alt=""
-                />
-                <div className="flex flex-col justify-between p-4 leading-normal">
+
+                <li key={`cart${detail.id}`} className="flex flex-col py-6 sm:flex-row sm:justify-between">
+                  <div className="flex w-full space-x-2 sm:space-x-4">
+                  <img className="flex-shrink-0 object-cover w-20 h-20 dark:border-transparent rounded outline-none sm:w-32 sm:h-32 dark:bg-gray-500" src={detail.thumbnail} alt="Polaroid camera" />
+                  <div className="flex flex-col justify-between w-full pb-4">
+					<div className="flex justify-between w-full pb-2 space-x-2">
+						<div className="space-y-1">
+							<h3 className="text-lg font-semibold leading-snug sm:pr-8">{detail.name}</h3>
+							<p className="text-sm dark:text-gray-400">Modelo: {detail.model}</p>
+              <p className="text-sm dark:text-gray-400">Marca: {detail.brand}</p>
+						</div>
+						<div className="text-right w-20">
+            <NumberInput
+                    size="sm"
+                    defaultValue={product.amount}
+                    min={1}
+                    onChange={(value) => {
+                      if (userState.logged) {
+                        updateCart(userState.userName, detail.id, value);
+                        return;
+                      }
+                      updateOfflineCart(detail.id, value);
+                    }}
+                  >
+                    <NumberInputField focusBorderColor="red.200" />
+                    <NumberInputStepper>
+                      <NumberIncrementStepper
+                        bg="green.200"
+                        _active={{ bg: "green.300" }}
+                        children="+"
+                      />
+                      <NumberDecrementStepper
+                        bg="pink.200"
+                        _active={{ bg: "pink.300" }}
+                        children="-"
+                      />
+                    </NumberInputStepper>
+                  </NumberInput>
+						</div>
+					</div>
+					<div className="flex text-sm divide-x">
+						<button type="button" className="flex items-center px-2 py-1 pl-0 space-x-1"
+            onClick={()=>updateCart(userState.userName, detail.id, 0)}>
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-4 h-4 fill-current">
+								<path d="M96,472a23.82,23.82,0,0,0,23.579,24H392.421A23.82,23.82,0,0,0,416,472V152H96Zm32-288H384V464H128Z"></path>
+								<rect width="32" height="200" x="168" y="216"></rect>
+								<rect width="32" height="200" x="240" y="216"></rect>
+								<rect width="32" height="200" x="312" y="216"></rect>
+								<path d="M328,88V40c0-13.458-9.488-24-21.6-24H205.6C193.488,16,184,26.542,184,40V88H64v32H448V88ZM216,48h80V88H216Z"></path>
+							</svg>
+							<span>Remover</span>
+						</button>
+						<button onClick={() => {
+                      if (isFavorite(detail.id))
+                        return unSetFavorite(userState.userName, detail.id);
+                      setFavorite(userState.userName, detail.id);
+                    }} type="button" className="flex items-center px-2 py-1 space-x-1">
+            <IconButton
+                    aria-label="Add to cart"
+                    onClick={() => {
+                      if (isFavorite(detail.id))
+                        return unSetFavorite(userState.userName, detail.id);
+                      setFavorite(userState.userName, detail.id);
+                    }}
+                  >
+                    {favorites != "Missing Username" ? (
+                      isFavorite(detail.id) ? (
+                        <Favorite
+                      
+                          sx={{ color: "red" }}
+                         
+                          // onClick={() => unSetFavorite(userState.userName, product.id)}
+                        />
+                      ) : (
+                        <FavoriteBorder  />
+                      )
+                    ) : null}
+                  </IconButton>
+							<span>Agregar a favoritos</span>
+						</button>
+					</div>
+				</div>
+                {/* <div className="flex flex-col justify-between p-4 leading-normal">
                   <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                     {detail.name}
                   </h5>
@@ -126,34 +214,10 @@ function Cart() {
                       )
                     ) : null}
                   </IconButton>
-                  <NumberInput
-                    size="sm"
-                    defaultValue={product.amount}
-                    min={0}
-                    onChange={(value) => {
-                      if (userState.logged) {
-                        updateCart(userState.userName, detail.id, value);
-                        return;
-                      }
-                      updateOfflineCart(detail.id, value);
-                    }}
-                  >
-                    <NumberInputField focusBorderColor="red.200" />
-                    <NumberInputStepper>
-                      <NumberIncrementStepper
-                        bg="green.200"
-                        _active={{ bg: "green.300" }}
-                        children="+"
-                      />
-                      <NumberDecrementStepper
-                        bg="pink.200"
-                        _active={{ bg: "pink.300" }}
-                        children="-"
-                      />
-                    </NumberInputStepper>
-                  </NumberInput>
-                </CardActions>
-              </a>
+                  
+                </CardActions> */}
+                </div>
+                </li>
 
               // <div key={`cart${detail.id}`} className="group group-hover:bg-opacity-60 transition duration-500 relative bg-gray-50 sm:p-28 py-36 px-10 flex justify-center items-center">
               //   <img
@@ -186,23 +250,20 @@ function Cart() {
               // </div>
             );
           })}
-      </div>
+      </ul>
       <div style={{ display: "flex", justifyContent: "center" }}>
         <button
           onClick={async () => {
             dispatch(getCart(userState.userName));
             if (!userState.logged) {
-              window.location = `${FRONT_URL}/home/log-in`;
-              alert("Debes estar registrado para realizar una compra");
+              setOpenAlert(true)
               return;
             }
-            if (!cart.length) return alert("Carrito vacio");
+            if (!cart.length) return setOpenCart(true)
             if (
               cart.some((product) => product.product.stock - product.amount < 0)
             ) {
-              alert(
-                "Estas intentando comprar un producto en mayor cantidad a la disponible"
-              );
+             setOpenStock(true)
               return;
             }
             navigate("/direction");
@@ -212,7 +273,60 @@ function Cart() {
         >
           Comprar
         </button>
+
+
       </div>
+      <Modal
+        isOpen={openAlert}
+        onRequestClose={() => setOpenAlert(false)}
+        overlayClassName={{
+          base: "overlay-base",
+          afterOpen: "overlay-after",
+          beforeClose: "overlay-before",
+        }}
+        className={{
+          base: "content-base",
+          afterOpen: "content-after",
+          beforeClose: "content-before",
+        }}
+        closeTimeoutMS={500}
+      >
+        <Alert setOpenAlert={setOpenAlert} openAlert={openAlert}/>
+      </Modal>
+      <Modal
+        isOpen={openCart}
+        onRequestClose={() => setOpenCart(false)}
+        overlayClassName={{
+          base: "overlay-base",
+          afterOpen: "overlay-after",
+          beforeClose: "overlay-before",
+        }}
+        className={{
+          base: "content-base",
+          afterOpen: "content-after",
+          beforeClose: "content-before",
+        }}
+        closeTimeoutMS={500}
+      >
+        <EmptyCart setOpenCart={setOpenCart}/>
+      </Modal>
+      <Modal
+        isOpen={openStock}
+        onRequestClose={() => setOpenStock(false)}
+        overlayClassName={{
+          base: "overlay-base",
+          afterOpen: "overlay-after",
+          beforeClose: "overlay-before",
+        }}
+        className={{
+          base: "content-base",
+          afterOpen: "content-after",
+          beforeClose: "content-before",
+        }}
+        closeTimeoutMS={500}
+      >
+        <OutStock setOpenStock={setOpenStock}/>
+      </Modal>
     </div>
   );
 }
