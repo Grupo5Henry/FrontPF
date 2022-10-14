@@ -2,7 +2,7 @@
     flex: 5;
     -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
     box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
-    color: gray;
+    /* color: gray; */
 
 
     .title{
@@ -11,5 +11,11 @@
         color: rgb(160, 158, 158);
         margin-top: 3px;
         margin-left: 10px;
+    }
+/*     .Xline, .Yline {
+        color: rgb(228, 225, 225);
+    } */
+    .chartGrid {
+        stroke: rgb(228, 225, 225);
     }
 }

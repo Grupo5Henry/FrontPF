@@ -7,12 +7,15 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import "tw-elements";
 import reportWebVitals from "./reportWebVitals";
+import { DarkModeContextProvider } from "./components/Admin/context/darkModeContext.js";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
     <BrowserRouter>
+      <DarkModeContextProvider>
         <App />
+      </DarkModeContextProvider>
     </BrowserRouter>
   </Provider>
 );
