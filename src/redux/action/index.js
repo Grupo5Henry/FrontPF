@@ -284,53 +284,6 @@ export function getAllUsers() {
   };
 }
 
-export function getAllOrders() {
-  return async function (dispatch) {
-    fetch(`${BACK_URL}/order`)
-      .then((response) => response.json())
-      .then((orders) => {
-        const ordersGrouped = [];
-        orders.map((orderInstance) => {
-          let orderNumber = orderInstance.orderNumber;
-          let date = orderInstance.createdAt.split("-");
-          date[0] = date[0].substring(2);
-          date[2] = date[2].substring(0, 2);
-          date = date.reverse().join("/");
-          ordersGrouped[orderNumber] = ordersGrouped[orderNumber]
-            ? [
-                ...ordersGrouped[orderNumber],
-                {
-                  amount: orderInstance.amount,
-                  productId: orderInstance.productId,
-                  price: orderInstance.product.price,
-                  name: orderInstance.product.name,
-                  thumbnail: orderInstance.product.thumbnail,
-                },
-              ]
-            : [
-                orderNumber,
-                orderInstance.status,
-                orderInstance.userName,
-                orderInstance.shippingAddress,
-                date,
-                {
-                  amount: orderInstance.amount,
-                  productId: orderInstance.productId,
-                  price: orderInstance.product.price,
-                  name: orderInstance.product.name,
-                  thumbnail: orderInstance.product.thumbnail,
-                },
-              ];
-          return orderInstance;
-        });
-        dispatch({
-          type: FETCH_ALL_ORDERS,
-          payload: ordersGrouped,
-        });
-      });
-  };
-}
-
 export const clearCartStore = () => {
   return async (dispatch) => {
     dispatch({
@@ -422,5 +375,55 @@ export function BorrarDelCarrito(productId, userName) {
         dispatch(getCart(userName));
       })
       .catch((err) => console.log(err));
+  };
+}
+
+export function getAllOrders(userName) {
+  let url = "order";
+  if (userName) url = `userName?userName=${userName}`;
+  return async function (dispatch) {
+    fetch(`${BACK_URL}/${url}`)
+      .then((response) => response.json())
+      .then((orders) => {
+        const ordersGrouped = [];
+        orders.map((orderInstance) => {
+          let orderNumber = orderInstance.orderNumber;
+          let date = orderInstance.createdAt.split("-");
+          date[0] = date[0].substring(2);
+          date[2] = date[2].substring(0, 2);
+          date = date.reverse().join("/");
+          ordersGrouped[orderNumber] = ordersGrouped[orderNumber]
+            ? [
+                ...ordersGrouped[orderNumber],
+                {
+                  amount: orderInstance.amount,
+                  productId: orderInstance.productId,
+                  price: orderInstance.product.price,
+                  name: orderInstance.product.name,
+                  thumbnail: orderInstance.product.thumbnail,
+                },
+              ]
+            : [
+                orderNumber,
+                orderInstance.status,
+                orderInstance.userName,
+                orderInstance.shippingAddress,
+                date,
+                orderInstance.url,
+                {
+                  amount: orderInstance.amount,
+                  productId: orderInstance.productId,
+                  price: orderInstance.product.price,
+                  name: orderInstance.product.name,
+                  thumbnail: orderInstance.product.thumbnail,
+                },
+              ];
+          return orderInstance;
+        });
+        dispatch({
+          type: FETCH_ALL_ORDERS,
+          payload: ordersGrouped,
+        });
+      });
   };
 }

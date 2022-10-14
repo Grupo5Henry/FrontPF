@@ -33,7 +33,7 @@ export default function Widget({ type }) {
   let earnings = 0;
 
   orders.map((order) => {
-    for (let i = 5; i < order.length; i++) {
+    for (let i = 6; i < order.length; i++) {
       let product = order[i];
 
       earnings += product.amount * product.price;
@@ -77,26 +77,26 @@ export default function Widget({ type }) {
         const states = [
           {
             title: "Esperando pago",
-            content: orders.filter((order) => order[3] === "PaymentPending")
+            content: orders.filter((order) => order[1] === "PaymentPending")
               .length,
           },
           {
             title: "Siendo procesadas",
             content: orders.filter(
-              (order) => order[3] === "PaidPendingDelivery"
+              (order) => order[1] === "PaidPendingDelivery"
             ).length,
           },
           {
             title: "Canceladas",
-            content: orders.filter((order) => order[3] === "Cancelled").length,
+            content: orders.filter((order) => order[1] === "Cancelled").length,
           },
           {
             title: "En ruta",
-            content: orders.filter((order) => order[3] === "InDelivery").length,
+            content: orders.filter((order) => order[1] === "InDelivery").length,
           },
           {
             title: "Entregadas",
-            content: orders.filter((order) => order[3] === "Delivered").length,
+            content: orders.filter((order) => order[1] === "Delivered").length,
           },
         ];
 
@@ -104,7 +104,7 @@ export default function Widget({ type }) {
       };
 
       const initial = orders.filter(
-        (order) => order[3] === "PaymentPending"
+        (order) => order[1] === "PaymentPending"
       ).length;
 
       data = {

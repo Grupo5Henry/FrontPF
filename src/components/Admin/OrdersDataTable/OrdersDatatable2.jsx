@@ -7,7 +7,11 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { BACK_URL } from "../../../constantes";
+import swal from "sweetalert";
+import { getAllOrders } from "../../../redux/action";
 
 // const Card = () => (
 //   <tr>
@@ -22,6 +26,7 @@ import { useSelector } from "react-redux";
 
 export default function OrderDataTable2(props) {
   const orders = useSelector((state) => state.orders);
+  const dispatch = useDispatch();
 
   const columns = [
     {
@@ -44,16 +49,85 @@ export default function OrderDataTable2(props) {
     },
     {
       name: "Actions",
-      label: "Actions",
+      label: "Acciones",
       options: {
         customBodyRender: (value, tableMeta, updateValue) => {
           return (
             <>
-              <button onClick={() => console.log(value, tableMeta)}>
-                Edit
+              <button
+                onClick={async () => {
+                  if (tableMeta.rowData[1] === "Siendo procesada") {
+                    try {
+                      await axios.put(`${BACK_URL}/order/change`, {
+                        orderNumber: tableMeta.rowData[0],
+                        newStatus: "InDelivery",
+                      });
+                      dispatch(getAllOrders());
+                    } catch (err) {
+                      console.log({ error: err });
+                    }
+                  } else {
+                    swal({
+                      title:
+                        "No se puede despachar sin tener confirmacion de pago",
+                      icon: "error",
+                      buttons: false,
+                    });
+                  }
+                }}
+              >
+                Despachar
               </button>
-              <button onClick={() => console.log(value, tableMeta)}>
-                Edit
+              <button
+                onClick={async () => {
+                  if (tableMeta.rowData[1] === "En ruta") {
+                    try {
+                      await axios.put(`${BACK_URL}/order/change`, {
+                        orderNumber: tableMeta.rowData[0],
+                        newStatus: "Delivered",
+                      });
+                      dispatch(getAllOrders());
+                    } catch (err) {
+                      console.log({ error: err });
+                    }
+                  } else {
+                    swal({
+                      title:
+                        "No se puedo marcar como entregado sin haberse despacho",
+                      icon: "error",
+                      buttons: false,
+                    });
+                  }
+                }}
+              >
+                Entregada
+              </button>
+              <button
+                onClick={async () => {
+                  if (tableMeta.rowData[1] === "Esperando pago") {
+                    try {
+                      console.log(
+                        tableMeta.rowData[6],
+                        "cancelar stripe session"
+                      );
+                      await axios.put(`${BACK_URL}/order/change`, {
+                        orderNumber: tableMeta.rowData[0],
+                        newStatus: "Cancelled",
+                      });
+                      dispatch(getAllOrders());
+                    } catch (err) {
+                      console.log({ error: err });
+                    }
+                  } else {
+                    swal({
+                      title: "No se puedo cancelar una orden ya pagada",
+                      icon: "error",
+                      buttons: false,
+                    });
+                  }
+                }}
+              >
+                Cancelar
               </button>
             </>
           );
@@ -73,29 +147,31 @@ export default function OrderDataTable2(props) {
         let infoFila = [];
         let infoExtra = [];
         let orden = [...order];
-        infoFila.push(...orden.splice(0, 5));
+        infoFila.push(...orden.splice(0, 6));
+        let url = infoFila.pop();
         infoExtra.push(...orden);
         infoFila.push(
           infoExtra
             .map((order) => order.price * order.amount)
             .reduce((a, b) => a + b)
         );
+        infoFila.push(url);
         let orderNumber = infoFila[0];
         switch (infoFila[1]) {
           case "PaymentPending":
             infoFila[1] = "Esperando pago";
             break;
           case "PaidPendingDelivery":
-            infoFila[1] = "Siendo procesadas";
+            infoFila[1] = "Siendo procesada";
             break;
           case "Cancelled":
-            infoFila[1] = "Canceladas";
+            infoFila[1] = "Cancelada";
             break;
           case "InDelivery":
             infoFila[1] = "En ruta";
             break;
           case "Delivered":
-            infoFila[1] = "Entregadas";
+            infoFila[1] = "Entregada";
             break;
           default:
             infoFila[1] = "Cargando...";
