@@ -40,9 +40,7 @@ const Details = () => {
 
   return (
     <div>
-      {
-        detail.stock === 0 ? <Link to ='/home'><div style = {{color: 'red'}}>El producto no esta disponible </div></Link>:
-      !detail.id ? (
+      {!detail.id ? (
         <div className="h-screen bg-white">
           <div className="flex justify-center items-center h-full">
             <img
@@ -69,7 +67,6 @@ const Details = () => {
                     
                   </div>
                 </div>
-
                 <div className="w-full md:w-1/2 px-10">
                   <div className="mb-10">
                     <div className="flex flex-row justify-between">
@@ -233,8 +230,7 @@ const Details = () => {
             </div>
           </div>
         </div>
-      )
-          }
+      )}
     </div>
   );
 };
