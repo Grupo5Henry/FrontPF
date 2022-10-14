@@ -16,7 +16,7 @@ import IconButton from "@mui/material/IconButton";
 import { styled } from "@mui/material/styles";
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FRONT_URL } from "../../../constantes";
 import {
   addToCart,
@@ -79,12 +79,12 @@ function Cart() {
         <p>Limpiar el carrito</p>
       </IconButton>
 
-      <div className="mt-10 grid lg:grid-cols-2 gap-x-8 gap-y-8 items-center px-40 py-10">
+      <div style={{display:"flex",flexWrap:"wrap",justifyContent:"space-around"}}>
         {cart !== "Missing Username" &&
           cart.map((product) => {
             let detail = product.product;
             return (
-              <div key={`cart${detail.id}`}>
+              <div key={`cart${detail.id}`} style={{width:"460px",margin:"15px"}}>
                 <div style={{position:"relative",display:"flex",justifyContent:"flex-end"}}>
                     <button onClick={() => {
                       userState.logged?
@@ -96,11 +96,13 @@ function Cart() {
                       }}
                        style={{position:"absolute",color:"red",fontSize:"18px",padding:"2px 7px",margin:"3px"}}>X</button>
                 </div>
-                <a
-                href="#"
+                <Link
+                to={`/home/detail/${detail.id}`}
+                style={{padding:"10px"}}
                 className="flex flex-col items-center bg-white rounded-lg border shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
               >
                 <img
+                  style={{maxWidth:"180px",maxHeight:"200px",objectFit:"scale-down"}}
                   className="object-cover w-full h-96 rounded-t-lg md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
                   src={detail.thumbnail}
                   alt=""
@@ -116,7 +118,10 @@ function Cart() {
                     Modelo: {detail.model}
                   </p>
                 </div>
-                <CardActions disableSpacing>
+                
+              </Link>
+              <div style={{display:"flex",justifyContent:"flex-end",position:"relative"}}>
+              <CardActions disableSpacing style={{position:"absolute",top:"-53px",padding:"0 6px"}}>
                   <IconButton
                     aria-label="Add to cart"
                     onClick={() => {
@@ -138,6 +143,7 @@ function Cart() {
                     ) : null}
                   </IconButton>
                   <NumberInput
+                  style={{width:"47px",fontSize:"12px"}}
                     size="sm"
                     defaultValue={product.amount}
                     min={0}
@@ -164,7 +170,7 @@ function Cart() {
                     </NumberInputStepper>
                   </NumberInput>
                 </CardActions>
-              </a>
+              </div>
               </div>
               
 
