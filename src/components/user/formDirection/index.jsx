@@ -65,7 +65,7 @@ export default function DirectionForm() {
 
     //Set shipping
     if (state.shipping) {
-      shippingAddress = user.defaultShippingAddress;
+      shippingAddress = state.shipping; // seria lo mismo que user.defaultShippingAddress
     } else {
       if (!direction.shipping.calle || !direction.shipping.provincia_estado) {
         return alert("Complete los campos pedidos");
@@ -91,7 +91,7 @@ export default function DirectionForm() {
 
     //Set billing
     if (state.billing) {
-      billingAddress = "user.billingAddress";
+      billingAddress = state.billing; //seria lo mismo que user.billingAddress
     } else {
       if (!direction.billing.calle || !direction.billing.provincia_estado) {
         return alert("Complete los campos pedidos");
@@ -150,13 +150,13 @@ export default function DirectionForm() {
         onChange={(e) => {
           setState({ ...state, shipping: e.target.value });
           if (e.target.value) {
-            setPorDefecto({ shipping: false });
+            setPorDefecto({...porDefecto, shipping: false });
           }
         }}
         style={{ width: "90%" }}
       >
-        {user.defaultShippingAddress === "from google" ? null : (
-          <option value={true}>{user.defaultShippingAddress}</option>
+        {user.defaultShippingAddress === "from google" || !user.defaultShippingAddress? null : (
+          <option>{user.defaultShippingAddress}</option>
         )}
         <option value={""}>Otra dirección</option>
       </select>
@@ -276,7 +276,7 @@ export default function DirectionForm() {
             <input
               type="checkbox"
               onClick={() =>
-                setPorDefecto({ shipping: porDefecto.shipping ? false : true })
+                setPorDefecto({...porDefecto, shipping: porDefecto.shipping ? false : true })
               }
             />
           </div>
@@ -291,14 +291,14 @@ export default function DirectionForm() {
         onChange={(e) => {
           setState({ ...state, billing: e.target.value });
           if (e.target.value) {
-            setPorDefecto({ billing: false });
+            setPorDefecto({...porDefecto, billing: false });
           }
         }}
         style={{ width: "90%" }}
       >
         {user.billingAddress === "from google" ||
         !user.billingAddress ? null : (
-          <option value={true}>{user.billingAddress}</option>
+          <option>{user.billingAddress}</option>
         )}
         <option value={""}>Otra dirección</option>
       </select>
@@ -418,7 +418,7 @@ export default function DirectionForm() {
             <input
               type="checkbox"
               onClick={() =>
-                setPorDefecto({ billing: porDefecto.billing ? false : true })
+                setPorDefecto({...porDefecto, billing: porDefecto.billing ? false : true })
               }
             />
           </div>
