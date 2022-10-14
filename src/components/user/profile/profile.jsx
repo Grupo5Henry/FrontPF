@@ -21,8 +21,17 @@ export default function Profile() {
     /*   dispatch(deleteAllReviews()); */
   }, [dispatch]);
 
-  const filterShopping = orders.map( e=> e.id);
-  console.log(filterShopping)
+  let earnings = [];
+
+  orders.map((order) => {
+    for (let i = 5; i < order.length; i++) {
+      let product = order[i];
+
+      earnings.push( product.product)
+    }
+  });
+  const filterShopping = orders.filter( e=> e.id);
+  console.log(earnings)
 
   return (
     <div>

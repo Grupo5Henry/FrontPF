@@ -138,7 +138,7 @@ const NavBar = () => {
             </svg>
           </button>
           <div
-            className="collapse navbar-collapse flex-grow items-center"
+            className="collapse navbar-collapse flex-grow justify-center items-center"
             id="navbarSupportedContent1"
           >
             <Link
@@ -175,7 +175,7 @@ const NavBar = () => {
                 </div>
               {
                 categories && categories.map((e,i)=>(
-                <ul key={i} class="px-4 w-full sm:w-1/2 lg:w-1/6 border-gray-600 border-b sm:border-r lg:border-b-0 pb-6 pt-6 lg:pt-3">
+                <ul key={i} class="px-4 w-auto sm:w-1/2 lg:w-auto border-gray-600 border-b sm:border-r lg:border-b-0 pb-6 pt-6 lg:pt-3">
                   <div class="flex items-center">
                     <h3 class="font-bold text-xl text-white text-bold mb-2">{e.name}</h3>
                   </div>
@@ -195,9 +195,9 @@ const NavBar = () => {
           </li>
             </ul>
           </div>
-          <div className="flex items-center relative">
+          <div className="flex  items-center relative">
             <button
-              className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"
+              className="nav-link text-white mr-2 opacity-60 hover:opacity-80 focus:opacity-80 p-0"
               onClick={async () => {
                 dispatch(getCart(userState.userName));
                 if (!userState.logged) {
@@ -221,7 +221,7 @@ const NavBar = () => {
 
             <Link
               to="/cart"
-              className="flex items-center hover:text-gray-200 mr-5"
+              className="flex items-center hover:text-gray-200 mr-2"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -239,7 +239,7 @@ const NavBar = () => {
               </svg>
             </Link>
             {(usuario.signedIn || userState.logged) && (
-              <div className="flex items-center relative mr-5">
+              <div className="flex items-center relative mr-2">
                 <Link to={"/favorites"} className="hover:text-gray-200">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -259,7 +259,7 @@ const NavBar = () => {
               </div>
             )}
             {usuario.signedIn || userState.logged ? (
-              <div className="dropdown relative mr-5">
+              <div className="dropdown relative mr-2">
                 <a
                   className="dropdown-toggle flex items-center hidden-arrow"
                   href="#"
@@ -307,7 +307,47 @@ const NavBar = () => {
               </div>
             ) : (
               <div>
-                <div className="flex space-x-1 justify-center">
+                <div className="flex md:hidden dropdown relative mr-2">
+                <a
+                  className="dropdown-toggle flex items-center hidden-arrow"
+                  href="#"
+                  id="dropdownMenuButton2"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="w-5 h-5"
+                              viewBox="0 0 20 20"
+                              fill="currentColor"
+                            >
+                              <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
+                            </svg>
+                </a>
+                <ul
+                  className="dropdown-menu min-w-max absolute hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded-lg shadow-lg mt-1 m-0 bg-clip-padding border-none left-auto right-0"
+                  aria-labelledby="dropdownMenuButton2"
+                >
+                  <li>
+                  <a
+                      onClick={() => setIsOpen(true)}
+                      className="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100"
+                    >
+                      Ingresar
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                     onClick={() => setOpen(true)}
+                      className="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100"
+                    >
+                      Crear Cuenta
+                    </a>
+                  </li>
+                </ul>
+              </div>
+                <div className="md:flex hidden flex-grow space-x-1 justify-center">
                   <button
                     onClick={() => setIsOpen(true)}
                     type="button"

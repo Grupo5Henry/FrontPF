@@ -42,6 +42,7 @@ function Favorites() {
     dispatch(getFavorites(userState.userName));
     dispatch(getCart(userState.userName));
   }, [userState]);
+  console.log(favorites)
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -53,7 +54,7 @@ function Favorites() {
       {
         !favorites.length? (
         <div style={{display:"flex",gap:"12px",flexDirection:"column",width:"100%",justifyContent:"center",height:"200px",alignItems:"center"}}>
-          <h1 style={{fontSize:"23px",textAlign:"center"}}>No tienes productos agregados como favoritos</h1>
+          <h1 style={{fontSize:"23px"}}>No tienes productos agregados como favoritos</h1>
           <button className="datepicker-footer-btn" onClick={() => navigate("/home")}>Ir a agregar</button>
         </div>
       ) : (
@@ -62,9 +63,9 @@ function Favorites() {
           favorites.map((product) => {
             product = product.product;
             return (
-              <div  key={`fav${product.id}`} class="w-2/12 m-5 bg-white rounded-lg drop-shadow-lg ">
-            <div class="relative h-62 w-full mb-3">
-              <div class="absolute flex flex-col top-0 right-0 p-3">
+              <div  key={`fav${product.id}`} className="w-60 m-5 bg-white rounded-lg drop-shadow-lg ">
+            <div className="relative h-62 w-full mb-3">
+              <div className="absolute flex flex-col top-0 right-0 p-3">
               <IconButton
                       aria-label="Toggle Favorite"
                       onClick={() =>
@@ -75,46 +76,46 @@ function Favorites() {
                     </IconButton>
               </div>
               <Link to={`/home/detail/${product.id}`}>
-              <img src={product.thumbnail} alt="Just a flower" class=" w-full   object-fill  rounded-2xl"/>
+              <img src={product.thumbnail} alt="Just a flower" className=" w-full   object-fill h-44  rounded-2xl"/>
               </Link>
             </div>
-            <div class="flex-auto justify-evenly p-5">
-              <div class="flex flex-wrap ">
-                <div class="w-full flex-none text-sm flex items-center text-gray-600">
-                  <span class="text-gray-400 whitespace-nowrap mr-3">{accounting.formatMoney(product.price, "$")}</span>
+            <div className="flex-auto justify-evenly p-5">
+              <div className="flex flex-wrap ">
+                <div className="w-full flex-none text-sm flex items-center text-gray-600">
+                  <span className="text-gray-400 whitespace-nowrap mr-3">{accounting.formatMoney(product.price, "$")}</span>
                   
-                  {product.stock && product.stock > 3 ? <span class="mr-2 text-gray-800">Disponible</span> : product.stock > 1 ? <span class="mr-2 text-gray-800">{product.stock} Disponible</span> : (
-                       <span class="mr-2 text-red-600">{product.stock} Disponible</span>
+                  {product.stock && product.stock > 3 ? <span className="mr-2 text-gray-800">Disponible</span> : product.stock > 1 ? <span className="mr-2 text-gray-800">{product.stock} Disponible</span> : (
+                       <span className="mr-2 text-red-600">{product.stock} Disponible</span>
                      )}
                 </div>
-                <div class="flex items-center w-full justify-between min-w-0 ">
+                <div className="flex items-center w-full justify-between min-w-0 ">
                   
-                  <Link to={`/home/detail/${product.id}`} class="text-lg mr-auto cursor-pointer text-gray-600 hover:text-blue-600 truncate ">{product.name}</Link>
+                  <Link to={`/home/detail/${product.id}`} className="text-lg mr-auto cursor-pointer text-gray-600 hover:text-blue-600 truncate ">{product.name}</Link>
                   
-                  <div class="flex items-center bg-green-400 text-white text-xs px-2 py-1 ml-3 rounded">
+                  <div className="flex items-center bg-green-400 text-white text-xs px-2 py-1 ml-3 rounded">
                   {product.condition}</div>
                 </div>
               </div>
-              <div class="flex flex-wrap justify-starts items-center py-3 text-xs text-white font-medium">
-              <span class="text-gray-400 mr-3">{product.description}</span>
+              <div className="flex flex-wrap justify-starts items-center py-3 text-xs text-white font-medium">
+              <span className="text-gray-400 mr-3">{product.description}</span>
               </div>
-              <div class="flex flex-col justify-starts text-xs text-white border-b-2 font-medium">
-                <div class="flex flex-wrap justify-starts items-center py-3 text-xs text-white font-medium">
-                    <span class=" text-gray-800">Marca:</span>
-                    <span class="px-2 py-1 rounded bg-blue-600 ">
+              <div className="flex flex-col justify-starts text-xs text-white border-b-2 font-medium">
+                <div className="flex flex-wrap justify-starts items-center py-3 text-xs text-white font-medium">
+                    <span className=" text-gray-800">Marca:</span>
+                    <span className="px-2 py-1 rounded bg-blue-600 ">
                         {product.brand}
                     </span>
 
                 </div>
-                <div class="flex flex-wrap justify-starts items-center py-3  text-xs text-white font-medium">
-                    <span class="text-gray-800">Modelo:</span>
-                    <span class="px-2 py-1 rounded bg-blue-600 ">
+                <div className="flex flex-wrap justify-starts items-center py-3  text-xs text-white font-medium">
+                    <span className="text-gray-800">Modelo:</span>
+                    <span className="px-2 py-1 rounded bg-blue-600 ">
                     {product.model}
                     </span>
 
                 </div>
                 </div>
-              <div class="flex space-x-2 text-sm font-medium justify-end mt-4">
+              <div className="flex space-x-2 text-sm font-medium justify-end mt-4">
                 <button onClick={() => {
                         if (!inCart(product.id)) {
                           if (userState.logged) {
