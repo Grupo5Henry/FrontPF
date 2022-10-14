@@ -129,6 +129,7 @@ export default function OrdersDatatable() {
     <div className="datatable">
       {orders.length ? (
         <DataGrid
+        className="datagrid"
           rows={orders}
           sx={{
             "&.MuiDataGrid-root .MuiDataGrid-cell:focus-within": {

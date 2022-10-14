@@ -1,0 +1,99 @@
+.app.dark{
+    background-color: #222;
+    color: rgb(156, 156, 156);
+
+    .chartGrid {
+        stroke: rgb(228, 225, 225);
+    }
+    .chartGrid {
+        stroke: rgb(228, 225, 225);
+    }
+    .Xline, .Yline {
+        color: rgb(228, 225, 225);
+    }
+    .adminNavBar{
+        color: #999;
+        border-color: #333;
+        .icon{
+           &:hover{
+            background-color: #333;
+           } 
+        }
+    }
+    .sidebar{
+        background-color: #222;
+        border-color: #333;
+        .center{
+            background-color: #222;
+            border-color: #333;
+            ul{
+                li{
+                    &:hover{
+                        background-color: #333;
+                    }
+                }
+            }
+
+        }
+        .top{
+            
+            border-bottom: 0.5px solid #333;
+        }
+    }
+
+
+    //TABLAS
+
+    .datatable, .datatableProducts{
+        .datagrid{
+            color: gray;
+            border: none;
+           
+        }
+        .modifyButton, .detailButton {
+            color: gray;
+            border: none;
+
+            &:hover{
+                background-color: #333;
+            }
+        }
+
+        .adminButton, .banButton{
+            border: none;
+
+            &:hover{
+                background-color: #333;
+            }
+        }
+    }
+    .widget{
+        .icon{
+            &:hover{
+                background-color: #333;
+            }
+        }
+    }
+
+    .featured{
+        .icon{
+            &:hover{
+                background-color: #333;
+            }
+        }
+    }
+    .modalCategory{
+        /* background-color: #222 !important;
+        color: rgb(156, 156, 156); */
+
+        .modalCategoryContainer{
+            /* background-color: #222 !important;
+            color: rgb(156, 156, 156); */
+
+            .bottom{
+                background-color: #222;
+                color: rgb(156, 156, 156);
+            }
+        }
+    }
+}

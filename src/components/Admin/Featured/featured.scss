@@ -34,16 +34,21 @@
     }
     .bottom{
         padding: 20px;
+        height: 400px;
+        width: 400px;
         display: flex;
         flex-direction: column;
-        align-items: center;
+        /* align-items: center; */
         justify-content: center;
+        margin-left: 40px;
+
 
         .titleProduct{
             font-size: 18px;
             font-weight: bold;
             color: rgb(160, 158, 158);
             flex-wrap: wrap;
+            
         }
         .img{
             height: 500;
