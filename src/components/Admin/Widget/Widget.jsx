@@ -24,7 +24,10 @@ export default function Widget({ type }) {
 
   const totalUsers = users.length;
 
-  const lastComment = reviews[reviews.length - 1];
+  const reviewsFiltered = reviews.filter(
+    (review) => review.flagged !== true || review.hidden !== true
+  );
+  const lastComment = reviewsFiltered[reviewsFiltered.length - 1];
 
   // Earnings/Ingresos
   let earnings = 0;
