@@ -16,7 +16,7 @@ import IconButton from "@mui/material/IconButton";
 import { styled } from "@mui/material/styles";
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FRONT_URL } from "../../../constantes";
 import {
   addToCart,
@@ -110,7 +110,7 @@ function Cart() {
                   <div className="flex flex-col justify-between w-full pb-4">
                     <div className="flex justify-between w-full pb-2 space-x-2">
                         <div className="space-y-1">
-                            <h3 className="text-lg font-semibold leading-snug sm:pr-8">{detail.name}</h3>
+                            <Link to={`/home/detail/${detail.id}`}><h3 className="text-lg font-semibold leading-snug sm:pr-8 hover:text-blue-600">{detail.name}</h3></Link>
                             <p className="text-sm dark:text-gray-400">Modelo: {detail.model}</p>
               <p className="text-sm dark:text-gray-400">Marca: {detail.brand}</p>
                         </div>
