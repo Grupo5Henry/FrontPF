@@ -9,6 +9,7 @@ import AccountBoxOutlinedIcon from "@mui/icons-material/AccountBoxOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import CategoryIcon from "@mui/icons-material/Category";
 import BrandingWatermarkOutlinedIcon from "@mui/icons-material/BrandingWatermarkOutlined";
+import ReportGmailerrorredOutlinedIcon from "@mui/icons-material/ReportGmailerrorredOutlined";
 import { Link } from "react-router-dom";
 import { IconButton } from "@mui/material";
 import authService from "../../../services/auth.service";
@@ -18,7 +19,6 @@ import { BACK_URL } from "../../../constantes";
 import { DarkModeContext } from "../context/darkModeContext";
 
 export default function SideBar() {
-
   const { despachar } = useContext(DarkModeContext);
 
   const dispatch = useDispatch();
@@ -84,6 +84,12 @@ export default function SideBar() {
               <span>Ordenes</span>
             </Link>
           </li>
+          <li>
+            <Link to={"/reviews"}>
+              <ReportGmailerrorredOutlinedIcon className="icon" />
+              <span>Reseñas</span>
+            </Link>
+          </li>
           <p className="title">USUARIO</p>
           <li>
             <AccountBoxOutlinedIcon className="icon" />
@@ -102,8 +108,14 @@ export default function SideBar() {
         </ul>
       </div>
       <div className="bottom">
-        <div className="colorOption" onClick={() => despachar({type:"LIGHT"})}></div>
-        <div className="colorOption" onClick={() => despachar({type:"DARK"})}></div>
+        <div
+          className="colorOption"
+          onClick={() => despachar({ type: "LIGHT" })}
+        ></div>
+        <div
+          className="colorOption"
+          onClick={() => despachar({ type: "DARK" })}
+        ></div>
       </div>
     </div>
   );

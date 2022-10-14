@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import {
   getAllOrders,
   getAllProducts,
+  getAllReviews,
   getAllUsers,
   userState,
 } from "../../../redux/action";
@@ -25,6 +26,7 @@ export default function AdminNavBar() {
     dispatch(getAllOrders());
     dispatch(getAllProducts());
     dispatch(getAllUsers());
+    dispatch(getAllReviews());
   }, [dispatch]);
 
   const { despachar } = useContext(DarkModeContext);
