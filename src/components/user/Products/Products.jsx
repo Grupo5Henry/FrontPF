@@ -29,6 +29,7 @@ import {
   updateFilter,
   userState,
 } from "../../../redux/action";
+import s from "./products.module.css"
 
 /// demo front-wheat-gamma.vercel.app
 
@@ -76,22 +77,25 @@ function Products() {
         (<div style={{display:"flex",width:"100%",justifyContent:"center",height:"200px",alignItems:"center"}}>
             <h1 style={{fontSize:"23px",textAlign:"center"}}>No se encontraron coincidencias</h1>
         </div>) : (
-        <div className="mt-10 grid lg:grid-cols-2 gap-x-8 gap-y-8 items-center px-40 py-10">
+        <div id={s.container} className="mt-10 grid lg:grid-cols-2 gap-x-8 gap-y-8 items-center px-40 py-10">
            {products.map((product) => (
              <div
                key={`home${product.id}`}
+               id={s.card}
                className="group group-hover:bg-opacity-60 transition duration-500 relative bg-gray-50 sm:p-28 py-36 px-10 flex justify-center items-center"
              >
-               <Link to={`/home/detail/${product.id}`}>
+               <Link to={`/home/detail/${product.id}`} id={s.link}>
                  <img
                    className="group-hover:opacity-60 transition duration-500"
+                   id={s.img}
                    src={product.thumbnail}
                    alt="sofa-2"
                  />
-                 <div className="absolute sm:top-8 top-4 left-4 sm:left-8 flex justify-start items-start flex-col space-y-2">
+                 <div id={s.noImage} className="absolute sm:top-8 top-4 left-4 sm:left-8 flex justify-start items-start flex-col space-y-2">
                    <div>
                      {product.stock && product.stock > 3 ? null : (
                        <p
+                          id={s.pocoStock}
                          className="group-hover:opacity-60 transition duration-500 text-xl leading-5 text-gray-600"
                          style={{ color: "rgba(255, 0, 0, 0.51)" }}
                        >
@@ -103,7 +107,7 @@ function Products() {
                      <p className="group-hover:opacity-60 transition duration-500 text-xl leading-5 text-gray-600">
                        {product.name}
                      </p>
-                     <p className="group-hover:opacity-60 transition duration-500 text-xl leading-5 text-gray-600">
+                     <p id={s.condicion} className="group-hover:opacity-60 transition duration-500 text-xl leading-5 text-gray-600">
                        {product.condition}
                      </p>
                    </div>
@@ -118,7 +122,7 @@ function Products() {
                  </div>
                </Link>
    
-               <div className="flex flex-col bottom-8 left-8 space-y-4 absolute opacity-0 group-hover:opacity-100 transition duration-500">
+               <div id={s.divBotones} className="flex flex-col bottom-8 left-8 space-y-4 absolute opacity-0 group-hover:opacity-100 transition duration-500">
                  <CardActions disableSpacing>
                    <IconButton
                      aria-label="Add to cart"
@@ -166,6 +170,7 @@ function Products() {
                      />
                    </IconButton>
                    <ExpandMore
+                      id={s.expand}
                      expand={expanded}
                      onClick={handleExpandClick}
                      aria-expanded={expanded}
