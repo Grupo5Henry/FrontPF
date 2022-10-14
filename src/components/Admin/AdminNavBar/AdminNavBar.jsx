@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
-import "../AdminNavBar/adminNavBar.scss";
-import SearchSharpIcon from "@mui/icons-material/SearchSharp";
 import EmailIcon from "@mui/icons-material/Email";
-import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import HomeIcon from "@mui/icons-material/Home";
+import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import ModeNightIcon from "@mui/icons-material/ModeNight";
+import SearchSharpIcon from "@mui/icons-material/SearchSharp";
+import axios from "axios";
+import React, { useContext, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import {
   getAllOrders,
@@ -11,10 +13,10 @@ import {
   getAllUsers,
   userState,
 } from "../../../redux/action";
-import { useDispatch, useSelector } from "react-redux";
 import authHeader from "../../../services/auth-header";
 import AuthService from "../../../services/auth.service";
-import axios from "axios";
+import "../AdminNavBar/adminNavBar.scss";
+import { DarkModeContext } from "../context/darkModeContext";
 
 export default function AdminNavBar() {
   const dispatch = useDispatch();
@@ -24,6 +26,8 @@ export default function AdminNavBar() {
     dispatch(getAllProducts());
     dispatch(getAllUsers());
   }, [dispatch]);
+
+  const { despachar } = useContext(DarkModeContext);
 
   return (
     <div className="adminNavBar">
@@ -41,10 +45,8 @@ export default function AdminNavBar() {
           <div className="item">
             <EmailIcon className="icon" />
           </div>
-          <div className="item">
-            <LogoutOutlinedIcon
-              className="icon" /* onClick={()=>handleLogOut()} */
-            />
+          <div className="item" onClick={() => despachar({ type: "TOGGLE" })}>
+            <ModeNightIcon className="icon" />
           </div>
         </div>
       </div>

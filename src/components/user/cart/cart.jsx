@@ -85,8 +85,16 @@ function Cart() {
             let detail = product.product;
             return (
               <div key={`cart${detail.id}`}>
-                <div style={{border:"solid red 1px",position:"relative",display:"flex",justifyContent:"flex-end"}}>
-                    <button onClick={() => dispatch(BorrarDelCarrito(product.productId,userState.userName))} style={{position:"absolute",zIndex:"50",border:"solid blue 2px",padding:"2px 7px",margin:"3px"}}>X</button>
+                <div style={{position:"relative",display:"flex",justifyContent:"flex-end"}}>
+                    <button onClick={() => {
+                      userState.logged?
+                      (
+                        dispatch(BorrarDelCarrito(product.productId,userState.userName))
+                      ) : (
+                        updateOfflineCart(detail.id, 0)
+                      )
+                      }}
+                       style={{position:"absolute",color:"red",fontSize:"18px",padding:"2px 7px",margin:"3px"}}>X</button>
                 </div>
                 <a
                 href="#"

@@ -181,6 +181,7 @@ export default function Datatable() {
     <div className="datatable">
       {users ? (
         <DataGrid
+        className="datagrid"
           rows={users.filter((user) => user.userName != userState.userName)}
           columns={columns.concat(dataTableButton)}
           sx={{

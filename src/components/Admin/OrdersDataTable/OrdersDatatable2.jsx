@@ -42,6 +42,24 @@ export default function OrderDataTable2(props) {
     {
       name: "Total",
     },
+    {
+      name: "Actions",
+      label: "Actions",
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return (
+            <>
+              <button onClick={() => console.log(value, tableMeta)}>
+                Edit
+              </button>
+              <button onClick={() => console.log(value, tableMeta)}>
+                Edit
+              </button>
+            </>
+          );
+        },
+      },
+    },
   ];
 
   const [rows, setRows] = useState({});
@@ -104,10 +122,11 @@ export default function OrderDataTable2(props) {
     onFilterChange: (changedColumn, filterList) => {
       console.log(changedColumn, filterList);
     },
-    selectableRows: "single",
+    selectableRows: "none",
     filterType: "dropdown",
     responsive: "standard",
     rowsPerPage: 10,
+    expandableRowsHeader: false,
     expandableRows: true,
     renderExpandableRow: (rowData, rowMeta) => {
       //   console.log(rowData, rowMeta);
