@@ -75,6 +75,7 @@ export default function DatatableProducts() {
     <div className="datatableProducts">
       {productos.length ? (
         <DataGrid
+        className="datagrid"
           rows={productos}
           sx={{
             "&.MuiDataGrid-root .MuiDataGrid-cell:focus-within": {

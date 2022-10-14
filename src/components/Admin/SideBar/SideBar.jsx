@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import "../SideBar/sideBar.scss";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleAltRoundedIcon from "@mui/icons-material/PeopleAltRounded";
@@ -15,8 +15,12 @@ import authService from "../../../services/auth.service";
 import { useDispatch } from "react-redux";
 import { updateUserState } from "../../../redux/action";
 import { BACK_URL } from "../../../constantes";
+import { DarkModeContext } from "../context/darkModeContext";
 
 export default function SideBar() {
+
+  const { despachar } = useContext(DarkModeContext);
+
   const dispatch = useDispatch();
 
   const handleLogOut = () => {
@@ -39,7 +43,7 @@ export default function SideBar() {
           <span className="logo">Techno Admin</span>
         </Link>
       </div>
-      <hr />
+
       <div className="center">
         <ul>
           <p className="title">MAIN</p>
@@ -98,8 +102,8 @@ export default function SideBar() {
         </ul>
       </div>
       <div className="bottom">
-        <div className="colorOption"></div>
-        <div className="colorOption"></div>
+        <div className="colorOption" onClick={() => despachar({type:"LIGHT"})}></div>
+        <div className="colorOption" onClick={() => despachar({type:"DARK"})}></div>
       </div>
     </div>
   );
