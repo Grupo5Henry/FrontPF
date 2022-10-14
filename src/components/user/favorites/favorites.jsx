@@ -53,7 +53,7 @@ function Favorites() {
       {
         !favorites.length? (
         <div style={{display:"flex",gap:"12px",flexDirection:"column",width:"100%",justifyContent:"center",height:"200px",alignItems:"center"}}>
-          <h1 style={{fontSize:"23px"}}>No tienes productos agregados como favoritos</h1>
+          <h1 style={{fontSize:"23px",textAlign:"center"}}>No tienes productos agregados como favoritos</h1>
           <button className="datepicker-footer-btn" onClick={() => navigate("/home")}>Ir a agregar</button>
         </div>
       ) : (
