@@ -73,7 +73,7 @@ function Products() {
       {
         !products.length? 
         (<div style={{display:"flex",width:"100%",justifyContent:"center",height:"200px",alignItems:"center"}}>
-            <h1 style={{fontSize:"23px"}}>No se encontraron coincidencias</h1>
+            <h1 style={{fontSize:"23px",textAlign:"center"}}>No se encontraron coincidencias</h1>
         </div>) : (
         <div className="mt-10 grid lg:grid-cols-2 gap-x-8 gap-y-8 items-center px-40 py-10">
            {products.map((product) => (
