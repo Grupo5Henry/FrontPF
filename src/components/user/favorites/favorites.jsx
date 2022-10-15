@@ -63,7 +63,7 @@ function Favorites() {
             product = product.product;
             return (
               <>
-              <div style= {{color: 'red',backgroundColor: '#0000004d', textAlign: 'center', borderRadius:'10px'}}>Cantidad de productos en tienda: {favorites[0].product.stock}</div>
+              
               <div
               key={`fav${product.id}`}
               className="group group-hover:bg-opacity-60 transition duration-500 relative bg-gray-50 sm:p-28 py-36 px-10 flex justify-center items-center"
@@ -75,6 +75,7 @@ function Favorites() {
                 />
                 <div className="absolute sm:top-8 top-4 left-4 sm:left-8 flex justify-start items-start flex-col space-y-2">
                   <div>
+                   <div style= {{color: 'red',backgroundColor: '#0000004d', textAlign: 'center', borderRadius:'10px'}}>Cantidad de productos en tienda: {favorites[0].product.stock}</div>
                     <p className="group-hover:opacity-60 transition duration-500 text-xl leading-5 text-gray-600">
                       {product.name}
                     </p>
