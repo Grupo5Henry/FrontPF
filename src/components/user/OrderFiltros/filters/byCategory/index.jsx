@@ -7,7 +7,7 @@ export default function ByCategory({ actual }) {
   var {categories,filter} = useSelector((state) => state);
   return (
     <>
-      <select
+      <select style = {{ margin: '3px',color: 'rgb(85, 29, 29)', borderRadius:'10px',backgroundColor:'rgba(215, 123, 13, 0.11'}}
         value={filter.category}
         onChange={(e) => {
           if(filter.search) dispatch(resetFilter());
