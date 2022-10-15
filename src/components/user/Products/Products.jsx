@@ -69,9 +69,11 @@ function Products() {
           dispatch(updateFilter({ stock: 0 }));
         }}
       >
-        {" "}
-        No mostrar productos agotados{" "}
+        {filter.stock
+          ? "Mostrar productos agotados"
+          : "No mostrar productos agotados"}
       </button>
+
       {
         !products.length? 
         (<div style={{display:"flex",width:"100%",justifyContent:"center",height:"200px",alignItems:"center"}}>
