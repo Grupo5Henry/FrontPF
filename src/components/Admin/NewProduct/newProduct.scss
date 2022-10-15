@@ -56,6 +56,40 @@
 
                     }
                 }
+
+                .inputCategories{
+                    color: rgb(160, 158, 158);
+                    width: 100%;
+                    padding: 10px;
+                    flex-wrap: wrap;
+                    display: flex;
+                    justify-content: flex-start;
+                    
+                    .borde{
+                        margin-left: 5px;
+                        padding: 2px;
+                        border: 0.3px solid gray;
+                        border-radius: 5px;
+                        .labelBox{
+                            margin-left: 7px;
+                            cursor: pointer;
+                            
+    
+                            .boxCategories{
+                                padding: 8px;
+                                margin-left: 3px;
+                                /* background: transparent; */
+                            }
+    
+                            &:hover{
+                                background-color: #ece8ff;
+                                border-radius: 4px;
+                            }
+                        }
+
+                    }
+                }
+
                 .inputsContainer{
                     width: 100%;
                     padding: 10px;
