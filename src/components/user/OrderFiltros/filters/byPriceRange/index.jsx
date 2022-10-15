@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateFilter } from "../../../../../redux/action";
 
 export default function ByPriceRange() {
   var dispatch = useDispatch();
+  var {filter} = useSelector(state => state)
 
   var [state, setState] = useState(false);
   var [rango, setRango] = useState({ maxPrice: "", minPrice: "" });
@@ -42,10 +43,13 @@ export default function ByPriceRange() {
         style={{
           display: state ? "flex" : "none",
           position: "absolute",
+          gap:"5px",
           top: "30px",
+          maxWidth:"100%",
         }}
       >
-        <input style={{borderRadius: '10px',borderBlockColor: '#ff30004f',margin: '3px'}}
+        <input
+         style={{maxWidth:"40%"}}
           type="number"
           placeholder="Min"
           name="minPrice"
@@ -53,15 +57,16 @@ export default function ByPriceRange() {
           value={rango.minPrice}
           onClick={e => e.target.value? setRango({...rango,minPrice: ""}) : null}
         />
-        <input style={{borderRadius: '10px',borderBlockColor: '#ff30004f',margin: '3px'}}
-          type="number"
+        <input
+         style={{maxWidth:"40%"}}
+         type="number"
           placeholder="Max"
           name="maxPrice"
           onChange={(e) => onChan(e)}
           value={rango.maxPrice}
           onClick={e => e.target.value? setRango({...rango,maxPrice: ""}) : null}
         />
-        <input type="submit" />
+        <input type="submit" style={{maxWidth:"20%"}}/>
       </form>
     </div>
   );
