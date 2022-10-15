@@ -50,7 +50,7 @@ const initialState = {
     userName: null,
     defaultShippingAddress: null,
     billingAddress: null,
-    role: 'admin',
+    role: null,
     logged: false,
   },
   review: [],
