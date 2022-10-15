@@ -19,21 +19,18 @@ import ModalCreateCategory from "../Modals/ModalCreateCategory.jsx";
 import Modal from "react-modal";
 
 export default function FixProduct() {
-
   //MODAL
 
   //CONECTAMOS LA MODAL CON EL ELEMENTO A MOSTRAR
 
   Modal.setAppElement("#root");
-  
-      //DETALLES DE LA MODAL A PROBAR
-  
-  
-      const [modalIsOpen, setIsOpen] = React.useState(false);
-      const [modalOpen, setOpen] = React.useState(false);
-  
-  
-///////////////////////////////////////////////////////MODAL CERRADA ///////////////////////////////////
+
+  //DETALLES DE LA MODAL A PROBAR
+
+  const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [modalOpen, setOpen] = React.useState(false);
+
+  ///////////////////////////////////////////////////////MODAL CERRADA ///////////////////////////////////
 
   //ESTADOS DEL PRODUCTO
 
@@ -48,6 +45,7 @@ export default function FixProduct() {
   const [condition, setCondition] = useState("");
   //ESTADO DE LA IMAGEN
   const [imageSelected, setImageSelected] = useState("");
+  const [image2, setImage2] = useState("");
 
   //OTRAS CONSTANTES
   const navigate = useNavigate();
@@ -56,11 +54,10 @@ export default function FixProduct() {
   const category = useSelector((state) => state.categories);
   const productDetail = useSelector((state) => state.detail);
   const brandsOwned = useSelector((state) => state.brand);
-  /* const modelsOwned = useSelector((state) => state.model); */
+  
   const brandsOrdered = brandsOwned.sort((a, b) => a.brand > b.brand);
-  // console.log("SOY CATEGORIAS",category)
+  
 
-  // console.log("SOY STOCK", stock);
 
   //TRAER LAS CATEGORIAS Y LUEGO VACIAR EL ESTADO
   useEffect(() => {
@@ -83,7 +80,7 @@ export default function FixProduct() {
         title: "El nombre debe tener al menos tres caracteres",
         icon: "error",
         buttons: false,
-        timer: 700
+        timer: 700,
       });
     }
 
@@ -93,7 +90,7 @@ export default function FixProduct() {
         title: "El campo de marca no puede estar vacío",
         icon: "error",
         buttons: false,
-        timer: 700
+        timer: 700,
       });
     }
 
@@ -103,7 +100,7 @@ export default function FixProduct() {
         title: "El campo de modelo no puede estar vacío",
         icon: "error",
         buttons: false,
-        timer: 700
+        timer: 700,
       });
     }
 
@@ -113,7 +110,7 @@ export default function FixProduct() {
         title: "El campo de descripción no puede estar vacío",
         icon: "error",
         buttons: false,
-        timer: 700
+        timer: 700,
       });
     }
 
@@ -123,28 +120,28 @@ export default function FixProduct() {
         title: "Debe agregar un número como precio",
         icon: "error",
         buttons: false,
-        timer: 700
+        timer: 700,
       });
     } else if (isNaN(price) === true) {
       return swal({
         title: "El precio debe ser un número",
         icon: "error",
         buttons: false,
-        timer: 700
+        timer: 700,
       });
     } else if (price <= 0) {
       return swal({
         title: "El precio debe ser mayor a cero",
         icon: "error",
         buttons: false,
-        timer: 700
+        timer: 700,
       });
     } else if (price === 0) {
       return swal({
         title: "El precio no puede ser un cero",
         icon: "error",
         buttons: false,
-        timer: 700
+        timer: 700,
       });
     }
 
@@ -154,21 +151,21 @@ export default function FixProduct() {
         title: "Debe agregar un número como stock",
         icon: "error",
         buttons: false,
-        timer: 700
+        timer: 700,
       });
     } else if (isNaN(stock) === true) {
       return swal({
         title: "El stock debe ser un número",
         icon: "error",
         buttons: false,
-        timer: 700
+        timer: 700,
       });
     } else if (stock < 0) {
       return swal({
         title: "El stock no puede ser negativo",
         icon: "error",
         buttons: false,
-        timer: 700
+        timer: 700,
       });
     }
 
@@ -178,7 +175,7 @@ export default function FixProduct() {
         title: "Debe señalar si el producto es nuevo o usado",
         icon: "error",
         buttons: false,
-        timer: 700
+        timer: 700,
       });
     }
 
@@ -187,7 +184,7 @@ export default function FixProduct() {
         title: "Debe señalar si el producto es nuevo o usado",
         icon: "error",
         buttons: false,
-        timer: 700
+        timer: 700,
       });
     }
 
@@ -197,7 +194,7 @@ export default function FixProduct() {
         title: "Debe agregar una categoría",
         icon: "error",
         buttons: false,
-        timer: 700
+        timer: 700,
       });
     }
 
@@ -206,7 +203,7 @@ export default function FixProduct() {
         title: "Debe señalar una categoría válida",
         icon: "error",
         buttons: false,
-        timer: 700
+        timer: 700,
       });
     }
     //IMAGEN
@@ -215,10 +212,34 @@ export default function FixProduct() {
         title: "Debe cargar una imagen",
         icon: "error",
         buttons: false,
-        timer: 700
+        timer: 700,
       });
     } else {
       //SI PASAN LAS VALIDACIONES
+
+      let imgObl;
+      let imgOpt = [];
+
+      if (image2) {
+        try {
+          for (let i = 0; i < image2.length; i++) {
+            const formData2 = new FormData();
+            formData2.append("file", image2[i]);
+            formData2.append("upload_preset", "goctl1il");
+
+            await axios
+              .post(
+                "https://api.cloudinary.com/v1_1/dzr5xulsx/image/upload",
+                formData2
+              )
+              .then((response2) => {
+                imgOpt.push(response2.data.secure_url);
+              });
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }
 
       const formData = new FormData();
       formData.append("file", imageSelected);
@@ -241,6 +262,7 @@ export default function FixProduct() {
             stock,
             condition,
             categories,
+            photos: imgOpt,
           })
         )
 
@@ -249,7 +271,7 @@ export default function FixProduct() {
             title: "¡Producto modificado correctamente!",
             icon: "success",
             buttons: false,
-            timer: 500
+            timer: 500,
           }).then(() => {
             navigate("/products");
           });
@@ -315,12 +337,24 @@ export default function FixProduct() {
             </div>
 
             <div className="inputsContainerImg">
-              <label className="labelImg">Imagen: </label>
+              <label className="labelImg">Imagen (Obligatoria): </label>
               <input
                 className="inputImg"
                 type="file"
                 onChange={(e) => {
                   setImageSelected(e.target.files[0]);
+                }}
+              />
+            </div>
+
+            <div className="inputsContainerImg">
+              <label className="labelImg">Imagen 2 (Opcional): </label>
+              <input
+                className="inputImg"
+                multiple="multiple"
+                type="file"
+                onChange={(e) => {
+                  setImage2(e.target.files);
                 }}
               />
             </div>
@@ -368,37 +402,40 @@ export default function FixProduct() {
                   })}
               </select>
             </div>
-                          <button className="buttonModify" type="submit">
-                            Modificar
-                          </button>
+            <button className="buttonModify" type="submit">
+              Modificar
+            </button>
           </form>
-            <div className="buttonsContainer">
-              <Link to={`/products`}>
-                <button className="buttonCancel">Cancelar</button>
-              </Link>
+          <div className="buttonsContainer">
+            <Link to={`/products`}>
+              <button className="buttonCancel">Cancelar</button>
+            </Link>
 
-
-              <button className="modalButton" onClick={() => setOpen(true)} type="button">
-                    Crear Categoria
-                </button>
-                    <Modal
-                          isOpen={modalOpen}
-                          onRequestClose={() => setOpen(false)}
-                          overlayClassName={{
-                              base: "overlay-base",
-                              afterOpen: "overlay-after",
-                              beforeClose: "overlay-before",
-                            }}
-                          className={{
-                              base: "content-base",
-                              afterOpen: "content-box",
-                              beforeClose: "content-before",
-                            }}
-                          closeTimeoutMS={500}
-                        >
-                    <ModalCreateCategory setIsOpen={setIsOpen} setOpen={setOpen} />
-                    </Modal>
-            </div>
+            <button
+              className="modalButton"
+              onClick={() => setOpen(true)}
+              type="button"
+            >
+              Crear Categoria
+            </button>
+            <Modal
+              isOpen={modalOpen}
+              onRequestClose={() => setOpen(false)}
+              overlayClassName={{
+                base: "overlay-base",
+                afterOpen: "overlay-after",
+                beforeClose: "overlay-before",
+              }}
+              className={{
+                base: "content-base",
+                afterOpen: "content-box",
+                beforeClose: "content-before",
+              }}
+              closeTimeoutMS={500}
+            >
+              <ModalCreateCategory setIsOpen={setIsOpen} setOpen={setOpen} />
+            </Modal>
+          </div>
         </div>
       </div>
     </div>
