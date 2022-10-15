@@ -53,10 +53,12 @@ const SignIn = ({ setIsOpen, setOpen }) => {
   };
 
   const handleSignIn = async (e) => {
+    if(!/^\w+([\.-]?\w)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(input.email)) return alert("Mail inavalido");
     if (
       input.userName &&
       input.password &&
-      input.email 
+      input.email
+      
     ) {
       e.preventDefault();
       try {
