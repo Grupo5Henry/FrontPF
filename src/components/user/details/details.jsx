@@ -44,7 +44,7 @@ const Details = () => {
   return (
     <div>
       {
-      detail.stock === 0 ? <Link to ='/home'><div style = {{color: 'red'}}>El producto no esta disponible </div></Link>:
+      // detail.stock === 0 ? <Link to ='/home'><div style = {{color: 'red'}}>El producto no esta disponible </div></Link>:
       !detail.id ? (
         <div className="h-screen bg-white">
           <div style = {{color: 'red'}}>Cantidad de productos en tienda: {detail.stock}</div>
