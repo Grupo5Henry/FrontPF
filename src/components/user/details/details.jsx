@@ -1,5 +1,6 @@
 import { AddShoppingCart, Favorite, FavoriteBorder } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
+import { Link } from 'react-router-dom'
 import axios from "axios";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,6 +19,7 @@ import {
 } from "../../../Controllers/Favorite";
 import { detailProduct, getFavorites } from "../../../redux/action";
 import Comment from "../comment/comment";
+import Galery from "../galery/galery.jsx";
 
 // Detalle del Producto
 
@@ -36,11 +38,16 @@ const Details = () => {
       dispatch(detailProduct());
     };
   }, [dispatch, id]);
+  console.log(detail)
+
 
   return (
     <div>
-      {!detail.id ? (
+      {
+      detail.stock === 0 ? <Link to ='/home'><div style = {{color: 'red'}}>El producto no esta disponible </div></Link>:
+      !detail.id ? (
         <div className="h-screen bg-white">
+          <div style = {{color: 'red'}}>Cantidad de productos en tienda: {detail.stock}</div>
           <div className="flex justify-center items-center h-full">
             <img
               className="h-16 w-16"
@@ -56,12 +63,14 @@ const Details = () => {
               <div className="md:flex items-center -mx-10">
                 <div className="w-full md:w-1/2 px-10 mb-10 md:mb-0">
                   <div className="relative">
-                    <img
+                    {
+                      detail.images ? <Galery images={detail.images} img={detail.thumbnail}/> :
+                      <img
                       src={detail.thumbnail}
                       className="w-full relative "
                       alt=""
                     />
-                    
+                    }
                   </div>
                 </div>
 
@@ -105,8 +114,22 @@ const Details = () => {
                       </span>
                     </div>
                   </div>
-                  <div className="inline-flex items-center mt-5">
-                    <button className="bg-white rounded-l border text-gray-600 hover:bg-gray-100 active:bg-gray-200 disabled:opacity-50 inline-flex items-center px-2 py-1 border-r border-gray-200">
+                  
+                    {
+                      detail.stock > 0 ?<div className="inline-flex items-center mt-5"> <span className="font-bold text-2xl leading-none align-baseline">
+                      Stock Disponible
+                    </span>
+                   
+                     </div>:null
+                    }
+                    <div>
+                    <div className="inline-block align-bottom mt-5">
+                    <span className="text-2xl leading-none align-baseline">
+                    Disponibles {detail.stock}
+                      </span>
+                    </div>
+                  </div>
+                    {/* <button className="bg-white rounded-l border text-gray-600 hover:bg-gray-100 active:bg-gray-200 disabled:opacity-50 inline-flex items-center px-2 py-1 border-r border-gray-200">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-6 w-4"
@@ -140,8 +163,8 @@ const Details = () => {
                           d="M12 4v16m8-8H4"
                         />
                       </svg>
-                    </button>
-                  </div>
+                    </button> */}
+                 
                   <div className="mt-7">
                     {/* <div className="inline-block align-bottom">
                       <button
@@ -228,7 +251,8 @@ const Details = () => {
             </div>
           </div>
         </div>
-      )}
+      )
+          }
     </div>
   );
 };
