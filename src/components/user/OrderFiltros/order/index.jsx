@@ -6,7 +6,7 @@ export default function Order() {
   return (
     <>
       <button onClick={() => setState(state ? false : true)}>
-        {state ? "<" : "ORDENAR"}
+        {state ? "<" : <div className="filter">ORDENAR</div>}
       </button>
       <div
         style={{ display: state ? "flex" : "none", flexDirection: "column" }}

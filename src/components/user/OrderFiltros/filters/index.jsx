@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategories } from "../../../../redux/action";
+import './index.css';
 import ByBrand from "./byBrand";
 import ByCategory from "./byCategory";
 import ByModel from "./byModel";
@@ -18,11 +19,11 @@ export default function Filtros() {
   }, []);
   return (
     <>
-      <button onClick={() => setState(state ? false : true)}>
-        {state ? "<" : "FILTRAR"}
+      <button style = {{margin : '3px'}} onClick={() => setState(state ? false : true)}>
+        {state ? "<" : <div className="filter">FILTRAR</div>}
       </button>
       <div
-        style={{ display: state ? "flex" : "none", flexDirection: "column" }}
+        style={{ display: state ? "flex" : "none", flexDirection: "column", margin:'3px' }}
       >
         <ByBrand actual={filter.brand} />
         <ByCategory actual={filter.category} />
