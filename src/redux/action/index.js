@@ -1,5 +1,6 @@
 import axios from "axios";
 import { BACK_URL } from "../../constantes";
+import { authHeader } from "../../services/auth-header";
 
 //PRODUCTS
 export const GET_PRODUCTS_NAME = "GET_PRODUCTS_NAME";
@@ -378,11 +379,9 @@ export function BorrarDelCarrito(productId, userName) {
   };
 }
 
-export function getAllOrders(userName) {
-  let url = "order";
-  if (userName) url = `userName?userName=${userName}`;
+export function getAllOrders() {
   return async function (dispatch) {
-    fetch(`${BACK_URL}/${url}`)
+    fetch(`${BACK_URL}/order`, { headers: authHeader() })
       .then((response) => response.json())
       .then((orders) => {
         const ordersGrouped = [];
@@ -425,5 +424,88 @@ export function getAllOrders(userName) {
           payload: ordersGrouped,
         });
       });
+  };
+}
+
+export function getUserOrders(userName) {
+  return async function (dispatch) {
+    try {
+      const temp = await axios.get(
+        `${BACK_URL}/order/userName?userName=${userName}`
+      );
+      const ordersGrouped = [];
+      console.log(temp.data);
+      temp.data.map((orderInstance) => {
+        let orderNumber = orderInstance.orderNumber;
+        let date = orderInstance.createdAt.split("-");
+        date[0] = date[0].substring(2);
+        date[2] = date[2].substring(0, 2);
+        date = date.reverse().join("/");
+
+        if (
+          ordersGrouped.length &&
+          ordersGrouped[ordersGrouped.length - 1][0] == orderNumber
+        ) {
+          ordersGrouped[ordersGrouped.length - 1].push({
+            amount: orderInstance.amount,
+            productId: orderInstance.productId,
+            price: orderInstance.product.price,
+            name: orderInstance.product.name,
+            thumbnail: orderInstance.product.thumbnail,
+          });
+        } else {
+          ordersGrouped.push([
+            orderNumber,
+            orderInstance.status,
+            orderInstance.userName,
+            orderInstance.shippingAddress,
+            date,
+            orderInstance.url,
+            {
+              amount: orderInstance.amount,
+              productId: orderInstance.productId,
+              price: orderInstance.product.price,
+              name: orderInstance.product.name,
+              thumbnail: orderInstance.product.thumbnail,
+            },
+          ]);
+        }
+        // ordersGrouped[orderNumber] = ordersGrouped[orderNumber]
+        //   ? [
+        //       ...ordersGrouped[orderNumber],
+        //       {
+        //         amount: orderInstance.amount,
+        //         productId: orderInstance.productId,
+        //         price: orderInstance.product.price,
+        //         name: orderInstance.product.name,
+        //         thumbnail: orderInstance.product.thumbnail,
+        //       },
+        //     ]
+        //   : [
+        //       orderNumber,
+        //       orderInstance.status,
+        //       orderInstance.userName,
+        //       orderInstance.shippingAddress,
+        //       date,
+        //       orderInstance.url,
+        //       {
+        //         amount: orderInstance.amount,
+        //         productId: orderInstance.productId,
+        //         price: orderInstance.product.price,
+        //         name: orderInstance.product.name,
+        //         thumbnail: orderInstance.product.thumbnail,
+        //       },
+        //     ];
+        console.log(ordersGrouped);
+        return orderInstance;
+      });
+
+      dispatch({
+        type: FETCH_ALL_ORDERS,
+        payload: ordersGrouped,
+      });
+    } catch (err) {
+      console.log({ error: err.message });
+    }
   };
 }

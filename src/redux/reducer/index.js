@@ -52,6 +52,8 @@ const initialState = {
     billingAddress: null,
     role: null,
     logged: false,
+    verified: false,
+    mute: false,
   },
   review: [],
 };
