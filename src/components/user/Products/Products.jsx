@@ -65,11 +65,11 @@ function Products() {
     <div>
       <button style = {{margin: '3px'}}
         onClick={() => {
-          if (filter.stock == 0) return dispatch(updateFilter({ stock: 1 }));
-          dispatch(updateFilter({ stock: 0 }));
+          if (filter.stock == 1) return dispatch(updateFilter({ stock: 0 }));
+          dispatch(updateFilter({ stock: 1 }));
         }}
       >
-        <div className="filter1">No mostrar productos agotados</div>
+        <div className="filter1">{filter.stock? "Mostrar productos agotados" : "No mostrar productos agotados"}</div>
       </button>
       {
         !products.length? 
