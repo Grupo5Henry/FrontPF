@@ -94,7 +94,7 @@ function Products() {
                          className="group-hover:opacity-60 transition duration-500 text-xl leading-5 text-gray-600"
                          style={{ color: "rgba(255, 0, 0, 0.51)" }}
                        >
-                         Quedan pocos productos en tienda: {product.stock}
+                         Cantidad de productos en tienda: {product.stock}
                        </p>
                      )}
                    </div>
