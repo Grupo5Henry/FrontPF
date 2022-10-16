@@ -8,6 +8,7 @@ export const DELETE_DETAIL_PRODUCT = "DELETE_DETAIL_PRODUCT";
 export const SEARCH_PRODUCT = "SEARCH_PRODUCT";
 export const GET_PRODUCTS_FILTERED = "GET_PRODUCTS_FILTERED";
 export const FETCH_ALL_PRODUCTS = "FETCH_ALL_PRODUCTS";
+export const BRAND_PRODUCT = 'BRAND_PRODUCT'
 
 //USERS
 export const FETCH_ALL_USERS = "FETCH_ALL_USERS";
@@ -151,6 +152,21 @@ export const detailProduct = (id) => {
       const product = await axios.get(`${BACK_URL}/product/ID/${id}`);
       dispatch({
         type: DETAIL_PRODUCT,
+        payload: product.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+export const similarBrand = (id) => {
+ 
+  return async (dispatch) => {
+    try {
+      console.log(id)
+      const product = await axios.get(`${BACK_URL}/product/BRAND/${id}`);
+      dispatch({
+        type: BRAND_PRODUCT,
         payload: product.data,
       });
     } catch (error) {
