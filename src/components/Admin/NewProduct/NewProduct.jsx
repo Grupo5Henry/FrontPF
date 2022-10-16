@@ -363,8 +363,8 @@ export default function NewProduct() {
             <div className="inputCategories">
               <label className="labelCategories">Categorías: </label>
               {/* <div className="borde"> */}
-                <div style={{maxWidth:"70%",display:"flex",flexDirection:"column"}}>
-                  <select onChange={(e) => handleCheckbox(e)}>
+                <div style={{width:"50%",display:"flex",flexDirection:"column"}}>
+                  <select style={{width:"100%"}} onChange={(e) => handleCheckbox(e)}>
                     <option hidden>Seleccione categorias</option>
                     {
                       category.map((c,i) => {
