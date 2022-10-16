@@ -31,12 +31,12 @@ export default function ByPriceRange() {
   }
 
   return (
-    <div style={{ position: "relative" }}>
+    <div style={{ position: "relative", margin:'3px'}}>
       <button
         onClick={() => setState(state ? false : true)}
         style={{ marginBottom: state ? "50px" : "0" }}
       >
-        {state ? "<" : "Price"}
+        {state ? "<" : <div className="filter" >Rango de precios</div>}
       </button>
       <form
         onSubmit={(e) => onSub(e)}

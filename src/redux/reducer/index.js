@@ -44,7 +44,7 @@ const initialState = {
     order: "ASC",
     amount: 10,
     page: 0,
-    stock: 0,
+    stock: 1,
   },
   user: {
     userName: null,

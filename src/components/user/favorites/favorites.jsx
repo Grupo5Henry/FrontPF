@@ -1,4 +1,4 @@
-import { AddShoppingCart, Favorite } from "@mui/icons-material";
+import { AddShoppingCart, Favorite, FavoriteBorderSharp } from "@mui/icons-material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -210,6 +210,7 @@ function Favorites() {
       
     </div>
   );
+
 }
 
 export default Favorites;
