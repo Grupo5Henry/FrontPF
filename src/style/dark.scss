@@ -2,6 +2,9 @@
     background-color: #222;
     color: rgb(156, 156, 156);
 
+
+        
+
     .chartGrid {
         stroke: rgb(228, 225, 225);
     }
@@ -48,16 +51,16 @@
         
         .datagrid{
             
-            color: gray;
+            color: rgb(156, 156, 156);
             /* border: none; */
             background-color: #222;
 
             .corpse{
-                color: gray;
+                color: rgb(156, 156, 156);
             }
 
             .aprobarButton, .bannearButton, .esconderButton{
-                color: gray;
+                color: rgb(156, 156, 156);
                 border: none;
 
             &:hover{
@@ -67,7 +70,7 @@
            
         }
         .modifyButton, .detailButton  {
-            color: gray;
+            color: rgb(156, 156, 156);
             border: none;
 
             &:hover{
