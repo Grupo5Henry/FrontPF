@@ -1,5 +1,6 @@
 import axios from "axios";
 import { BACK_URL } from "../../constantes";
+import { authHeader } from "../../services/auth-header";
 
 //PRODUCTS
 export const GET_PRODUCTS_NAME = "GET_PRODUCTS_NAME";
@@ -26,7 +27,7 @@ export const GET_REVIEW = "GET_REVIEW";
 export const RESET_DETAIL = "RESET_DETAIL";
 export const UPDATE_CART = "UPDATE_CART";
 export const GET_CART = "GET_CART";
-export const DELETE_PRODUCT_CARRITO = "DELETE_PRODUCT_CARRITO"
+export const DELETE_PRODUCT_CARRITO = "DELETE_PRODUCT_CARRITO";
 
 export const RESET_FILTER = "RESET_FILTER";
 export const UPDATE_FILTER = "UPDATE_FILTER";
@@ -227,9 +228,7 @@ export function getCategories() {
 export const getReview = (id) => {
   return async (dispatch) => {
     try {
-      const review = await axios.get(
-        `${BACK_URL}/review/ID/${id}`
-      );
+      const review = await axios.get(`${BACK_URL}/review/ID/${id}`);
       dispatch({
         type: GET_REVIEW,
         payload: review.data,
@@ -262,9 +261,7 @@ export function deleteAllReviews() {
 
 export function getAllProducts() {
   return async function (dispatch) {
-    fetch(
-      `${BACK_URL}/product//itemsPerPage?amount=3000`
-    )
+    fetch(`${BACK_URL}/product//itemsPerPage?amount=3000`)
       .then((response) => response.json())
       .then((adminProducts) => {
         dispatch({
@@ -283,48 +280,6 @@ export function getAllUsers() {
         dispatch({
           type: FETCH_ALL_USERS,
           payload: users,
-        });
-      });
-  };
-}
-
-export function getAllOrders() {
-  return async function (dispatch) {
-    fetch(`${BACK_URL}/order`)
-      .then((response) => response.json())
-      .then((orders) => {
-        const ordersGrouped = [];
-        orders.map((orderInstance) => {
-          let orderNumber = orderInstance.orderNumber;
-          let date = orderInstance.createdAt.split("-");
-          date[0] = date[0].substring(2);
-          date[2] = date[2].substring(0, 2);
-          date = date.reverse().join("/");
-          ordersGrouped[orderNumber] = ordersGrouped[orderNumber]
-            ? [
-                ...ordersGrouped[orderNumber],
-                {
-                  amount: orderInstance.amount,
-                  productId: orderInstance.productId,
-                  price: orderInstance.product.price,
-                },
-              ]
-            : [
-                orderNumber,
-                orderInstance.shippingAddress,
-                orderInstance.status,
-                date,
-                {
-                  amount: orderInstance.amount,
-                  productId: orderInstance.productId,
-                  price: orderInstance.product.price,
-                },
-              ];
-          return orderInstance;
-        });
-        dispatch({
-          type: FETCH_ALL_ORDERS,
-          payload: ordersGrouped,
         });
       });
   };
@@ -412,11 +367,145 @@ export function UpdateUserDefaultAddress(obj) {
   };
 }
 
+export function BorrarDelCarrito(productId, userName) {
+  return function (dispatch) {
+    axios
+      .delete(`${BACK_URL}/cart/delete`, { data: { productId, userName } })
+      .then(() => {
+        console.log(userName);
+        dispatch(getCart(userName));
+      })
+      .catch((err) => console.log(err));
+  };
+}
 
-export function BorrarDelCarrito(productId,userName){
-  return function(dispatch){ 
-     axios.delete(`${BACK_URL}/cart/delete`,{data: {productId, userName }})
-      .then(() => {console.log(userName); dispatch(getCart(userName))})
-      .catch(err => console.log(err))
-  }
+export function getAllOrders() {
+  return async function (dispatch) {
+    fetch(`${BACK_URL}/order`, { headers: authHeader() })
+      .then((response) => response.json())
+      .then((orders) => {
+        const ordersGrouped = [];
+        orders.map((orderInstance) => {
+          let orderNumber = orderInstance.orderNumber;
+          let date = orderInstance.createdAt.split("-");
+          date[0] = date[0].substring(2);
+          date[2] = date[2].substring(0, 2);
+          date = date.reverse().join("/");
+          ordersGrouped[orderNumber] = ordersGrouped[orderNumber]
+            ? [
+                ...ordersGrouped[orderNumber],
+                {
+                  amount: orderInstance.amount,
+                  productId: orderInstance.productId,
+                  price: orderInstance.product.price,
+                  name: orderInstance.product.name,
+                  thumbnail: orderInstance.product.thumbnail,
+                },
+              ]
+            : [
+                orderNumber,
+                orderInstance.status,
+                orderInstance.userName,
+                orderInstance.shippingAddress,
+                date,
+                orderInstance.url,
+                {
+                  amount: orderInstance.amount,
+                  productId: orderInstance.productId,
+                  price: orderInstance.product.price,
+                  name: orderInstance.product.name,
+                  thumbnail: orderInstance.product.thumbnail,
+                },
+              ];
+          return orderInstance;
+        });
+        dispatch({
+          type: FETCH_ALL_ORDERS,
+          payload: ordersGrouped,
+        });
+      });
+  };
+}
+
+export function getUserOrders(userName) {
+  return async function (dispatch) {
+    try {
+      const temp = await axios.get(
+        `${BACK_URL}/order/userName?userName=${userName}`
+      );
+      const ordersGrouped = [];
+      console.log(temp.data);
+      temp.data.map((orderInstance) => {
+        let orderNumber = orderInstance.orderNumber;
+        let date = orderInstance.createdAt.split("-");
+        date[0] = date[0].substring(2);
+        date[2] = date[2].substring(0, 2);
+        date = date.reverse().join("/");
+
+        if (
+          ordersGrouped.length &&
+          ordersGrouped[ordersGrouped.length - 1][0] == orderNumber
+        ) {
+          ordersGrouped[ordersGrouped.length - 1].push({
+            amount: orderInstance.amount,
+            productId: orderInstance.productId,
+            price: orderInstance.product.price,
+            name: orderInstance.product.name,
+            thumbnail: orderInstance.product.thumbnail,
+          });
+        } else {
+          ordersGrouped.push([
+            orderNumber,
+            orderInstance.status,
+            orderInstance.userName,
+            orderInstance.shippingAddress,
+            date,
+            orderInstance.url,
+            {
+              amount: orderInstance.amount,
+              productId: orderInstance.productId,
+              price: orderInstance.product.price,
+              name: orderInstance.product.name,
+              thumbnail: orderInstance.product.thumbnail,
+            },
+          ]);
+        }
+        // ordersGrouped[orderNumber] = ordersGrouped[orderNumber]
+        //   ? [
+        //       ...ordersGrouped[orderNumber],
+        //       {
+        //         amount: orderInstance.amount,
+        //         productId: orderInstance.productId,
+        //         price: orderInstance.product.price,
+        //         name: orderInstance.product.name,
+        //         thumbnail: orderInstance.product.thumbnail,
+        //       },
+        //     ]
+        //   : [
+        //       orderNumber,
+        //       orderInstance.status,
+        //       orderInstance.userName,
+        //       orderInstance.shippingAddress,
+        //       date,
+        //       orderInstance.url,
+        //       {
+        //         amount: orderInstance.amount,
+        //         productId: orderInstance.productId,
+        //         price: orderInstance.product.price,
+        //         name: orderInstance.product.name,
+        //         thumbnail: orderInstance.product.thumbnail,
+        //       },
+        //     ];
+        console.log(ordersGrouped);
+        return orderInstance;
+      });
+
+      dispatch({
+        type: FETCH_ALL_ORDERS,
+        payload: ordersGrouped,
+      });
+    } catch (err) {
+      console.log({ error: err.message });
+    }
+  };
 }

@@ -10,7 +10,9 @@ import { BACK_URL, FRONT_URL } from "../../../constantes";
 import {
   clearCartStore,
   getCart,
+  getCategories,
   getFavorites,
+  getUserOrders,
   resetFilter,
   updateFilter,
   updateUserState,
@@ -27,6 +29,9 @@ import LogIn from "../logIn/logIn";
 import SearchBar from "../searchBar/searchBar.jsx";
 import SignIn from "../signIn/signIn";
 import "./navBar.css";
+import EmptyCart from "../alert/emptyCart";
+import OutStock from "../alert/outStock";
+import { getValue } from "@mui/system";
 
 Modal.setAppElement("#root");
 
@@ -43,6 +48,7 @@ const NavBar = () => {
 
   const userState = useSelector((state) => state.user);
   const favorites = useSelector((state) => state.favorites);
+  const categories = useSelector((state) => state.categories);
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
@@ -50,7 +56,9 @@ const NavBar = () => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [modalOpen, setOpen] = React.useState(false);
   const [openAlert, setOpenAlert] = React.useState(false);
-//////////////////////////////////////////////
+  const [openCart, setOpenCart] = React.useState(false);
+  const [openStock, setOpenStock] = React.useState(false);
+  //////////////////////////////////////////////
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -91,15 +99,14 @@ const NavBar = () => {
 
   const onComp = (e) => {
     dispatch(resetFilter());
-    dispatch(updateFilter({category: e}))
-  }
-  const onCell = (e) => {
-    dispatch(resetFilter());
-    dispatch(updateFilter({category: e}))
-  }
+    dispatch(updateFilter({ category: e }));
+    navigate("/home");
+  };
 
   React.useEffect(() => {
     dispatch(getFavorites(userState.userName));
+    dispatch(getCategories());
+    dispatch(getUserOrders(userState.userName));
   }, [userState]);
 
   return (
@@ -132,7 +139,7 @@ const NavBar = () => {
             </svg>
           </button>
           <div
-            className="collapse navbar-collapse flex-grow items-center"
+            className="collapse navbar-collapse flex-grow justify-center items-center"
             id="navbarSupportedContent1"
           >
             <Link
@@ -144,10 +151,11 @@ const NavBar = () => {
             </Link>
             <ul className="navbar-nav justify-center items-center flex flex-col pl-0 list-style-none mr-auto">
               <li className="nav-item p-2">
-                <Link to={"/home"}  className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0">
-                  
-                    Inicio
-                  
+                <Link
+                  to={"/home"}
+                  className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"
+                >
+                  Inicio
                 </Link>
               </li>
 
@@ -159,66 +167,70 @@ const NavBar = () => {
                   Equipo
                 </Link>
               </li>
-
               <li class="hoverable hover:bg-blue-800 hover:text-white">
-            <a href="#" class="relative block py-2 px-4 lg:p-2 text-sm lg:text-base font-bold hover:bg-blue-800 hover:text-white">Categorias</a>
-            <div class="z-10 p-6 mega-menu w-8/12 mb-16 sm:mb-0 shadow-xl bg-blue-800">
-              <div class="container mx-auto w-full flex z-20 flex-wrap justify-between">
-                <div class="w-full text-white mb-8">
-                  <h2 class="font-bold text-2xl">Categorias</h2>
-                  <p>Puedes filtrar los productos por tu preferincia</p>
+                <a
+                  href="#"
+                  class="relative block py-2 px-4 lg:p-2 text-sm lg:text-base font-bold hover:bg-blue-800 hover:text-white"
+                >
+                  Categorias
+                </a>
+                <div class="z-10 p-6 mega-menu w-8/12 mb-16 sm:mb-0 shadow-xl bg-blue-800">
+                  <div class="container mx-auto w-full flex z-20 flex-wrap justify-between">
+                    <div class="w-full text-white mb-8">
+                      <h2 class="font-bold text-2xl">Categorias</h2>
+                      <p>Puedes filtrar los productos por tu preferincia</p>
+                    </div>
+                    {categories &&
+                      categories.map((e, i) => (
+                        <ul
+                          key={i}
+                          class="px-4 w-auto sm:w-1/2 lg:w-auto border-gray-600 border-b sm:border-r lg:border-b-0 pb-6 pt-6 lg:pt-3"
+                        >
+                          <div class="flex items-center">
+                            <h3 class="font-bold text-xl text-white text-bold mb-2">
+                              {e.name}
+                            </h3>
+                          </div>
+                          <div class="flex items-center py-3">
+                            <svg
+                              class="h-6 pr-3 fill-current text-blue-300"
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 20 20"
+                            >
+                              <path d="M20 10a10 10 0 1 1-20 0 10 10 0 0 1 20 0zm-2 0a8 8 0 1 0-16 0 8 8 0 0 0 16 0zm-8 2H5V8h5V5l5 5-5 5v-3z" />
+                            </svg>
+                            <button
+                              value={e.name}
+                              onClick={(e) => onComp(e.target.value)}
+                              href="#"
+                              class="text-white bold border-b-2 border-blue-300 hover:text-blue-300"
+                            >
+                              Ver...
+                            </button>
+                          </div>
+                        </ul>
+                      ))}
+                  </div>
                 </div>
-                <ul class="px-4 w-full sm:w-1/2 lg:w-2/4 border-gray-600 border-b sm:border-r lg:border-b-0 pb-6 pt-6 lg:pt-3">
-                  <div class="flex items-center">
-                    <Icon icon="tabler:devices-pc" class="h-12 w-12 mb-3 mr-3 fill-current text-white"/>
-                    <h3 class="font-bold text-xl text-white text-bold mb-2">Computadoras</h3>
-                  </div>
-                  <p class="text-gray-100 text-sm">Monitores, CPUs, Accesorios y Mas...</p>
-                  <div class="flex items-center py-3">
-                    <svg class="h-6 pr-3 fill-current text-blue-300"
-                      xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                      <path d="M20 10a10 10 0 1 1-20 0 10 10 0 0 1 20 0zm-2 0a8 8 0 1 0-16 0 8 8 0 0 0 16 0zm-8 2H5V8h5V5l5 5-5 5v-3z"/>
-                    </svg>
-                    <button value='Computadoras' onClick={(e)=>onComp(e.target.value)} href="#" class="text-white bold border-b-2 border-blue-300 hover:text-blue-300">Ver...</button>
-                  </div>
-                </ul>
-                <ul class="px-4 w-full sm:w-1/2 lg:w-2/4 border-gray-600 border-b sm:border-r-0 lg:border-r lg:border-b-0 pb-6 pt-6 lg:pt-3">
-                  <div class="flex items-center">
-                  <Icon icon="clarity:mobile-phone-solid" class="h-12 w-12 mb-3 mr-3 fill-current text-white"/>
-                    <h3 class="font-bold text-xl text-white text-bold mb-2">Celulares</h3>
-                  </div>
-                  <p class="text-gray-100 text-sm">Samsung, Iphone, Xiaomi, Alcatel y Mas...</p>
-                  <div class="flex items-center py-3">
-                    <svg class="h-6 pr-3 fill-current text-blue-300"
-                      xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                      <path d="M20 10a10 10 0 1 1-20 0 10 10 0 0 1 20 0zm-2 0a8 8 0 1 0-16 0 8 8 0 0 0 16 0zm-8 2H5V8h5V5l5 5-5 5v-3z"/>
-                    </svg>
-                    <button value='Celulares' onClick={(e)=>onCell(e.target.value)} href="#" class="text-white bold border-b-2 border-blue-300 hover:text-blue-300">Ver...</button>
-                  </div>
-                </ul>
-              </div>
-            </div>
-          </li>
+              </li>
             </ul>
           </div>
-          <div className="flex items-center relative">
+          <div className="flex  items-center relative">
             <button
-              className="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0"
+              className="nav-link text-white mr-2 opacity-60 hover:opacity-80 focus:opacity-80 p-0"
               onClick={async () => {
                 dispatch(getCart(userState.userName));
                 if (!userState.logged) {
-                  setOpenAlert(true)
+                  setOpenAlert(true);
                   return;
                 }
-                if (!cart.length) return alert("Carrito vacio");
+                if (!cart.length) return setOpenCart(true);
                 if (
                   cart.some(
                     (product) => product.product.stock - product.amount < 0
                   )
                 ) {
-                  alert(
-                    "Estas intentando comprar un producto en mayor cantidad a la disponible"
-                  );
+                  setOpenStock(true);
                   return;
                 }
                 navigate("/direction");
@@ -229,7 +241,7 @@ const NavBar = () => {
 
             <Link
               to="/cart"
-              className="flex items-center hover:text-gray-200 mr-5"
+              className="flex items-center hover:text-gray-200 mr-2"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -247,7 +259,7 @@ const NavBar = () => {
               </svg>
             </Link>
             {(usuario.signedIn || userState.logged) && (
-              <div className="flex items-center relative mr-5">
+              <div className="flex items-center relative mr-2">
                 <Link to={"/favorites"} className="hover:text-gray-200">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -267,7 +279,7 @@ const NavBar = () => {
               </div>
             )}
             {usuario.signedIn || userState.logged ? (
-              <div className="dropdown relative mr-5">
+              <div className="dropdown relative mr-2">
                 <a
                   className="dropdown-toggle flex items-center hidden-arrow"
                   href="#"
@@ -315,7 +327,47 @@ const NavBar = () => {
               </div>
             ) : (
               <div>
-                <div className="flex space-x-1 justify-center">
+                <div className="flex md:hidden dropdown relative mr-2">
+                  <a
+                    className="dropdown-toggle flex items-center hidden-arrow"
+                    href="#"
+                    id="dropdownMenuButton2"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-5 h-5"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
+                    </svg>
+                  </a>
+                  <ul
+                    className="dropdown-menu min-w-max absolute hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded-lg shadow-lg mt-1 m-0 bg-clip-padding border-none left-auto right-0"
+                    aria-labelledby="dropdownMenuButton2"
+                  >
+                    <li>
+                      <a
+                        onClick={() => setIsOpen(true)}
+                        className="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100"
+                      >
+                        Ingresar
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        onClick={() => setOpen(true)}
+                        className="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100"
+                      >
+                        Crear Cuenta
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div className="md:flex hidden flex-grow space-x-1 justify-center">
                   <button
                     onClick={() => setIsOpen(true)}
                     type="button"
@@ -367,24 +419,62 @@ const NavBar = () => {
                 </Modal>
               </div>
             )}
-            
+
             <Modal
-        isOpen={openAlert}
-        onRequestClose={() => setOpenAlert(false)}
-        overlayClassName={{
-          base: "overlay-base",
-          afterOpen: "overlay-after",
-          beforeClose: "overlay-before",
-        }}
-        className={{
-          base: "content-base",
-          afterOpen: "content-after",
-          beforeClose: "content-before",
-        }}
-        closeTimeoutMS={500}
-      >
-        <Alert setOpenAlert={setOpenAlert} setIsOpen={setIsOpen} openAlert={openAlert}/>
-      </Modal>
+              isOpen={openAlert}
+              onRequestClose={() => setOpenAlert(false)}
+              overlayClassName={{
+                base: "overlay-base",
+                afterOpen: "overlay-after",
+                beforeClose: "overlay-before",
+              }}
+              className={{
+                base: "content-base",
+                afterOpen: "content-after",
+                beforeClose: "content-before",
+              }}
+              closeTimeoutMS={500}
+            >
+              <Alert
+                setOpenAlert={setOpenAlert}
+                setIsOpen={setIsOpen}
+                openAlert={openAlert}
+              />
+            </Modal>
+            <Modal
+              isOpen={openCart}
+              onRequestClose={() => setOpenCart(false)}
+              overlayClassName={{
+                base: "overlay-base",
+                afterOpen: "overlay-after",
+                beforeClose: "overlay-before",
+              }}
+              className={{
+                base: "content-base",
+                afterOpen: "content-after",
+                beforeClose: "content-before",
+              }}
+              closeTimeoutMS={500}
+            >
+              <EmptyCart setOpenCart={setOpenCart} />
+            </Modal>
+            <Modal
+              isOpen={openStock}
+              onRequestClose={() => setOpenStock(false)}
+              overlayClassName={{
+                base: "overlay-base",
+                afterOpen: "overlay-after",
+                beforeClose: "overlay-before",
+              }}
+              className={{
+                base: "content-base",
+                afterOpen: "content-after",
+                beforeClose: "content-before",
+              }}
+              closeTimeoutMS={500}
+            >
+              <OutStock setOpenStock={setOpenStock} />
+            </Modal>
           </div>
         </div>
       </nav>
