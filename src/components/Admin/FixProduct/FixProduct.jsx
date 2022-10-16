@@ -39,7 +39,9 @@ export default function FixProduct() {
   const [model, setModel] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
-  const [categories, setCategories] = useState([]);
+  const [input, setInput] = useState({
+    categories: [],
+  });
   const [stock, setStock] = useState("");
 
   const [condition, setCondition] = useState("");
@@ -67,6 +69,22 @@ export default function FixProduct() {
     dispatch(getCategories());
     dispatch(clearCategories());
   }, [dispatch]);
+
+    //CONTROLADOR DEL CHECKBOX
+
+    const handleCheckbox = (e) => {
+      if (e.target.checked && !input.categories.includes(e.target.value)) {
+        setInput({
+          ...input,
+          categories: [...input.categories, e.target.value],
+        });
+      } else if (!e.target.checked) {
+        setInput({
+          ...input,
+          categories: input.categories.filter((d) => d !== e.target.value),
+        });
+      }
+    };
 
   //AL DAR AL BOTON DE CREAR PRODUCTO
   async function handleOnSubmit(e) {
@@ -189,7 +207,7 @@ export default function FixProduct() {
     }
 
     //CATEGORIA
-    if (categories.length === 0) {
+    if (input.categories.length === 0) {
       return swal({
         title: "Debe agregar una categoría",
         icon: "error",
@@ -198,14 +216,6 @@ export default function FixProduct() {
       });
     }
 
-    if (categories === "select") {
-      return swal({
-        title: "Debe señalar una categoría válida",
-        icon: "error",
-        buttons: false,
-        timer: 700,
-      });
-    }
     //IMAGEN
     if (imageSelected.length === 0) {
       return swal({
@@ -250,8 +260,8 @@ export default function FixProduct() {
           "https://api.cloudinary.com/v1_1/dzr5xulsx/image/upload",
           formData
         )
-        .then((response) =>
-          axios.put(BACK_URL + "/product/modify", {
+        .then( async (response) =>
+          await axios.put(BACK_URL + "/product/modify", {
             id: productDetail.id,
             name,
             model,
@@ -261,7 +271,7 @@ export default function FixProduct() {
             price,
             stock,
             condition,
-            categories,
+            categories: input.categories,
             photos: imgOpt,
           })
         )
@@ -385,22 +395,24 @@ export default function FixProduct() {
                 <option value="Usado">Usado</option>
               </select>
             </div>
-            <div className="inputsContainer">
-              <label>Categoría: </label>
-              <select
-                name="category"
-                onChange={(e) => setCategories(e.target.value)}
-              >
-                <option value="select">Seleccionar</option>
+            <div className="inputCategories">
+              <label className="labelCategories">Categorías: </label>
+              <div className="borde">
                 {category &&
                   category.map((c) => {
                     return (
-                      <option key={c.name} value={c.name}>
-                        {c.name}
-                      </option>
+                      <label className="labelBox" key={c.name}>
+                        <input
+                          className="boxCategories"
+                          type="checkbox"
+                          value={c.name}
+                          onChange={(e) => handleCheckbox(e)}
+                        />{" "}
+                        {c.name}{" "}
+                      </label>
                     );
                   })}
-              </select>
+              </div>
             </div>
             <button className="buttonModify" type="submit">
               Modificar
