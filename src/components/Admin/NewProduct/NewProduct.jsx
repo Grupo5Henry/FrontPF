@@ -363,22 +363,24 @@ export default function NewProduct() {
                   })}
               </select>
             </div>
-            <button className="buttonModify" type="submit">
-              Crear Producto
-            </button>
-          </form>
-          <div className="buttonsContainer">
-            <Link to={`/`}>
-              <button className="buttonCancel">Cancelar</button>
-            </Link>
+              <button className="buttonModify" type="submit">
+                Crear Producto
+              </button>
+            </form>
 
+
+            <div className="buttonsContainer">
             <button
-              className="modalButton"
-              onClick={() => setOpen(true)}
-              type="button"
-            >
-              Crear Categoria
+                className="modalButton"
+                onClick={() => setOpen(true)}
+                type="button"
+                >
+                Crear Categoria
             </button>
+            
+              <Link to={`/`}>
+                <button className="buttonCancel">Cancelar</button>
+              </Link>
             <Modal
               isOpen={modalOpen}
               onRequestClose={() => setOpen(false)}

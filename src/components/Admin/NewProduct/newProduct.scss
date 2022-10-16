@@ -38,6 +38,7 @@
                     padding: 10px;
                     display: flex;
 
+
                     .labelImg{
                         color: rgb(160, 158, 158);
                         width: 250px;
@@ -46,18 +47,19 @@
                         gap: 10px;
                         margin-bottom: 10px;
                         
+                        
                     }
-
                     .inputImg{
-                        width: 100%;
-                        padding: 8px;
-                        border: none;
-                        background: transparent;
+                        background-color: #0000ff24;
+                        border-radius: 10px;
+                        border: 10px;
 
                     }
+
                 }
-                .inputsContainer{
-                    width: 100%;
+                }
+                    .inputsContainer{
+                        width: 100%;
                     padding: 10px;
                     display: flex;
 
@@ -78,23 +80,29 @@
                         border-bottom: 1px solid gray;
                         background: transparent;
                     }
+                    select{
+                        border-radius: 5px;
+                        background-color: #0000ff24;
+                        width:50%;
+                        height: 80%;
+                    }
 
                 }
-            }
+                
             .buttonsContainer{
                 
                 display: flex;
                 justify-content: space-between;
                 margin-left: 2%;
                 margin-right: 0%;
-                width: 50%;
+                width: 100%;
 
                 
             }
             .buttonModify, .modalButton, .buttonCancel{
                 width: 150px;
                 padding: 15px;
-                border: none;
+                border-radius: 10px;
                 background-color: #6e47f8b8;
                 color: white;
                 font-weight: bold;
@@ -109,6 +117,48 @@
                 margin-right: 0%;
                 margin-left: 80.6%;
                 margin-bottom: 30px;
+            }
+        }
+    }
+}
+
+
+@media(max-width : 625px){
+    .newProduct{
+        .newProductContainer{
+             width:97%;
+            .top, .bottom{
+                width: 70%;
+                h1{
+                    font-size: 10px;
+                }
+                form{
+                    .inputsContainerImg{
+                        font-size: 10px;
+                        .inputImg{
+                            font-size: 10px;
+                        }
+                    }
+                }
+                .buttonModify, .modalButton, .buttonCancel{
+                    font-size: 50%;
+                    width:90px;
+                    padding: 10px;
+                    
+                }
+            }
+            .inputsContainer{
+                label{
+                    font-size: 10px;
+                }
+                input{
+
+                    font-size: 0.5rem;
+                    line-height: 0.5rem;
+                }
+                select{
+                    font-size: 60%;
+                }
             }
         }
     }
