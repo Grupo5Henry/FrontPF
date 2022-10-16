@@ -8,14 +8,15 @@ export default function ByPrice() {
   return (
     <>
       <select
+        style={{color: 'rgb(85, 29, 29)', borderRadius:'10px'}}
         value={filter.order}
         onChange={(e) =>
           dispatch(updateFilter({ order: e.target.value, page: 0 }))
         }
       >
-        <option hidden>Price</option>
-        <option>ASC</option>
-        <option>DESC</option>
+        <option hidden>Precio</option>
+        <option value={""}>Menor a Mayor</option>
+        <option value={"DESC"}>Mayor a Menor</option>
       </select>
     </>
   );

@@ -49,7 +49,7 @@ export default function ByPriceRange() {
         }}
       >
         <input
-         style={{maxWidth:"40%"}}
+         style={{maxWidth:"40%",color: 'rgb(85, 29, 29)', borderRadius:'10px'}}
           type="number"
           placeholder="Min"
           name="minPrice"
@@ -58,7 +58,7 @@ export default function ByPriceRange() {
           onClick={e => e.target.value? setRango({...rango,minPrice: ""}) : null}
         />
         <input
-         style={{maxWidth:"40%"}}
+         style={{maxWidth:"40%",color: 'rgb(85, 29, 29)', borderRadius:'10px'}}
          type="number"
           placeholder="Max"
           name="maxPrice"
