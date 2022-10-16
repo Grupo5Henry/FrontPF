@@ -92,7 +92,7 @@ function Products() {
                  />
                  <div id={s.noImage} className="absolute sm:top-8 top-4 left-4 sm:left-8 flex justify-start items-start flex-col space-y-2">
                    <div>
-                     {product.stock && product.stock > 3 ? null : (
+                     {product.stock > 3 ? null : (
                        <p
                           id={s.pocoStock}
                          className="group-hover:opacity-60 transition duration-500 text-xl leading-5 text-gray-600"
