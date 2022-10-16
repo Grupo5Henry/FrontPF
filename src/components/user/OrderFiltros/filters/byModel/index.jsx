@@ -8,7 +8,7 @@ export default function ByModel({ actual }) {
   var {filter} = useSelector((state) => state);
   return (
     <>
-      <select style = {{ margin: '3px',color: 'rgb(85, 29, 29)', borderRadius:'10px',backgroundColor:'rgba(215, 123, 13, 0.11'}}
+      <select style = {{ margin: '3px',color: 'rgb(85, 29, 29)', borderRadius:'10px'}}
         value={filter.model}
         onChange={(e) =>
           {
@@ -17,8 +17,8 @@ export default function ByModel({ actual }) {
           }
         }
       >
-        <option hidden>Model</option>
-        {actual ? <option value={""}>All the models</option> : null}
+        <option hidden>Modelo</option>
+        {actual ? <option value={""}>Todos los modelos</option> : null}
         {models.map((m, i) => (
           <option key={i}>{m.model}</option>
         ))}

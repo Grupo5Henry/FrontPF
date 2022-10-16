@@ -31,7 +31,9 @@ export default function NewProduct() {
   const [model, setModel] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(null);
-  const [categories, setCategories] = useState([]);
+  const [input, setInput] = useState({
+    categories: [],
+  });
   const [stock, setStock] = useState(0);
 
   const [condition, setCondition] = useState("");
@@ -49,6 +51,26 @@ export default function NewProduct() {
     dispatch(getCategories());
     dispatch(clearCategories());
   }, [dispatch]);
+
+  //CONTROLADOR DEL CHECKBOX
+
+  const handleCheckbox = (e) => {
+    // if (e.target.checked && !input.categories.includes(e.target.value)) {
+    //   setInput({
+    //     ...input,
+    //     categories: [...input.categories, e.target.value],
+    //   });
+    // } else if (!e.target.checked) {
+    //   setInput({
+    //     ...input,
+    //     categories: input.categories.filter((d) => d !== e.target.value),
+    //   });
+    // }
+    setInput({
+      ...input,
+      categories: [...input.categories, e.target.value]
+    })
+  };
 
   //AL DAR AL BOTON DE CREAR PRODUCTO
   async function handleOnSubmit(e) {
@@ -147,7 +169,7 @@ export default function NewProduct() {
     }
 
     //CATEGORIA
-    if (categories.length === 0) {
+    if (input.categories.length === 0) {
       return swal({
         title: "Debe agregar una categoría",
         icon: "error",
@@ -156,14 +178,6 @@ export default function NewProduct() {
       });
     }
 
-    if (categories === "select") {
-      return swal({
-        title: "Debe señalar una categoría válida",
-        icon: "error",
-        buttons: false,
-        timer: 700,
-      });
-    }
     //IMAGEN
     if (imageSelected.length === 0) {
       return swal({
@@ -212,9 +226,8 @@ export default function NewProduct() {
           .then((response) => {
             imgObl = response.data.secure_url;
           })
-          .then(() => {
-            console.log("SOY EL 2", imgOpt);
-            axios
+          .then( async () => {
+            await axios
               .post(`${BACK_URL}/product/create`, {
                 name,
                 model,
@@ -223,7 +236,7 @@ export default function NewProduct() {
                 thumbnail: imgObl,
                 price,
                 condition,
-                categories,
+                categories: input.categories,
                 stock,
                 photos: imgOpt,
               })
@@ -346,27 +359,64 @@ export default function NewProduct() {
                 <option value="Usado">Usado</option>
               </select>
             </div>
-            <div className="inputsContainer">
-              <label>Categoría: </label>
-              <select
-                name="category"
-                onChange={(e) => setCategories(e.target.value)}
-              >
-                <option value="select">Seleccionar</option>
-                {category &&
+
+            <div className="inputCategories">
+              <label className="labelCategories">Categorías: </label>
+              {/* <div className="borde"> */}
+                <div style={{width:"50%",display:"flex",flexDirection:"column"}}>
+                  <select style={{width:"100%"}} onChange={(e) => handleCheckbox(e)}>
+                    <option hidden>Seleccione categorias</option>
+                    {
+                      category.map((c,i) => {
+                        if(!input.categories.includes(c.name)){
+                          return (
+                            <option key={i}>{c.name}</option>
+                          )
+                        } 
+                      }) 
+                    }
+                  </select>
+                  <div style={{display:"flex",gap:"10px",maxWidth:"100%",flexWrap:"wrap",justifyContent:"center"}}>
+                    {
+                      input.categories.map(c => {
+                        return (
+                          <span onClick={() => setInput(prev => {
+                            var filtered = input.categories.filter(e => e !== c)
+                            return ({
+                              ...prev,
+                              categories: filtered
+                            })
+                          })}>{c}</span>
+                        )
+                      })
+                    }
+                  </div>
+                </div>
+                {/* {category &&
                   category.map((c) => {
                     return (
-                      <option key={c.name} value={c.name}>
-                        {c.name}
-                      </option>
+                      <label className="labelBox" key={c.name}>
+                        <input
+                          className="boxCategories"
+                          type="checkbox"
+                          value={c.name}
+                          onChange={(e) => handleCheckbox(e)}
+                        />{" "}
+                        {c.name}{" "}
+                      </label>
                     );
-                  })}
-              </select>
+                  })} */}
+              {/* </div> */}
             </div>
-              <button className="buttonModify" type="submit">
-                Crear Producto
-              </button>
-            </form>
+
+            <button className="buttonModify" type="submit">
+              Crear Producto
+            </button>
+          </form>
+          <div className="buttonsContainer">
+            <Link to={`/`}>
+              <button className="buttonCancel">Cancelar</button>
+            </Link>
 
 
             <div className="buttonsContainer">
@@ -402,5 +452,6 @@ export default function NewProduct() {
         </div>
       </div>
     </div>
+  </div>
   );
 }
