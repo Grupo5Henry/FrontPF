@@ -44,13 +44,29 @@
 
     //TABLAS
 
-    .datatable, .datatableProducts{
+    .datatable, .datatableProducts, .reviewsDatatable{
+        
         .datagrid{
+            
             color: gray;
-            border: none;
+            /* border: none; */
+            background-color: #222;
+
+            .corpse{
+                color: gray;
+            }
+
+            .aprobarButton, .bannearButton, .esconderButton{
+                color: gray;
+                border: none;
+
+            &:hover{
+                background-color: #333;
+            }
+            }
            
         }
-        .modifyButton, .detailButton {
+        .modifyButton, .detailButton  {
             color: gray;
             border: none;
 

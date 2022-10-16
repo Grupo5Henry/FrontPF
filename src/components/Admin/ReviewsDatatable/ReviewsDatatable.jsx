@@ -12,6 +12,7 @@ import axios from "axios";
 import { BACK_URL } from "../../../constantes";
 import { getAllReviews } from "../../../redux/action";
 import { authHeader } from "../../../services/auth-header";
+import "../ReviewsDatatable/reviewsDatatable.scss";
 
 // const Card = () => (
 //   <tr>
@@ -32,14 +33,29 @@ export default function ReviewDatatable(props) {
     {
       label: "Usuario",
       name: "userName",
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <div className="corpse">{value}</div>;
+        },
+      },
     },
     {
       label: "Descripcion",
       name: "description",
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <div className="corpse">{value}</div>;
+        },
+      },
     },
     {
       label: "Puntaje",
       name: "stars",
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <div className="corpse">{value}</div>;
+        },
+      },
     },
     {
       name: "productId",
@@ -47,8 +63,8 @@ export default function ReviewDatatable(props) {
       options: {
         customBodyRender: (value, tableMeta, updateValue) => {
           return (
-            <>
-              <button
+            <div className="buttonsContainer">
+              <button className="aprobarButton"
                 onClick={async () => {
                   try {
                     await axios.put(`${BACK_URL}/review/unflagReview`, {
@@ -63,7 +79,7 @@ export default function ReviewDatatable(props) {
               >
                 Aprobar
               </button>
-              <button
+              <button className="esconderButton"
                 onClick={async () => {
                   try {
                     await axios.put(`${BACK_URL}/review/hideReview`, {
@@ -78,7 +94,7 @@ export default function ReviewDatatable(props) {
               >
                 Esconder
               </button>
-              <button
+              <button className="bannearButton"
                 onClick={async () => {
                   try {
                     await axios.put(`${BACK_URL}/review/hideAllFromUser`, {
@@ -100,7 +116,7 @@ export default function ReviewDatatable(props) {
               >
                 Bannear usuario
               </button>
-            </>
+            </div>
           );
         },
       },
@@ -131,11 +147,14 @@ export default function ReviewDatatable(props) {
   };
 
   return (
+    <div className="reviewsDatatable">
     <MUIDataTable
       title={"Ordenes"}
+      className="datagrid"
       data={data.length ? data : []}
       columns={columns}
       options={options}
     />
+    </div>
   );
 }

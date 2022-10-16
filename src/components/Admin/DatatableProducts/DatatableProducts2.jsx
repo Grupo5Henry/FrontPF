@@ -24,22 +24,42 @@ export default function DatatableProducts2() {
     {
       label: "Nombre",
       name: "name",
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <div className="corpse">{value}</div>;
+        },
+      },
     },
     {
       label: "Modelo",
       name: "model",
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <div className="corpse">{value}</div>;
+        },
+      },
     },
     {
       label: "Stock",
       name: "stock",
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <div className="corpse">{value}</div>;
+        },
+      },
     },
     {
       label: "Precio (USD)",
       name: "price",
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <div className="corpse">{value}</div>;
+        },
+      },
     },
     {
       name: "id",
-      label: "Modificar Producto",
+      label: "Acciones",
       options: {
         customBodyRender: (value, tableMeta, updateValue) => {
           return (

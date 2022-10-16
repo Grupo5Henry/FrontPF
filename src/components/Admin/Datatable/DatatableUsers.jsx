@@ -106,22 +106,47 @@ export default function DatatableUsers() {
     {
       label: "Nombre",
       name: "userName",
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <div className="corpse">{value}</div>;
+        },
+      },
     },
     {
       label: "Dirección de facturación",
       name: "billingAddress",
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <div className="corpse">{value}</div>;
+        },
+      },
     },
     {
       label: "Dirección por defecto",
       name: "defaultShippingAddress",
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <div className="corpse">{value}</div>;
+        },
+      },
     },
     {
       label: "Email",
       name: "email",
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <div className="corpse">{value}</div>;
+        },
+      },
     },
     {
     label: "Rol",
     name: "role",
+    options: {
+      customBodyRender: (value, tableMeta, updateValue) => {
+        return <div className="corpse">{value}</div>;
+      },
+    },
     },
     {
     label: "Estado",
@@ -129,7 +154,7 @@ export default function DatatableUsers() {
     options: {
         customBodyRender: (value, tableMeta, updateValue) => {
             return (
-                <div className="cellWithStatus">
+                <div className="corpse">
                 {value ? "Baneado" : "Activo"}
                 </div>
             )

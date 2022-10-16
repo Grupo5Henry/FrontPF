@@ -3,6 +3,10 @@
     padding: 30px;
 
     .datagrid{
+
+        .corpse{
+            color: #222;
+        }
         
 
     .cellWithBan{
@@ -46,6 +50,10 @@
             color: goldenrod;
             border: 1px dotted goldenrod;
             cursor: pointer;
+
+            &:hover{
+                background-color: rgb(245, 230, 191);
+            }
         }
         .banButton{
             padding: 3px 6px;
@@ -53,6 +61,10 @@
             color: red;
             border: 1px dotted red;
             cursor: pointer;
+
+            &:hover{
+                background-color: #e6b0b5;
+            }
         }
     }
 }
