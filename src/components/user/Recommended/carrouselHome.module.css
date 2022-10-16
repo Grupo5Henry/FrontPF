@@ -1,0 +1,13 @@
+.chico{
+    display: none;
+}
+
+@media (max-width: 600px) {
+    .grande{
+        display: none;
+    }
+    
+    .chico{
+        display: block;
+    }
+  }
