@@ -73,7 +73,6 @@ const Details = () => {
                     }
                   </div>
                 </div>
-
                 <div className="w-full md:w-1/2 px-10">
                   <div className="mb-10">
                     <div className="flex flex-row justify-between">

@@ -100,6 +100,25 @@ export default function ReviewDatatable(props) {
               >
                 Bannear usuario
               </button>
+              <button
+                onClick={async () => {
+                  try {
+                    await axios.put(
+                      `${BACK_URL}/user/modify`,
+                      {
+                        userName: tableMeta.rowData[0],
+                        mute: true,
+                      },
+                      { headers: authHeader() }
+                    );
+                    dispatch(getAllReviews());
+                  } catch (err) {
+                    console.log({ error: err.message });
+                  }
+                }}
+              >
+                Mutear usuario
+              </button>
             </>
           );
         },

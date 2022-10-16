@@ -25,13 +25,13 @@ import Alert from "../alert/alert";
 
 // import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
+import { getValue } from "@mui/system";
+import EmptyCart from "../alert/emptyCart";
+import OutStock from "../alert/outStock";
 import LogIn from "../logIn/logIn";
 import SearchBar from "../searchBar/searchBar.jsx";
 import SignIn from "../signIn/signIn";
 import "./navBar.css";
-import EmptyCart from "../alert/emptyCart";
-import OutStock from "../alert/outStock";
-import { getValue } from "@mui/system";
 
 Modal.setAppElement("#root");
 
@@ -181,35 +181,39 @@ const NavBar = () => {
                       <p>Puedes filtrar los productos por tu preferincia</p>
                     </div>
                     {categories &&
-                      categories.map((e, i) => (
-                        <ul
-                          key={i}
-                          class="px-4 w-auto sm:w-1/2 lg:w-auto border-gray-600 border-b sm:border-r lg:border-b-0 pb-6 pt-6 lg:pt-3"
-                        >
-                          <div class="flex items-center">
-                            <h3 class="font-bold text-xl text-white text-bold mb-2">
-                              {e.name}
-                            </h3>
-                          </div>
-                          <div class="flex items-center py-3">
-                            <svg
-                              class="h-6 pr-3 fill-current text-blue-300"
-                              xmlns="http://www.w3.org/2000/svg"
-                              viewBox="0 0 20 20"
+                      categories.map((e, i) => {
+                        if (i < 6) {
+                          return (
+                            <ul
+                              key={i}
+                              class="px-4 w-auto sm:w-1/2 lg:w-auto border-gray-600 border-b sm:border-r lg:border-b-0 pb-6 pt-6 lg:pt-3"
                             >
-                              <path d="M20 10a10 10 0 1 1-20 0 10 10 0 0 1 20 0zm-2 0a8 8 0 1 0-16 0 8 8 0 0 0 16 0zm-8 2H5V8h5V5l5 5-5 5v-3z" />
-                            </svg>
-                            <button
-                              value={e.name}
-                              onClick={(e) => onComp(e.target.value)}
-                              href="#"
-                              class="text-white bold border-b-2 border-blue-300 hover:text-blue-300"
-                            >
-                              Ver...
-                            </button>
-                          </div>
-                        </ul>
-                      ))}
+                              <div class="flex items-center">
+                                <h3 class="font-bold text-xl text-white text-bold mb-2">
+                                  {e.name}
+                                </h3>
+                              </div>
+                              <div class="flex items-center py-3">
+                                <svg
+                                  class="h-6 pr-3 fill-current text-blue-300"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  viewBox="0 0 20 20"
+                                >
+                                  <path d="M20 10a10 10 0 1 1-20 0 10 10 0 0 1 20 0zm-2 0a8 8 0 1 0-16 0 8 8 0 0 0 16 0zm-8 2H5V8h5V5l5 5-5 5v-3z" />
+                                </svg>
+                                <button
+                                  value={e.name}
+                                  onClick={(e) => onComp(e.target.value)}
+                                  href="#"
+                                  class="text-white bold border-b-2 border-blue-300 hover:text-blue-300"
+                                >
+                                  Ver...
+                                </button>
+                              </div>
+                            </ul>
+                          );
+                        }
+                      })}
                   </div>
                 </div>
               </li>

@@ -28,6 +28,16 @@ export default function OrderDataTable2(props) {
   const orders = useSelector((state) => state.orders);
   const dispatch = useDispatch();
 
+  const expireSession = async (id) => {
+    try {
+      await axios.post(`${BACK_URL}/stripe/expire`, {
+        id: id,
+      });
+    } catch (err) {
+      console.log({ error: err });
+    }
+  };
+
   const columns = [
     {
       name: "Numero",
@@ -105,19 +115,13 @@ export default function OrderDataTable2(props) {
               <button
                 onClick={async () => {
                   if (tableMeta.rowData[1] === "Esperando pago") {
-                    try {
-                      console.log(
-                        tableMeta.rowData[6],
-                        "cancelar stripe session"
-                      );
-                      await axios.put(`${BACK_URL}/order/change`, {
-                        orderNumber: tableMeta.rowData[0],
-                        newStatus: "Cancelled",
-                      });
-                      dispatch(getAllOrders());
-                    } catch (err) {
-                      console.log({ error: err });
-                    }
+                    swal({
+                      title: "Esta seguro que desea cancelar la compra?",
+                      icon: "warning",
+                      buttons: ["Cancel", "I am sure"],
+                    }).then((response) => {
+                      if (response) expireSession(tableMeta.rowData[6]);
+                    });
                   } else {
                     swal({
                       title: "No se puedo cancelar una orden ya pagada",
@@ -125,6 +129,7 @@ export default function OrderDataTable2(props) {
                       buttons: false,
                     });
                   }
+                  dispatch(getAllOrders());
                 }}
               >
                 Cancelar
@@ -148,14 +153,14 @@ export default function OrderDataTable2(props) {
         let infoExtra = [];
         let orden = [...order];
         infoFila.push(...orden.splice(0, 6));
-        let url = infoFila.pop();
+        let sessionId = infoFila.pop();
         infoExtra.push(...orden);
         infoFila.push(
           infoExtra
             .map((order) => order.price * order.amount)
             .reduce((a, b) => a + b)
         );
-        infoFila.push(url);
+        infoFila.push(sessionId);
         let orderNumber = infoFila[0];
         switch (infoFila[1]) {
           case "PaymentPending":

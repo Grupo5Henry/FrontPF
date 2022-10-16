@@ -408,7 +408,7 @@ export function getAllOrders() {
                 orderInstance.userName,
                 orderInstance.shippingAddress,
                 date,
-                orderInstance.url,
+                orderInstance.sessionId,
                 {
                   amount: orderInstance.amount,
                   productId: orderInstance.productId,
@@ -434,7 +434,7 @@ export function getUserOrders(userName) {
         `${BACK_URL}/order/userName?userName=${userName}`
       );
       const ordersGrouped = [];
-      console.log(temp.data);
+      // console.log(temp.data);
       temp.data.map((orderInstance) => {
         let orderNumber = orderInstance.orderNumber;
         let date = orderInstance.createdAt.split("-");
@@ -460,7 +460,7 @@ export function getUserOrders(userName) {
             orderInstance.userName,
             orderInstance.shippingAddress,
             date,
-            orderInstance.url,
+            orderInstance.sessionId,
             {
               amount: orderInstance.amount,
               productId: orderInstance.productId,
@@ -470,36 +470,9 @@ export function getUserOrders(userName) {
             },
           ]);
         }
-        // ordersGrouped[orderNumber] = ordersGrouped[orderNumber]
-        //   ? [
-        //       ...ordersGrouped[orderNumber],
-        //       {
-        //         amount: orderInstance.amount,
-        //         productId: orderInstance.productId,
-        //         price: orderInstance.product.price,
-        //         name: orderInstance.product.name,
-        //         thumbnail: orderInstance.product.thumbnail,
-        //       },
-        //     ]
-        //   : [
-        //       orderNumber,
-        //       orderInstance.status,
-        //       orderInstance.userName,
-        //       orderInstance.shippingAddress,
-        //       date,
-        //       orderInstance.url,
-        //       {
-        //         amount: orderInstance.amount,
-        //         productId: orderInstance.productId,
-        //         price: orderInstance.product.price,
-        //         name: orderInstance.product.name,
-        //         thumbnail: orderInstance.product.thumbnail,
-        //       },
-        //     ];
-        console.log(ordersGrouped);
         return orderInstance;
       });
-
+      // ordersGrouped.unshift(null);
       dispatch({
         type: FETCH_ALL_ORDERS,
         payload: ordersGrouped,
