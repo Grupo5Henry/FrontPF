@@ -19,7 +19,7 @@ export default function ByBrand({ actual }) {
 
   return (
     
-      <select style = {{ margin: '3px',color: 'rgb(85, 29, 29)', borderRadius:'10px',backgroundColor:'rgba(215, 123, 13, 0.11'}}
+      <select style = {{ margin: '3px',color: 'rgb(85, 29, 29)', borderRadius:'10px'}}
         value={filter.brand}
         onChange={(e) => {
           if(filter.search) dispatch(resetFilter());
@@ -27,8 +27,8 @@ export default function ByBrand({ actual }) {
         }
         }
       >
-        <option hidden><div className="filter">Brand</div></option>
-        {actual ? <option value={""}>All the brands</option> : null}
+        <option hidden><div className="filter">Marca</div></option>
+        {actual ? <option value={""}>Todas las marcas</option> : null}
         {brands.map((b, i) => (
           <option key={i}>{b.brand}</option>
         ))}
