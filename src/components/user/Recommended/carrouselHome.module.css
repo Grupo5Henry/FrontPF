@@ -38,7 +38,6 @@
 .slider{
     background-color: rgb(255, 255, 255);
     width: 94%;
-    z-index: -1;
 }
 
 .card{
