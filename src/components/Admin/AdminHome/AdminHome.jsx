@@ -21,7 +21,7 @@ export default function AdminHome () {
                     <Widget type="earning"/>
                     <Widget type="comment"/>
                 </div>
-                <div className="charts" style={{display:"flex",flexDirection:"column"}}>
+                <div className="charts">
                     <Featured/>
                     <Chart/>
                 </div>
