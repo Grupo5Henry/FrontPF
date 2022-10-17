@@ -30,11 +30,9 @@ export default function CarrouselHome() {
             isPlaying
             className={s.carrusel}
           >
-            <ButtonBack className={`${s.but} ${s.back}`}>{"<"}</ButtonBack>
             <div className={s.slider}>
               <Slider>
                 {array.map((p, i) => {
-                  console.log(p);
                   return (
                     <Slide index={i} key={i}>
                       <div className={s.card}>
@@ -66,6 +64,7 @@ export default function CarrouselHome() {
                 })}
               </Slider>
             </div>
+            <ButtonBack className={`${s.but} ${s.back}`}>{"<"}</ButtonBack>
             <ButtonNext className={`${s.but} ${s.next}`}>{">"}</ButtonNext>
           </CarouselProvider>
         </div>
@@ -83,7 +82,6 @@ export default function CarrouselHome() {
             isPlaying
             className={s.carrusel}
           >
-            <ButtonBack className={`${s.but} ${s.back}`}>{"<"}</ButtonBack>
             <div className={s.slider}>
               <Slider>
                 {array.map((p, i) => {
@@ -118,6 +116,7 @@ export default function CarrouselHome() {
                 })}
               </Slider>
             </div>
+            <ButtonBack className={`${s.but} ${s.back}`}>{"<"}</ButtonBack>
             <ButtonNext className={`${s.but} ${s.next}`}>{">"}</ButtonNext>
           </CarouselProvider>
         </div>
@@ -135,7 +134,6 @@ export default function CarrouselHome() {
             isPlaying
             className={s.carrusel}
           >
-            <ButtonBack className={`${s.but} ${s.back}`}>{"<"}</ButtonBack>
             <div className={s.slider}>
               <Slider>
                 {array.map((p, i) => {
@@ -170,6 +168,7 @@ export default function CarrouselHome() {
                 })}
               </Slider>
             </div>
+            <ButtonBack className={`${s.but} ${s.back}`}>{"<"}</ButtonBack>
             <ButtonNext className={`${s.but} ${s.next}`}>{">"}</ButtonNext>
           </CarouselProvider>
         </div>
