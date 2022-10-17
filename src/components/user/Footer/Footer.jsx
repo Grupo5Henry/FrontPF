@@ -1,6 +1,18 @@
 import React from "react";
+import { useEffect, useState } from "react";
+import Bot from "../Bot/Bot";
+
+
+
 
 const Footer1 = () => {
+
+  const [chatVisible, setChatVisible] = useState(false);
+
+  const handleHelp = () => {
+    setChatVisible(!chatVisible);
+  }
+
   return (
     <div>
       <section className="bg-white">
@@ -54,6 +66,14 @@ const Footer1 = () => {
                 Terms
               </a>
             </div>
+            <div className="px-5 py-2">
+              < button onClick={handleHelp} className="text-base leading-6 text-gray-500 hover:text-gray-900">
+                Ayuda
+              </button>
+            </div>
+            { chatVisible &&
+              <Bot setOnOff={handleHelp}></Bot>
+            }
           </nav>
           <div className="flex justify-center mt-8 space-x-6">
             <a

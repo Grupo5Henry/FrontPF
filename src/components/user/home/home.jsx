@@ -7,11 +7,13 @@ import SearchBar from "../searchBar/searchBar";
 import Categories from "../Caterories/Categories";
 import CarrouselHome from "../Recommended/CarrouselHome";
 import Pagination from "../Pagination/Pagination";
+import Bot from "../Bot/Bot";
 
 const Home = () => {
   const products = useSelector((state) => state.products);
   const filter = useSelector((state) => state.filter);
   const dispatch = useDispatch();
+  
 
   // useEffect(() => {
   //     dispatch(getProductsName())
@@ -28,7 +30,6 @@ const Home = () => {
       <div>
         <SearchBar />
       </div>
-
       <div>
         <CarrouselHome />
         <OrderFilt />
