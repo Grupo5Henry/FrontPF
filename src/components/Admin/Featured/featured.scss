@@ -89,3 +89,32 @@
         }
     }
 }
+
+@media(max-width : 615px){
+    .featured{
+        padding: 45px;
+        margin: 20px;
+        .top{
+            .title{
+                font-size: 13px;
+            }
+            .icon{
+                width: 30px;
+                height: 30px;
+            }
+        }
+        .bottom{
+            padding: 5px;
+            height: 200px;
+            margin-left: 0px;
+            .img{
+                max-width: 30%;
+            }
+            .titleProduct{
+                font-size: 10px;
+                font-weight: bold;
+                color: rgb(85, 75, 68);
+            }
+        }
+    }
+}

@@ -116,7 +116,6 @@ export default function ReviewDatatable(props) {
               >
                 Bannear usuario
               </button>
-
               <button
                 onClick={async () => {
                   try {
