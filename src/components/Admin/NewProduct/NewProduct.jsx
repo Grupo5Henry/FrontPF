@@ -364,7 +364,7 @@ export default function NewProduct() {
               <label className="labelCategories">Categorías: </label>
               {/* <div className="borde"> */}
                 <div style={{width:"50%",display:"flex",flexDirection:"column"}}>
-                  <select style={{width:"100%"}} onChange={(e) => handleCheckbox(e)}>
+                  <select style={{width:"100%", color:'black'}} onChange={(e) => handleCheckbox(e)}>
                     <option hidden>Seleccione categorias</option>
                     {
                       category.map((c,i) => {
@@ -380,13 +380,13 @@ export default function NewProduct() {
                     {
                       input.categories.map(c => {
                         return (
-                          <span onClick={() => setInput(prev => {
+                          <span style= {{backgroundColor:'rgba(60, 3, 62, 0.67)', borderRadius : '3px',margin: '2px',padding: '5px'}}onClick={() => setInput(prev => {
                             var filtered = input.categories.filter(e => e !== c)
                             return ({
                               ...prev,
                               categories: filtered
                             })
-                          })}>{c}</span>
+                          })}>{c} <button style={{color:'red'}}>x</button></span>
                         )
                       })
                     }
@@ -413,13 +413,8 @@ export default function NewProduct() {
               Crear Producto
             </button>
           </form>
-          <div className="buttonsContainer">
-            <Link to={`/`}>
-              <button className="buttonCancel">Cancelar</button>
-            </Link>
+          <div className="buttonSpace">
 
-
-            <div className="buttonsContainer">
             <button
                 className="modalButton"
                 onClick={() => setOpen(true)}
@@ -427,10 +422,13 @@ export default function NewProduct() {
                 >
                 Crear Categoria
             </button>
+
+            <Link to={`/`}>
+              <button className="buttonCancel">Cancelar</button>
+            </Link>
+
+          </div>
             
-              <Link to={`/`}>
-                <button className="buttonCancel">Cancelar</button>
-              </Link>
             <Modal
               isOpen={modalOpen}
               onRequestClose={() => setOpen(false)}
@@ -448,8 +446,6 @@ export default function NewProduct() {
             >
               <ModalCreateCategory setIsOpen={setIsOpen} setOpen={setOpen} />
             </Modal>
-          </div>
-        </div>
       </div>
     </div>
   </div>
