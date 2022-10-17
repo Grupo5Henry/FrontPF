@@ -74,6 +74,15 @@ export default function DatatableProducts2() {
     },
   ]
 
+  const options = {     
+    filter: true,          
+      selectableRows: "none",     
+      filterType: "dropdown",     
+      responsive: "standard",     
+      rowsPerPage: 10,     
+      expandableRowsHeader: false,     
+      expandableRows: false,     
+      page: 0,   };
 
   return (
     <div className="datatableProducts">
@@ -83,6 +92,7 @@ export default function DatatableProducts2() {
       className="datagrid"
       data={productos.length ? productos : []}
       columns={columns}
+      options={options}
     />
     :
     <div>Cargando...</div> }

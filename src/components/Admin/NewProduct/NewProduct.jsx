@@ -318,7 +318,7 @@ export default function NewProduct() {
             </div>
 
             <div className="inputsContainerImg">
-              <label className="labelImg">Imagen 2 (Opcional): </label>
+              <label className="labelImg">Imágenes opcionales: </label>
               <input
                 className="inputImg"
                 multiple="multiple"
@@ -418,9 +418,9 @@ export default function NewProduct() {
                     cursor: "pointer",
                   }}
                 >
-                  {input.categories.map((c) => {
+                  {input.categories.map((c, i) => {
                     return (
-                      <span
+                      <span key={i}
                         onClick={() =>
                           setInput((prev) => {
                             var filtered = input.categories.filter(

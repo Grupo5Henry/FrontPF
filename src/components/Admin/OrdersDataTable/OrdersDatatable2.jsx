@@ -65,7 +65,7 @@ export default function OrderDataTable2(props) {
         customBodyRender: (value, tableMeta, updateValue) => {
           return (
             <>
-              <button
+              <button className="ordenButton"
                 onClick={async () => {
                   if (tableMeta.rowData[1] === "Siendo procesada") {
                     try {
@@ -89,7 +89,7 @@ export default function OrderDataTable2(props) {
               >
                 Despachar
               </button>
-              <button
+              <button className="ordenButton"
                 onClick={async () => {
                   if (tableMeta.rowData[1] === "En ruta") {
                     try {
@@ -113,7 +113,7 @@ export default function OrderDataTable2(props) {
               >
                 Entregada
               </button>
-              <button
+              <button className="ordenButtonCancelar"
                 onClick={async () => {
                   if (tableMeta.rowData[1] === "Esperando pago") {
                     swal({
@@ -256,7 +256,7 @@ export default function OrderDataTable2(props) {
   return (
     <div className="datatable">
     <MUIDataTable
-      title={"Ordenes"}
+      title={"LISTA DE ORDENES"}
       className="datagrid"
       data={data.length ? data : []}
       columns={columns}

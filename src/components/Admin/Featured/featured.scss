@@ -33,17 +33,20 @@
              }
     }
     .bottom{
-        padding: 20px;
+        /* padding: 20px; */
         height: 400px;
         width: 400px;
         display: flex;
-        flex-direction: column;
-        /* align-items: center; */
+        /* align-content: center; */
         justify-content: center;
-        margin-left: 40px;
+        flex-direction: column;
+        /* margin-left: 40px; */
+        margin: auto;
+        margin-top: 30px;
 
 
         .titleProduct{
+            margin-top: 15px;
             font-size: 18px;
             font-weight: bold;
             color: rgb(160, 158, 158);

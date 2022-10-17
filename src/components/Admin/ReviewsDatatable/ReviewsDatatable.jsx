@@ -110,7 +110,7 @@ export default function ReviewDatatable(props) {
                 Bannear usuario
               </button>
 
-              <button
+              <button className="esconderButton"
                 onClick={async () => {
                   try {
                     await axios.put(
@@ -162,7 +162,7 @@ export default function ReviewDatatable(props) {
   return (
     <div className="reviewsDatatable">
     <MUIDataTable
-      title={"Ordenes"}
+      title={"LISTA DE COMENTARIOS"}
       className="datagrid"
       data={data.length ? data : []}
       columns={columns}
