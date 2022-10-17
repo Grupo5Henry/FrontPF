@@ -1,39 +1,43 @@
+.reviewsDatatable {
+  .datagrid {
+    padding: 10px;
+    background-color: white;
+    -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+    box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+    border-radius: 10px;
 
-.reviewsDatatable{
+    .buttonsContainer {
+      display: inline-block;
+      .aprobarButton,
+      .bannearButton,
+      .esconderButton {
+        padding: 5px;
+      }
+      .aprobarButton,
+      .esconderButton {
+        padding: 3px 6px;
+        margin-left: 3px;
+        margin-right: 3px;
+        border-radius: 5px;
+        color: blue;
+        border: 0.5px dotted blue;
+        cursor: pointer;
 
-    .datagrid{
-        padding: 10px;
-        background-color: white;
-        
-        .buttonsContainer{
-            display: inline-block;
-            .aprobarButton, .bannearButton, .esconderButton{
-                padding: 5px;
-            }
-            .aprobarButton, .esconderButton {
-                padding: 3px 6px;
-                margin-left: 3px;
-                margin-right: 3px;
-                border-radius: 5px;
-                color: blue;
-                border: 0.5px dotted blue;
-                cursor: pointer;
-
-                &:hover{
-                    background-color: rgb(157, 157, 237);
-                }
-            }
-            .bannearButton{
-                padding: 3px 6px;
-                border-radius: 5px;
-                color: red;
-                border: 1px dotted red;
-                cursor: pointer;
-
-                &:hover{
-                    background-color: #e6b0b5;
-                }
-            }
+        &:hover {
+          background-color: rgb(157, 157, 237);
         }
+      }
+      .bannearButton {
+        padding: 3px 6px;
+        border-radius: 5px;
+        color: red;
+        border: 1px dotted red;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #e6b0b5;
+        }
+      }
     }
+  }
 }

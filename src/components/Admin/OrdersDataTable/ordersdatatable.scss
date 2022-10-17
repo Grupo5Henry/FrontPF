@@ -1,42 +1,63 @@
-.datatable{
-    height: 800px;
-    padding: 30px;
-    .datagrid{
-        color: black;
+.datatable {
+  height: 900px;
+  padding: 30px;
+
+  .datagrid {
+    color: black;
+    -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+    box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+    border-radius: 10px;
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 6px;
     }
-    .cellWithStatus{
-        padding: 5px;
-        border-radius: 5px;
+  }
+  .ordenButton {
+    padding: 3px 6px;
+    margin-left: 3px;
+    margin-right: 3px;
+    border-radius: 5px;
+    color: blue;
+    border: 0.5px dotted blue;
+    cursor: pointer;
 
-        &.user{
-            background-color: rgba(0, 128, 0, 0.05);
-            color: green;
-        }
-
-        &.admin{
-            background-color: rgba(255, 217, 0, 0.05);
-            color: goldenrod;
-        }
+    &:hover {
+      background-color: rgb(157, 157, 237);
     }
+  }
 
-    .cellAction{
-        display: flex;
-        align-items: center;
-        gap: 15px;
+  .ordenButtonCancelar {
+    padding: 3px 6px;
+    border-radius: 5px;
+    color: red;
+    border: 1px dotted red;
+    cursor: pointer;
 
-        .adminButton{
-            padding: 3px 6px;
-            border-radius: 5px;
-            color: goldenrod;
-            border: 1px dotted goldenrod;
-            cursor: pointer;
-        }
-        .banButton{
-            padding: 3px 6px;
-            border-radius: 5px;
-            color: red;
-            border: 1px dotted red;
-            cursor: pointer;
-        }
+    &:hover {
+      background-color: #e6b0b5;
     }
+  }
+
+  .cellAction {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    .adminButton {
+      padding: 3px 6px;
+      border-radius: 5px;
+      color: goldenrod;
+      border: 1px dotted goldenrod;
+      cursor: pointer;
+    }
+    .banButton {
+      padding: 3px 6px;
+      border-radius: 5px;
+      color: red;
+      border: 1px dotted red;
+      cursor: pointer;
+    }
+  }
 }

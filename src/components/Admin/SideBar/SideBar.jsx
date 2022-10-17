@@ -52,52 +52,52 @@ export default function SideBar() {
             </Link>
           </li>
           <p className="title">LISTAS</p>
-          <li>
             <Link to={"/users"}>
+          <li>
               <PeopleAltRoundedIcon className="icon" />
               <span>Usuarios</span>
-            </Link>
           </li>
-          <li>
+            </Link>
             <Link to={"/products"}>
+          <li>
               <Inventory2OutlinedIcon className="icon" />
               <span>Productos</span>
-            </Link>
           </li>
-          <li>
+            </Link>
             <Link to={"/createProduct"}>
+          <li>
               <AddCardIcon className="icon" />
               <span>Nuevo Producto</span>
-            </Link>
           </li>
-          <li>
+            </Link>
             <Link to={"/createBrand-category"}>
+          <li>
               <CategoryIcon className="icon" />
               <span>Crear Categorías</span>
-            </Link>
           </li>
-          <li>
+            </Link>
             <Link to={"/orders"}>
+          <li>
               <InventoryOutlinedIcon className="icon" />
               <span>Ordenes</span>
-            </Link>
           </li>
-          <li>
+            </Link>
             <Link to={"/reviews"}>
+          <li>
               <ReportGmailerrorredOutlinedIcon className="icon" />
               <span>Reseñas</span>
-            </Link>
           </li>
+            </Link>
           <p className="title">USUARIO</p>
-          <li>
-            <IconButton
-              onClick={() => {
+          <li onClick={() => {
                 handleLogOut();
-              }}
-            >
+              }}>
+            {/* <IconButton
+              
+            > */}
               <LogoutOutlinedIcon className="icon" />
-              <span>Cerrar Sesión</span>
-            </IconButton>
+              <span className="sesion" >Cerrar Sesión</span>
+            {/* </IconButton> */}
           </li>
         </ul>
       </div>

@@ -185,6 +185,15 @@ export default function DatatableUsers() {
     },
   ]
 
+  const options = {     
+    filter: true,          
+      selectableRows: "none",     
+      filterType: "dropdown",     
+      responsive: "standard",     
+      rowsPerPage: 10,     
+      expandableRowsHeader: false,     
+      expandableRows: false,     
+      page: 0,   };
 
   return (
     <div className="datatable">
@@ -194,6 +203,7 @@ export default function DatatableUsers() {
       className="datagrid"
       data={usersFiltered.length ? usersFiltered : []}
       columns={columns}
+      options={options}
     />
     :
     <div>Cargando...</div> }

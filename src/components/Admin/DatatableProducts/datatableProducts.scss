@@ -1,83 +1,82 @@
-.datatableProducts{
-    height: 900px;
-    padding: 40px;
-    align-items: center;
+.datatableProducts {
+  height: 500px;
+  padding: 40px;
+  align-items: center;
 
-    
+  .datagrid {
+    padding: 50px;
+    background-color: white;
+    -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+    box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+    border-radius: 10px;
 
-    .datagrid{
-        padding: 50px;
-        background-color: white;
-       
-        .corpse{
-            color: #222;
-        }
-        
-        
-        .dataName{
-            width: 200px;
-        }
-   
-        .cellImg{
-            height: 65px;
-            width: 65px;
-            border-radius: 7px;
-        }
-
-
-    .cellWithBan{
-        padding: 5px;
-        border-radius: 5px;
-
-        &.Activo{
-            background-color: rgba(0, 128, 0, 0.05);
-            color: green;
-        }
-
-        &.Baneado{
-            background-color: rgba(255, 217, 0, 0.05);
-            color: goldenrod;
-        }
-    }
-    
-    .cellWithStatus{
-        padding: 5px;
-        border-radius: 5px;
-
-        &.user{
-            background-color: rgba(0, 128, 0, 0.05);
-            color: green;
-        }
-
-        &.admin{
-            background-color: rgba(255, 217, 0, 0.05);
-            color: goldenrod;
-        }
+    .corpse {
+      color: #222;
     }
 
+    .dataName {
+      width: 200px;
+    }
 
+    .cellImg {
+      height: 65px;
+      width: 65px;
+      border-radius: 7px;
+    }
 
-        .detailButton{
-            padding: 3px 6px;
-            border-radius: 5px;
-            color: blue;
-            border: 1px dotted blue;
-            cursor: pointer;
+    .cellWithBan {
+      padding: 5px;
+      border-radius: 5px;
+
+      &.Activo {
+        background-color: rgba(0, 128, 0, 0.05);
+        color: green;
+      }
+
+      &.Baneado {
+        background-color: rgba(255, 217, 0, 0.05);
+        color: goldenrod;
+      }
+    }
+
+    .cellWithStatus {
+      padding: 5px;
+      border-radius: 5px;
+
+      &.user {
+        background-color: rgba(0, 128, 0, 0.05);
+        color: green;
+      }
+
+      &.admin {
+        background-color: rgba(255, 217, 0, 0.05);
+        color: goldenrod;
+      }
+    }
+
+    .detailButton {
+      padding: 3px 6px;
+      border-radius: 5px;
+      color: blue;
+      border: 1px dotted blue;
+      cursor: pointer;
+    }
+    .cellAction {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+
+      .modifyButton {
+        padding: 5px 8px;
+        border-radius: 5px;
+        color: blue;
+        border: 1px dotted blue;
+        cursor: pointer;
+
+        &:hover {
+          background-color: rgb(157, 157, 237);
         }
-        .cellAction{
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        
-            .modifyButton{
-                padding: 5px 8px;
-                border-radius: 5px;
-                color: blue;
-                border: 1px dotted blue;
-                cursor: pointer;
-
-                &:hover{
-                    background-color: rgb(157, 157, 237);
-                }
-            }}
-        }}
+      }
+    }
+  }
+}
