@@ -56,18 +56,7 @@ export default function NewProduct() {
   //CONTROLADOR DEL CHECKBOX
 
   const handleCheckbox = (e) => {
-    /*     if (e.target.checked && !input.categories.includes(e.target.value)) {
-      setInput({
-        ...input,
-        categories: [...input.categories, e.target.value],
-      });
-    } else if (!e.target.checked) {
-      setInput({
-        ...input,
-        categories: input.categories.filter((d) => d !== e.target.value),
-      });
-    }
-  }; */
+
     setInput({
       ...input,
       categories: [...input.categories, e.target.value],
@@ -362,25 +351,34 @@ export default function NewProduct() {
               </select>
             </div>
 
-            {/* <div className="inputCategories">
-              <label className="labelCategories">Categorías: </label>
-              <div className="borde">
-                {category &&
-                  category.map((c) => {
-                    return (
-                      <label className="labelBox" key={c.name}>
-                        <input
-                          className="boxCategories"
-                          type="checkbox"
-                          value={c.name}
-                          onChange={(e) => handleCheckbox(e)}
-                        />{" "}
-                        {c.name}{" "}
-                      </label>
-                    );
-                  })}
-              </div>
-            </div> */}
+                {/* <div style={{width:"50%",display:"flex",flexDirection:"column"}}>
+                  <select style={{width:"100%"}} onChange={(e) => handleCheckbox(e)}>
+                    <option hidden>Seleccione categorias</option>
+                    {
+                      category.map((c,i) => {
+                        if(!input.categories.includes(c.name)){
+                          return (
+                            <option key={i}>{c.name}</option>
+                          )
+                        } 
+                      }) 
+                    }
+                  </select>
+                  <div style={{display:"flex",gap:"10px",maxWidth:"100%",flexWrap:"wrap",justifyContent:"center"}}>
+                    {
+                      input.categories.map(c => {
+                        return (
+                          <span onClick={() => setInput(prev => {
+                            var filtered = input.categories.filter(e => e !== c)
+                            return ({
+                              ...prev,
+                              categories: filtered
+                            })
+                          })}>{c}</span>
+                        )
+                      })
+                    }
+                  </div> */}
 
             <div className="inputCategories">
               <label className="labelCategories">Categorías: </label>

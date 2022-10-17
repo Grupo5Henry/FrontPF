@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { BACK_URL } from "../../../constantes";
 import swal from "sweetalert";
-import { getAllOrders } from "../../../redux/action";
+import { getUserOrders } from "../../../redux/action";
 
 // const Card = () => (
 //   <tr>
@@ -26,7 +26,19 @@ import { getAllOrders } from "../../../redux/action";
 
 export default function OrderDataTableUser(props) {
   const orders = useSelector((state) => state.orders);
+  const userState = useSelector((state) => state.user);
   const dispatch = useDispatch();
+
+  const expireSession = async (id) => {
+    try {
+      await axios.post(`${BACK_URL}/stripe/expire`, {
+        id: id,
+      });
+    } catch (err) {
+      console.log({ error: err });
+    }
+    dispatch(getUserOrders(userState.userName));
+  };
 
   const columns = [
     {
@@ -54,57 +66,41 @@ export default function OrderDataTableUser(props) {
         customBodyRender: (value, tableMeta, updateValue) => {
           return (
             <>
-              <button
-                onClick={async () => {
-                  if (tableMeta.rowData[1] === "Siendo procesada") {
-                    try {
-                      await axios.put(`${BACK_URL}/order/change`, {
-                        orderNumber: tableMeta.rowData[0],
-                        newStatus: "InDelivery",
+              {tableMeta.rowData[6] != 1 ? (
+                <>
+                  <button
+                    onClick={async () => {
+                      console.log(tableMeta.rowData[6]);
+                      try {
+                        const url = await axios.post(
+                          `${BACK_URL}/stripe/retrieve`,
+                          {
+                            id: tableMeta.rowData[6],
+                          }
+                        );
+                        window.location = url.data;
+                      } catch (err) {
+                        console.log({ error: err });
+                      }
+                    }}
+                  >
+                    Ir a pagar
+                  </button>
+                  <button
+                    onClick={async () => {
+                      swal({
+                        title: "Esta seguro que desea cancelar la compra?",
+                        icon: "warning",
+                        buttons: ["Cancel", "I am sure"],
+                      }).then((response) => {
+                        if (response) expireSession(tableMeta.rowData[6]);
                       });
-                      dispatch(getAllOrders());
-                    } catch (err) {
-                      console.log({ error: err });
-                    }
-                  } else {
-                    swal({
-                      title:
-                        "No se puede despachar sin tener confirmacion de pago",
-                      icon: "error",
-                      buttons: false,
-                    });
-                  }
-                }}
-              >
-                Ir a pagar
-              </button>
-              <button
-                onClick={async () => {
-                  if (tableMeta.rowData[1] === "Esperando pago") {
-                    try {
-                      console.log(
-                        tableMeta.rowData[6],
-                        "cancelar stripe session"
-                      );
-                      await axios.put(`${BACK_URL}/order/change`, {
-                        orderNumber: tableMeta.rowData[0],
-                        newStatus: "Cancelled",
-                      });
-                      dispatch(getAllOrders());
-                    } catch (err) {
-                      console.log({ error: err });
-                    }
-                  } else {
-                    swal({
-                      title: "No se puedo cancelar una orden ya pagada",
-                      icon: "error",
-                      buttons: false,
-                    });
-                  }
-                }}
-              >
-                Cancelar
-              </button>
+                    }}
+                  >
+                    Cancelar
+                  </button>
+                </>
+              ) : null}
             </>
           );
         },
@@ -172,7 +168,7 @@ export default function OrderDataTableUser(props) {
   const options = {
     filter: true,
     onFilterChange: (changedColumn, filterList) => {
-      console.log(changedColumn, filterList);
+      //   console.log(changedColumn, filterList);
     },
     selectableRows: "none",
     filterType: "dropdown",

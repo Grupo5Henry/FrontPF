@@ -17,9 +17,10 @@ import {
   setFavorite,
   unSetFavorite,
 } from "../../../Controllers/Favorite";
-import { detailProduct, getFavorites } from "../../../redux/action";
+import { detailProduct, getFavorites, similarBrand} from "../../../redux/action";
 import Comment from "../comment/comment";
 import Galery from "../galery/galery.jsx";
+import Recommend from "./Recommend";
 
 // Detalle del Producto
 
@@ -34,6 +35,7 @@ const Details = () => {
   useEffect(() => {
     dispatch(getFavorites(userState.userName));
     dispatch(detailProduct(id));
+    dispatch(similarBrand(id));
     return () => {
       dispatch(detailProduct());
     };
@@ -73,7 +75,6 @@ const Details = () => {
                     }
                   </div>
                 </div>
-
                 <div className="w-full md:w-1/2 px-10">
                   <div className="mb-10">
                     <div className="flex flex-row justify-between">
@@ -248,6 +249,7 @@ const Details = () => {
               {/* {<------------------ comentarios ------------------------>} */}
               <Comment id={id} key={`comments ${id}`} />
               {/* {<------------------------------------------>} */}
+              <Recommend/>
             </div>
           </div>
         </div>

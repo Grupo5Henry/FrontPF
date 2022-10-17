@@ -1,0 +1,44 @@
+.Chatbot {
+  display: flex;
+  flex-direction: column;
+  border: solid, black, 10px;
+  position: fixed;
+  right: 10px;
+  top:150px;
+  z-index: 100;
+  
+
+}
+
+.cierre {
+  position: absolute;
+  right: 1px;
+  top: 5px;
+  display: flex;
+  justify-content: flex-end;
+  color: white;
+  border: solid white 1px;
+  padding-left: 4px;
+  padding-right: 4px;
+  width: 20px;
+  height: 25px;
+  border-radius: 3px;
+}
+
+.button {
+  display: flex;
+  background-color: #2898ec;
+  padding: 5px;
+  border-radius: 5px;
+  color: white;
+}
+
+.button:hover {
+  background-color: #1b2f3e;
+  transition-duration: 500ms;
+}
+
+.buttonContainer {
+  display:flex;
+  justify-content: center;
+}

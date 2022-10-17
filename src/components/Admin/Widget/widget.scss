@@ -50,3 +50,35 @@
     }
 
 }
+
+@media(max-width : 615px){
+    .widget{
+        padding: 10px;
+        height: 150px;
+        margin: 13px;
+        .left{
+            .title{
+                font-size: 10px;
+                color: rgb(74, 72, 72);
+                margin-top: 9px;
+                margin-left: 1px;
+                width: 50%;
+            }
+            .counter{
+                font-size: 20px;
+                font-weight: 200;
+            }
+            .link{
+                font-size: 8.5px;
+                border-bottom: 1px solid #482020b8;
+                cursor: pointer;
+            }
+        }
+        .right{
+            .icon{
+                width: 25px;
+                height: 25px;
+            }
+        }
+    }
+}
