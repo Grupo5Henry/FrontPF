@@ -83,7 +83,7 @@ export default function CreateBrand () {
     return (
         <div className="createBrand">
             <SideBar/>
-            <div className="createBrandContainer">
+            <div className="createBrandContainer" style={{width:"80%"}}>
                 <AdminNavBar/>
 {/*                 <div className="top">
                     <h1>AGREGAR NUEVA MARCA</h1>
@@ -103,7 +103,7 @@ export default function CreateBrand () {
                 <div className="bottom">
                     <form onSubmit={handleSubmitCategory}>
                         <div className="inputsContainer">
-                            <label>NOMBRE NUEVA CATEGORÍA:</label>
+                            <label style={{maxWidth:"80%"}}>NOMBRE NUEVA CATEGORÍA:</label>
                             <input type="text" 
                             value={category}
                             onChange={e => setCategory(e.target.value)}

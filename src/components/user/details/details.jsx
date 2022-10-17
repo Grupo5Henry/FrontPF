@@ -49,7 +49,6 @@ const Details = () => {
       // detail.stock === 0 ? <Link to ='/home'><div style = {{color: 'red'}}>El producto no esta disponible </div></Link>:
       !detail.id ? (
         <div className="h-screen bg-white">
-          <div style = {{color: 'red'}}>Cantidad de productos en tienda: {detail.stock}</div>
           <div className="flex justify-center items-center h-full">
             <img
               className="h-16 w-16"
@@ -117,7 +116,7 @@ const Details = () => {
                   </div>
                   
                     {
-                      detail.stock > 0 ?<div className="inline-flex items-center mt-5"> <span className="font-bold text-2xl leading-none align-baseline">
+                      detail.stock > 0 ? <div className="inline-flex items-center mt-5"> <span className="font-bold text-2xl leading-none align-baseline">
                       Stock Disponible
                     </span>
                    
