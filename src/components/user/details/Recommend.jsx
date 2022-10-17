@@ -28,11 +28,7 @@ function Recommend(props) {
                 </p>
               </div>
               <div className="flex justify-center items-center mt-8 md:mt-24">
-                <img
-                  className=""
-                  src={e.thumbnail}
-                  alt=""
-                />
+                <img className="" src={e.thumbnail} alt="" />
               </div>
             </div>
           ))}
