@@ -7,7 +7,7 @@ export default function ByCategory({ actual }) {
   var {categories,filter} = useSelector((state) => state);
   return (
     <>
-      <select style = {{ margin: '3px',color: 'rgb(85, 29, 29)', borderRadius:'10px',backgroundColor:'rgba(215, 123, 13, 0.11'}}
+      <select style = {{ margin: '3px',color: 'rgb(85, 29, 29)', borderRadius:'10px'}}
         value={filter.category}
         onChange={(e) => {
           if(filter.search) dispatch(resetFilter());
@@ -15,8 +15,8 @@ export default function ByCategory({ actual }) {
         }
         }
       >
-        <option hidden>Category</option>
-        {actual ? <option value={""}>All the categories</option> : null}
+        <option hidden>Categorias</option>
+        {actual ? <option value={""}>Todas las categorias</option> : null}
         {categories.map((c, i) => (
           <option key={i}>{c.name}</option>
         ))}
