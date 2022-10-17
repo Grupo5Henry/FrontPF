@@ -29,7 +29,7 @@ export default function CarrouselHome() {
             isPlaying
             className={s.carrusel}
           >
-            <ButtonBack className={s.but}>{"<"}</ButtonBack>
+            <ButtonBack className={`${s.but} ${s.back}`}>{"<"}</ButtonBack>
         <div className={s.slider}>
           <Slider>
               {
@@ -48,7 +48,7 @@ export default function CarrouselHome() {
               }
           </Slider>
         </div>
-        <ButtonNext className={s.but}>{">"}</ButtonNext>
+        <ButtonNext className={`${s.but} ${s.next}`}>{">"}</ButtonNext>
           </CarouselProvider>
     </div>
 
@@ -65,7 +65,7 @@ export default function CarrouselHome() {
         isPlaying
         className={s.carrusel}
         >
-            <ButtonBack className={s.but}>{"<"}</ButtonBack>
+            <ButtonBack className={`${s.but} ${s.back}`}>{"<"}</ButtonBack>
         <div className={s.slider}>
           <Slider>
               {
@@ -84,7 +84,7 @@ export default function CarrouselHome() {
               }
           </Slider>
         </div>
-        <ButtonNext className={s.but}>{">"}</ButtonNext>
+        <ButtonNext className={`${s.but} ${s.next}`}>{">"}</ButtonNext>
     </CarouselProvider>
     </div>
 
@@ -102,7 +102,7 @@ export default function CarrouselHome() {
         isPlaying
         className={s.carrusel}
         >
-            <ButtonBack className={s.but}>{"<"}</ButtonBack>
+            <ButtonBack className={`${s.but} ${s.back}`}>{"<"}</ButtonBack>
         <div className={s.slider}>
           <Slider>
               {
@@ -121,7 +121,7 @@ export default function CarrouselHome() {
               }
           </Slider>
         </div>
-        <ButtonNext className={s.but}>{">"}</ButtonNext>
+        <ButtonNext className={`${s.but} ${s.next}`}>{">"}</ButtonNext>
     </CarouselProvider>
     </div>
     </>
