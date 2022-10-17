@@ -19,6 +19,8 @@ const tokenCheck = async (dispatch) => {
           userName: tokenStatus.data.userName,
           billingAddress: tokenStatus.data.billingAddress,
           logged: true,
+          verified: tokenStatus.data.verified,
+          mute: tokenStatus.data.mute
         })
       );
     // !tokenStatus &&  tokenRefresh(dispatch);
@@ -48,6 +50,8 @@ const tokenRefresh = async (dispatch) => {
           defaultShippingAddress: tokenStatus.defaultShippingAddress,
           billingAddress: tokenStatus.billingAddress,
           logged: true,
+          verified: tokenStatus.verified,
+          mute: tokenStatus.mute
         })
       );
   } catch (err) {

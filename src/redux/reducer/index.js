@@ -18,6 +18,7 @@ import {
   FETCH_ALL_PRODUCTS,
   DELETE_REVIEWS,
   FECH_ALL_REVIEWS,
+  BRAND_PRODUCT,
 } from "../action";
 
 const initialState = {
@@ -28,6 +29,7 @@ const initialState = {
   orders: [],
   allProductsName: [],
   detail: {},
+  similarBrand: [],
   categories: [],
   brand: [],
   cart: [],
@@ -44,7 +46,7 @@ const initialState = {
     order: "ASC",
     amount: 10,
     page: 0,
-    stock: 0,
+    stock: 1,
   },
   user: {
     userName: null,
@@ -52,6 +54,8 @@ const initialState = {
     billingAddress: null,
     role: null,
     logged: false,
+    verified: false,
+    mute: false,
   },
   review: [],
 };
@@ -95,6 +99,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         detail: action.payload,
+      };
+    case BRAND_PRODUCT:
+      return {
+        ...state,
+        similarBrand: action.payload,
       };
     case DELETE_DETAIL_PRODUCT:
       return {

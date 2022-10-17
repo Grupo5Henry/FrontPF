@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "../Datatable/datatable.scss";
+import "../OrdersDataTable/ordersdatatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -8,62 +8,71 @@ import axios from "axios";
 import { BACK_URL } from "../../../constantes";
 import { authHeader } from "../../../services/auth-header";
 
-/* const columns = [
-  { field: 'id', headerName: 'ID', width: 70 },
-  { field: 'firstName', headerName: 'First name', width: 130 },
-  { field: 'lastName', headerName: 'Last name', width: 130 },
-  {
-    field: 'age',
-    headerName: 'Age',
-    type: 'number',
-    width: 90,
-  },
-  {
-    field: 'fullName',
-    headerName: 'Full name',
-    description: 'This column has a value getter and is not sortable.',
-    sortable: false,
-    width: 160,
-    valueGetter: (params) =>
-      `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-  },
-]; */
-
 //CONSTANTE PARA SETEAR LAS COLUMNAS
 
 const columns = [
   {
-    field: [0],
-    headerName: "Order Number",
-    width: 150,
-    renderCell: (params) => {
-      return <div> {params.row[0]} </div>;
+    field: "OrderNumber",
+    headerName: "Number",
+    width: 75,
+    valueGetter: (params) => {
+      return params.row[0];
     },
   },
   {
-    field: [2],
+    field: "Status",
     headerName: "Status",
+    width: 150,
+    valueGetter: (params) => {
+      let status = "";
+
+      switch (params.row[3]) {
+        case "PaymentPending":
+          status = "Esperando pago";
+          break;
+        case "PaidPendingDelivery":
+          status = "Siendo procesadas";
+          break;
+        case "Cancelled":
+          status = "Canceladas";
+          break;
+        case "InDelivery":
+          status = "En ruta";
+          break;
+        case "Delivered":
+          status = "Entregadas";
+          break;
+        default:
+          status = "Cargando...";
+          break;
+      }
+      return status;
+    },
+  },
+  {
+    field: "Users",
+    headerName: "Name",
     width: 100,
-    renderCell: (params) => {
-      return <div> {params.row[2]} </div>;
+    valueGetter: (params) => {
+      return params.row[1];
     },
   },
   // { field: "Date", headerName: "Dirección", width: 300 },
   {
-    field: [1],
+    field: "Dirección",
     headerName: "Dirección",
     width: 200,
-    renderCell: (params) => {
-      return <div> {params.row[1]} </div>;
+    valueGetter: (params) => {
+      return params.row[2];
     },
   },
   {
-    type: "number",
+    type: "Total",
     headerName: "Total",
     width: 130,
     valueGetter: (params) => {
       let earnings = 0;
-      for (let i = 4; i < params.row.length; i++) {
+      for (let i = 5; i < params.row.length; i++) {
         let product = params.row[i];
 
         earnings += product.amount * product.price;
@@ -72,11 +81,11 @@ const columns = [
     },
   },
   {
-    field: [3],
+    field: "Fecha",
     headerName: "Fecha",
     width: 130,
-    renderCell: (params) => {
-      return <div> {params.row[3]} </div>;
+    valueGetter: (params) => {
+      return params.row[4];
     },
   },
   /* { field: 'createdAt', headerName: 'Creación de usuario', width: 300 }, */
