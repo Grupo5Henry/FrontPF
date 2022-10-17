@@ -9,7 +9,7 @@ export const DELETE_DETAIL_PRODUCT = "DELETE_DETAIL_PRODUCT";
 export const SEARCH_PRODUCT = "SEARCH_PRODUCT";
 export const GET_PRODUCTS_FILTERED = "GET_PRODUCTS_FILTERED";
 export const FETCH_ALL_PRODUCTS = "FETCH_ALL_PRODUCTS";
-export const BRAND_PRODUCT = 'BRAND_PRODUCT'
+export const BRAND_PRODUCT = "BRAND_PRODUCT";
 
 //USERS
 export const FETCH_ALL_USERS = "FETCH_ALL_USERS";
@@ -161,14 +161,17 @@ export const detailProduct = (id) => {
   };
 };
 export const similarBrand = (id) => {
- 
   return async (dispatch) => {
     try {
-      console.log(id)
+      console.log(id);
       const product = await axios.get(`${BACK_URL}/product/BRAND/${id}`);
+      const suggested = product.data.suggested.filter(
+        (product) => product.id !== id
+      );
+
       dispatch({
         type: BRAND_PRODUCT,
-        payload: product.data,
+        payload: suggested,
       });
     } catch (error) {
       console.log(error);
@@ -296,6 +299,19 @@ export function getAllUsers() {
         dispatch({
           type: FETCH_ALL_USERS,
           payload: users,
+        });
+      });
+  };
+}
+
+export function getSuggested() {
+  return async function (dispatch) {
+    fetch(`${BACK_URL}/product/getRecomendedForHome`)
+      .then((response) => response.json())
+      .then((suggested) => {
+        dispatch({
+          type: "FETCH_SUGGESTED",
+          payload: suggested,
         });
       });
   };
