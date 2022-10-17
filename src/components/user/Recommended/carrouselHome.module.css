@@ -2,12 +2,89 @@
     display: none;
 }
 
+.mediano{
+    display: none;
+}
+
+
+.carrusel{
+    display: flex;
+    justify-content: center;
+    margin: 30px 0;
+    outline: solid rgb(224, 224, 224) 2px ;
+}
+
+.but{
+    background-color: rgb(224, 224, 224);
+    color: white;
+    font-size: 30px;
+    width: 3%;
+}
+
+.slider{
+    background-color: rgb(255, 255, 255);
+    width: 94%;
+}
+
+.card{
+    margin: 8%;
+    height: 300px;
+    background-color: rgb(255, 255, 255);
+    border: solid rgb(204, 204, 204) 2px;
+    border-radius: 15px;
+}
+
+.link{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
 @media (max-width: 600px) {
     .grande{
         display: none;
     }
-    
+
+    .mediano{
+        display: none;
+    }
+
     .chico{
         display: block;
+    }
+
+    .but{
+        font-size: 17px;
+        width: 5%;
+    }
+
+    .slider{
+        width: 90%;
+    }
+  }
+
+
+  @media (max-width: 1000px) and (min-width: 600px) {
+    .grande{
+        display: none;
+    }
+
+    .mediano{
+        display: block;
+    }
+    
+    .chico{
+        display: none;
+    }
+
+    .but{
+        font-size: 17px;
+        width: 5%;
+    }
+
+    .slider{
+        width: 90%;
     }
   }

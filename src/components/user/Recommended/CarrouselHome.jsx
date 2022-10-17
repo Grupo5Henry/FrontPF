@@ -8,69 +8,39 @@ import {
 import "pure-react-carousel/dist/react-carousel.es.css";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import s from "./carrouselHome.module.css"
 
 export default function CarrouselHome() {
-  var {products} = useSelector(state => state)
+  //                               state.recomendados???
+  var array = useSelector(state => state.products)
   return (
     <>
+    <h1 style={{fontSize:"25px"}}>Recomendados</h1>
     <div className={s.chico}>
         <CarouselProvider
             naturalSlideWidth={500}
             naturalSlideHeight={200}
-            totalSlides={10}
+            totalSlides={array.length}
             infinite
             isIntrinsicHeight
             visibleSlides={1.25}
             interval={3000}
             isPlaying
+            className={s.carrusel}
           >
-                  <ButtonBack>Back</ButtonBack>
-                  <ButtonNext>Next</ButtonNext>
-            <div style={{height:"300px",border:"solid red 1px"}}>
-                <Slider>
-                    {
-                      products.map((p,i) => {
-                        return (
-                          <Slide index={i} key={i}>
-                                <div>
-                                  <h1>{p.name}</h1>
-                                  <img style={{outline:"solid 1px yellow",height:"200px"}} src={p.thumbnail} alt={p.name} />
-
-                                </div>
-                          </Slide>
-                        )
-                      })
-                    }
-                  </Slider>
-                </div>   
-          </CarouselProvider>
-    </div>
-
-    <div className={s.grande}>
-        <CarouselProvider
-        naturalSlideWidth={500}
-        naturalSlideHeight={200}
-        totalSlides={10}
-        infinite
-        isIntrinsicHeight
-        step={2}
-        visibleSlides={2.25}
-        interval={3000}
-        isPlaying
-        >
-            <ButtonBack>Back</ButtonBack>
-            <ButtonNext>Next</ButtonNext>
-        <div>
+            <ButtonBack className={s.but}>{"<"}</ButtonBack>
+        <div className={s.slider}>
           <Slider>
               {
-                products.map((p,i) => {
+                array.map((p,i) => {
                   return (
                     <Slide index={i} key={i}>
-                      <div style={{outline:"solid 2px blue",margin:"5px"}}>
-                        <h1>{p.name}</h1>
-                        <img style={{outline:"solid 1px yellow",height:"200px"}} src={p.thumbnail} alt={p.name} />
-
+                      <div className={s.card}>
+                          <Link to={`/home/detail/${p.id}`} className={s.link}>
+                            <h1 style={{color:"gray",fontSize:"20px",padding:"4px",maxHeight:"100px",overflow:"hidden"}}>{p.name}</h1>
+                            <img style={{height:"200px",width:"200px",objectFit:"scale-down"}} src={p.thumbnail} alt={p.name} />
+                          </Link>
                       </div>
                     </Slide>
                   )
@@ -78,6 +48,80 @@ export default function CarrouselHome() {
               }
           </Slider>
         </div>
+        <ButtonNext className={s.but}>{">"}</ButtonNext>
+          </CarouselProvider>
+    </div>
+
+    <div className={s.mediano}>
+        <CarouselProvider
+        naturalSlideWidth={500}
+        naturalSlideHeight={100}
+        totalSlides={array.length}
+        infinite
+        isIntrinsicHeight
+        step={2}
+        visibleSlides={2.25}
+        interval={3000}
+        isPlaying
+        className={s.carrusel}
+        >
+            <ButtonBack className={s.but}>{"<"}</ButtonBack>
+        <div className={s.slider}>
+          <Slider>
+              {
+                array.map((p,i) => {
+                  return (
+                    <Slide index={i} key={i}>
+                      <div className={s.card}>
+                          <Link to={`/home/detail/${p.id}`} className={s.link}>
+                            <h1 style={{color:"gray",fontSize:"20px",padding:"4px",maxHeight:"100px",overflow:"hidden"}}>{p.name}</h1>
+                            <img style={{height:"200px",width:"200px",objectFit:"scale-down"}} src={p.thumbnail} alt={p.name} />
+                          </Link>
+                      </div>
+                    </Slide>
+                  )
+                })
+              }
+          </Slider>
+        </div>
+        <ButtonNext className={s.but}>{">"}</ButtonNext>
+    </CarouselProvider>
+    </div>
+
+
+    <div className={s.grande}>
+        <CarouselProvider
+        naturalSlideWidth={500}
+        naturalSlideHeight={100}
+        totalSlides={array.length}
+        infinite
+        isIntrinsicHeight
+        step={3}
+        visibleSlides={3.25}
+        interval={3000}
+        isPlaying
+        className={s.carrusel}
+        >
+            <ButtonBack className={s.but}>{"<"}</ButtonBack>
+        <div className={s.slider}>
+          <Slider>
+              {
+                array.map((p,i) => {
+                  return (
+                    <Slide index={i} key={i}>
+                      <div className={s.card}>
+                          <Link to={`/home/detail/${p.id}`} className={s.link}>
+                            <h1 style={{color:"gray",fontSize:"20px",padding:"4px",maxHeight:"100px",overflow:"hidden"}}>{p.name}</h1>
+                            <img style={{height:"200px",width:"200px",objectFit:"scale-down"}} src={p.thumbnail} alt={p.name} />
+                          </Link>
+                      </div>
+                    </Slide>
+                  )
+                })
+              }
+          </Slider>
+        </div>
+        <ButtonNext className={s.but}>{">"}</ButtonNext>
     </CarouselProvider>
     </div>
     </>
