@@ -248,7 +248,7 @@ const Comment = ({ id }) => {
 
         {/* creacion de el comentario del producto */}
 
-        {userState.logged ? (
+        {userState.logged && !userState.mute && userState.verified ? (
           <form onSubmit={handleOnSubmit}>
             <textarea
               value={description}

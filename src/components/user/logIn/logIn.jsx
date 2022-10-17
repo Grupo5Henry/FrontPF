@@ -39,6 +39,8 @@ const LogIn = ({ setIsOpen, setOpen }) => {
                 role: response.role,
                 defaultShippingAddress: response.defaultShippingAddress,
                 billingAddress: response.billingAddress,
+                verified: response.verified,
+                mute: response.mute,
                 logged: true,
               })
             );

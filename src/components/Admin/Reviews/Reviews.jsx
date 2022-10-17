@@ -2,16 +2,16 @@ import React from "react";
 import "../AdminHome/adminHome.scss";
 import SideBar from "../SideBar/SideBar.jsx";
 import AdminNavBar from "../AdminNavBar/AdminNavBar.jsx";
-import OrdersDatatable from "../OrdersDataTable/OrdersDatatable2";
+import ReviewDatatable from "../ReviewsDatatable/ReviewsDatatable";
 
-export default function Ordenes() {
+export default function Reviews() {
   return (
     <div className="list">
       <SideBar />
       <div className="listContainer">
         <AdminNavBar />
         <div>
-          <OrdersDatatable />
+          <ReviewDatatable />
         </div>
       </div>
     </div>
