@@ -15,7 +15,23 @@ import {
 } from "../../../redux/action/index.js";
 import { BACK_URL } from "../../../constantes";
 
+import ModalCreateCategory from "../Modals/ModalCreateCategory.jsx";
+import Modal from "react-modal";
+
 export default function FixProduct() {
+  //MODAL
+
+  //CONECTAMOS LA MODAL CON EL ELEMENTO A MOSTRAR
+
+  Modal.setAppElement("#root");
+
+  //DETALLES DE LA MODAL A PROBAR
+
+  const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [modalOpen, setOpen] = React.useState(false);
+
+  ///////////////////////////////////////////////////////MODAL CERRADA ///////////////////////////////////
+
   //ESTADOS DEL PRODUCTO
 
   const [name, setName] = useState("");
@@ -23,12 +39,15 @@ export default function FixProduct() {
   const [model, setModel] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
-  const [categories, setCategories] = useState([]);
+  const [input, setInput] = useState({
+    categories: [],
+  });
   const [stock, setStock] = useState("");
 
   const [condition, setCondition] = useState("");
   //ESTADO DE LA IMAGEN
   const [imageSelected, setImageSelected] = useState("");
+  const [image2, setImage2] = useState("");
 
   //OTRAS CONSTANTES
   const navigate = useNavigate();
@@ -37,11 +56,10 @@ export default function FixProduct() {
   const category = useSelector((state) => state.categories);
   const productDetail = useSelector((state) => state.detail);
   const brandsOwned = useSelector((state) => state.brand);
-  /* const modelsOwned = useSelector((state) => state.model); */
+  
   const brandsOrdered = brandsOwned.sort((a, b) => a.brand > b.brand);
-  // console.log("SOY CATEGORIAS",category)
+  
 
-  // console.log("SOY STOCK", stock);
 
   //TRAER LAS CATEGORIAS Y LUEGO VACIAR EL ESTADO
   useEffect(() => {
@@ -51,6 +69,22 @@ export default function FixProduct() {
     dispatch(getCategories());
     dispatch(clearCategories());
   }, [dispatch]);
+
+    //CONTROLADOR DEL CHECKBOX
+
+    const handleCheckbox = (e) => {
+      if (e.target.checked && !input.categories.includes(e.target.value)) {
+        setInput({
+          ...input,
+          categories: [...input.categories, e.target.value],
+        });
+      } else if (!e.target.checked) {
+        setInput({
+          ...input,
+          categories: input.categories.filter((d) => d !== e.target.value),
+        });
+      }
+    };
 
   //AL DAR AL BOTON DE CREAR PRODUCTO
   async function handleOnSubmit(e) {
@@ -63,8 +97,8 @@ export default function FixProduct() {
       return swal({
         title: "El nombre debe tener al menos tres caracteres",
         icon: "error",
-        button: "Ok",
-        timer: 500,
+        buttons: false,
+        timer: 700,
       });
     }
 
@@ -73,8 +107,8 @@ export default function FixProduct() {
       return swal({
         title: "El campo de marca no puede estar vacío",
         icon: "error",
-        button: "Ok",
-        timer: 500,
+        buttons: false,
+        timer: 700,
       });
     }
 
@@ -83,8 +117,8 @@ export default function FixProduct() {
       return swal({
         title: "El campo de modelo no puede estar vacío",
         icon: "error",
-        button: "Ok",
-        timer: 500,
+        buttons: false,
+        timer: 700,
       });
     }
 
@@ -93,8 +127,8 @@ export default function FixProduct() {
       return swal({
         title: "El campo de descripción no puede estar vacío",
         icon: "error",
-        button: "Ok",
-        timer: 500,
+        buttons: false,
+        timer: 700,
       });
     }
 
@@ -103,29 +137,29 @@ export default function FixProduct() {
       return swal({
         title: "Debe agregar un número como precio",
         icon: "error",
-        button: "Ok",
-        timer: 500,
+        buttons: false,
+        timer: 700,
       });
     } else if (isNaN(price) === true) {
       return swal({
         title: "El precio debe ser un número",
         icon: "error",
-        button: "Ok",
-        timer: 500,
+        buttons: false,
+        timer: 700,
       });
     } else if (price <= 0) {
       return swal({
         title: "El precio debe ser mayor a cero",
         icon: "error",
-        button: "Ok",
-        timer: 500,
+        buttons: false,
+        timer: 700,
       });
     } else if (price === 0) {
       return swal({
         title: "El precio no puede ser un cero",
         icon: "error",
-        button: "Ok",
-        timer: 500,
+        buttons: false,
+        timer: 700,
       });
     }
 
@@ -134,22 +168,22 @@ export default function FixProduct() {
       return swal({
         title: "Debe agregar un número como stock",
         icon: "error",
-        button: "Ok",
-        timer: 500,
+        buttons: false,
+        timer: 700,
       });
     } else if (isNaN(stock) === true) {
       return swal({
         title: "El stock debe ser un número",
         icon: "error",
-        button: "Ok",
-        timer: 500,
+        buttons: false,
+        timer: 700,
       });
     } else if (stock < 0) {
       return swal({
         title: "El stock no puede ser negativo",
         icon: "error",
-        button: "Ok",
-        timer: 500,
+        buttons: false,
+        timer: 700,
       });
     }
 
@@ -158,8 +192,8 @@ export default function FixProduct() {
       return swal({
         title: "Debe señalar si el producto es nuevo o usado",
         icon: "error",
-        button: "Ok",
-        timer: 500,
+        buttons: false,
+        timer: 700,
       });
     }
 
@@ -167,39 +201,55 @@ export default function FixProduct() {
       return swal({
         title: "Debe señalar si el producto es nuevo o usado",
         icon: "error",
-        button: "Ok",
-        timer: 500,
+        buttons: false,
+        timer: 700,
       });
     }
 
     //CATEGORIA
-    if (categories.length === 0) {
+    if (input.categories.length === 0) {
       return swal({
         title: "Debe agregar una categoría",
         icon: "error",
-        button: "Ok",
-        timer: 500,
+        buttons: false,
+        timer: 700,
       });
     }
 
-    if (categories === "select") {
-      return swal({
-        title: "Debe señalar una categoría válida",
-        icon: "error",
-        button: "Ok",
-        timer: 500,
-      });
-    }
     //IMAGEN
     if (imageSelected.length === 0) {
       return swal({
         title: "Debe cargar una imagen",
         icon: "error",
-        button: "Ok",
-        timer: 500,
+        buttons: false,
+        timer: 700,
       });
     } else {
       //SI PASAN LAS VALIDACIONES
+
+      let imgObl;
+      let imgOpt = [];
+
+      if (image2) {
+        try {
+          for (let i = 0; i < image2.length; i++) {
+            const formData2 = new FormData();
+            formData2.append("file", image2[i]);
+            formData2.append("upload_preset", "goctl1il");
+
+            await axios
+              .post(
+                "https://api.cloudinary.com/v1_1/dzr5xulsx/image/upload",
+                formData2
+              )
+              .then((response2) => {
+                imgOpt.push(response2.data.secure_url);
+              });
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }
 
       const formData = new FormData();
       formData.append("file", imageSelected);
@@ -210,8 +260,8 @@ export default function FixProduct() {
           "https://api.cloudinary.com/v1_1/dzr5xulsx/image/upload",
           formData
         )
-        .then((response) =>
-          axios.put(BACK_URL + "/product/modify", {
+        .then( async (response) =>
+          await axios.put(BACK_URL + "/product/modify", {
             id: productDetail.id,
             name,
             model,
@@ -221,7 +271,8 @@ export default function FixProduct() {
             price,
             stock,
             condition,
-            categories,
+            categories: input.categories,
+            photos: imgOpt,
           })
         )
 
@@ -229,8 +280,8 @@ export default function FixProduct() {
           swal({
             title: "¡Producto modificado correctamente!",
             icon: "success",
-            buttons: "Ok",
-            timer: 2000,
+            buttons: false,
+            timer: 500,
           }).then(() => {
             navigate("/products");
           });
@@ -296,12 +347,24 @@ export default function FixProduct() {
             </div>
 
             <div className="inputsContainerImg">
-              <label className="labelImg">Imagen: </label>
+              <label className="labelImg">Imagen (Obligatoria): </label>
               <input
                 className="inputImg"
                 type="file"
                 onChange={(e) => {
                   setImageSelected(e.target.files[0]);
+                }}
+              />
+            </div>
+
+            <div className="inputsContainerImg">
+              <label className="labelImg">Imagen 2 (Opcional): </label>
+              <input
+                className="inputImg"
+                multiple="multiple"
+                type="file"
+                onChange={(e) => {
+                  setImage2(e.target.files);
                 }}
               />
             </div>
@@ -332,32 +395,59 @@ export default function FixProduct() {
                 <option value="Usado">Usado</option>
               </select>
             </div>
-            <div className="inputsContainer">
-              <label>Categoría: </label>
-              <select
-                name="category"
-                onChange={(e) => setCategories(e.target.value)}
-              >
-                <option value="select">Seleccionar</option>
+            <div className="inputCategories">
+              <label className="labelCategories">Categorías: </label>
+              <div className="borde">
                 {category &&
                   category.map((c) => {
                     return (
-                      <option key={c.name} value={c.name}>
-                        {c.name}
-                      </option>
+                      <label className="labelBox" key={c.name}>
+                        <input
+                          className="boxCategories"
+                          type="checkbox"
+                          value={c.name}
+                          onChange={(e) => handleCheckbox(e)}
+                        />{" "}
+                        {c.name}{" "}
+                      </label>
                     );
                   })}
-              </select>
+              </div>
             </div>
-            <div className="buttonsContainer">
-              <Link to={`/products`}>
-                <button className="buttonCancel">Cancelar</button>
-              </Link>
-              <button className="buttonModify" type="submit">
-                Modificar
-              </button>
-            </div>
+            <button className="buttonModify" type="submit">
+              Modificar
+            </button>
           </form>
+          <div className="buttonsContainer">
+            <Link to={`/products`}>
+              <button className="buttonCancel">Cancelar</button>
+            </Link>
+
+            <button
+              className="modalButton"
+              onClick={() => setOpen(true)}
+              type="button"
+            >
+              Crear Categoria
+            </button>
+            <Modal
+              isOpen={modalOpen}
+              onRequestClose={() => setOpen(false)}
+              overlayClassName={{
+                base: "overlay-base",
+                afterOpen: "overlay-after",
+                beforeClose: "overlay-before",
+              }}
+              className={{
+                base: "content-base",
+                afterOpen: "content-box",
+                beforeClose: "content-before",
+              }}
+              closeTimeoutMS={500}
+            >
+              <ModalCreateCategory setIsOpen={setIsOpen} setOpen={setOpen} />
+            </Modal>
+          </div>
         </div>
       </div>
     </div>

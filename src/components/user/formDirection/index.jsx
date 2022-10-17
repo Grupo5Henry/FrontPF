@@ -2,44 +2,79 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BACK_URL } from "../../../constantes";
-import { UpdateUserDefaultAddress } from "../../../redux/action";
+import { clearCart } from "../../../Controllers/Cart";
+import {
+  CreateOrder,
+  reduceStock,
+  UpdateUserDefaultAddress,
+} from "../../../redux/action";
 
 export default function DirectionForm() {
   var { user, cart } = useSelector((state) => state);
 
   var dispatch = useDispatch();
 
-  var [state, setState] = useState(true);
-  var [direction, setDirection] = useState({
-    provincia_estado: "",
-    calle: "",
-    line1: "",
+  var [state, setState] = useState({
+    shipping:
+      user.defaultShippingAddress === "from google"
+        ? false
+        : user.defaultShippingAddress,
+    billing: user.billing === "from google" ? false : user.billingAddress,
   });
-  var [porDefecto, setPorDefecto] = useState(false);
 
-  function onCha(e) {
-    setDirection({
-      ...direction,
-      [e.target.name]: e.target.value,
-    });
-  }
+  var [direction, setDirection] = useState({
+    shipping: { provincia_estado: "", calle: "", line1: "" },
+    billing: { provincia_estado: "", calle: "", line1: "" },
+  });
+
+  var [porDefecto, setPorDefecto] = useState({
+    shipping: false,
+    billing: false,
+  });
+
+  let orderNumber = "";
+
+  const ordenes = async (shipping) => {
+    try {
+      var { data } = await axios.get(`${BACK_URL}/order/largestOrderNumber`);
+      orderNumber = data.length ? Number(data[0].orderNumber + 1) : 1;
+    } catch (error) {
+      return error;
+    }
+    for (let i = 0; i < cart.length; i++) {
+      if (!i) {
+      }
+      reduceStock(cart[i].productId, cart[i].product.stock, cart[i].amount);
+      CreateOrder({
+        productId: cart[i].productId,
+        userName: user.userName,
+        orderNumber,
+        shippingAddress: shipping,
+        amount: cart[i].amount,
+      });
+    }
+    clearCart(user.userName);
+    return orderNumber;
+  };
 
   async function onSub(e) {
     e.preventDefault();
 
     var shippingAddress = "";
+    var billingAddress = "";
 
-    if (state) {
-      shippingAddress = user.defaultShippingAddress;
+    //Set shipping
+    if (state.shipping) {
+      shippingAddress = state.shipping; // seria lo mismo que user.defaultShippingAddress
     } else {
-      if (!direction.calle || !direction.provincia_estado) {
+      if (!direction.shipping.calle || !direction.shipping.provincia_estado) {
         return alert("Complete los campos pedidos");
       } else {
-        if (porDefecto) {
-          console.log("MODIFICO LA DIRECCION POR DEFECTO DEL USUARIO EN LA DB");
-          shippingAddress = direction.line1
-            ? `${direction.provincia_estado}, ${direction.calle}, ${direction.line1}`
-            : `${direction.provincia_estado}, ${direction.calle}`;
+        if (porDefecto.shipping) {
+          // console.log("MODIFICO LA DIRECCION POR DEFECTO DEL USUARIO EN LA DB");
+          shippingAddress = direction.shipping.line1
+            ? `${direction.shipping.provincia_estado}, ${direction.shipping.calle}, ${direction.shipping.line1}`
+            : `${direction.shipping.provincia_estado}, ${direction.shipping.calle}`;
           dispatch(
             UpdateUserDefaultAddress({
               userName: user.userName,
@@ -47,19 +82,48 @@ export default function DirectionForm() {
             })
           );
         } else {
-          shippingAddress = direction.line1
-            ? `${direction.provincia_estado}, ${direction.calle}, ${direction.line1}`
-            : `${direction.provincia_estado}, ${direction.calle}`;
+          shippingAddress = direction.shipping.line1
+            ? `${direction.shipping.provincia_estado}, ${direction.shipping.calle}, ${direction.shipping.line1}`
+            : `${direction.shipping.provincia_estado}, ${direction.shipping.calle}`;
         }
       }
     }
-    localStorage.setItem("shippingAddress", shippingAddress);
+
+    //Set billing
+    if (state.billing) {
+      billingAddress = state.billing; //seria lo mismo que user.billingAddress
+    } else {
+      if (!direction.billing.calle || !direction.billing.provincia_estado) {
+        return alert("Complete los campos pedidos");
+      } else {
+        if (porDefecto.billing) {
+          // console.log("MODIFICO LA DIRECCION POR DEFECTO DEL USUARIO EN LA DB");
+          billingAddress = direction.billing.line1
+            ? `${direction.billing.provincia_estado}, ${direction.billing.calle}, ${direction.billing.line1}`
+            : `${direction.billing.provincia_estado}, ${direction.billing.calle}`;
+          dispatch(
+            UpdateUserDefaultAddress({
+              userName: user.userName,
+              billingAddress: billingAddress,
+            })
+          );
+        } else {
+          billingAddress = direction.line1
+            ? `${direction.billing.provincia_estado}, ${direction.billing.calle}, ${direction.billing.line1}`
+            : `${direction.billing.provincia_estado}, ${direction.billing.calle}`;
+        }
+      }
+    }
+
+    // localStorage.setItem("shippingAddress", shippingAddress);
     // console.log(localStorage);
+
+    let orderNumber = await ordenes(shippingAddress);
 
     try {
       const url = await axios.post(
-        `${BACK_URL}/checkout`,
-        { cart: cart },
+        `${BACK_URL}/stripe/checkout`,
+        { cart: cart, orderNumber: orderNumber, userName: user.userName },
         { headers: { "Content-Type": "application/json" } }
       );
       // console.log(url)
@@ -68,6 +132,7 @@ export default function DirectionForm() {
       console.log({ error: err.message });
     }
   }
+
   return (
     <div
       style={{
@@ -77,24 +142,26 @@ export default function DirectionForm() {
         alignItems: "center",
       }}
     >
+      {/* // Shipping  */}
       <h1 style={{ color: "black", fontSize: "35px", fontWeight: "bold" }}>
         Dirección de Envio
       </h1>
       <select
         onChange={(e) => {
-          setState(e.target.value);
+          setState({ ...state, shipping: e.target.value });
           if (e.target.value) {
-            setPorDefecto(false);
+            setPorDefecto({...porDefecto, shipping: false });
           }
         }}
         style={{ width: "90%" }}
       >
-        {user.defaultShippingAddress === "from google" ? null : (
-          <option value={true}>{user.defaultShippingAddress}</option>
+        {user.defaultShippingAddress === "from google" || !user.defaultShippingAddress? null : (
+          <option>{user.defaultShippingAddress}</option>
         )}
         <option value={""}>Otra dirección</option>
       </select>
-      {!state ? (
+
+      {!state.shipping ? (
         <div
           style={{
             display: "flex",
@@ -105,7 +172,7 @@ export default function DirectionForm() {
           }}
         >
           <form
-            onSubmit={onSub}
+            onSubmit={(e) => e.preventDefault}
             style={{ display: "flex", flexDirection: "column", width: "90%" }}
           >
             <div
@@ -119,17 +186,25 @@ export default function DirectionForm() {
               <label>Provincia/Estado</label>
               <input
                 style={
-                  direction.provincia_estado
+                  direction.shipping.provincia_estado
                     ? null
                     : { border: "solid red 2px" }
                 }
                 type="text"
                 placeholder="Ej: Buenos Aires"
-                value={direction.provincia_estado}
-                onChange={onCha}
+                value={direction.shipping.provincia_estado}
+                onChange={(e) =>
+                  setDirection({
+                    ...direction,
+                    shipping: {
+                      ...direction.shipping,
+                      [e.target.name]: e.target.value,
+                    },
+                  })
+                }
                 name="provincia_estado"
               />
-              {direction.provincia_estado ? null : (
+              {direction.shipping.provincia_estado ? null : (
                 <span style={{ color: "red", fontSize: "13px" }}>
                   Complete este campo
                 </span>
@@ -145,14 +220,24 @@ export default function DirectionForm() {
             >
               <label>Calle</label>
               <input
-                style={direction.calle ? null : { border: "solid red 2px" }}
+                style={
+                  direction.shipping.calle ? null : { border: "solid red 2px" }
+                }
                 type="text"
                 placeholder="Ej: San Martin 2900"
-                value={direction.calle}
-                onChange={onCha}
+                value={direction.shipping.calle}
+                onChange={(e) =>
+                  setDirection({
+                    ...direction,
+                    shipping: {
+                      ...direction.shipping,
+                      [e.target.name]: e.target.value,
+                    },
+                  })
+                }
                 name="calle"
               />
-              {direction.calle ? null : (
+              {direction.shipping.calle ? null : (
                 <span style={{ color: "red", fontSize: "13px" }}>
                   Complete este campo
                 </span>
@@ -170,12 +255,19 @@ export default function DirectionForm() {
               <input
                 type="text"
                 placeholder="Ej: Casa roja, entre hospital y restaurante"
-                value={direction.line1}
-                onChange={onCha}
+                value={direction.shipping.line1}
+                onChange={(e) =>
+                  setDirection({
+                    ...direction,
+                    shipping: {
+                      ...direction.shipping,
+                      [e.target.name]: e.target.value,
+                    },
+                  })
+                }
                 name="line1"
               />
             </div>
-            <button className="datepicker-footer-btn">Continuar</button>
           </form>
           <div>
             <span style={{ margin: "5px" }}>
@@ -183,19 +275,163 @@ export default function DirectionForm() {
             </span>
             <input
               type="checkbox"
-              onClick={() => setPorDefecto(porDefecto ? false : true)}
+              onClick={() =>
+                setPorDefecto({...porDefecto, shipping: porDefecto.shipping ? false : true })
+              }
             />
           </div>
         </div>
-      ) : (
-        <button
-          onClick={onSub}
-          className="datepicker-footer-btn"
-          style={{ width: "90%", position: "relative", bottom: "0" }}
+      ) : null}
+
+      {/* // Billing */}
+      <h1 style={{ color: "black", fontSize: "35px", fontWeight: "bold" }}>
+        Dirección de Facturacion
+      </h1>
+      <select
+        onChange={(e) => {
+          setState({ ...state, billing: e.target.value });
+          if (e.target.value) {
+            setPorDefecto({...porDefecto, billing: false });
+          }
+        }}
+        style={{ width: "90%" }}
+      >
+        {user.billingAddress === "from google" ||
+        !user.billingAddress ? null : (
+          <option>{user.billingAddress}</option>
+        )}
+        <option value={""}>Otra dirección</option>
+      </select>
+
+      {!state.billing ? (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            width: "90%",
+            marginTop: "10px",
+          }}
         >
-          Continuar
-        </button>
-      )}
+          <form
+            onSubmit={(e) => e.preventDefault}
+            style={{ display: "flex", flexDirection: "column", width: "90%" }}
+          >
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                width: "100%",
+                margin: "3px",
+              }}
+            >
+              <label>Provincia/Estado</label>
+              <input
+                style={
+                  direction.billing.provincia_estado
+                    ? null
+                    : { border: "solid red 2px" }
+                }
+                type="text"
+                placeholder="Ej: Buenos Aires"
+                value={direction.billing.provincia_estado}
+                onChange={(e) =>
+                  setDirection({
+                    ...direction,
+                    billing: {
+                      ...direction.billing,
+                      [e.target.name]: e.target.value,
+                    },
+                  })
+                }
+                name="provincia_estado"
+              />
+              {direction.billing.provincia_estado ? null : (
+                <span style={{ color: "red", fontSize: "13px" }}>
+                  Complete este campo
+                </span>
+              )}
+            </div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                width: "100%",
+                margin: "3px",
+              }}
+            >
+              <label>Calle</label>
+              <input
+                style={
+                  direction.billing.calle ? null : { border: "solid red 2px" }
+                }
+                type="text"
+                placeholder="Ej: San Martin 2900"
+                value={direction.billing.calle}
+                onChange={(e) =>
+                  setDirection({
+                    ...direction,
+                    billing: {
+                      ...direction.billing,
+                      [e.target.name]: e.target.value,
+                    },
+                  })
+                }
+                name="calle"
+              />
+              {direction.billing.calle ? null : (
+                <span style={{ color: "red", fontSize: "13px" }}>
+                  Complete este campo
+                </span>
+              )}
+            </div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                width: "100%",
+                margin: "3px",
+              }}
+            >
+              <label>¿Alguna aclaración?</label>
+              <input
+                type="text"
+                placeholder="Ej: Casa roja, entre hospital y restaurante"
+                value={direction.billing.line1}
+                onChange={(e) =>
+                  setDirection({
+                    ...direction,
+                    billing: {
+                      ...direction.billing,
+                      [e.target.name]: e.target.value,
+                    },
+                  })
+                }
+                name="line1"
+              />
+            </div>
+          </form>
+          <div>
+            <span style={{ margin: "5px" }}>
+              ¿Quieres agregar esta dirección como nueva dirección por defecto?
+            </span>
+            <input
+              type="checkbox"
+              onClick={() =>
+                setPorDefecto({...porDefecto, billing: porDefecto.billing ? false : true })
+              }
+            />
+          </div>
+        </div>
+      ) : null}
+
+      <button
+        onClick={onSub}
+        className="datepicker-footer-btn"
+        style={{ width: "90%", position: "relative", bottom: "0" }}
+      >
+        Continuar
+      </button>
     </div>
   );
 }

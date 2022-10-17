@@ -3,6 +3,7 @@ import axios from "axios";
 /* const API_URL="https://backpf-production.up.railway.app/user"; */
 import { BACK_URL } from "../constantes";
 
+
 //const API_URL = "/auth";
 
 const signup = /* async */ (
@@ -45,7 +46,7 @@ const login = (userName, password) => {
 
         /* localStorage.setItem("refreshToken", response.data.refreshToken) */
       }
-      //console.log('auth.service signin: ', response.data);
+     // console.log('auth.service signin: ', response.data.billingAddress);
       return response.data;
     });
 };

@@ -9,14 +9,14 @@ import { Link } from "react-router-dom";
 export default function DatatableProducts() {
   const productos = useSelector((state) => state.adminProducts);
   const dispatch = useDispatch();
-  // console.log(productos)
+
 
   useEffect(() => {
     dispatch(getAllProducts());
   }, [dispatch]);
 
   const columns = [
-    /* { field: 'id', headerName: 'ID', width: 300 }, */
+    { field: 'id', headerName: "ID", width: 300 },
     {
       field: "thumbnail",
       headerName: "Imagen",
@@ -33,7 +33,6 @@ export default function DatatableProducts() {
     { field: "model", headerName: "Modelo", width: 180 },
     { field: "stock", headerName: "Stock", width: 130 },
     { field: "price", headerName: "Precio", width: 130 },
-    /* { field: 'condition', headerName: 'Condición', width: 130 }, */
   ];
 
   const dataTableButton = [
@@ -53,16 +52,43 @@ export default function DatatableProducts() {
     },
   ];
 
+  const detailButton = [
+    {
+      field: "detail",
+      headerName: "Detalles",
+      width: 180,
+      renderCell: (params) => {
+        return (
+          <div className="cellAction">
+            <Link to={`/products/detail/${params.row.id}`}>
+              <button className="detailButton">Ver Detalle</button>
+            </Link>
+          </div>
+        );
+      },
+    },
+  ];
+
+  const newButtons = dataTableButton.concat(detailButton);
+
   return (
     <div className="datatableProducts">
       {productos.length ? (
         <DataGrid
+        className="datagrid"
           rows={productos}
-          columns={columns.concat(dataTableButton)}
+          sx={{
+            "&.MuiDataGrid-root .MuiDataGrid-cell:focus-within": {
+              outline: "none !important",
+            },
+          }}
+          columns={columns.concat(newButtons)}
           pageSize={12}
           rowsPerPageOptions={[5]}
-          getRowId={(row) => row.name}
-          /* checkboxSelection */
+          columnVisibilityModel={{
+            // Hide columns status and traderName, the other columns will remain visible
+            id: false,
+          }}
         />
       ) : (
         <p>Cargando...</p>

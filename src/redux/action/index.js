@@ -8,6 +8,7 @@ export const DELETE_DETAIL_PRODUCT = "DELETE_DETAIL_PRODUCT";
 export const SEARCH_PRODUCT = "SEARCH_PRODUCT";
 export const GET_PRODUCTS_FILTERED = "GET_PRODUCTS_FILTERED";
 export const FETCH_ALL_PRODUCTS = "FETCH_ALL_PRODUCTS";
+export const BRAND_PRODUCT = 'BRAND_PRODUCT'
 
 //USERS
 export const FETCH_ALL_USERS = "FETCH_ALL_USERS";
@@ -26,6 +27,7 @@ export const GET_REVIEW = "GET_REVIEW";
 export const RESET_DETAIL = "RESET_DETAIL";
 export const UPDATE_CART = "UPDATE_CART";
 export const GET_CART = "GET_CART";
+export const DELETE_PRODUCT_CARRITO = "DELETE_PRODUCT_CARRITO"
 
 export const RESET_FILTER = "RESET_FILTER";
 export const UPDATE_FILTER = "UPDATE_FILTER";
@@ -157,6 +159,21 @@ export const detailProduct = (id) => {
     }
   };
 };
+export const similarBrand = (id) => {
+ 
+  return async (dispatch) => {
+    try {
+      console.log(id)
+      const product = await axios.get(`${BACK_URL}/product/BRAND/${id}`);
+      dispatch({
+        type: BRAND_PRODUCT,
+        payload: product.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
 
 export function deleteDetailProduct() {
   return async (dispatch) => {
@@ -227,7 +244,7 @@ export const getReview = (id) => {
   return async (dispatch) => {
     try {
       const review = await axios.get(
-        `https://backpf-production.up.railway.app/review/ID/${id}`
+        `${BACK_URL}/review/ID/${id}`
       );
       dispatch({
         type: GET_REVIEW,
@@ -262,7 +279,7 @@ export function deleteAllReviews() {
 export function getAllProducts() {
   return async function (dispatch) {
     fetch(
-      "https://backpf-production.up.railway.app/product//itemsPerPage?amount=3000"
+      `${BACK_URL}/product//itemsPerPage?amount=3000`
     )
       .then((response) => response.json())
       .then((adminProducts) => {
@@ -400,7 +417,7 @@ export function reduceStock(id, stock, amount) {
 export function UpdateUserDefaultAddress(obj) {
   return function (dispatch) {
     axios
-      .put(`${BACK_URL}/user/newShippingAddress`, obj)
+      .put(`${BACK_URL}/user/newAddress`, obj)
       .then(() =>
         dispatch({
           type: NEW_SHIPPING_ADDRESS,
@@ -409,4 +426,13 @@ export function UpdateUserDefaultAddress(obj) {
       )
       .catch((err) => console.log(err));
   };
+}
+
+
+export function BorrarDelCarrito(productId,userName){
+  return function(dispatch){ 
+     axios.delete(`${BACK_URL}/cart/delete`,{data: {productId, userName }})
+      .then(() => {console.log(userName); dispatch(getCart(userName))})
+      .catch(err => console.log(err))
+  }
 }

@@ -2,7 +2,7 @@
     flex: 5;
     -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
     box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
-    color: gray;
+    /* color: gray; */
 
 
     .title{
@@ -11,5 +11,29 @@
         color: rgb(160, 158, 158);
         margin-top: 3px;
         margin-left: 10px;
+    }
+/*     .Xline, .Yline {
+        color: rgb(228, 225, 225);
+    } */
+    .chartGrid {
+        stroke: rgb(228, 225, 225);
+    }
+}
+
+@media(max-width : 615px){
+    .chart{
+        width: 90%;
+        height: 20%;
+        background-color: #ffff002e;
+        font-size: 10px;
+        margin-right: 60px;
+        margin-left: 20px;
+        margin-top: 0%;
+        padding: 20px;
+
+        font-size: 15px;
+        .title{
+            font-size: 15px;
+        }
     }
 }
