@@ -12,6 +12,7 @@ import swal from "sweetalert";
 
 import { BACK_URL } from "../../../constantes";
 import { clearCategories, getCategories } from "../../../redux/action";
+import { yellow } from "@mui/material/colors";
 
 //CONECTAMOS LA MODAL CON EL ELEMENTO A MOSTRAR
 
@@ -55,21 +56,11 @@ export default function NewProduct() {
   //CONTROLADOR DEL CHECKBOX
 
   const handleCheckbox = (e) => {
-    // if (e.target.checked && !input.categories.includes(e.target.value)) {
-    //   setInput({
-    //     ...input,
-    //     categories: [...input.categories, e.target.value],
-    //   });
-    // } else if (!e.target.checked) {
-    //   setInput({
-    //     ...input,
-    //     categories: input.categories.filter((d) => d !== e.target.value),
-    //   });
-    // }
+
     setInput({
       ...input,
-      categories: [...input.categories, e.target.value]
-    })
+      categories: [...input.categories, e.target.value],
+    });
   };
 
   //AL DAR AL BOTON DE CREAR PRODUCTO
@@ -226,7 +217,7 @@ export default function NewProduct() {
           .then((response) => {
             imgObl = response.data.secure_url;
           })
-          .then( async () => {
+          .then(async () => {
             await axios
               .post(`${BACK_URL}/product/create`, {
                 name,
@@ -360,10 +351,7 @@ export default function NewProduct() {
               </select>
             </div>
 
-            <div className="inputCategories">
-              <label className="labelCategories">Categorías: </label>
-              {/* <div className="borde"> */}
-                <div style={{width:"50%",display:"flex",flexDirection:"column"}}>
+                {/* <div style={{width:"50%",display:"flex",flexDirection:"column"}}>
                   <select style={{width:"100%"}} onChange={(e) => handleCheckbox(e)}>
                     <option hidden>Seleccione categorias</option>
                     {
@@ -390,23 +378,67 @@ export default function NewProduct() {
                         )
                       })
                     }
-                  </div>
-                </div>
-                {/* {category &&
-                  category.map((c) => {
+                  </div> */}
+
+            <div className="inputCategories">
+              <label className="labelCategories">Categorías: </label>
+              <div className="subLabel"
+                style={{
+                  width: "300px",
+                  display: "flex",
+                  flexDirection: "column",
+                  marginLeft: "90px",
+                  padding: "8px"
+                }}
+              >
+                <select
+                  className="SelectSubLabel"
+                  style={{ width: "90%",
+                marginLeft: "10px",
+                
+               }}
+                  onChange={(e) => handleCheckbox(e)}
+                >
+                  <option hidden>Seleccione categorias</option>
+                  {category.map((c, i) => {
+                    if (!input.categories.includes(c.name)) {
+                      return <option key={i}>{c.name}</option>;
+                    }
+                  })}
+                </select>
+                <div
+                  className="SubSelect"
+                  style={{
+                    fontSize: "18px",
+                    display: "flex",
+                    gap: "10px",
+                    maxWidth: "100%",
+                    flexWrap: "wrap",
+                    justifyContent: "center",
+                    cursor: "pointer",
+                  }}
+                >
+                  {input.categories.map((c) => {
                     return (
-                      <label className="labelBox" key={c.name}>
-                        <input
-                          className="boxCategories"
-                          type="checkbox"
-                          value={c.name}
-                          onChange={(e) => handleCheckbox(e)}
-                        />{" "}
-                        {c.name}{" "}
-                      </label>
+                      <span
+                        onClick={() =>
+                          setInput((prev) => {
+                            var filtered = input.categories.filter(
+                              (e) => e !== c
+                            );
+                            return {
+                              ...prev,
+                              categories: filtered,
+                            };
+                          })
+                        }
+                      >
+                        {c}
+                      </span>
                     );
-                  })} */}
-              {/* </div> */}
+                  })}
+                </div>
+              </div>
             </div>
 
             <button className="buttonModify" type="submit">

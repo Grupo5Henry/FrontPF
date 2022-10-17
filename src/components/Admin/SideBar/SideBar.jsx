@@ -5,10 +5,8 @@ import PeopleAltRoundedIcon from "@mui/icons-material/PeopleAltRounded";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import AddCardIcon from "@mui/icons-material/AddCard";
 import InventoryOutlinedIcon from "@mui/icons-material/InventoryOutlined";
-import AccountBoxOutlinedIcon from "@mui/icons-material/AccountBoxOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import CategoryIcon from "@mui/icons-material/Category";
-import BrandingWatermarkOutlinedIcon from "@mui/icons-material/BrandingWatermarkOutlined";
 import ReportGmailerrorredOutlinedIcon from "@mui/icons-material/ReportGmailerrorredOutlined";
 import { Link } from "react-router-dom";
 import { IconButton } from "@mui/material";
@@ -91,10 +89,6 @@ export default function SideBar() {
             </Link>
           </li>
           <p className="title">USUARIO</p>
-          <li>
-            <AccountBoxOutlinedIcon className="icon" />
-            <span>Perfil</span>
-          </li>
           <li>
             <IconButton
               onClick={() => {
