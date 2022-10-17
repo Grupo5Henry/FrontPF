@@ -21,7 +21,7 @@
     color: white;
     font-size: 24px;
     padding: 0 11px;
-    z-index: 1;
+    /* z-index: 1; */
     border-radius: 50px;
     bottom: 130px;
     margin: 10px;
@@ -38,6 +38,7 @@
 .slider{
     background-color: rgb(255, 255, 255);
     width: 94%;
+    z-index: -1;
 }
 
 .card{
