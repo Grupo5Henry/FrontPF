@@ -23,6 +23,8 @@ const getUser = (setUsuario, usuario, dispatch) => {
         defaultShippingAddress: resObject.shipping,
         role: resObject.role,
         billingAddress: resObject.billingAddress,
+        verified: resObject.verified,
+        mute: resObject.mute,
         logged: true
 
       }))
