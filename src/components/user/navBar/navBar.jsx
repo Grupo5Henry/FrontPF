@@ -32,6 +32,7 @@ import LogIn from "../logIn/logIn";
 import SearchBar from "../searchBar/searchBar.jsx";
 import SignIn from "../signIn/signIn";
 import "./navBar.css";
+import Verifi from "../alert/verifi";
 
 Modal.setAppElement("#root");
 
@@ -58,6 +59,7 @@ const NavBar = () => {
   const [openAlert, setOpenAlert] = React.useState(false);
   const [openCart, setOpenCart] = React.useState(false);
   const [openStock, setOpenStock] = React.useState(false);
+  const [openVerifi, setOpenVerifi] = React.useState(false);
   //////////////////////////////////////////////
 
   useEffect(() => {
@@ -228,6 +230,7 @@ const NavBar = () => {
                   setOpenAlert(true);
                   return;
                 }
+                if (userState.verified === false) return setOpenVerifi(true)
                 if (!cart.length) return setOpenCart(true);
                 if (
                   cart.some(
@@ -479,6 +482,23 @@ const NavBar = () => {
             >
               <OutStock setOpenStock={setOpenStock} />
             </Modal>
+            <Modal
+        isOpen={openVerifi}
+        onRequestClose={() => setOpenVerifi(false)}
+        overlayClassName={{
+          base: "overlay-base",
+          afterOpen: "overlay-after",
+          beforeClose: "overlay-before",
+        }}
+        className={{
+          base: "content-base",
+          afterOpen: "content-after",
+          beforeClose: "content-before",
+        }}
+        closeTimeoutMS={500}
+      >
+        <Verifi setOpenVerifi={setOpenVerifi}/>
+      </Modal>
           </div>
         </div>
       </nav>
