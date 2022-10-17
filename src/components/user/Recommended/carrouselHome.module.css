@@ -11,6 +11,7 @@
     display: flex;
     justify-content: center;
     margin: 30px 0;
+    position: relative;
     /* outline: solid rgb(224, 224, 224) 2px ; */
 }
 
