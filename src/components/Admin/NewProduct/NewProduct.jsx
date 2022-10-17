@@ -380,7 +380,7 @@ export default function NewProduct() {
                     {
                       input.categories.map(c => {
                         return (
-                          <span className="transition ease-in duration-300 inline-flex items-center text-sm font-medium mb-2 md:mb-0 bg-red-600 px-5 cursor-pointer py-2 hover:shadow-lg tracking-wider text-white rounded-full hover:bg-red-400" onClick={() => setInput(prev => {
+                          <span className="transition ease-in duration-300 inline-flex items-center mb-2 md:mb-0  px-3 cursor-pointer py-0 hover:shadow-lg tracking-wider  rounded-full hover:bg-red-400" onClick={() => setInput(prev => {
                             var filtered = input.categories.filter(e => e !== c)
                             return ({
                               ...prev,
