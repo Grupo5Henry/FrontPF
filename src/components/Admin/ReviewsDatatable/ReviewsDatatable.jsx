@@ -57,8 +57,13 @@ export default function ReviewDatatable(props) {
         customBodyRender: (value, tableMeta, updateValue) => {
           return (
             <div className="buttonsContainer">
-              <button className="aprobarButton"
+              <button
+                className="aprobarButton"
                 onClick={async () => {
+                  // console.log(
+                  //   typeof tableMeta.rowData[3],
+                  //   typeof tableMeta.rowData[0]
+                  // );
                   try {
                     await axios.put(`${BACK_URL}/review/unflagReview`, {
                       userName: tableMeta.rowData[0],
@@ -72,7 +77,8 @@ export default function ReviewDatatable(props) {
               >
                 Aprobar
               </button>
-              <button className="esconderButton"
+              <button
+                className="esconderButton"
                 onClick={async () => {
                   try {
                     await axios.put(`${BACK_URL}/review/hideReview`, {
@@ -87,7 +93,8 @@ export default function ReviewDatatable(props) {
               >
                 Esconder
               </button>
-              <button className="bannearButton"
+              <button
+                className="bannearButton"
                 onClick={async () => {
                   try {
                     await axios.put(`${BACK_URL}/review/hideAllFromUser`, {

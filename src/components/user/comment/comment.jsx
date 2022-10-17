@@ -1,7 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import { button } from "@material-tailwind/react";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { useDispatch, useSelector } from "react-redux";
+import { BACK_URL } from "../../../constantes";
 import { addReview, updateReview } from "../../../Controllers/review";
 import { getReview } from "../../../redux/action";
 Modal.setAppElement("#root");
@@ -117,6 +120,21 @@ const Comment = ({ id }) => {
                             </li>
                           </ul>
                         </div>
+                      ) : userState.logged ? (
+                        <button
+                          onClick={async () => {
+                            try {
+                              await axios.put(`${BACK_URL}/review/flagReview`, {
+                                userName: e.userName,
+                                productId: e.productId,
+                              });
+                            } catch (err) {
+                              console.log({ error: err.message });
+                            }
+                          }}
+                        >
+                          Denunciar comentario
+                        </button>
                       ) : null}
                     </div>
                     <div className="flex ml-0 mt-2">
