@@ -3,6 +3,7 @@ import "../ListProducts/listProducts.scss";
 import SideBar from "../SideBar/SideBar.jsx"
 import AdminNavBar from "../AdminNavBar/AdminNavBar.jsx";
 import DatatableProducts from "../DatatableProducts/DatatableProducts.jsx";
+import DatatableProducts2 from "../DatatableProducts/DatatableProducts2.jsx";
 
 export default function ListProducts () {
     return(
@@ -11,8 +12,8 @@ export default function ListProducts () {
             <div className="listContainer">
                 <AdminNavBar />
                 <div>
-                <DatatableProducts/>
-
+                {/* <DatatableProducts/> */}
+                    <DatatableProducts2/>
                 </div>
             </div>
         </div>

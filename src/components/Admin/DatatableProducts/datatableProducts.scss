@@ -3,6 +3,28 @@
     padding: 40px;
     align-items: center;
 
+    
+
+    .datagrid{
+        padding: 50px;
+        background-color: white;
+       
+        .corpse{
+            color: #222;
+        }
+        
+        
+        .dataName{
+            width: 200px;
+        }
+   
+        .cellImg{
+            height: 65px;
+            width: 65px;
+            border-radius: 7px;
+        }
+
+
     .cellWithBan{
         padding: 5px;
         border-radius: 5px;
@@ -33,18 +55,7 @@
         }
     }
 
-    .cellAction{
-        display: flex;
-        align-items: center;
-        gap: 15px;
 
-        .modifyButton{
-            padding: 3px 6px;
-            border-radius: 5px;
-            color: blue;
-            border: 1px dotted blue;
-            cursor: pointer;
-        }
 
         .detailButton{
             padding: 3px 6px;
@@ -53,5 +64,20 @@
             border: 1px dotted blue;
             cursor: pointer;
         }
-    }
-}
+        .cellAction{
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        
+            .modifyButton{
+                padding: 5px 8px;
+                border-radius: 5px;
+                color: blue;
+                border: 1px dotted blue;
+                cursor: pointer;
+
+                &:hover{
+                    background-color: rgb(157, 157, 237);
+                }
+            }}
+        }}

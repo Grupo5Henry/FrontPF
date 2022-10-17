@@ -44,9 +44,9 @@ export default function AdminNavBar() {
               <HomeIcon className="icon" />
             </Link>
           </div>
-          <div className="item">
+          {/* <div className="item">
             <EmailIcon className="icon" />
-          </div>
+          </div> */}
           <div className="item" onClick={() => despachar({ type: "TOGGLE" })}>
             <ModeNightIcon className="icon" />
           </div>
