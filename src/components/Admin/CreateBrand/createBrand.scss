@@ -4,7 +4,7 @@
 
     .createBrandContainer{
         flex: 6;
-
+        
         .top{
             margin-bottom: 60px;
         }
@@ -16,7 +16,7 @@
             margin-top: 20px;
             margin-left: 300px;
             margin-right: 300px;
-           
+    
             
 
             h1{
@@ -45,8 +45,7 @@
                         display: flex;
                         align-items: center;
                         gap: 10px;
-                        margin-bottom: 10px;
-                        
+                        font-size: 10px;
                     }
 
                     input{
@@ -55,6 +54,7 @@
                         border: none;
                         border-bottom: 1px solid gray;
                         background: transparent;
+                        font-size: 10px;
                     }
 
                 }
@@ -68,9 +68,35 @@
                 font-weight: bold;
                 cursor: pointer;
                 align-self: right;
+                border-radius: 10px;
 
                 &:hover{
                     background-color: #7551f856;
+                }
+            }
+        }
+    }
+}
+
+
+@media(max-width : 615px){
+    .createBrand{
+    
+        .createBrandContainer{
+
+            .top, .mid, .bottom{
+                padding: 40px;
+                margin-top: 100px;
+                margin-left: 20px;
+                margin-right: 10px;
+                width: 70%;
+                height: 20%;
+        
+                .buttonCreate{
+                    width: 100px;
+                    font-size: 10px;
+                    align-self: center;
+    
                 }
             }
         }
