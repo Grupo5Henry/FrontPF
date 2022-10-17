@@ -2,6 +2,9 @@
     background-color: #222;
     color: rgb(156, 156, 156);
 
+
+        
+
     .chartGrid {
         stroke: rgb(228, 225, 225);
     }
@@ -44,14 +47,47 @@
 
     //TABLAS
 
-    .datatable, .datatableProducts{
+    .datatable, .datatableProducts, .reviewsDatatable{
+        
         .datagrid{
-            color: gray;
-            border: none;
+            
+            color: rgb(156, 156, 156);
+            /* border: none; */
+            background-color: #222;
+
+            .tss-5jmwmz-MUIDataTableFooter-root{
+                color: rgb(156, 156, 156);
+            }
+
+            .css-apqrd9-MuiTableBody-root{
+                color: rgb(156, 156, 156);
+            }
+
+            .tss-gm6zfk-MUIDataTableHeadCell-fixedHeader{
+                background-color: #222;
+                color: rgb(156, 156, 156);
+            }
+            .tss-ylo811-MUIDataTableSelectCell-headerCell{
+                background-color: #222;
+                color: rgb(156, 156, 156);
+            }
+
+            .corpse{
+                color: rgb(156, 156, 156);
+            }
+
+            .aprobarButton, .bannearButton, .esconderButton{
+                color: rgb(156, 156, 156);
+                border: none;
+
+            &:hover{
+                background-color: #333;
+            }
+            }
            
         }
-        .modifyButton, .detailButton {
-            color: gray;
+        .modifyButton, .detailButton  {
+            color: rgb(156, 156, 156);
             border: none;
 
             &:hover{

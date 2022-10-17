@@ -12,6 +12,7 @@ import axios from "axios";
 import { BACK_URL } from "../../../constantes";
 import swal from "sweetalert";
 import { getAllOrders } from "../../../redux/action";
+import "../OrdersDataTable/ordersdatatable.scss";
 
 // const Card = () => (
 //   <tr>
@@ -253,11 +254,14 @@ export default function OrderDataTable2(props) {
   };
 
   return (
+    <div className="datatable">
     <MUIDataTable
       title={"Ordenes"}
+      className="datagrid"
       data={data.length ? data : []}
       columns={columns}
       options={options}
     />
+    </div>
   );
 }

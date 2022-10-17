@@ -12,6 +12,7 @@ import {
   getCart,
   getCategories,
   getFavorites,
+  getSuggested,
   getUserOrders,
   resetFilter,
   updateFilter,
@@ -109,6 +110,7 @@ const NavBar = () => {
     dispatch(getFavorites(userState.userName));
     dispatch(getCategories());
     dispatch(getUserOrders(userState.userName));
+    dispatch(getSuggested());
   }, [userState]);
 
   return (
