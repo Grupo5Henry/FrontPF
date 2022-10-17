@@ -75,6 +75,7 @@
                         .labelBox{
                             margin-left: 7px;
                             cursor: pointer;
+                            padding: 0;
                             
     
                             .boxCategories{
@@ -167,7 +168,7 @@
 @media(max-width : 625px){
     .newProduct{
         .newProductContainer{
-             width:97%;
+             width:80%;
             .top, .bottom{
                 width: 70%;
                 h1{

@@ -263,9 +263,9 @@ export default function NewProduct() {
 
   return (
     <div className="newProduct">
-      <SideBar />
-      <div className="newProductContainer">
-        <AdminNavBar />
+      <SideBar/>
+      <div className="newProductContainer" style={{maxWidth:"80%"}}>
+        <AdminNavBar/>
         <div className="top">
           <h1>CREAR NUEVO PRODUCTO</h1>
         </div>
@@ -360,7 +360,7 @@ export default function NewProduct() {
               </select>
             </div>
 
-            <div className="inputCategories">
+            <div className="inputCategories" style={{display:"flex",flexDirection:"row",flexWrap:"wrap"}}>
               <label className="labelCategories">Categorías: </label>
               {/* <div className="borde"> */}
                 <div style={{width:"50%",display:"flex",flexDirection:"column"}}>
@@ -380,13 +380,13 @@ export default function NewProduct() {
                     {
                       input.categories.map(c => {
                         return (
-                          <span style= {{backgroundColor:'rgba(60, 3, 62, 0.67)', borderRadius : '3px',margin: '2px',padding: '5px'}}onClick={() => setInput(prev => {
+                          <span className="transition ease-in duration-300 inline-flex items-center text-sm font-medium mb-2 md:mb-0 bg-red-600 px-5 cursor-pointer py-2 hover:shadow-lg tracking-wider text-white rounded-full hover:bg-red-400" onClick={() => setInput(prev => {
                             var filtered = input.categories.filter(e => e !== c)
                             return ({
                               ...prev,
                               categories: filtered
                             })
-                          })}>{c} <button style={{color:'red'}}>x</button></span>
+                          })}>{c}</span>
                         )
                       })
                     }
@@ -409,11 +409,11 @@ export default function NewProduct() {
               {/* </div> */}
             </div>
 
-            <button className="buttonModify" type="submit">
+            <button  type="submit">
               Crear Producto
             </button>
           </form>
-          <div className="buttonSpace">
+          <div className="buttonSpace"s>
 
             <button
                 className="modalButton"

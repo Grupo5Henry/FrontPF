@@ -48,14 +48,14 @@ export default function Featured() {
   }, [reviews]);
 
   return (
-    <div className="featured">
+    <div className="featured" style={{padding:"0",display:"flex",flexDirection:"column",alignItems:"center"}}>
       <div className="top">
         <span className="title">PRODUCTO COMENTADO</span>
         <Link to={data.id ? `/products/detail/${data.id}` : "/"}>
           <InfoIcon className="icon" />
         </Link>
       </div>
-      <div className="bottom">
+      <div className="bottom" style={{width:"100%",display:"flex",flexDirection:"column",alignItems:"center"}}>
         <div>
           <span className="titleProduct">
             {data.name ? data.name : "Cargando..."}
