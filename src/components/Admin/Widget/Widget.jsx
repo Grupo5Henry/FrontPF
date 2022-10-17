@@ -12,6 +12,8 @@ import {
   deleteAllReviews,
 } from "../../../redux/action";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { BACK_URL } from "../../../constantes";
 
 export default function Widget({ type }) {
   //ESTADOS
@@ -144,7 +146,23 @@ export default function Widget({ type }) {
         isMoney: true,
         content: lastComment ? lastComment.description : "Cargando...",
         link: "Ver detalle",
-        icon: <CommentIcon className="icon" />,
+        icon: (
+          <CommentIcon
+            className="icon"
+            onClick={async () => {
+              // console.log(lastComment.productId, lastComment.userName);
+              try {
+                await axios.put(`${BACK_URL}/review/hideReview`, {
+                  userName: lastComment.userName,
+                  productId: lastComment.productId,
+                });
+                dispatch(getAllReviews());
+              } catch (err) {
+                console.log({ error: err.message });
+              }
+            }}
+          />
+        ),
         linker: lastComment ? `/products/detail/${lastComment.productId}` : "/",
       };
       break;
