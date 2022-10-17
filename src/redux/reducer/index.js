@@ -30,6 +30,7 @@ const initialState = {
   allProductsName: [],
   detail: {},
   similarBrand: [],
+  suggested: [],
   categories: [],
   brand: [],
   cart: [],
@@ -164,6 +165,12 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         categories: action.payload,
+      };
+
+    case "FETCH_SUGGESTED":
+      return {
+        ...state,
+        suggested: action.payload,
       };
 
     //Brand / Model

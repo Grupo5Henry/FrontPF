@@ -304,6 +304,19 @@ export function getAllUsers() {
   };
 }
 
+export function getSuggested() {
+  return async function (dispatch) {
+    fetch(`${BACK_URL}/product/getRecomendedForHome`)
+      .then((response) => response.json())
+      .then((suggested) => {
+        dispatch({
+          type: "FETCH_SUGGESTED",
+          payload: suggested,
+        });
+      });
+  };
+}
+
 export const clearCartStore = () => {
   return async (dispatch) => {
     dispatch({
