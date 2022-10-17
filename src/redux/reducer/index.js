@@ -18,8 +18,7 @@ import {
   FETCH_ALL_PRODUCTS,
   DELETE_REVIEWS,
   FECH_ALL_REVIEWS,
-  BRAND_PRODUCT
-
+  BRAND_PRODUCT,
 } from "../action";
 
 const initialState = {
@@ -101,11 +100,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         detail: action.payload,
       };
-      case BRAND_PRODUCT:
-        return {
-          ...state,
-          similarBrand: action.payload.suggested,
-        };
+    case BRAND_PRODUCT:
+      return {
+        ...state,
+        similarBrand: action.payload,
+      };
     case DELETE_DETAIL_PRODUCT:
       return {
         ...state,
