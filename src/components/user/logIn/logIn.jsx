@@ -44,7 +44,7 @@ const LogIn = ({ setIsOpen, setOpen }) => {
                 logged: true,
               })
             );
-            // offlineToOnlineCart(userName);
+            offlineToOnlineCart(userName);
           },
           (error) => {
             toast("Usuario o contraseña incorrectos");

@@ -1,4 +1,5 @@
 import { BACK_URL } from "../constantes";
+import { offlineToOnlineCart } from "../Controllers/Cart";
 import { updateUserState } from "../redux/action";
 const getUser = (setUsuario, usuario, dispatch) => {
   fetch(`${BACK_URL}/auth/login/success`, {
@@ -18,22 +19,24 @@ const getUser = (setUsuario, usuario, dispatch) => {
       localStorage.setItem("userName", "google:" + resObject.user.id);
       localStorage.setItem("defaultShippingAddress", resObject.shipping);
       localStorage.setItem("role", resObject.role);
-      dispatch(updateUserState({
-        userName: 'google:'+resObject.user.id,
-        defaultShippingAddress: resObject.shipping,
-        role: resObject.role,
-        billingAddress: resObject.billingAddress,
-        verified: resObject.verified,
-        mute: resObject.mute,
-        logged: true
-
-      }))
+      dispatch(
+        updateUserState({
+          userName: "google:" + resObject.user.id,
+          defaultShippingAddress: resObject.shipping,
+          role: resObject.role,
+          billingAddress: resObject.billingAddress,
+          verified: resObject.verified,
+          mute: resObject.mute,
+          logged: true,
+        })
+      );
       setUsuario({
         ...usuario,
         signedIn: true,
         userId: resObject.user.id,
         fullName: resObject.user.displayName,
       });
+      offlineToOnlineCart("google:" + resObject.user.id);
     })
     .catch((err) => {
       // console.log(err);

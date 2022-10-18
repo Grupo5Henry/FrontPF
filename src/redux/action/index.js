@@ -355,7 +355,6 @@ export const getCart = (userName) => {
       });
     };
   }
-  offlineToOnlineCart(userState.userName);
 
   return async (dispatch) => {
     try {
