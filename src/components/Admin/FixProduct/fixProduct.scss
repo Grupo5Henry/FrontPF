@@ -63,7 +63,12 @@
                     padding: 10px;
                     flex-wrap: wrap;
                     display: flex;
-                    justify-content: flex-start;
+
+                    .SelectSubLabel{
+                        width: 90%;
+                        margin-left: 10px;
+                        color: black
+                    }
                     
                     .borde{
                         margin-left: 5px;

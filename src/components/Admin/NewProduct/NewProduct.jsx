@@ -263,9 +263,9 @@ export default function NewProduct() {
 
   return (
     <div className="newProduct">
-      <SideBar />
-      <div className="newProductContainer">
-        <AdminNavBar />
+      <SideBar/>
+      <div className="newProductContainer" style={{maxWidth:"80%"}}>
+        <AdminNavBar/>
         <div className="top">
           <h1>CREAR NUEVO PRODUCTO</h1>
         </div>
@@ -327,7 +327,7 @@ export default function NewProduct() {
             </div>
 
             <div className="inputsContainerImg">
-              <label className="labelImg">Imagen 2 (Opcional): </label>
+              <label className="labelImg">Imágenes opcionales: </label>
               <input
                 className="inputImg"
                 multiple="multiple"
@@ -362,69 +362,85 @@ export default function NewProduct() {
 
             <div className="inputCategories">
               <label className="labelCategories">Categorías: </label>
-              {/* <div className="borde"> */}
-                <div style={{width:"50%",display:"flex",flexDirection:"column"}}>
-                  <select style={{width:"100%"}} onChange={(e) => handleCheckbox(e)}>
-                    <option hidden>Seleccione categorias</option>
-                    {
-                      category.map((c,i) => {
-                        if(!input.categories.includes(c.name)){
-                          return (
-                            <option key={i}>{c.name}</option>
-                          )
-                        } 
-                      }) 
+              <div className="subLabel"
+                style={{
+                  width: "300px",
+                  display: "flex",
+                  flexDirection: "column",
+                  marginLeft: "90px",
+                  padding: "8px"
+                }}
+              >
+                <select
+                  className="SelectSubLabel"
+                  style={{ width: "90%",
+                marginLeft: "10px",
+                
+               }}
+                  onChange={(e) => handleCheckbox(e)}
+                >
+                  <option hidden>Seleccione categorias</option>
+                  {category.map((c, i) => {
+                    if (!input.categories.includes(c.name)) {
+                      return <option key={i}>{c.name}</option>;
                     }
-                  </select>
-                  <div style={{display:"flex",gap:"10px",maxWidth:"100%",flexWrap:"wrap",justifyContent:"center"}}>
-                    {
-                      input.categories.map(c => {
-                        return (
-                          <span onClick={() => setInput(prev => {
-                            var filtered = input.categories.filter(e => e !== c)
-                            return ({
-                              ...prev,
-                              categories: filtered
-                            })
-                          })}>{c}</span>
-                        )
-                      })
-                    }
-                  </div>
-                </div>
-                {/* {category &&
-                  category.map((c) => {
+                  })}
+                </select>
+                <div
+                  className="SubSelect"
+                  style={{
+                    fontSize: "18px",
+                    display: "flex",
+                    gap: "10px",
+                    maxWidth: "100%",
+                    flexWrap: "wrap",
+                    justifyContent: "center",
+                    cursor: "pointer",
+                  }}
+                >
+                  {input.categories.map((c, i) => {
                     return (
-                      <label className="labelBox" key={c.name}>
-                        <input
-                          className="boxCategories"
-                          type="checkbox"
-                          value={c.name}
-                          onChange={(e) => handleCheckbox(e)}
-                        />{" "}
-                        {c.name}{" "}
-                      </label>
+                      <span key={i}
+                        onClick={() =>
+                          setInput((prev) => {
+                            var filtered = input.categories.filter(
+                              (e) => e !== c
+                            );
+                            return {
+                              ...prev,
+                              categories: filtered,
+                            };
+                          })
+                        }
+                      >
+                        {c}
+                      </span>
                     );
-                  })} */}
-              {/* </div> */}
+                  })} 
+               </div> 
+            </div>
             </div>
 
-            <button className="buttonModify" type="submit">
+            <button  type="submit">
               Crear Producto
             </button>
           </form>
-          <div className="buttonsContainer">
+          <div className="buttonSpace"s>
+
+            <button
+                className="modalButton"
+                onClick={() => setOpen(true)}
+                type="button"
+                >
+                Crear Categoria
+            </button>
+
             <Link to={`/`}>
               <button className="buttonCancel">Cancelar</button>
             </Link>
 
-            <button
-              className="modalButton"
-              onClick={() => setOpen(true)}
-              type="button"
-            >
-              Crear Categoria
-            </button>
+          </div>
+            
             <Modal
               isOpen={modalOpen}
               onRequestClose={() => setOpen(false)}
@@ -442,9 +458,8 @@ export default function NewProduct() {
             >
               <ModalCreateCategory setIsOpen={setIsOpen} setOpen={setOpen} />
             </Modal>
-          </div>
-        </div>
       </div>
     </div>
+  </div>
   );
 }

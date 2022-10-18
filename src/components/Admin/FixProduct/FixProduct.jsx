@@ -56,10 +56,8 @@ export default function FixProduct() {
   const category = useSelector((state) => state.categories);
   const productDetail = useSelector((state) => state.detail);
   const brandsOwned = useSelector((state) => state.brand);
-  
-  const brandsOrdered = brandsOwned.sort((a, b) => a.brand > b.brand);
-  
 
+  const brandsOrdered = brandsOwned.sort((a, b) => a.brand > b.brand);
 
   //TRAER LAS CATEGORIAS Y LUEGO VACIAR EL ESTADO
   useEffect(() => {
@@ -70,10 +68,10 @@ export default function FixProduct() {
     dispatch(clearCategories());
   }, [dispatch]);
 
-    //CONTROLADOR DEL CHECKBOX
+  //CONTROLADOR DEL CHECKBOX
 
-    const handleCheckbox = (e) => {
-      if (e.target.checked && !input.categories.includes(e.target.value)) {
+  const handleCheckbox = (e) => {
+    /* if (e.target.checked && !input.categories.includes(e.target.value)) {
         setInput({
           ...input,
           categories: [...input.categories, e.target.value],
@@ -84,7 +82,13 @@ export default function FixProduct() {
           categories: input.categories.filter((d) => d !== e.target.value),
         });
       }
-    };
+    }; */
+
+    setInput({
+      ...input,
+      categories: [...input.categories, e.target.value],
+    });
+  };
 
   //AL DAR AL BOTON DE CREAR PRODUCTO
   async function handleOnSubmit(e) {
@@ -260,20 +264,21 @@ export default function FixProduct() {
           "https://api.cloudinary.com/v1_1/dzr5xulsx/image/upload",
           formData
         )
-        .then( async (response) =>
-          await axios.put(BACK_URL + "/product/modify", {
-            id: productDetail.id,
-            name,
-            model,
-            brand,
-            description,
-            thumbnail: response.data.secure_url,
-            price,
-            stock,
-            condition,
-            categories: input.categories,
-            photos: imgOpt,
-          })
+        .then(
+          async (response) =>
+            await axios.put(BACK_URL + "/product/modify", {
+              id: productDetail.id,
+              name,
+              model,
+              brand,
+              description,
+              thumbnail: response.data.secure_url,
+              price,
+              stock,
+              condition,
+              categories: input.categories,
+              photos: imgOpt,
+            })
         )
 
         .then(() => {
@@ -358,7 +363,7 @@ export default function FixProduct() {
             </div>
 
             <div className="inputsContainerImg">
-              <label className="labelImg">Imagen 2 (Opcional): </label>
+              <label className="labelImg">Imágenes opcionales: </label>
               <input
                 className="inputImg"
                 multiple="multiple"
@@ -395,25 +400,65 @@ export default function FixProduct() {
                 <option value="Usado">Usado</option>
               </select>
             </div>
+
             <div className="inputCategories">
               <label className="labelCategories">Categorías: </label>
-              <div className="borde">
-                {category &&
-                  category.map((c) => {
+              <div
+                className="subLabel"
+                style={{
+                  width: "300px",
+                  display: "flex",
+                  flexDirection: "column",
+                  marginLeft: "11.5%",
+                  padding: "8px",
+                }}
+              >
+                <select
+                  className="SelectSubLabel"
+                  /* style={{ width: "90%", marginLeft: "10px", color: "black" }} */
+                  onChange={(e) => handleCheckbox(e)}
+                >
+                  <option hidden >Seleccione categorias</option>
+                  {category.map((c, i) => {
+                    if (!input.categories.includes(c.name)) {
+                      return <option key={i}>{c.name}</option>;
+                    }
+                  })}
+                </select>
+                <div 
+                  style={{
+                    fontSize: "18px",
+                    display: "flex",
+                    gap: "10px",
+                    maxWidth: "100%",
+                    flexWrap: "wrap",
+                    justifyContent: "center",
+                    cursor: "pointer",
+                  }}
+                >
+                  {input.categories.map((c, i) => {
                     return (
-                      <label className="labelBox" key={c.name}>
-                        <input
-                          className="boxCategories"
-                          type="checkbox"
-                          value={c.name}
-                          onChange={(e) => handleCheckbox(e)}
-                        />{" "}
-                        {c.name}{" "}
-                      </label>
+                      <span key={i}
+                        onClick={() =>
+                          setInput((prev) => {
+                            var filtered = input.categories.filter(
+                              (e) => e !== c
+                            );
+                            return {
+                              ...prev,
+                              categories: filtered,
+                            };
+                          })
+                        }
+                      >
+                        {c}
+                      </span>
                     );
                   })}
+                </div>
               </div>
             </div>
+
             <button className="buttonModify" type="submit">
               Modificar
             </button>

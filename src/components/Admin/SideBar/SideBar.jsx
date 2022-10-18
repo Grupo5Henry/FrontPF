@@ -5,10 +5,9 @@ import PeopleAltRoundedIcon from "@mui/icons-material/PeopleAltRounded";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import AddCardIcon from "@mui/icons-material/AddCard";
 import InventoryOutlinedIcon from "@mui/icons-material/InventoryOutlined";
-import AccountBoxOutlinedIcon from "@mui/icons-material/AccountBoxOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import CategoryIcon from "@mui/icons-material/Category";
-import BrandingWatermarkOutlinedIcon from "@mui/icons-material/BrandingWatermarkOutlined";
+import ReportGmailerrorredOutlinedIcon from "@mui/icons-material/ReportGmailerrorredOutlined";
 import { Link } from "react-router-dom";
 import { IconButton } from "@mui/material";
 import authService from "../../../services/auth.service";
@@ -18,7 +17,6 @@ import { BACK_URL } from "../../../constantes";
 import { DarkModeContext } from "../context/darkModeContext";
 
 export default function SideBar() {
-
   const { despachar } = useContext(DarkModeContext);
 
   const dispatch = useDispatch();
@@ -54,56 +52,64 @@ export default function SideBar() {
             </Link>
           </li>
           <p className="title">LISTAS</p>
-          <li>
             <Link to={"/users"}>
+          <li>
               <PeopleAltRoundedIcon className="icon" />
               <span>Usuarios</span>
-            </Link>
           </li>
-          <li>
+            </Link>
             <Link to={"/products"}>
+          <li>
               <Inventory2OutlinedIcon className="icon" />
               <span>Productos</span>
-            </Link>
           </li>
-          <li>
+            </Link>
             <Link to={"/createProduct"}>
+          <li>
               <AddCardIcon className="icon" />
               <span>Nuevo Producto</span>
-            </Link>
           </li>
-          <li>
+            </Link>
             <Link to={"/createBrand-category"}>
+          <li>
               <CategoryIcon className="icon" />
               <span>Crear Categorías</span>
-            </Link>
           </li>
-          <li>
+            </Link>
             <Link to={"/orders"}>
+          <li>
               <InventoryOutlinedIcon className="icon" />
               <span>Ordenes</span>
+          </li>
             </Link>
+            <Link to={"/reviews"}>
+          <li>
+              <ReportGmailerrorredOutlinedIcon className="icon" />
+              <span>Reseñas</span>
           </li>
+            </Link>
           <p className="title">USUARIO</p>
-          <li>
-            <AccountBoxOutlinedIcon className="icon" />
-            <span>Perfil</span>
-          </li>
-          <li>
-            <IconButton
-              onClick={() => {
+          <li onClick={() => {
                 handleLogOut();
-              }}
-            >
+              }}>
+            {/* <IconButton
+              
+            > */}
               <LogoutOutlinedIcon className="icon" />
-              <span>Cerrar Sesión</span>
-            </IconButton>
+              <span className="sesion" >Cerrar Sesión</span>
+            {/* </IconButton> */}
           </li>
         </ul>
       </div>
       <div className="bottom">
-        <div className="colorOption" onClick={() => despachar({type:"LIGHT"})}></div>
-        <div className="colorOption" onClick={() => despachar({type:"DARK"})}></div>
+        <div
+          className="colorOption"
+          onClick={() => despachar({ type: "LIGHT" })}
+        ></div>
+        <div
+          className="colorOption"
+          onClick={() => despachar({ type: "DARK" })}
+        ></div>
       </div>
     </div>
   );

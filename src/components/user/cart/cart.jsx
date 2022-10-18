@@ -35,6 +35,7 @@ import Modal from "react-modal";
 import EmptyCart from "../alert/emptyCart";
 import OutStock from "../alert/outStock";
 import Alert from "../alert/alert";
+import Verifi from "../alert/verifi";
 
 Modal.setAppElement("#root");
 
@@ -62,6 +63,7 @@ function Cart() {
   const [openAlert, setOpenAlert] = React.useState(false);
   const [openCart, setOpenCart] = React.useState(false);
   const [openStock, setOpenStock] = React.useState(false);
+  const [openVerifi, setOpenVerifi] = React.useState(false);
 
   var navigate = useNavigate();
 
@@ -269,7 +271,8 @@ function Cart() {
             if (!userState.logged) {
               setOpenAlert(true)
               return;
-            }
+            } 
+            if (userState.verified === false) return setOpenVerifi(true)
             if (!cart.length) return setOpenCart(true)
             if (
               cart.some((product) => product.product.stock - product.amount < 0)
@@ -337,6 +340,23 @@ function Cart() {
         closeTimeoutMS={500}
       >
         <OutStock setOpenStock={setOpenStock}/>
+      </Modal>
+      <Modal
+        isOpen={openVerifi}
+        onRequestClose={() => setOpenVerifi(false)}
+        overlayClassName={{
+          base: "overlay-base",
+          afterOpen: "overlay-after",
+          beforeClose: "overlay-before",
+        }}
+        className={{
+          base: "content-base",
+          afterOpen: "content-after",
+          beforeClose: "content-before",
+        }}
+        closeTimeoutMS={500}
+      >
+        <Verifi setOpenVerifi={setOpenVerifi}/>
       </Modal>
     </div>
   );

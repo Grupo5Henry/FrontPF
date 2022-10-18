@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategories } from "../../../../redux/action";
-import './index.css';
+import "./index.css";
 import ByBrand from "./byBrand";
 import ByCategory from "./byCategory";
 import ByModel from "./byModel";
@@ -19,14 +19,21 @@ export default function Filtros() {
   }, []);
   return (
     <>
-      <button style = {{margin : '3px'}} onClick={() => setState(state ? false : true)}>
+      <button
+        style={{ margin: "3px" }}
+        onClick={() => setState(state ? false : true)}
+      >
         {state ? "<" : <div className="filter">FILTRAR</div>}
       </button>
       <div
-        style={{ display: state ? "flex" : "none", flexDirection: "column", margin:'3px' }}
+        style={{
+          display: state ? "flex" : "none",
+          flexDirection: "column",
+          margin: "3px",
+        }}
       >
-        <ByBrand actual={filter.brand} />
         <ByCategory actual={filter.category} />
+        <ByBrand actual={filter.brand} />
         <ByModel actual={filter.model} />
         <ByPriceRange />
       </div>

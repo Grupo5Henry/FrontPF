@@ -37,9 +37,11 @@ import { DarkModeContext } from "./components/Admin/context/darkModeContext.js";
 
 //PAGINA DE REFRESH
 import PageRefresh from "./components/services/PageRefresh";
+import Reviews from "./components/Admin/Reviews/Reviews";
+import ForgotPassword from "./components/user/logIn/Forgotpassword";
 
 function App() {
-  const {darkMode} = useContext(DarkModeContext);
+  const { darkMode } = useContext(DarkModeContext);
 
   const userState = useSelector((state) => state.user);
   if (userState.role == "admin") {
@@ -56,6 +58,7 @@ function App() {
             <Route exact path="/createProduct" element={<NewProduct />} />
             <Route exact path="/modifyProduct/:id" element={<FixProduct />} />
             <Route exact path="/orders" element={<Ordenes />} />
+            <Route exact path="/reviews" element={<Reviews />} />
             <Route
               exact
               path="/products/detail/:id"
@@ -96,6 +99,8 @@ function App() {
             ) : null} */}
             <Route exact path="/home/details" element={<Details />} />
             <Route path="*" element={<Error />} />
+            <Route exact path="/forgotPassword" element={<ForgotPassword/>} />
+
           </Routes>
           <Footer1 />
         </header>
