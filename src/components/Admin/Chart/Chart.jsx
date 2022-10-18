@@ -16,69 +16,89 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { getAllOrders } from "../../../redux/action";
 
-const data = [
-  {
-    name: "Abril",
-    uv: 4000,
-    $: 2400,
-    amt: 2400,
-  },
-  {
-    name: "Mayo",
-    uv: 3000,
-    $: 1398,
-    amt: 2210,
-  },
-  {
-    name: "Junio",
-    uv: 2000,
-    $: 9800,
-    amt: 2290,
-  },
-  {
-    name: "Julio",
-    uv: 2780,
-    $: 3908,
-    amt: 2000,
-  },
-  {
-    name: "Agosto",
-    uv: 1890,
-    $: 4800,
-    amt: 2181,
-  },
-  {
-    name: "Septiembre",
-    uv: 2390,
-    $: 3800,
-    amt: 2500,
-  },
-];
+
+
+
+
+
 
 export default function Chart() {
   //ESTADOS
   const orders = useSelector((state) => state.orders);
   const userState = useSelector((state) => state.user);
 
-  /* console.log("SOY OREDERS", orders) */
 
-  /* console.log("SOY ORDENADO", ordenado) */
-  /* const monto = ordenado */
-  /*   const ordenprueba = ordenado[3].getMonth
-     console.log("SOY ORDENPRUEBA", ordenprueba) */
+  //GANANCIAS
+  let earnings = 0;
+
+  orders.map((order) => {
+    for (let i = 6; i < order.length; i++) {
+      let product = order[i];
+
+      earnings += product.amount * product.price;
+    }
+  });
+
+
 
   //CONSTANTES
   const dispatch = useDispatch();
 
   //USE EFFECTS
 
-  // useEffect(() => {
-  //   dispatch(getAllOrders());
-  // }, []);
+   useEffect(() => {
+     dispatch(getAllOrders());
+   }, [dispatch]);
 
-  // const ordenado = orders.sort(
-  //   (a, b) => Date(a[3]).getMonth > Date(b[3]).getMonth
-  // );
+   const data = [
+    {
+      name: "Mayo",
+      uv: 4000,
+      $: 0,
+      amt: 2400,
+    },
+    {
+      name: "Junio",
+      uv: 3000,
+      $: 0,
+      amt: 2210,
+    },
+    {
+      name: "Julio",
+      uv: 2000,
+      $: 0,
+      amt: 2290,
+    },
+    {
+      name: "Agosto",
+      uv: 2780,
+      $: 0,
+      amt: 2000,
+    },
+    {
+      name: "Septiembre",
+      uv: 1890,
+      $: 0,
+      amt: 2181,
+    },
+    {
+      name: "Octubre",
+      uv: 0,
+      $: 0,
+      amt: 2500,
+    },
+  ];
+
+  let nameMonth = "Octubre";
+  let amount = earnings;
+  data.map(function(data) {
+    if(data.name === nameMonth) {
+      data.$ = amount;
+    }
+    return data;
+  })
+
+
 
   return (
     <div className="chart">
