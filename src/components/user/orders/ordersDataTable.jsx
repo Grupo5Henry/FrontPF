@@ -63,18 +63,18 @@ export default function OrderDataTableUser(props) {
         customBodyRender: (value, tableMeta, updateValue) => {
           return (
             <>
-              {tableMeta.rowData[6] != 1 ? (
+              {tableMeta.rowData[5] != 1 ? (
                 <div class="flex items-center justify-center">
                   <div>
                     <button
                       class="bg-white text-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center"
                       onClick={async () => {
-                        console.log(tableMeta.rowData[6]);
+                        console.log(tableMeta.rowData[5]);
                         try {
                           const url = await axios.post(
                             `${BACK_URL}/stripe/retrieve`,
                             {
-                              id: tableMeta.rowData[6],
+                              id: tableMeta.rowData[5],
                             }
                           );
                           window.location = url.data;
@@ -107,7 +107,7 @@ export default function OrderDataTableUser(props) {
                           buttons: ["Cancel", "I am sure"],
                         }).then((response) => {
                           if (response) {
-                            expireSession(tableMeta.rowData[6]);
+                            expireSession(tableMeta.rowData[5]);
                             dispatch(getUserOrders(userState.userName));
                           }
                         });
@@ -147,7 +147,7 @@ export default function OrderDataTableUser(props) {
         let infoFila = [];
         let infoExtra = [];
         let orden = [...order];
-        infoFila.push(...orden.splice(0, 6));
+        infoFila.push(...orden.splice(0, 5));
         let url = infoFila.pop();
         infoExtra.push(...orden);
         infoFila.push(
