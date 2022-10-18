@@ -175,11 +175,12 @@ const SignIn = ({ setIsOpen, setOpen }) => {
                 </div> */}
               <div className="mb-2 text-center">
                 <input
-                  onClick={handleSignIn}
+                  onClick={Object.keys(error).length === 0 ? (e) => {handleSignIn(e)}: (e)=>alert('hay campos incorrectos')}
                   type="button"
                   value="Registrar Cuenta"
                   className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
-                />
+                  />
+
               </div>
               <hr className="mb-6 border-t" />
               <div className="text-center"></div>

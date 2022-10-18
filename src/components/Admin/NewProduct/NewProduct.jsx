@@ -12,7 +12,6 @@ import swal from "sweetalert";
 
 import { BACK_URL } from "../../../constantes";
 import { clearCategories, getCategories } from "../../../redux/action";
-import { yellow } from "@mui/material/colors";
 
 //CONECTAMOS LA MODAL CON EL ELEMENTO A MOSTRAR
 
@@ -56,11 +55,21 @@ export default function NewProduct() {
   //CONTROLADOR DEL CHECKBOX
 
   const handleCheckbox = (e) => {
-
+    // if (e.target.checked && !input.categories.includes(e.target.value)) {
+    //   setInput({
+    //     ...input,
+    //     categories: [...input.categories, e.target.value],
+    //   });
+    // } else if (!e.target.checked) {
+    //   setInput({
+    //     ...input,
+    //     categories: input.categories.filter((d) => d !== e.target.value),
+    //   });
+    // }
     setInput({
       ...input,
-      categories: [...input.categories, e.target.value],
-    });
+      categories: [...input.categories, e.target.value]
+    })
   };
 
   //AL DAR AL BOTON DE CREAR PRODUCTO
@@ -217,7 +226,7 @@ export default function NewProduct() {
           .then((response) => {
             imgObl = response.data.secure_url;
           })
-          .then(async () => {
+          .then( async () => {
             await axios
               .post(`${BACK_URL}/product/create`, {
                 name,
@@ -254,9 +263,9 @@ export default function NewProduct() {
 
   return (
     <div className="newProduct">
-      <SideBar />
-      <div className="newProductContainer">
-        <AdminNavBar />
+      <SideBar/>
+      <div className="newProductContainer" style={{maxWidth:"80%"}}>
+        <AdminNavBar/>
         <div className="top">
           <h1>CREAR NUEVO PRODUCTO</h1>
         </div>
@@ -318,7 +327,7 @@ export default function NewProduct() {
             </div>
 
             <div className="inputsContainerImg">
-              <label className="labelImg">Imagen 2 (Opcional): </label>
+              <label className="labelImg">Imágenes opcionales: </label>
               <input
                 className="inputImg"
                 multiple="multiple"
@@ -350,35 +359,6 @@ export default function NewProduct() {
                 <option value="Usado">Usado</option>
               </select>
             </div>
-
-                {/* <div style={{width:"50%",display:"flex",flexDirection:"column"}}>
-                  <select style={{width:"100%"}} onChange={(e) => handleCheckbox(e)}>
-                    <option hidden>Seleccione categorias</option>
-                    {
-                      category.map((c,i) => {
-                        if(!input.categories.includes(c.name)){
-                          return (
-                            <option key={i}>{c.name}</option>
-                          )
-                        } 
-                      }) 
-                    }
-                  </select>
-                  <div style={{display:"flex",gap:"10px",maxWidth:"100%",flexWrap:"wrap",justifyContent:"center"}}>
-                    {
-                      input.categories.map(c => {
-                        return (
-                          <span onClick={() => setInput(prev => {
-                            var filtered = input.categories.filter(e => e !== c)
-                            return ({
-                              ...prev,
-                              categories: filtered
-                            })
-                          })}>{c}</span>
-                        )
-                      })
-                    }
-                  </div> */}
 
             <div className="inputCategories">
               <label className="labelCategories">Categorías: </label>
@@ -418,9 +398,9 @@ export default function NewProduct() {
                     cursor: "pointer",
                   }}
                 >
-                  {input.categories.map((c) => {
+                  {input.categories.map((c, i) => {
                     return (
-                      <span
+                      <span key={i}
                         onClick={() =>
                           setInput((prev) => {
                             var filtered = input.categories.filter(
@@ -436,27 +416,31 @@ export default function NewProduct() {
                         {c}
                       </span>
                     );
-                  })}
-                </div>
-              </div>
+                  })} 
+               </div> 
+            </div>
             </div>
 
-            <button className="buttonModify" type="submit">
+            <button  type="submit">
               Crear Producto
             </button>
           </form>
-          <div className="buttonsContainer">
+          <div className="buttonSpace"s>
+
+            <button
+                className="modalButton"
+                onClick={() => setOpen(true)}
+                type="button"
+                >
+                Crear Categoria
+            </button>
+
             <Link to={`/`}>
               <button className="buttonCancel">Cancelar</button>
             </Link>
 
-            <button
-              className="modalButton"
-              onClick={() => setOpen(true)}
-              type="button"
-            >
-              Crear Categoria
-            </button>
+          </div>
+            
             <Modal
               isOpen={modalOpen}
               onRequestClose={() => setOpen(false)}
@@ -474,9 +458,8 @@ export default function NewProduct() {
             >
               <ModalCreateCategory setIsOpen={setIsOpen} setOpen={setOpen} />
             </Modal>
-          </div>
-        </div>
       </div>
     </div>
+  </div>
   );
 }

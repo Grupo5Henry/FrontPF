@@ -363,7 +363,7 @@ export default function FixProduct() {
             </div>
 
             <div className="inputsContainerImg">
-              <label className="labelImg">Imagen 2 (Opcional): </label>
+              <label className="labelImg">Imágenes opcionales: </label>
               <input
                 className="inputImg"
                 multiple="multiple"
@@ -415,7 +415,7 @@ export default function FixProduct() {
               >
                 <select
                   className="SelectSubLabel"
-                  style={{ width: "90%", marginLeft: "10px", color: "black" }}
+                  /* style={{ width: "90%", marginLeft: "10px", color: "black" }} */
                   onChange={(e) => handleCheckbox(e)}
                 >
                   <option hidden >Seleccione categorias</option>
@@ -425,7 +425,7 @@ export default function FixProduct() {
                     }
                   })}
                 </select>
-                <div
+                <div 
                   style={{
                     fontSize: "18px",
                     display: "flex",
@@ -436,9 +436,9 @@ export default function FixProduct() {
                     cursor: "pointer",
                   }}
                 >
-                  {input.categories.map((c) => {
+                  {input.categories.map((c, i) => {
                     return (
-                      <span
+                      <span key={i}
                         onClick={() =>
                           setInput((prev) => {
                             var filtered = input.categories.filter(
