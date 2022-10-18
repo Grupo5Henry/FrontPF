@@ -112,8 +112,9 @@ const NavBar = () => {
     dispatch(getCategories());
     dispatch(getUserOrders(userState.userName));
     dispatch(getSuggested());
-    if (userState.useName != null)
-      dispatch(offlineToOnlineCart(userState.userName));
+    if (userState.useName != null) {
+      offlineToOnlineCart(userState.userName);
+    }
   }, [userState]);
 
   return (
