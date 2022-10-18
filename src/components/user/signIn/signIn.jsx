@@ -71,7 +71,7 @@ const SignIn = ({ setIsOpen, setOpen }) => {
             navigate("/home");
             /* window.location.reload(); */
             dispatch(updateUserState({ ...response, logged: true }));
-            // offlineToOnlineCart(input.userName);
+            offlineToOnlineCart(input.userName);
           },
           (error) => {
             alert(error);
