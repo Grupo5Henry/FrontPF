@@ -39,6 +39,8 @@ import { DarkModeContext } from "./components/Admin/context/darkModeContext.js";
 import PageRefresh from "./components/services/PageRefresh";
 import Reviews from "./components/Admin/Reviews/Reviews";
 import ForgotPassword from "./components/user/logIn/Forgotpassword";
+import Resetpassword from "./components/user/logIn/Resetpassword";
+
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -100,6 +102,8 @@ function App() {
             <Route exact path="/home/details" element={<Details />} />
             <Route path="*" element={<Error />} />
             <Route exact path="/forgotPassword" element={<ForgotPassword/>} />
+            <Route exact path = '/resetPassword/:userName/:token' element = {<Resetpassword/>}/>
+
 
           </Routes>
           <Footer1 />
