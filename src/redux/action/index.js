@@ -1,5 +1,6 @@
 import axios from "axios";
 import { BACK_URL } from "../../constantes";
+import { offlineToOnlineCart } from "../../Controllers/Cart";
 import { authHeader } from "../../services/auth-header";
 
 //PRODUCTS
@@ -489,7 +490,6 @@ export function getUserOrders(userName) {
           ordersGrouped.push([
             orderNumber,
             orderInstance.status,
-            orderInstance.userName,
             orderInstance.shippingAddress,
             date,
             orderInstance.sessionId,
@@ -514,3 +514,5 @@ export function getUserOrders(userName) {
     }
   };
 }
+
+///asdasd

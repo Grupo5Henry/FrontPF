@@ -65,7 +65,8 @@ export default function OrderDataTable2(props) {
         customBodyRender: (value, tableMeta, updateValue) => {
           return (
             <>
-              <button className="ordenButton"
+              <button
+                className="ordenButton"
                 onClick={async () => {
                   if (tableMeta.rowData[1] === "Siendo procesada") {
                     try {
@@ -89,7 +90,8 @@ export default function OrderDataTable2(props) {
               >
                 Despachar
               </button>
-              <button className="ordenButton"
+              <button
+                className="ordenButton"
                 onClick={async () => {
                   if (tableMeta.rowData[1] === "En ruta") {
                     try {
@@ -113,7 +115,8 @@ export default function OrderDataTable2(props) {
               >
                 Entregada
               </button>
-              <button className="ordenButtonCancelar"
+              <button
+                className="ordenButtonCancelar"
                 onClick={async () => {
                   if (tableMeta.rowData[1] === "Esperando pago") {
                     swal({
@@ -121,7 +124,10 @@ export default function OrderDataTable2(props) {
                       icon: "warning",
                       buttons: ["Cancel", "I am sure"],
                     }).then((response) => {
-                      if (response) expireSession(tableMeta.rowData[6]);
+                      if (response) {
+                        expireSession(tableMeta.rowData[6]);
+                        dispatch(getAllOrders());
+                      }
                     });
                   } else {
                     swal({
@@ -255,13 +261,13 @@ export default function OrderDataTable2(props) {
 
   return (
     <div className="datatable">
-    <MUIDataTable
-      title={"LISTA DE ORDENES"}
-      className="datagrid"
-      data={data.length ? data : []}
-      columns={columns}
-      options={options}
-    />
+      <MUIDataTable
+        title={"LISTA DE ORDENES"}
+        className="datagrid"
+        data={data.length ? data : []}
+        columns={columns}
+        options={options}
+      />
     </div>
   );
 }
