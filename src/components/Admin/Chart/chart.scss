@@ -3,6 +3,12 @@
     -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
     box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
     /* color: gray; */
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    min-width: 400px;
+
+    justify-content: center;
 
 
     .title{
@@ -20,20 +26,25 @@
     }
 }
 
+
+@media(max-width : 510px){
+    .chart{
+        display: none;
+    }
+}
+
 @media(max-width : 615px){
     .chart{
-        width: 90%;
-        height: 20%;
-        background-color: #ffff002e;
-        font-size: 10px;
-        margin-right: 60px;
-        margin-left: 20px;
-        margin-top: 0%;
-        padding: 20px;
-
         font-size: 15px;
         .title{
             font-size: 15px;
         }
+    }
+}
+
+@media(max-width : 950px){
+    .chart{
+        width: 100%;
+        min-width: 0;
     }
 }

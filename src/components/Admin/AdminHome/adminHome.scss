@@ -1,38 +1,36 @@
 .homeAdmin {
     display: flex;
-    .homeContainer{
 
+    .homeContainer{
         flex: 6;
+        width: 80%;
 
         .widgets, .charts{
+            width: 100%;
             display: flex;
             padding: 25px;
             gap: 25px;
         }
 
+        .widgets{
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+        }
+
         .charts{
             padding: 15px 25px;
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
         }
     }
 }
-@media(max-width : 615px){
- .homeAdmin{
-    .homeContainer{
-        width: 80%;
-        .widgets{
-            margin:20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, 160px);
-            padding: 5px;
-            gap: 5px;
 
-            }
-        
-        .charts{
-            display: inline;
-            padding: 5px 5px;
 
-        }
+@media(max-width : 950px){
+    .charts{
+        flex-direction: column;
     }
-}
 }
