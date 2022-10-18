@@ -489,7 +489,6 @@ export function getUserOrders(userName) {
           ordersGrouped.push([
             orderNumber,
             orderInstance.status,
-            orderInstance.userName,
             orderInstance.shippingAddress,
             date,
             orderInstance.sessionId,
