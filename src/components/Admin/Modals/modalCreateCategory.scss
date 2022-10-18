@@ -1,0 +1,65 @@
+.modalCategory{
+    background-color: white;
+    padding: 50px;
+    width: 600px;
+    height: 500px;
+    border-radius: 10px;
+    .bottom{
+        -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+        box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+        padding: 1px;
+        margin-left: 1%;
+        margin-right: 2%;
+        width: 500px;
+        height: 400px;
+        border-radius: 10px;
+
+        .labelContainer{
+            margin-bottom: 30px;
+            margin-top: 30px;
+            
+            
+            label{
+                margin-bottom: 30px;
+                margin-top: 20px;
+                color: rgb(160, 158, 158);
+                font-size: 20px;
+            align-items: center;
+            
+        }
+    }
+            
+        .imputContainer{
+            /* align-items: center;
+            width: 100%;
+            padding: 10px;
+            display: flex; */
+            margin-top: 20%;
+            
+            
+            input{
+                width: 95%;
+                padding: 8px;
+                /* border: none; */
+                border-bottom: 1px solid gray;
+                background: transparent;
+            }
+        }
+    }
+    button{
+        width: 100px;
+        padding: 0px;
+        border: none;
+        background-color: #6e47f8b8;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 25%;
+        margin-left: 70%;
+
+
+        &:hover{
+            background-color: #7551f856;
+        }
+    }
+}

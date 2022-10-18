@@ -1,0 +1,123 @@
+.featured{
+    flex: 2;
+    -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+    box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+    padding: 15px;
+
+    .top{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+
+        .title{
+            font-size: 18px;
+            font-weight: bold;
+            color: rgb(160, 158, 158);
+            margin-left: 0;
+            margin-top: 2px;
+        }
+
+        .icon{
+            font-size: 12px;
+            width: 40px;
+            height: 40px;
+            padding: 2px;
+            border-radius: 5px;
+            align-self: flex-end;
+            cursor: pointer;
+
+            &:hover{
+                background-color: #ece8ff;
+                    }
+             }
+    }
+    .bottom{
+        /* padding: 20px; */
+        height: 400px;
+        width: 400px;
+        display: flex;
+        /* align-content: center; */
+        justify-content: center;
+        flex-direction: column;
+        /* margin-left: 40px; */
+        margin: auto;
+        margin-top: 30px;
+
+
+        .titleProduct{
+            margin-top: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            color: rgb(160, 158, 158);
+            flex-wrap: wrap;
+            
+        }
+        .img{
+            height: 500;
+            width: 500;
+            margin-top: 10px;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9px;
+        }
+    }
+}
+
+@media(max-width : 615px){
+    .featured{
+        padding: 45px;
+        margin: 20px;
+        .top{
+            .title{
+                font-size: 13px;
+            }
+            .icon{
+                width: 30px;
+                height: 30px;
+            }
+        }
+        .bottom{
+            padding: 5px;
+            height: 200px;
+            margin-left: 0px;
+            .img{
+                max-width: 30%;
+            }
+            .titleProduct{
+                font-size: 10px;
+                font-weight: bold;
+                color: rgb(85, 75, 68);
+            }
+        }
+    }
+}
+
+@media(max-width : 615px){
+    .featured{
+        padding: 45px;
+        margin: 20px;
+        .top{
+            .title{
+                font-size: 13px;
+            }
+            .icon{
+                width: 30px;
+                height: 30px;
+            }
+        }
+        .bottom{
+            padding: 5px;
+            height: 200px;
+            margin-left: 0px;
+            .img{
+                max-width: 30%;
+            }
+            .titleProduct{
+                font-size: 10px;
+                font-weight: bold;
+                color: rgb(85, 75, 68);
+            }
+        }
+    }
+}

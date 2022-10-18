@@ -1,0 +1,179 @@
+.app.dark {
+  height: auto;
+  width: auto;
+  background-color: #222;
+  color: rgb(156, 156, 156);
+
+  .chartGrid {
+    stroke: rgb(228, 225, 225);
+  }
+  .chartGrid {
+    stroke: rgb(228, 225, 225);
+  }
+  .Xline,
+  .Yline {
+    color: rgb(228, 225, 225);
+  }
+  .adminNavBar {
+    color: #999;
+    border-color: #333;
+    .icon {
+      &:hover {
+        background-color: #333;
+      }
+    }
+  }
+  .sidebar {
+    background-color: #222;
+    border-color: #333;
+    .center {
+      background-color: #222;
+      border-color: #333;
+      ul {
+        li {
+          &:hover {
+            background-color: #333;
+          }
+        }
+      }
+    }
+    .top {
+      border-bottom: 0.5px solid #333;
+    }
+  }
+
+  //TABLAS
+
+  .datatable,
+  .datatableProducts,
+  .reviewsDatatable {
+    .datagrid {
+      .MuiTableHead-root {
+        background-color: #222;
+      }
+      .MuiTableBody-root {
+        background-color: #222;
+      }
+      .MuiTableCell-body {
+        color: rgb(156, 156, 156);
+      }
+      .MuiTableCell-head {
+        color: rgb(156, 156, 156);
+        font-weight: 500;
+        line-height: 1.5rem;
+      }
+
+      .css-i4bv87-MuiSvgIcon-root {
+        color: rgb(156, 156, 156);
+      }
+
+      .css-pdct74-MuiTablePagination-selectLabel {
+        color: rgb(156, 156, 156);
+      }
+
+      .css-levciy-MuiTablePagination-displayedRows {
+        color: rgb(156, 156, 156);
+      }
+
+      .css-194a1fa-MuiSelect-select-MuiInputBase-input.css-194a1fa-MuiSelect-select-MuiInputBase-input.css-194a1fa-MuiSelect-select-MuiInputBase-input {
+        color: rgb(156, 156, 156);
+      }
+
+      color: rgb(156, 156, 156);
+      background-color: #222;
+
+      .tss-5jmwmz-MUIDataTableFooter-root {
+        color: rgb(156, 156, 156);
+      }
+
+      .css-apqrd9-MuiTableBody-root {
+        color: rgb(156, 156, 156);
+      }
+
+      .tss-gm6zfk-MUIDataTableHeadCell-fixedHeader {
+        background-color: #222;
+        color: rgb(156, 156, 156);
+      }
+      .tss-ylo811-MUIDataTableSelectCell-headerCell {
+        background-color: #222;
+        color: rgb(156, 156, 156);
+      }
+
+      .corpse {
+        color: rgb(156, 156, 156);
+      }
+
+      .aprobarButton,
+      .esconderButton {
+        color: rgb(156, 156, 156);
+        border: 0.5px dotted rgb(156, 156, 156);
+
+        &:hover {
+          background-color: #333;
+          border: 0.5px dotted rgb(156, 156, 156);
+        }
+      }
+      .bannearButton,
+      .ordenButtonCancelar {
+        color: rgb(156, 156, 156);
+        /* border: none; */
+        border: 0.5px dotted rgb(156, 156, 156);
+
+        &:hover {
+          background-color: #f30c2359;
+          border: 0.5px dotted rgb(156, 156, 156);
+        }
+      }
+    }
+    .modifyButton,
+    .detailButton,
+    .ordenButton {
+      color: rgb(156, 156, 156);
+      border: 0.5px dotted rgb(156, 156, 156);
+
+      &:hover {
+        background-color: #333;
+        border: 0.5px dotted rgb(156, 156, 156);
+      }
+    }
+
+    .adminButton,
+    .banButton {
+        border: 0.5px dotted rgb(156, 156, 156);
+
+      &:hover {
+        background-color: #333;
+        border: 0.5px dotted rgb(156, 156, 156);
+      }
+    }
+  }
+  .widget {
+    .icon {
+      &:hover {
+        background-color: #333;
+      }
+    }
+  }
+
+  .featured {
+    .icon {
+      &:hover {
+        background-color: #333;
+      }
+    }
+  }
+  .modalCategory {
+    /* background-color: #222 !important;
+        color: rgb(156, 156, 156); */
+
+    .modalCategoryContainer {
+      /* background-color: #222 !important;
+            color: rgb(156, 156, 156); */
+
+      .bottom {
+        background-color: #222;
+        color: rgb(156, 156, 156);
+      }
+    }
+  }
+}

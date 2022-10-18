@@ -1,0 +1,38 @@
+.homeAdmin {
+    display: flex;
+    .homeContainer{
+
+        flex: 6;
+
+        .widgets, .charts{
+            display: flex;
+            padding: 25px;
+            gap: 25px;
+        }
+
+        .charts{
+            padding: 15px 25px;
+        }
+    }
+}
+@media(max-width : 615px){
+ .homeAdmin{
+    .homeContainer{
+        width: 80%;
+        .widgets{
+            margin:20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, 160px);
+            padding: 5px;
+            gap: 5px;
+
+            }
+        
+        .charts{
+            display: inline;
+            padding: 5px 5px;
+
+        }
+    }
+}
+}
