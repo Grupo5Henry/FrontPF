@@ -360,67 +360,55 @@ export default function NewProduct() {
               </select>
             </div>
 
-            <div className="inputCategories">
+            <div className="inputCategories" style={{display:"flex",flexDirection:"row",flexWrap:"wrap"}}>
               <label className="labelCategories">Categorías: </label>
-              <div className="subLabel"
-                style={{
-                  width: "300px",
-                  display: "flex",
-                  flexDirection: "column",
-                  marginLeft: "90px",
-                  padding: "8px"
-                }}
-              >
-                <select
-                  className="SelectSubLabel"
-                  style={{ width: "90%",
-                marginLeft: "10px",
-                
-               }}
-                  onChange={(e) => handleCheckbox(e)}
-                >
-                  <option hidden>Seleccione categorias</option>
-                  {category.map((c, i) => {
-                    if (!input.categories.includes(c.name)) {
-                      return <option key={i}>{c.name}</option>;
-                    }
-                  })}
+              {/* <div className="borde"> */}
+                <div style={{width:"50%",display:"flex",flexDirection:"column"}}>
+                  <select style={{width:"100%", color:'black'}} onChange={(e) => handleCheckbox(e)}>
+                    <option hidden>Seleccione categorias</option>
+                    {
+                      category.map((c,i) => { 
+                        
+                        if(!input.categories.includes(c.name)){
+                        return (
+                          <option key={i}>{c.name}</option>
+                        )
+                      } 
+                    }) 
+                  }
                 </select>
-                <div
-                  className="SubSelect"
-                  style={{
-                    fontSize: "18px",
-                    display: "flex",
-                    gap: "10px",
-                    maxWidth: "100%",
-                    flexWrap: "wrap",
-                    justifyContent: "center",
-                    cursor: "pointer",
-                  }}
-                >
-                  {input.categories.map((c, i) => {
-                    return (
-                      <span key={i}
-                        onClick={() =>
-                          setInput((prev) => {
-                            var filtered = input.categories.filter(
-                              (e) => e !== c
-                            );
-                            return {
-                              ...prev,
-                              categories: filtered,
-                            };
-                          })
-                        }
-                      >
-                        {c}
-                      </span>
-                    );
-                  })} 
-               </div> 
-            </div>
-            </div>
+                <div style={{display:"flex",gap:"10px",maxWidth:"100%",flexWrap:"wrap",justifyContent:"center"}}>
 
+                     {
+                      input.categories.map(c => {
+                        return (
+                           <span className="transition ease-in duration-300 inline-flex items-center mb-2 md:mb-0  px-3 cursor-pointer py-0 hover:shadow-lg tracking-wider  rounded-full hover:bg-red-400" onClick={() => setInput(prev => {
+                            var filtered = input.categories.filter(e => e !== c)
+                            return ({
+                              ...prev,
+                              categories: filtered
+                            })})}>{c}</span>
+                         )             
+                      })
+                    }
+                 </div>
+                </div>
+                {/* {category &&
+                  category.map((c) => {
+                    return (
+<label className="labelBox" key={c.name}>
+                        <input
+                          className="boxCategories"
+                          type="checkbox"
+                          value={c.name}
+                          onChange={(e) => handleCheckbox(e)}
+                        />{" "}
+                        {c.name}{" "}
+                      </label>
+                    );}
+})} /}
+              {/ </div> */}
+            </div>
             <button  type="submit">
               Crear Producto
             </button>
