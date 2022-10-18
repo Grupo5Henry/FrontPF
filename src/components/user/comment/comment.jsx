@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { BACK_URL } from "../../../constantes";
 import { addReview, updateReview } from "../../../Controllers/review";
 import { getReview } from "../../../redux/action";
+import { Icon } from '@iconify/react';
 Modal.setAppElement("#root");
 
 const Comment = ({ id }) => {
@@ -120,8 +121,8 @@ const Comment = ({ id }) => {
                             </li>
                           </ul>
                         </div>
-                      ) : userState.logged ? (
-                        <button
+                      ) : userState.logged  ? (
+                        <button class="inline-flex items-center px-2 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-md"
                           onClick={async () => {
                             try {
                               await axios.put(`${BACK_URL}/review/flagReview`, {
@@ -133,7 +134,8 @@ const Comment = ({ id }) => {
                             }
                           }}
                         >
-                          Denunciar comentario
+                          <Icon icon="ic:round-report" class="mr-1" color="#f3f4f7" width="20" height="20"/>
+                          Denunciar 
                         </button>
                       ) : null}
                     </div>
