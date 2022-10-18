@@ -64,7 +64,6 @@
   
   .carousel__slides_galery {
     position: relative;
-    z-index: 1;
     padding: 0;
     margin: 0;
     overflow: hidden;

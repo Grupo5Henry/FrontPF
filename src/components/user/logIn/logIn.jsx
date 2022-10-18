@@ -44,7 +44,7 @@ const LogIn = ({ setIsOpen, setOpen }) => {
                 logged: true,
               })
             );
-            offlineToOnlineCart(userName);
+            // offlineToOnlineCart(userName);
           },
           (error) => {
             toast("Usuario o contraseña incorrectos");
@@ -143,9 +143,14 @@ const LogIn = ({ setIsOpen, setOpen }) => {
         </p>
       </div>
       <div className="flex mt-6 justify-center text-xs">
-    
-        <a className="text-red-700 cursor-pointer hover:text-red-1000" href="/forgotPassword"> ¿Olvidaste tu contraseña?</a>
-        </div>
+        <a
+          className="text-red-700 cursor-pointer hover:text-red-1000"
+          href="/forgotPassword"
+        >
+          {" "}
+          ¿Olvidaste tu contraseña?
+        </a>
+      </div>
     </form>
   );
 };

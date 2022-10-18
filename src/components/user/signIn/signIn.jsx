@@ -53,20 +53,16 @@ const SignIn = ({ setIsOpen, setOpen }) => {
   };
 
   const handleSignIn = async (e) => {
-    if(!/^\w+([\.-]?\w)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(input.email)) return alert("Mail inavalido");
-    if (
-      input.userName &&
-      input.password &&
-      input.email
-      
-    ) {
+    if (!/^\w+([\.-]?\w)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(input.email))
+      return alert("Mail inavalido");
+    if (input.userName && input.password && input.email) {
       e.preventDefault();
       try {
         await AuthService.signup(
           input.userName,
           input.password,
           role,
-          input.email,
+          input.email
         ).then(
           (response) => {
             // console.log(response);
@@ -75,7 +71,7 @@ const SignIn = ({ setIsOpen, setOpen }) => {
             navigate("/home");
             /* window.location.reload(); */
             dispatch(updateUserState({ ...response, logged: true }));
-            offlineToOnlineCart(input.userName);
+            // offlineToOnlineCart(input.userName);
           },
           (error) => {
             alert(error);
@@ -92,74 +88,73 @@ const SignIn = ({ setIsOpen, setOpen }) => {
   };
 
   return (
-          
-            <form className="px-8 pt-6 pb-8  m-0 bg-white rounded" >
-            <h3 className="pt-2 text-2xl text-center">¡Crea una cuenta!</h3>
-              <div className="formControl">
-                {error && error.userName ? (
-                  <span style={{ color: "red" }}>{error.userName}</span>
-                ) : null}
-              </div>
-              <div className="mb-0">
-                <label className="block mb-2 text-sm font-bold text-gray-700">
-                  Usuario
-                </label>
-                <input
-                  className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                  type="text"
-                  placeholder="Usuario"
-                  required="required"
-                  name="userName"
-                  value={input.userName}
-                  onChange={(e) => handleInputChange(e)}
-                />
-              </div>
+    <form className="px-8 pt-6 pb-8  m-0 bg-white rounded">
+      <h3 className="pt-2 text-2xl text-center">¡Crea una cuenta!</h3>
+      <div className="formControl">
+        {error && error.userName ? (
+          <span style={{ color: "red" }}>{error.userName}</span>
+        ) : null}
+      </div>
+      <div className="mb-0">
+        <label className="block mb-2 text-sm font-bold text-gray-700">
+          Usuario
+        </label>
+        <input
+          className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+          type="text"
+          placeholder="Usuario"
+          required="required"
+          name="userName"
+          value={input.userName}
+          onChange={(e) => handleInputChange(e)}
+        />
+      </div>
 
-              <div className="formControl">
-                {error.email ? (
-                  <span style={{ color: "red" }}>{error.email}</span>
-                ) : null}
-              </div>
-              <div className="mb-1">
-                <label className="block mb-2 text-sm font-bold text-gray-700">
-                  Email
-                </label>
-                <input
-                  className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                  type="text"
-                  required="required"
-                  name="email"
-                  value={input.email}
-                  onChange={(e) => handleInputChange(e)}
-                  placeholder="Email"
-                />
-              </div>
+      <div className="formControl">
+        {error.email ? (
+          <span style={{ color: "red" }}>{error.email}</span>
+        ) : null}
+      </div>
+      <div className="mb-1">
+        <label className="block mb-2 text-sm font-bold text-gray-700">
+          Email
+        </label>
+        <input
+          className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+          type="text"
+          required="required"
+          name="email"
+          value={input.email}
+          onChange={(e) => handleInputChange(e)}
+          placeholder="Email"
+        />
+      </div>
 
-              <div className="formControl">
-                {error && error.password ? (
-                  <span style={{ color: "red" }}>{error.password}</span>
-                ) : null}
-              </div>
-              <div className="mb-4 md:mr-2 md:mb-0">
-                <label
-                  className="block mb-2 text-sm font-bold text-gray-700"
-                  for="password"
-                >
-                  Constraseña
-                </label>
-                <input
-                  className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                  id="password"
-                  type="password"
-                  required="required"
-                  name="password"
-                  value={input.password}
-                  onChange={(e) => handleInputChange(e)}
-                  placeholder="******************"
-                />
-                {/* <p className="text-xs italic text-red-500">Please choose a password.</p> */}
-              </div>
-              {/* <div className="mb-1 md:flex md:justify-between">
+      <div className="formControl">
+        {error && error.password ? (
+          <span style={{ color: "red" }}>{error.password}</span>
+        ) : null}
+      </div>
+      <div className="mb-4 md:mr-2 md:mb-0">
+        <label
+          className="block mb-2 text-sm font-bold text-gray-700"
+          for="password"
+        >
+          Constraseña
+        </label>
+        <input
+          className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+          id="password"
+          type="password"
+          required="required"
+          name="password"
+          value={input.password}
+          onChange={(e) => handleInputChange(e)}
+          placeholder="******************"
+        />
+        {/* <p className="text-xs italic text-red-500">Please choose a password.</p> */}
+      </div>
+      {/* <div className="mb-1 md:flex md:justify-between">
                   
                   <div className="md:ml-2">
                     <label className="block mb-2 text-sm font-bold text-gray-700" for="c_password">
@@ -173,28 +168,31 @@ const SignIn = ({ setIsOpen, setOpen }) => {
                     />
                   </div>
                 </div> */}
-              <div className="mb-2 text-center">
-                <input
-                  onClick={Object.keys(error).length === 0 ? (e) => {handleSignIn(e)}: (e)=>alert('hay campos incorrectos')}
-                  type="button"
-                  value="Registrar Cuenta"
-                  className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
-                  />
-
-              </div>
-              <hr className="mb-6 border-t" />
-              <div className="text-center"></div>
-              <div className="text-center">
-                <p
-                  onClick={onModal}
-                  className="inline-block text-sm cursor-pointer text-blue-500 align-baseline hover:text-blue-800"
-                >
-                  ¿Ya tienes una cuenta? ¡Inicia Sesión!
-                </p>
-              </div>
-            </form>
-
-      
+      <div className="mb-2 text-center">
+        <input
+          onClick={
+            Object.keys(error).length === 0
+              ? (e) => {
+                  handleSignIn(e);
+                }
+              : (e) => alert("hay campos incorrectos")
+          }
+          type="button"
+          value="Registrar Cuenta"
+          className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+        />
+      </div>
+      <hr className="mb-6 border-t" />
+      <div className="text-center"></div>
+      <div className="text-center">
+        <p
+          onClick={onModal}
+          className="inline-block text-sm cursor-pointer text-blue-500 align-baseline hover:text-blue-800"
+        >
+          ¿Ya tienes una cuenta? ¡Inicia Sesión!
+        </p>
+      </div>
+    </form>
   );
 };
 

@@ -34,6 +34,7 @@ import SearchBar from "../searchBar/searchBar.jsx";
 import SignIn from "../signIn/signIn";
 import "./navBar.css";
 import Verifi from "../alert/verifi";
+import { offlineToOnlineCart } from "../../../Controllers/Cart";
 
 Modal.setAppElement("#root");
 
@@ -111,6 +112,8 @@ const NavBar = () => {
     dispatch(getCategories());
     dispatch(getUserOrders(userState.userName));
     dispatch(getSuggested());
+    if (userState.useName != null)
+      dispatch(offlineToOnlineCart(userState.userName));
   }, [userState]);
 
   return (
@@ -232,7 +235,7 @@ const NavBar = () => {
                   setOpenAlert(true);
                   return;
                 }
-                if (userState.verified === false) return setOpenVerifi(true)
+                if (userState.verified === false) return setOpenVerifi(true);
                 if (!cart.length) return setOpenCart(true);
                 if (
                   cart.some(
@@ -485,22 +488,22 @@ const NavBar = () => {
               <OutStock setOpenStock={setOpenStock} />
             </Modal>
             <Modal
-        isOpen={openVerifi}
-        onRequestClose={() => setOpenVerifi(false)}
-        overlayClassName={{
-          base: "overlay-base",
-          afterOpen: "overlay-after",
-          beforeClose: "overlay-before",
-        }}
-        className={{
-          base: "content-base",
-          afterOpen: "content-after",
-          beforeClose: "content-before",
-        }}
-        closeTimeoutMS={500}
-      >
-        <Verifi setOpenVerifi={setOpenVerifi}/>
-      </Modal>
+              isOpen={openVerifi}
+              onRequestClose={() => setOpenVerifi(false)}
+              overlayClassName={{
+                base: "overlay-base",
+                afterOpen: "overlay-after",
+                beforeClose: "overlay-before",
+              }}
+              className={{
+                base: "content-base",
+                afterOpen: "content-after",
+                beforeClose: "content-before",
+              }}
+              closeTimeoutMS={500}
+            >
+              <Verifi setOpenVerifi={setOpenVerifi} />
+            </Modal>
           </div>
         </div>
       </nav>
