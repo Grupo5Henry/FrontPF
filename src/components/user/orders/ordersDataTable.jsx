@@ -37,7 +37,6 @@ export default function OrderDataTableUser(props) {
     } catch (err) {
       console.log({ error: err });
     }
-    dispatch(getUserOrders(userState.userName));
   };
 
   const columns = [
@@ -105,9 +104,9 @@ export default function OrderDataTableUser(props) {
                           title: "Esta seguro que desea cancelar la compra?",
                           icon: "warning",
                           buttons: ["Cancel", "I am sure"],
-                        }).then((response) => {
+                        }).then(async (response) => {
                           if (response) {
-                            expireSession(tableMeta.rowData[5]);
+                            await expireSession(tableMeta.rowData[5]);
                             dispatch(getUserOrders(userState.userName));
                           }
                         });
