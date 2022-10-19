@@ -47,7 +47,7 @@ const LogIn = ({ setIsOpen, setOpen }) => {
             offlineToOnlineCart(userName);
           },
           (error) => {
-            toast("Usuario o contraseña incorrectos");
+            alert("Usuario o contraseña incorrectos");
           }
         );
       } catch (err) {}
@@ -61,38 +61,6 @@ const LogIn = ({ setIsOpen, setOpen }) => {
   };
 
   return (
-    //       <div className="inputbox">
-    //         <input
-    //           type="text"
-    //           required="required"
-    //           value={userName}
-    //           onChange={(e) => setUserName(e.target.value)}
-    //         />
-    //         <span>Usuario</span>
-    //       </div>
-    //       <div className="inputbox">
-    //         <input
-    //           type="password"
-    //           required="required"
-    //           value={password}
-    //           onChange={(e) => setPassword(e.target.value)}
-    //         />
-    //         <span>Constraseña</span>
-    //       </div>
-    //       <div className="boton">
-    //         <div className="inputbox">
-    //           <input onClick={handleLogin} type="button" value="Ingresar" />
-    //         </div>
-    //         <Link className="signin_box" to={"/home/sign-in"}>
-    //           Crear una cuenta
-    //         </Link>
-    //       </div>
-    //       <div className="boton">
-    //         <div className="inputbox">
-    //           <input onClick={handleGoogleLogin} type="button" value="Google" />
-    //         </div>
-    //       </div>
-    //     </form>
     <form
       onSubmit={handleLogin}
       autoComplete="off"
