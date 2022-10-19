@@ -40,7 +40,7 @@ const Details = () => {
       dispatch(detailProduct());
     };
   }, [dispatch, id]);
-  console.log(detail)
+  // console.log(detail)
 
 
   return (

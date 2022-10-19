@@ -117,7 +117,8 @@ export default function ReviewDatatable(props) {
                 Bannear usuario
               </button>
 
-              <button className="esconderButton"
+              <button
+                className="esconderButton"
                 onClick={async () => {
                   try {
                     await axios.put(
@@ -154,9 +155,9 @@ export default function ReviewDatatable(props) {
 
   const options = {
     filter: true,
-    onFilterChange: (changedColumn, filterList) => {
-      console.log(changedColumn, filterList);
-    },
+    // onFilterChange: (changedColumn, filterList) => {
+    //   console.log(changedColumn, filterList);
+    // },
     selectableRows: "none",
     filterType: "dropdown",
     responsive: "standard",
@@ -168,13 +169,13 @@ export default function ReviewDatatable(props) {
 
   return (
     <div className="reviewsDatatable">
-    <MUIDataTable
-      title={"LISTA DE COMENTARIOS"}
-      className="datagrid"
-      data={data.length ? data : []}
-      columns={columns}
-      options={options}
-    />
+      <MUIDataTable
+        title={"LISTA DE COMENTARIOS"}
+        className="datagrid"
+        data={data.length ? data : []}
+        columns={columns}
+        options={options}
+      />
     </div>
   );
 }

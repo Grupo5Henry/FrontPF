@@ -163,7 +163,7 @@ export const detailProduct = (id) => {
 export const similarBrand = (id) => {
   return async (dispatch) => {
     try {
-      console.log(id);
+      // console.log(id);
       const product = await axios.get(`${BACK_URL}/product/BRAND/${id}`);
       const suggested = product.data.suggested.filter(
         (product) => product.id !== id
@@ -373,7 +373,7 @@ export const getCart = (userName) => {
 export function CreateOrder(obj) {
   axios
     .post(`${BACK_URL}/order`, obj)
-    .then(() => console.log("Se hizo la orden de compra"))
+    // .then(() => console.log("Se hizo la orden de compra"))
     .catch((err) => console.log(err));
 }
 
@@ -404,7 +404,7 @@ export function BorrarDelCarrito(productId, userName) {
     axios
       .delete(`${BACK_URL}/cart/delete`, { data: { productId, userName } })
       .then(() => {
-        console.log(userName);
+        // console.log(userName);
         dispatch(getCart(userName));
       })
       .catch((err) => console.log(err));
