@@ -16,6 +16,11 @@ const MessageParser = ({ children, actions }) => {
       defaultMessage=false;
     }
 
+    if (message.toLowerCase().includes('ayuda')) {
+      actions.handleHelp();
+      defaultMessage=false;
+    }
+
     if(
       message.toLowerCase().includes('pago') ||
       message.toLowerCase().includes('pagar')
@@ -23,6 +28,21 @@ const MessageParser = ({ children, actions }) => {
       actions.handlePago();
       defaultMessage=false;
     }
+
+    if (message.toLowerCase().includes('carrito')) {
+      actions.handleCart();
+      defaultMessage=false;
+    }
+
+    if (message.toLowerCase().includes('ordenes') || 
+       message.toLowerCase().includes('órdenes') ||
+       message.toLowerCase().includes('órden') ||
+       message.toLowerCase().includes('orden')
+    ) {
+      actions.handleProfile();
+      defaultMessage=false;
+    }
+
 
     if(defaultMessage){
       actions.handleDefaultMessage();

@@ -69,7 +69,7 @@ export default function OrderDataTableUser(props) {
                     <button
                       class="bg-white text-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center"
                       onClick={async () => {
-                        console.log(tableMeta.rowData[5]);
+                        // console.log(tableMeta.rowData[5]);
                         try {
                           const url = await axios.post(
                             `${BACK_URL}/stripe/retrieve`,

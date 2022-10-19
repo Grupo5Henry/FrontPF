@@ -1,7 +1,9 @@
 
 import React from 'react';
+import { useSelector } from "react-redux";
 
 const ActionProvider = ({ createChatBotMessage, setState, children }) => {
+  const userState = useSelector((state) => state.user);
   const handleHello = () => {
     const botMessage = createChatBotMessage('Hola!');
     setState((prev) => ({
@@ -11,19 +13,82 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
   };
 
 
-  const handleFavorites = () => {
+ const handleHelp = () => {
     const botMessage = createChatBotMessage(
-      "Puedes ver tus favoritos seleccionando el icono del corazón en la barra superior. Te dejo este botón para que puedas verlos:",
+      "Hola, si necesitas ayuda puedes preguntarme:");
+    const botMessage1 = createChatBotMessage(
+        "¿Cómo puedo ver el estado de una órden?");
+    const botMessage2 = createChatBotMessage(
+          "¿Cómo puedo ver mi carrito de compras?");
+    const botMessage3 = createChatBotMessage(
+    "¿Cómo veo mis favoritos?");
+    setState((prev) => ({
+      ...prev,
+      messages: [...prev.messages, botMessage, botMessage1, botMessage2, botMessage3],
+    }));
+  }; 
+
+
+  const handleFavorites = () => {
+    let botMessage;
+    if(userState.userName){
+     botMessage = createChatBotMessage(
+      "Para ver sus favoritos debes hacer click en el icono del corazón en la barra superior. Te dejo este botón para que puedas verlos:",
       {
         widget: 'Favorites',
       }
     );
+    } else {
+      botMessage = createChatBotMessage(
+        "Para ver sus favoritos debes haber iniciado sesión y luego hacer click en el icono del corazón en la barra superior."
+      );
+    }
 
     setState((prev) => ({
       ...prev,
       messages: [...prev.messages, botMessage],
     }));
   };
+
+
+
+  const handleProfile = () => {
+    let botMessage;
+    if(userState.userName){
+     botMessage = createChatBotMessage(
+      "Puedes ver tus órdenes desde tu perfil de usuario. Si quieres puedes acceder utilizando este botón:",
+      {
+        widget: 'Profile',
+      }
+    );
+    } else {
+      botMessage = createChatBotMessage(
+        "Para ver tus órdenes debes haber iniciado sesión y luego navegar a tu perfil."
+      );
+    }
+
+    setState((prev) => ({
+      ...prev,
+      messages: [...prev.messages, botMessage],
+    }));
+  };
+
+
+  const handleCart = () => {
+     const botMessage = createChatBotMessage(
+      "Puedes acceder al carrito de compras desde aquí:",
+      {
+        widget: 'Cart',
+      }
+    );
+   
+    setState((prev) => ({
+      ...prev,
+      messages: [...prev.messages, botMessage],
+    }));
+  };
+
+
 
 
 
@@ -65,6 +130,9 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
             handlePago,
             handleFavorites,
             handleDefaultMessage,
+            handleProfile,
+            handleHelp,
+            handleCart,
           },
         });
       })}

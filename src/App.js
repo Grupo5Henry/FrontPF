@@ -42,7 +42,6 @@ import { Landing } from "./components/user/Landing/Landing";
 import { About } from "./components/user/about/about";
 
 
-
 function App() {
   const { darkMode } = useContext(DarkModeContext);
 
@@ -85,9 +84,9 @@ function App() {
           <NavBar />
           <Routes>
             {/* //// */}
-            <Route exact path="/" element={<Landing/>} />
+            <Route exact path="/" element={<Landing />} />
             <Route exact path="/home" element={<Home />} />
-            <Route exact path="/about" element={<About/>} />
+            <Route exact path="/about" element={<About />} />
 
             <Route exact path="/favorites" element={<Favorites />} />
             <Route exact path="/profile" element={<Profile />} />
@@ -104,10 +103,12 @@ function App() {
             ) : null} */}
             <Route exact path="/home/details" element={<Details />} />
             <Route path="*" element={<Error />} />
-            <Route exact path="/forgotPassword" element={<ForgotPassword/>} />
-            <Route exact path = '/resetPassword/:userName/:token' element = {<Resetpassword/>}/>
-
-
+            <Route exact path="/forgotPassword" element={<ForgotPassword />} />
+            <Route
+              exact
+              path="/resetPassword/:userName/:token"
+              element={<Resetpassword />}
+            />
           </Routes>
           <Footer1 />
         </header>

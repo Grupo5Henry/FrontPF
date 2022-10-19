@@ -17,7 +17,7 @@ Modal.setAppElement("#root");
 
 export default function DirectionForm() {
   var { user, cart } = useSelector((state) => state);
-  const navegate = useNavigate()
+  const navegate = useNavigate();
   var dispatch = useDispatch();
 
   var [state, setState] = useState({
@@ -72,6 +72,11 @@ export default function DirectionForm() {
     var billingAddress = "";
 
     //Set shipping
+    if (!cart.length) {
+      alert(
+        "El carrito esta vacio, revisa el perfil para ver las compras realizadas"
+      );
+    }
     if (state.shipping) {
       shippingAddress = state.shipping; // seria lo mismo que user.defaultShippingAddress
     } else {
@@ -539,7 +544,8 @@ export default function DirectionForm() {
                 </button>
               </div>
               <div class="flex-initial">
-                <button onClick={()=> navegate("/cart")}
+                <button
+                  onClick={() => navegate("/cart")}
                   type="button"
                   class="flex items-center px-5 py-2.5 font-medium tracking-wide text-black capitalize rounded-md  hover:bg-red-200 hover:fill-current hover:text-red-600  focus:outline-none  transition duration-300 transform active:scale-95 ease-in-out"
                 >
