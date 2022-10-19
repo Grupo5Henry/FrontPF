@@ -10,7 +10,6 @@ export default function ByCategory({ actual }) {
       <select style = {{ margin: '3px',color: 'rgb(85, 29, 29)', borderRadius:'10px'}}
         value={filter.category}
         onChange={(e) => {
-          if(filter.search) dispatch(resetFilter());
           dispatch(updateFilter({ category: e.target.value, page: 0 }))
         }
         }
