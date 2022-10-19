@@ -30,6 +30,9 @@
 
 
 @media(max-width : 950px){
+    .homeContainer{
+        margin-left: 40px;
+    }
     .charts{
         flex-direction: column;
     }

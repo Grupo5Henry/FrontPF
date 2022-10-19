@@ -26,9 +26,7 @@ const NavProfile = () => {
       </div> */}
 
       <div className="text-center mt-2">
-        <h1 className="text-purple-900 font-bold text-2xl">
-         
-        </h1>
+
 
         <div className="max-w-2xl mx-auto">
           <div className="border-b border-gray-200 dark:border-gray-700 mb-4">
