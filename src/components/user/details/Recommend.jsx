@@ -18,19 +18,19 @@ function Recommend(props) {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mt-8 md:mt-10">
           {props.similarBrand?.map((e, i) => (
+                <Link to={`/home/detail/${e.id}`}>
             <div className="bg-gray-50 p-8">
               <div className="">
-                <Link to={`/home/detail/${e.id}`}>
                   <h2 className="text-xl text-gray-600">{e.name}</h2>
-                </Link>
                 <p className="text-xl font-semibold text-gray-800 mt-2">
                   ${e.price}
                 </p>
               </div>
               <div className="flex justify-center items-center mt-8 md:mt-24">
-                <img className="" src={e.thumbnail} alt="" />
+                <img className="" src={e.thumbnail} alt="img not found" style={{height:"90px",width:"90px",objectFit:"scale-down"}}/>
               </div>
             </div>
+                </Link>
           ))}
         </div>
       </div>

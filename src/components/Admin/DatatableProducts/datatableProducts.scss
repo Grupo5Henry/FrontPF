@@ -1,15 +1,14 @@
 .datatableProducts {
-  height: 500px;
-  padding: 40px;
-  align-items: center;
-  // height: 100%;
+  height: 100%;
+  padding: 30px;
 
   .tss-1cdcmys-MUIDataTable-responsiveBase{
-    height: 500px !important;
+  height: 80% !important;
+  max-height: 700px !important;
   }
 
   .datagrid {
-    padding: 50px;
+    // padding: 50px;
     background-color: white;
     -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
     box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
@@ -19,12 +18,13 @@
       color: #222;
     }
 
-    .dataName {
-      width: 200px;
-    }
+    // .dataName {
+    //   width: 200px;
+    // }
 
     .cellImg {
       height: 65px;
+      object-fit: scale-down;
       width: 65px;
       border-radius: 7px;
     }
