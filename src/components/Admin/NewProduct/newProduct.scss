@@ -1,16 +1,14 @@
 .newProduct{
     display: flex;
-
-
-    .newProductContainer{
+    .newProductContainer_2{
         flex: 6;
-
-        .top{
+        width: 100%;
+        .top_2{
             margin-bottom: 30px;
             margin-top: 20px;
         }
 
-        .top, .bottom{
+        .top_2, .bottom_2{
             -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
             box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
             padding: 20px;
@@ -165,13 +163,101 @@
 }
 }
 
-
-@media(max-width : 625px){
+@media(max-width : 430px){
     .newProduct{
-        .newProductContainer{
-             width:80%;
-            .top, .bottom{
-                width: 70%;
+
+        .newProductContainer_2{
+             margin-left: 30px;
+            .top_2, .bottom_2{
+                width: 80%;
+                h1{
+                    font-size: 10px;
+                }
+                form{
+                    .inputsContainerImg{
+                        font-size: 10px;
+                        .inputImg{
+                            font-size: 10px;
+                        }
+                    }
+                }
+                .buttonModify, .modalButton, .buttonCancel{
+                    font-size: 50%;
+                    width:90px;
+                    padding: 5px;
+                    
+                }
+            }
+           .inputCategories,.inputsContainer{
+                label{
+                    font-size: 10px;
+                }
+                input{
+
+                    font-size: 0.5rem;
+                    line-height: 0.5rem;
+                }
+                select{
+                    font-size: 60%;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width : 624px) and (min-width: 431px){
+    .newProduct{
+
+        .newProductContainer_2{
+             margin-left: 20px;
+            .top_2, .bottom_2{
+                width: 85%;
+                h1{
+                    font-size: 10px;
+                }
+                form{
+                    .inputsContainerImg{
+                        font-size: 10px;
+                        .inputImg{
+                            font-size: 10px;
+                        }
+                    }
+                }
+                .buttonModify, .modalButton, .buttonCancel{
+                    font-size: 50%;
+                    width:90px;
+                    padding: 5px;
+                    
+                }
+            }
+           .inputCategories,.inputsContainer{
+                label{
+                    font-size: 10px;
+                }
+                input{
+
+                    font-size: 0.5rem;
+                    line-height: 0.5rem;
+                }
+                select{
+                    font-size: 60%;
+                }
+            }
+        }
+    }
+}
+
+
+
+
+@media screen and (max-width : 700px) and (min-width: 625px) {
+    .newProduct{
+        width: 100%;
+        .newProductContainer_2{
+             margin-left: 20px;
+             margin-right: 0;
+            .top_2, .bottom_2{
+                width: 85%;
                 h1{
                     font-size: 10px;
                 }
@@ -208,43 +294,3 @@
 }
 
 
-@media(max-width : 625px){
-    .newProduct{
-        .newProductContainer{
-             width:80%;
-            .top, .bottom{
-                width: 70%;
-                h1{
-                    font-size: 10px;
-                }
-                form{
-                    .inputsContainerImg{
-                        font-size: 10px;
-                        .inputImg{
-                            font-size: 10px;
-                        }
-                    }
-                }
-                .buttonModify, .modalButton, .buttonCancel{
-                    font-size: 50%;
-                    width:90px;
-                    padding: 10px;
-                    
-                }
-            }
-           .inputCategories,.inputsContainer{
-                label{
-                    font-size: 10px;
-                }
-                input{
-
-                    font-size: 0.5rem;
-                    line-height: 0.5rem;
-                }
-                select{
-                    font-size: 60%;
-                }
-            }
-        }
-    }
-}

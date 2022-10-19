@@ -309,7 +309,7 @@ function Cart() {
         }}
         closeTimeoutMS={500}
       >
-        <Alert setOpenAlert={setOpenAlert} openAlert={openAlert}/>
+        <Alert setOpenAlert={setOpenAlert} setIsOpen={setIsOpen} openAlert={openAlert}/>
       </Modal>
       <Modal
         isOpen={openCart}
