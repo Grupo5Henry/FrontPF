@@ -37,7 +37,6 @@ export default function OrderDataTableUser(props) {
     } catch (err) {
       console.log({ error: err });
     }
-    dispatch(getUserOrders(userState.userName));
   };
 
   const columns = [
@@ -46,9 +45,6 @@ export default function OrderDataTableUser(props) {
     },
     {
       name: "Estado",
-    },
-    {
-      name: "Nombre",
     },
     {
       name: "Direccion",
@@ -66,51 +62,69 @@ export default function OrderDataTableUser(props) {
         customBodyRender: (value, tableMeta, updateValue) => {
           return (
             <>
-              {tableMeta.rowData[6] != 1 ? (
+              {tableMeta.rowData[5] != 1 ? (
                 <div class="flex items-center justify-center">
-                  <div >
-                  <button class="bg-white text-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center"
-                    onClick={async () => {
-                      console.log(tableMeta.rowData[6]);
-                      try {
-                        const url = await axios.post(
-                          `${BACK_URL}/stripe/retrieve`,
-                          {
-                            id: tableMeta.rowData[6],
-                          }
-                        );
-                        window.location = url.data;
-                      } catch (err) {
-                        console.log({ error: err });
-                      }
-                    }}
-                  >
-                    <span class="mr-2">Pagar</span>
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-        <path fill="currentcolor" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
-      </svg>
-                    
-                  </button>
+                  <div>
+                    <button
+                      class="bg-white text-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center"
+                      onClick={async () => {
+                        console.log(tableMeta.rowData[5]);
+                        try {
+                          const url = await axios.post(
+                            `${BACK_URL}/stripe/retrieve`,
+                            {
+                              id: tableMeta.rowData[5],
+                            }
+                          );
+                          window.location = url.data;
+                        } catch (err) {
+                          console.log({ error: err });
+                        }
+                      }}
+                    >
+                      <span class="mr-2">Pagar</span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="currentcolor"
+                          d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"
+                        ></path>
+                      </svg>
+                    </button>
                   </div>
                   <div class="ml-1">
-                  <button class="bg-white text-gray-800 font-bold rounded border-b-2 border-red-500 hover:border-red-600 hover:bg-red-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center"
-                    onClick={async () => {
-                      swal({
-                        title: "Esta seguro que desea cancelar la compra?",
-                        icon: "warning",
-                        buttons: ["Cancel", "I am sure"],
-                      }).then((response) => {
-                        if (response) expireSession(tableMeta.rowData[6]);
-                      });
-                    }}
-                  >
-                    <span class="mr-2">Cancelar</span>
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-       <path fill="currentcolor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/>
-      </svg>
-                    
-                  </button>
-
+                    <button
+                      class="bg-white text-gray-800 font-bold rounded border-b-2 border-red-500 hover:border-red-600 hover:bg-red-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center"
+                      onClick={async () => {
+                        swal({
+                          title: "Esta seguro que desea cancelar la compra?",
+                          icon: "warning",
+                          buttons: ["Cancel", "I am sure"],
+                        }).then(async (response) => {
+                          if (response) {
+                            await expireSession(tableMeta.rowData[5]);
+                            dispatch(getUserOrders(userState.userName));
+                          }
+                        });
+                      }}
+                    >
+                      <span class="mr-2">Cancelar</span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="currentcolor"
+                          d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"
+                        />
+                      </svg>
+                    </button>
                   </div>
                 </div>
               ) : null}
@@ -132,7 +146,7 @@ export default function OrderDataTableUser(props) {
         let infoFila = [];
         let infoExtra = [];
         let orden = [...order];
-        infoFila.push(...orden.splice(0, 6));
+        infoFila.push(...orden.splice(0, 5));
         let url = infoFila.pop();
         infoExtra.push(...orden);
         infoFila.push(
@@ -197,7 +211,12 @@ export default function OrderDataTableUser(props) {
           <tr>
             <td colSpan={6}>
               <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 1000}} mx="1rem" style={{ minWidth: "200" }} aria-label="simple table">
+                <Table
+                  sx={{ minWidth: 1000 }}
+                  mx="1rem"
+                  style={{ minWidth: "200" }}
+                  aria-label="simple table"
+                >
                   <TableHead>
                     <TableRow>
                       <TableCell></TableCell>
@@ -211,7 +230,7 @@ export default function OrderDataTableUser(props) {
                     {rows[rowData[0]].map((row) => (
                       <TableRow key={row.name}>
                         <TableCell component="th" scope="row" size="small">
-                          <img src={row.thumbnail} alt=""/>
+                          <img src={row.thumbnail} alt="" />
                         </TableCell>
                         <TableCell align="left">{row.name}</TableCell>
                         <TableCell align="left">{row.price}</TableCell>
