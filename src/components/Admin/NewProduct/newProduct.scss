@@ -206,3 +206,45 @@
         }
     }
 }
+
+
+@media(max-width : 625px){
+    .newProduct{
+        .newProductContainer{
+             width:80%;
+            .top, .bottom{
+                width: 70%;
+                h1{
+                    font-size: 10px;
+                }
+                form{
+                    .inputsContainerImg{
+                        font-size: 10px;
+                        .inputImg{
+                            font-size: 10px;
+                        }
+                    }
+                }
+                .buttonModify, .modalButton, .buttonCancel{
+                    font-size: 50%;
+                    width:90px;
+                    padding: 10px;
+                    
+                }
+            }
+           .inputCategories,.inputsContainer{
+                label{
+                    font-size: 10px;
+                }
+                input{
+
+                    font-size: 0.5rem;
+                    line-height: 0.5rem;
+                }
+                select{
+                    font-size: 60%;
+                }
+            }
+        }
+    }
+}

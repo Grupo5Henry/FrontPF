@@ -1,16 +1,19 @@
 import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from 'axios'
-// import {toast} from 'react-tostify'
+// import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { BACK_URL } from "../../../constantes";
 import toast, { Toaster } from "react-hot-toast";
-
 
 function ForgotPassword() {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
+  const history = useNavigate();
 
+ 
   const handleSubmit = e => {
     e.preventDefault()
     // const data = {
@@ -35,7 +38,9 @@ function ForgotPassword() {
     console.log(data, "userRegister")
     alert(data.status)
    })
-   alert('Te enviamos las instrucciones a tu correo electronico')
+   toast('Te enviamos las instrucciones a tu correo electronico')
+  // // alert('hola')
+   history('/')
   }
   return (
     <form onSubmit={handleSubmit}>   
