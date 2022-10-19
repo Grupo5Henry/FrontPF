@@ -22,7 +22,6 @@ export default function ByBrand({ actual }) {
       <select style = {{ margin: '3px',color: 'rgb(85, 29, 29)', borderRadius:'10px'}}
         value={filter.brand}
         onChange={(e) => {
-          if(filter.search) dispatch(resetFilter());
           dispatch(updateFilter({ brand: e.target.value, page: 0 }))
         }
         }
