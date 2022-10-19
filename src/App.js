@@ -5,7 +5,6 @@ import LogIn from "./components/user/logIn/logIn";
 import SignIn from "./components/user/signIn/signIn";
 import { Routes, Route } from "react-router-dom";
 import Details from "./components/user/details/details";
-import Landing from "./components/user/Landing/Landing";
 import About from "./components/user/about/about";
 import Profile from "./components/user/profile/profile";
 import Favorites from "./components/user/favorites/favorites";
@@ -39,6 +38,9 @@ import { DarkModeContext } from "./components/Admin/context/darkModeContext.js";
 import PageRefresh from "./components/services/PageRefresh";
 import Reviews from "./components/Admin/Reviews/Reviews";
 import ForgotPassword from "./components/user/logIn/Forgotpassword";
+import Resetpassword from "./components/user/logIn/Resetpassword";
+import { Landing } from "./components/user/Landing/Landing";
+
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -81,7 +83,8 @@ function App() {
         <header className="App-header">
           <NavBar />
           <Routes>
-            <Route exact path="/" element={<Landing />} />
+            {/* //// */}
+            <Route exact path="/" element={<Landing/>} />
             <Route exact path="/home" element={<Home />} />
             <Route exact path="/about" element={<About />} />
             <Route exact path="/favorites" element={<Favorites />} />
@@ -100,6 +103,8 @@ function App() {
             <Route exact path="/home/details" element={<Details />} />
             <Route path="*" element={<Error />} />
             <Route exact path="/forgotPassword" element={<ForgotPassword/>} />
+            <Route exact path = '/resetPassword/:userName/:token' element = {<Resetpassword/>}/>
+
 
           </Routes>
           <Footer1 />
