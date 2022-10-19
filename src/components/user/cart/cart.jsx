@@ -36,6 +36,8 @@ import EmptyCart from "../alert/emptyCart";
 import OutStock from "../alert/outStock";
 import Alert from "../alert/alert";
 import Verifi from "../alert/verifi";
+import LogIn from "../logIn/logIn";
+import SignIn from "../signIn/signIn";
 
 Modal.setAppElement("#root");
 
@@ -64,6 +66,8 @@ function Cart() {
   const [openCart, setOpenCart] = React.useState(false);
   const [openStock, setOpenStock] = React.useState(false);
   const [openVerifi, setOpenVerifi] = React.useState(false);
+  const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [modalOpen, setOpen] = React.useState(false);
 
   var navigate = useNavigate();
 
@@ -358,6 +362,40 @@ function Cart() {
       >
         <Verifi setOpenVerifi={setOpenVerifi}/>
       </Modal>
+      <Modal
+                  isOpen={modalIsOpen}
+                  onRequestClose={() => setIsOpen(false)}
+                  overlayClassName={{
+                    base: "overlay-base",
+                    afterOpen: "overlay-after",
+                    beforeClose: "overlay-before",
+                  }}
+                  className={{
+                    base: "content-base",
+                    afterOpen: "content-after",
+                    beforeClose: "content-before",
+                  }}
+                  closeTimeoutMS={500}
+                >
+                  <LogIn setIsOpen={setIsOpen} setOpen={setOpen} />
+                </Modal>
+                <Modal
+                  isOpen={modalOpen}
+                  onRequestClose={() => setOpen(false)}
+                  overlayClassName={{
+                    base: "overlay-base",
+                    afterOpen: "overlay-after",
+                    beforeClose: "overlay-before",
+                  }}
+                  className={{
+                    base: "content-base",
+                    afterOpen: "content-box",
+                    beforeClose: "content-before",
+                  }}
+                  closeTimeoutMS={500}
+                >
+                  <SignIn setIsOpen={setIsOpen} setOpen={setOpen} />
+                </Modal>
     </div>
   );
 }
