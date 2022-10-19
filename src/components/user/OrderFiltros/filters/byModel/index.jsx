@@ -12,7 +12,6 @@ export default function ByModel({ actual }) {
         value={filter.model}
         onChange={(e) =>
           {
-            if(filter.search) dispatch(resetFilter());
             dispatch(updateFilter({ model: e.target.value, page: 0 }))
           }
         }
