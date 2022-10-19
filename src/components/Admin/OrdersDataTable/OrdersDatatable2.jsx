@@ -65,82 +65,87 @@ export default function OrderDataTable2(props) {
         customBodyRender: (value, tableMeta, updateValue) => {
           return (
             <>
-              <button
-                className="ordenButton"
-                onClick={async () => {
-                  if (tableMeta.rowData[1] === "Siendo procesada") {
-                    try {
-                      await axios.put(`${BACK_URL}/order/change`, {
-                        orderNumber: tableMeta.rowData[0],
-                        newStatus: "InDelivery",
-                      });
-                      dispatch(getAllOrders());
-                    } catch (err) {
-                      console.log({ error: err });
-                    }
-                  } else {
-                    swal({
-                      title:
-                        "No se puede despachar sin tener confirmacion de pago",
-                      icon: "error",
-                      buttons: false,
-                    });
-                  }
-                }}
-              >
-                Despachar
-              </button>
-              <button
-                className="ordenButton"
-                onClick={async () => {
-                  if (tableMeta.rowData[1] === "En ruta") {
-                    try {
-                      await axios.put(`${BACK_URL}/order/change`, {
-                        orderNumber: tableMeta.rowData[0],
-                        newStatus: "Delivered",
-                      });
-                      dispatch(getAllOrders());
-                    } catch (err) {
-                      console.log({ error: err });
-                    }
-                  } else {
-                    swal({
-                      title:
-                        "No se puedo marcar como entregado sin haberse despacho",
-                      icon: "error",
-                      buttons: false,
-                    });
-                  }
-                }}
-              >
-                Entregada
-              </button>
-              <button
-                className="ordenButtonCancelar"
-                onClick={async () => {
-                  if (tableMeta.rowData[1] === "Esperando pago") {
-                    swal({
-                      title: "Esta seguro que desea cancelar la compra?",
-                      icon: "warning",
-                      buttons: ["Cancel", "I am sure"],
-                    }).then((response) => {
-                      if (response) {
-                        expireSession(tableMeta.rowData[6]);
+              {tableMeta.rowData[1] === "Siendo procesada" ? (
+                <button
+                  className="ordenButton"
+                  onClick={async () => {
+                    if (tableMeta.rowData[1] === "Siendo procesada") {
+                      try {
+                        await axios.put(`${BACK_URL}/order/change`, {
+                          orderNumber: tableMeta.rowData[0],
+                          newStatus: "InDelivery",
+                        });
                         dispatch(getAllOrders());
+                      } catch (err) {
+                        console.log({ error: err });
                       }
-                    });
-                  } else {
-                    swal({
-                      title: "No se puedo cancelar una orden ya pagada",
-                      icon: "error",
-                      buttons: false,
-                    });
-                  }
-                  dispatch(getAllOrders());
-                }}
-              >
-                Cancelar
-              </button>
+                    } else {
+                      swal({
+                        title:
+                          "No se puede despachar sin tener confirmacion de pago",
+                        icon: "error",
+                        buttons: false,
+                      });
+                    }
+                  }}
+                >
+                  Despachar
+                </button>
+              ) : null}
+              {tableMeta.rowData[1] === "En ruta" ? (
+                <button
+                  className="ordenButton"
+                  onClick={async () => {
+                    if (tableMeta.rowData[1] === "En ruta") {
+                      try {
+                        await axios.put(`${BACK_URL}/order/change`, {
+                          orderNumber: tableMeta.rowData[0],
+                          newStatus: "Delivered",
+                        });
+                        dispatch(getAllOrders());
+                      } catch (err) {
+                        console.log({ error: err });
+                      }
+                    } else {
+                      swal({
+                        title:
+                          "No se puedo marcar como entregado sin haberse despacho",
+                        icon: "error",
+                        buttons: false,
+                      });
+                    }
+                  }}
+                >
+                  Entregada
+                </button>
+              ) : null}
+              {tableMeta.rowData[1] === "Esperando pago" ? (
+                <button
+                  className="ordenButtonCancelar"
+                  onClick={async () => {
+                    if (tableMeta.rowData[1] === "Esperando pago") {
+                      swal({
+                        title: "Esta seguro que desea cancelar la compra?",
+                        icon: "warning",
+                        buttons: ["Cancel", "I am sure"],
+                      }).then((response) => {
+                        if (response) {
+                          expireSession(tableMeta.rowData[6]);
+                          dispatch(getAllOrders());
+                        }
+                      });
+                    } else {
+                      swal({
+                        title: "No se puedo cancelar una orden ya pagada",
+                        icon: "error",
+                        buttons: false,
+                      });
+                    }
+                  }}
+                >
+                  Cancelar
+                </button>
+              ) : null}
             </>
           );
         },
