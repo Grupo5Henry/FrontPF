@@ -45,12 +45,12 @@ export default function SideBar() {
       <div className="center">
         <ul>
           <p className="title">MAIN</p>
-          <li>
             <Link to={"/"}>
+          <li>
               <DashboardIcon className="icon" />
               <span>Dashboard</span>
-            </Link>
           </li>
+            </Link>
           <p className="title">LISTAS</p>
             <Link to={"/users"}>
           <li>
