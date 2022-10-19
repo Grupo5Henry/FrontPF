@@ -212,9 +212,9 @@ export default function OrderDataTable2(props) {
 
   const options = {
     filter: true,
-    onFilterChange: (changedColumn, filterList) => {
-      console.log(changedColumn, filterList);
-    },
+    // onFilterChange: (changedColumn, filterList) => {
+    //   console.log(changedColumn, filterList);
+    // },
     selectableRows: "none",
     filterType: "dropdown",
     responsive: "standard",
