@@ -9,9 +9,10 @@
     border-radius: 10px;
 
     img {
-      max-width: 100%;
-      height: auto;
+      height: 90px;
+      width: 90px;
       border-radius: 6px;
+      object-fit: scale-down;
     }
   }
   .ordenButton {
