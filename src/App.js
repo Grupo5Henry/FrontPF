@@ -5,7 +5,6 @@ import LogIn from "./components/user/logIn/logIn";
 import SignIn from "./components/user/signIn/signIn";
 import { Routes, Route } from "react-router-dom";
 import Details from "./components/user/details/details";
-import About from "./components/user/about/about";
 import Profile from "./components/user/profile/profile";
 import Favorites from "./components/user/favorites/favorites";
 // import History from "./components/user/history/history";
@@ -40,6 +39,7 @@ import Reviews from "./components/Admin/Reviews/Reviews";
 import ForgotPassword from "./components/user/logIn/Forgotpassword";
 import Resetpassword from "./components/user/logIn/Resetpassword";
 import { Landing } from "./components/user/Landing/Landing";
+import { About } from "./components/user/about/About";
 
 
 function App() {
@@ -86,7 +86,8 @@ function App() {
             {/* //// */}
             <Route exact path="/" element={<Landing/>} />
             <Route exact path="/home" element={<Home />} />
-            <Route exact path="/about" element={<About />} />
+            <Route exact path="/about" element={<About/>} />
+
             <Route exact path="/favorites" element={<Favorites />} />
             <Route exact path="/profile" element={<Profile />} />
             {/* <Route exact path="/history" element={<History />} /> */}
