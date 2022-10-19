@@ -105,6 +105,7 @@ function Products() {
               <Link to={`/home/detail/${product.id}`} id={s.link}>
                 <img
                   className="group-hover:opacity-60 transition duration-500"
+                  style={{height:"90px",width:"90px",objectFit:"scale-down"}}
                   id={s.img}
                   src={product.thumbnail}
                   alt="sofa-2"
