@@ -1,0 +1,50 @@
+@media (max-width: 600px) {
+    .grande{
+        display: none;
+        position: relative;
+        overflow: hidden;
+        background-color: rgb(240 249 255 / var(--tw-bg-opacity));
+    }
+
+    .mediano{
+        display: none;
+        position: relative;
+        overflow: hidden;
+        background-color: rgb(240 249 255 / var(--tw-bg-opacity));
+    }
+
+    .chico{
+        display: block;
+        position: relative;
+        overflow: hidden;
+        background-color: rgb(240 249 255 / var(--tw-bg-opacity));
+    }
+
+}
+
+@media (max-width: 1000px) and (min-width: 600px) {
+    .grande{
+        display: none;
+        position: relative;
+        overflow: hidden;
+        background-color: rgb(240 249 255 / var(--tw-bg-opacity));
+    }
+
+    .mediano{
+        display: block;
+        position: relative;
+        overflow: hidden;
+        background-color: rgb(240 249 255 / var(--tw-bg-opacity));
+    }
+    
+    .chico{
+        display: none;
+        position: relative;
+        overflow: hidden;
+        background-color: rgb(240 249 255 / var(--tw-bg-opacity));
+    }
+
+}
+
+
+  

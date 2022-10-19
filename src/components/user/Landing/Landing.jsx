@@ -1,103 +1,52 @@
 import React from "react";
-import Carrusel from "../Carrusel/Carrusel";
+export const Landing = () => {
+    return (
+      <div className="relative flex flex-col-reverse py-16 lg:pt-0 lg:flex-col lg:pb-0 bg-sky-50">
+        <div className="inset-y-0 top-0 right-0 z-0 w-full max-w-xl px-4 mx-auto md:px-0 lg:pr-0 lg:mb-0 lg:mx-0 lg:w-7/12 lg:max-w-full lg:absolute xl:px-0 ">
+          <svg
+            className="absolute left-0 hidden h-full text-white transform -translate-x-1/2 lg:block"
+            viewBox="0 0 100 100"
+            fill="currentColor"
+            preserveAspectRatio="none slice"
+          >
+            <path d="M50 0H100L50 100H0L50 0Z" />
+          </svg>
+          <img
+            className="object-cover w-full h-56 rounded shadow-lg lg:rounded-none lg:shadow-none md:h-96 lg:h-full"
+            src="https://www.claro.com.co/portal/co/noticias/imagenes/1622208712077-7-Caracteristicas-de-los-computadores-de-videojuegos.jpg"
+            alt=""
+          />
+        </div>
+        <div className="relative flex flex-col items-start w-full max-w-xl px-4 mx-auto md:px-0 lg:px-8 lg:max-w-screen-xl ">
+          <div className="mb-16 lg:my-40 lg:max-w-lg lg:pr-5">
+            <p className="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider text-teal-900 uppercase rounded-full bg-teal-accent-400">
+            </p>
+            <h2 className="font text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+              Lo nuevo en tecnologia{' '}
+              <br className="hidden md:block" />
+              esta finalmente{' '}
+              <span className="inline-block text-deep-purple-accent-400">
+                aqui
+              </span>
+              
+            </h2>
+            <br className="hidden md:block" />
 
-/* Install pure-react-carousel using -> npm i pure-react-carousel */
+            <p className="text-base text-gray-700 md:text-lg">
+            Los mejores productos de tecnologia con las mejores promociones ya estan a tu alcance.
+            </p>
+            <br className="hidden md:block" />
 
-export default function Landing() {
-  return (
-    <div className="py-20">
-      <div className="relative overflow-hidden bg-white">
-        <div className="pt-16 pb-80 sm:pt-24 sm:pb-40 lg:pt-40 lg:pb-48 ">
-          <div className="relative mx-auto max-w-7xl px-4 sm:static sm:px-6 lg:px-8">
-            <div className="sm:max-w-lg">
-              <h1 className="font text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-                Lo nuevo en tecnologia esta finalmente aqui
-              </h1>
-              <p className="mt-4 text-xl text-gray-500">
-                Los mejores productos de tecnologia con las mejores promociones ya estan a tu alcance.
-              </p>
-            </div>
-            <div>
-              <div className="mt-10">
-                {/* <!-- Decorative image grid --> */}
-                <div
-                  aria-hidden="true"
-                  className="pointer-events-none lg:absolute lg:inset-y-0 lg:mx-auto lg:w-full lg:max-w-7xl"
-                >
-                  <div className="absolute transform sm:left-1/2 sm:top-0 sm:translate-x-8 lg:left-1/2 lg:top-1/2 lg:-translate-y-1/2 lg:translate-x-8">
-                    <div className="flex items-center space-x-6 lg:space-x-8">
-                      <div className="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
-                        <div className="h-64 w-44 overflow-hidden rounded-lg sm:opacity-0 lg:opacity-100">
-                          <img
-                            src="https://i.blogs.es/57cf85/xiaomimitvp1ap/450_1000.jpg"
-                            alt=""
-                            className="h-full w-full object-cover object-center"
-                          />
-                        </div>
-                        <div className="h-64 w-44 overflow-hidden rounded-lg">
-                          <img
-                            src="https://sony.scene7.com/is/image/sonyglobalsolutions/TV-column-static-image-desktop%20and%20mobile-Entertainment%20all%20in%20one%20place-714x439?$ColumnStatic$&fmt=png-alpha"
-                            alt=""
-                            className="h-full w-full object-cover object-center"
-                          />
-                        </div>
-                      </div>
-                      <div className="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
-                        <div className="h-64 w-44 overflow-hidden rounded-lg">
-                          <img
-                            src="https://i0.wp.com/revistadiners.com.co/wp-content/uploads/2020/01/computadores_1200x800.jpg?fit=1024%2C683&ssl=1"
-                            alt=""
-                            className="h-full w-full object-cover object-center"
-                          />
-                        </div>
-                        <div className="h-64 w-44 overflow-hidden rounded-lg">
-                          <img
-                            src="https://www.alkosto.com/medias/017817703277-001-750Wx750H?context=bWFzdGVyfGltYWdlc3wzMzc4OXxpbWFnZS9qcGVnfGltYWdlcy9oNGYvaDgzLzkwNjU0MTU4Njg0NDYuanBnfGQ0YzA0YzU3ZTRhNTc4ODNhMzk1Y2JkN2RhMDNkZDU1MWRkYTY3NGI4YjQ5NmQ5Y2U3MTUzNDQyYWNkNWYwODc"
-                            alt=""
-                            className="h-full w-full object-cover object-center"
-                          />
-                        </div>
-                        <div className="h-64 w-44 overflow-hidden rounded-lg">
-                          <img
-                            src="https://cloudfront-us-east-1.images.arcpublishing.com/metroworldnews/6CJPKMIJVZBXVIJH77NPKZJZZY.jpg"
-                            alt=""
-                            className="h-full w-full object-cover object-center"
-                          />
-                        </div>
-                      </div>
-                      <div className="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
-                        <div className="h-64 w-44 overflow-hidden rounded-lg">
-                          <img
-                            src="https://e00-co-marca.uecdn.es/claro/assets/multimedia/imagenes/2021/12/22/16402116205337.jpg"
-                            alt=""
-                            className="h-full w-full object-cover object-center"
-                          />
-                        </div>
-                        <div className="h-64 w-44 overflow-hidden rounded-lg">
-                          <img
-                            src="https://static.wixstatic.com/media/68fa0b_8e9d7263354b40bc87e401eda0b5f683~mv2.jpg/v1/fill/w_593,h_356,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/pc_para_streaming_gaming.jpg"
-                            alt=""
-                            className="h-full w-full object-cover object-center"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <a
+            <div className="flex items-center">
+              <a
                   href="/home"
                   className="inline-block rounded-md border border-transparent bg-blue-500 py-3 px-8 text-center font-medium text-white hover:bg-blue-700"
                 >
                   Descubre aqui
                 </a>
-              </div>
             </div>
           </div>
         </div>
       </div>
-      {/* <!-- Container for demo purpose --> */}
-      <Carrusel />
-    </div>
-  );
-}
+    );
+  };

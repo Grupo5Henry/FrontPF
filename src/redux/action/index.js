@@ -1,6 +1,5 @@
 import axios from "axios";
 import { BACK_URL } from "../../constantes";
-//import { offlineToOnlineCart } from "../../Controllers/Cart";
 import { authHeader } from "../../services/auth-header";
 
 //PRODUCTS
