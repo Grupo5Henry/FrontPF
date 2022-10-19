@@ -1,127 +1,141 @@
 .sidebar {
-    width: 20%;
-    flex: 1;
-    border-right: 0.5px solid rgb(230, 227, 227);
-    min-height: 100vh;
-    background-color: white;
+  width: 20%;
+  flex: 1;
+  border-right: 0.5px solid rgb(230, 227, 227);
+  min-height: 100vh;
+  background-color: white;
 
-    .top {
-        height: 57px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-bottom: 0.5px solid rgb(230, 227, 227);
-        ;
-        
+  .top {
+    height: 57px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 0.5px solid rgb(230, 227, 227);
+    .logo {
+      font-size: 20px;
+      font-weight: bold;
+      color: #6439ff;
+      cursor: pointer;
+    }
+  }
+  .top_2 {
+    display: none;
+  }
 
+  .center {
+    padding-left: 15px;
 
-        .logo{
-            font-size: 20px;
-            font-weight: bold;
-            color: #6439ff;
-            cursor: pointer;
-
-        }
+    ul {
+      list-style: none;
+      margin: 0%;
+      padding: 0;
     }
 
-
-    .center{
-        padding-left: 15px;
-
-        ul{
-            list-style: none;
-            margin: 0%;
-            padding: 0;
-        }
-
-        .title{
-            font-size: 15px;
-            font-weight: bolder;
-            color: #999;
-            margin-top: 15px;
-            margin-bottom: 5px;
-            margin-left: 2%;
-        }
-
-        li{
-            display: flex;
-            align-items: center;
-            padding: 15px;
-            cursor: pointer;
-
-            &:hover{
-                background-color: #ece8ff;
-            }
-        }
-
-        .icon{
-            font-size: 21px;
-            color: #7451f8;
-        }
-
-        span{
-            font-size: 15px bold;
-            font-weight: 600;
-            color: #888;
-            margin-left: 10px;
-        }
-
-
+    .title {
+      font-size: 15px;
+      font-weight: bolder;
+      color: #999;
+      margin-top: 15px;
+      margin-bottom: 5px;
+      margin-left: 2%;
     }
 
+    li {
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      cursor: pointer;
 
-    .bottom{
-        display: flex;
-        align-items: center;
-        margin: 20px;
-        
-
-        .colorOption{
-            width: 30px;
-            height: 30px;
-            border-radius: 5px;
-            border: 1px solid #7451f8;
-            margin: 5px;
-            cursor: pointer;
-
-            &:nth-child(1){
-                background-color: whitesmoke;
-            }
-
-            &:nth-child(2){
-                background-color: #333;
-            }
-        }
+      &:hover {
+        background-color: #ece8ff;
+      }
     }
+
+    .icon {
+      font-size: 21px;
+      color: #7451f8;
+    }
+
+    span {
+      font-size: 15px bold;
+      font-weight: 600;
+      color: #888;
+      margin-left: 10px;
+    }
+  }
+
+  .bottom {
+    display: flex;
+    align-items: center;
+    margin: 20px;
+
+    .colorOption {
+      width: 30px;
+      height: 30px;
+      border-radius: 5px;
+      border: 1px solid #7451f8;
+      margin: 5px;
+      cursor: pointer;
+
+      &:nth-child(1) {
+        background-color: whitesmoke;
+      }
+
+      &:nth-child(2) {
+        background-color: #333;
+      }
+    }
+  }
 }
 
-@media(max-width : 615px){
-    .sidebar{
-        height: 925px;
-        width: 20%;
-        .top{
-            .logo{
-                font-size: 10px;
-            }
-        }
-        .center{
-            .title{
-                font-size: 10px;
-            }
-            span{
-                font-size: 8px;
-                margin-left: 0%;
-            }
-            li{
-                padding: 1px;
-                cursor: pointer;
-                margin: 10px;
-            }
-
-        }
-        
-        .bottom{
-            display: none;
-        }
+@media (max-width: 700px) {
+  .sidebar {
+    width: 60px;
+    position: fixed;
+    height: 200vh;
+    overflow-y: scroll;
+    z-index: 200;
+    border-right: 0.5px solid rgb(230, 227, 227);
+    cursor: pointer;
+    overflow: hidden;
+    transition: width 0.3s ease;
+    &:hover {
+      width: 200px;
     }
+    .top {
+        margin-left: 2px;
+      .logo {
+        font-size: 10px;
+      }
+    }
+    .center {
+      list-style-type: none;
+      padding-left: 3px;
+      &:first-child {
+        
+      }
+      .title {
+        margin-top: 2px;
+        font-size: 12px;
+      }
+      .sideBar__items {
+        padding-left: 15px;
+        padding-top: 5px;
+        padding-right: 0;
+        padding-bottom: 1rem;
+        
+        span {
+          font-size: 15px;
+          margin-left: 1.5rem;
+        }
+      }
+      &:hover .title:after {
+        opacity: 1;
+      }
+    }
+
+    .bottom {
+      display: none;
+    }
+  }
 }

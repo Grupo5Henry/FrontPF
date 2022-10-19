@@ -39,7 +39,7 @@ import Reviews from "./components/Admin/Reviews/Reviews";
 import ForgotPassword from "./components/user/logIn/Forgotpassword";
 import Resetpassword from "./components/user/logIn/Resetpassword";
 import { Landing } from "./components/user/Landing/Landing";
-import { About } from "./components/user/About/About";
+import { About } from "./components/user/about/about";
 
 
 

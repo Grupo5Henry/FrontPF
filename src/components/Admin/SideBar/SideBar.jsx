@@ -38,58 +38,57 @@ export default function SideBar() {
     <div className="sidebar">
       <div className="top">
         <Link to={"/"}>
-          <span className="logo">Techno Admin</span>
+          <p className="logo">Techno Admin</p>
         </Link>
       </div>
-
       <div className="center">
-        <ul>
+        <ul >
           <p className="title">MAIN</p>
             <Link to={"/"}>
-          <li>
+          <li className="sideBar__items">
               <DashboardIcon className="icon" />
               <span>Dashboard</span>
           </li>
             </Link>
           <p className="title">LISTAS</p>
             <Link to={"/users"}>
-          <li>
+          <li className="sideBar__items">
               <PeopleAltRoundedIcon className="icon" />
               <span>Usuarios</span>
           </li>
             </Link>
             <Link to={"/products"}>
-          <li>
+          <li className="sideBar__items">
               <Inventory2OutlinedIcon className="icon" />
               <span>Productos</span>
           </li>
             </Link>
             <Link to={"/createProduct"}>
-          <li>
+          <li className="sideBar__items">
               <AddCardIcon className="icon" />
               <span>Nuevo Producto</span>
           </li>
             </Link>
             <Link to={"/createBrand-category"}>
-          <li>
+          <li className="sideBar__items">
               <CategoryIcon className="icon" />
               <span>Crear Categorías</span>
-          </li>
+          </li >
             </Link>
             <Link to={"/orders"}>
-          <li>
+          <li className="sideBar__items">
               <InventoryOutlinedIcon className="icon" />
               <span>Ordenes</span>
           </li>
             </Link>
             <Link to={"/reviews"}>
-          <li>
+          <li className="sideBar__items">
               <ReportGmailerrorredOutlinedIcon className="icon" />
               <span>Reseñas</span>
           </li>
             </Link>
           <p className="title">USUARIO</p>
-          <li onClick={() => {
+          <li className="sideBar__items" onClick={() => {
                 handleLogOut();
               }}>
             {/* <IconButton

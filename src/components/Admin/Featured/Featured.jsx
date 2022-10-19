@@ -51,7 +51,9 @@ export default function Featured() {
     <div className="featured" style={{padding:"0",display:"flex",flexDirection:"column",alignItems:"center"}}>
       <div className="top">
         <span className="title">PRODUCTO COMENTADO</span>
+        <Link to={data.id ? `/products/detail/${data.id}` : "/"}>
           <InfoIcon className="icon" />
+        </Link>
       </div>
       <div className="bottom" style={{width:"100%",display:"flex",flexDirection:"column",alignItems:"center"}}>
         <div>
@@ -60,7 +62,6 @@ export default function Featured() {
           </span>
         </div>
         <img
-          style={{maxWidth:"130px",maxHeight:"130px",objectFit:"scale-down"}}
           src={data.image ? data.image : null}
           alt="IMG not found"
           className="img"

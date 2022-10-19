@@ -264,12 +264,12 @@ export default function NewProduct() {
   return (
     <div className="newProduct">
       <SideBar />
-      <div className="newProductContainer" style={{ maxWidth: "80%" }}>
+      <div className="newProductContainer_2">
         <AdminNavBar />
-        <div className="top">
+        <div className="top_2">
           <h1>CREAR NUEVO PRODUCTO</h1>
         </div>
-        <div className="bottom">
+        <div className="bottom_2">
           <form autoComplete="off" noValidate onSubmit={handleOnSubmit}>
             <div className="inputsContainer">
               <label>Nombre del producto: </label>

@@ -1,5 +1,5 @@
 import React from "react";
-import "../AdminHome/adminHome.scss";
+import "./reviews.scss";
 import SideBar from "../SideBar/SideBar.jsx";
 import AdminNavBar from "../AdminNavBar/AdminNavBar.jsx";
 import ReviewDatatable from "../ReviewsDatatable/ReviewsDatatable";
