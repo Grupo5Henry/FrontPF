@@ -3,6 +3,8 @@ import { CenterFocusStrong } from '@mui/icons-material';
 import { createChatBotMessage } from 'react-chatbot-kit';
 import DogPicture from '../components/user/Bot/DogPicture';
 import WidgetFavorites from '../components/user/Bot/widgets/WidgetFavorites';
+import WidgetProfile from '../components/user/Bot/widgets/WidgetProfile';
+import WidgetCart from '../components/user/Bot/widgets/WidgetCart';
 
 const botName = 'Asistente Virtual';
 
@@ -16,7 +18,16 @@ const config = {
   widgets:[{
     widgetName: 'Favorites',
     widgetFunc: (props) => <WidgetFavorites {...props} />
-  }]
+  },
+  {
+    widgetName: 'Profile',
+    widgetFunc: (props) => <WidgetProfile {...props}/>
+  },
+  {
+    widgetName: 'Cart',
+    widgetFunc: (props) => <WidgetCart {...props}/>
+  }
+]
   
  /*  customStyles: {
     botMessageBox: {

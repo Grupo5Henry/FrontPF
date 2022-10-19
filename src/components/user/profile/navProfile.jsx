@@ -27,7 +27,7 @@ const NavProfile = () => {
 
       <div className="text-center mt-2">
         <h1 className="text-purple-900 font-bold text-2xl">
-          {localStorage.userName}
+         
         </h1>
 
         <div className="max-w-2xl mx-auto">
